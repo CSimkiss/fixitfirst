@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'Fix a Dripping Tap | FixItFirst',
+  description: 'Learn how to fix a dripping tap in 45 minutes. Step-by-step guide with a full tools list. Save £80–150 vs calling a plumber.',
+}
 
 const steps = [
   { title: 'Turn off the water supply', description: 'Find the isolation valve under the sink and turn it 90 degrees until it sits across the pipe.' },

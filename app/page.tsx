@@ -1,4 +1,5 @@
 import MobileNav from '@/components/MobileNav'
+import EmailCapture from '@/components/EmailCapture'
 
 export default function Home() {
   const guides = [
@@ -21,7 +22,7 @@ export default function Home() {
       <nav className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
         <span className="text-2xl font-bold text-orange-500">FixItFirst</span>
         <div className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-          <a href="#" className="hover:text-orange-500">Guides</a>
+          <a href="/guides" className="hover:text-orange-500">Guides</a>
           <a href="#" className="hover:text-orange-500">My Tools</a>
           <a href="#" className="hover:text-orange-500">Progress</a>
           <a href="#" className="hover:text-orange-500">Find a Pro</a>
@@ -66,7 +67,7 @@ export default function Home() {
       <section className="px-6 py-16 max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Popular Guides</h2>
-          <a href="#" className="text-orange-500 text-sm font-medium hover:underline">View all</a>
+          <a href="/guides" className="text-orange-500 text-sm font-medium hover:underline">View all guides →</a>
         </div>
         <div className="flex gap-2 mb-8 flex-wrap">
           {categories.map((cat) => (
@@ -115,9 +116,11 @@ export default function Home() {
 
       <section className="bg-gray-950 text-white px-6 py-20 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4">Ready to fix something?</h2>
-          <p className="text-gray-300 mb-8">Join thousands of people who stopped waiting for someone else to do it.</p>
-          <button className="bg-orange-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-orange-600">Get started for free</button>
+          <p className="text-orange-400 text-sm font-semibold uppercase tracking-wide mb-4">Coming soon</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get notified when we launch</h2>
+          <p className="text-gray-300 mb-8 text-lg">We&apos;re building something that will save you hundreds of pounds a year. Be the first to know.</p>
+          <EmailCapture />
+          <p className="text-gray-500 text-sm mt-4">No spam. Unsubscribe any time.</p>
         </div>
       </section>
 

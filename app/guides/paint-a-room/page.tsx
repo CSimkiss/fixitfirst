@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'How to Paint a Room | FixItFirst',
+  description: 'How to paint a room to a professional standard — full prep, cutting in, and rolling guide for beginners. Save £200–500 vs hiring a decorator.',
+}
 
 const steps = [
   { title: 'Prepare the room', description: 'Move furniture to the centre and cover with dust sheets. Remove switch plates and socket covers. Lay dust sheets on the floor and tape them to the skirting boards.' },

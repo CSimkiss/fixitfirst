@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'How to Fix a Running Toilet | FixItFirst',
+  description: 'How to stop a toilet that keeps running after flushing — covers float arm adjustment and flapper valve replacement. Save £80–150 vs a plumber.',
+}
 
 const steps = [
   { title: 'Remove the cistern lid', description: 'Lift the lid off the cistern and set it aside on a towel. Look inside — you will see the float (a ball or cup on an arm), the fill valve, and the flapper at the bottom.' },
