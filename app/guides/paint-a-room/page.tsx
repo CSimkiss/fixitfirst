@@ -9,6 +9,7 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -104,8 +105,15 @@ export default function PaintARoom() {
           <p className="text-sm text-orange-900">You now know how to prepare, cut in, and roll a wall to a professional standard. These skills transfer to painting ceilings, woodwork, and eventually more advanced techniques like colour blocking and feature walls.</p>
         </div>
         <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['paint-a-room'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['paint-a-room'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['paint-a-room'].renterWarning}</p>
+          </div>
+        )}
         <CompleteButton />
         <GuideExtras slug="paint-a-room" />
+        <NextGuide currentSlug="paint-a-room" />
       </div>
       <RecentViewTracker slug="paint-a-room" title="Paint a room" href="/guides/paint-a-room" />
       <MobileNav />

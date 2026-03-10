@@ -9,6 +9,7 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -96,8 +97,15 @@ export default function FillAHoleInAWall() {
           <p className="text-sm text-orange-900">You now understand how wall filler works and how to apply it cleanly. These skills transfer to skimming larger areas, repairing cracks in ceilings, and preparing walls for decorating.</p>
         </div>
         <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fill-a-hole-in-a-wall'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['fill-a-hole-in-a-wall'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['fill-a-hole-in-a-wall'].renterWarning}</p>
+          </div>
+        )}
         <CompleteButton />
         <GuideExtras slug="fill-a-hole-in-a-wall" />
+        <NextGuide currentSlug="fill-a-hole-in-a-wall" />
       </div>
       <RecentViewTracker slug="fill-a-hole-in-a-wall" title="Fill a hole in a wall" href="/guides/fill-a-hole-in-a-wall" />
       <MobileNav />

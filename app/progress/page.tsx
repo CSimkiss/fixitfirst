@@ -4,18 +4,7 @@ import { useEffect, useState } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { COMPLETED_GUIDES_KEY, TIERS, getTier, getStreak } from '@/lib/progress'
-
-const ALL_GUIDES = [
-  { slug: 'fix-a-dripping-tap',    title: 'Fix a dripping tap',    category: 'Plumbing'   },
-  { slug: 'unblock-a-drain',       title: 'Unblock a drain',       category: 'Plumbing'   },
-  { slug: 'fix-a-running-toilet',  title: 'Fix a running toilet',  category: 'Plumbing'   },
-  { slug: 'change-a-lightbulb',    title: 'Change a lightbulb',    category: 'Electrics'  },
-  { slug: 'put-up-shelves',        title: 'Put up shelves',        category: 'Carpentry'  },
-  { slug: 'fit-a-curtain-pole',    title: 'Fit a curtain pole',    category: 'Fitting'    },
-  { slug: 'paint-a-room',          title: 'Paint a room',          category: 'Decorating' },
-  { slug: 'fill-a-hole-in-a-wall', title: 'Fill a hole in a wall', category: 'Masonry'    },
-  { slug: 'bleed-a-radiator',      title: 'Bleed a radiator',      category: 'Heating'    },
-]
+import { ALL_GUIDES } from '@/lib/guides'
 
 const CATEGORY_COLOURS: Record<string, string> = {
   Plumbing:   'bg-blue-50 text-blue-700',
@@ -39,10 +28,15 @@ export default function ProgressPage() {
 
   if (!mounted) return null
 
-  const completedCount = Object.keys(completionMap).length
+  const completedSlugs = Object.keys(completionMap)
+  const completedCount = completedSlugs.length
   const tier = getTier(completedCount)
   const streak = getStreak(Object.values(completionMap))
   const nextTier = TIERS[TIERS.indexOf(tier) + 1]
+  const totalPoints = completedSlugs.reduce((sum, slug) => {
+    return sum + (ALL_GUIDES.find(g => g.slug === slug)?.skillPoints ?? 0)
+  }, 0)
+  const maxPoints = ALL_GUIDES.reduce((sum, g) => sum + g.skillPoints, 0)
 
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -61,6 +55,10 @@ export default function ProgressPage() {
           {nextTier && ` · ${nextTier.min - completedCount} more to reach ${nextTier.name}`}
           {!nextTier && ' · All guides complete!'}
         </p>
+        <div className="mt-4 inline-flex items-center gap-2 bg-orange-500/20 border border-orange-500/30 rounded-full px-5 py-2">
+          <span className="text-orange-400 text-lg font-bold">⭐ {totalPoints}</span>
+          <span className="text-gray-400 text-sm">/ {maxPoints} skill points</span>
+        </div>
       </div>
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
@@ -138,13 +136,18 @@ export default function ProgressPage() {
                   }`}>
                     {done ? '✓' : '○'}
                   </div>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <p className={`text-sm font-semibold leading-snug group-hover:text-orange-500 transition-colors ${done ? 'text-green-900' : 'text-gray-700'}`}>
                       {guide.title}
                     </p>
-                    <span className={`inline-block mt-1 text-xs px-2 py-0.5 rounded-full ${CATEGORY_COLOURS[guide.category] ?? 'bg-gray-100 text-gray-600'}`}>
-                      {guide.category}
-                    </span>
+                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${CATEGORY_COLOURS[guide.category] ?? 'bg-gray-100 text-gray-600'}`}>
+                        {guide.category}
+                      </span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${done ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-400'}`}>
+                        ⭐ {guide.skillPoints} pts
+                      </span>
+                    </div>
                     {done && date && (
                       <p className="text-xs text-green-600 mt-1">Completed {date}</p>
                     )}
