@@ -7,17 +7,18 @@ import EmailCapture from '@/components/EmailCapture'
 import Nav from '@/components/Nav'
 import Onboarding from '@/components/Onboarding'
 import RecentlyViewed from '@/components/RecentlyViewed'
+import DifficultyMeter from '@/components/DifficultyMeter'
 
 const guides = [
-  { title: "Fix a dripping tap", time: "45 mins", cost: "0-5", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-dripping-tap" },
-  { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry", href: "/guides/put-up-shelves" },
-  { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating", href: "/guides/paint-a-room" },
-  { title: "Unblock a drain", time: "20 mins", cost: "0-10", level: "Beginner", category: "Plumbing", href: "/guides/unblock-a-drain" },
-  { title: "Bleed a radiator", time: "15 mins", cost: "Free", level: "Beginner", category: "Heating", href: "/guides/bleed-a-radiator" },
-  { title: "Fill a hole in a wall", time: "30 mins", cost: "5", level: "Beginner", category: "Masonry", href: "/guides/fill-a-hole-in-a-wall" },
-  { title: "Fit a curtain pole", time: "45 mins", cost: "0-15", level: "Beginner", category: "Fitting", href: "/guides/fit-a-curtain-pole" },
-  { title: "Change a lightbulb", time: "5 mins", cost: "5-15", level: "Beginner", category: "Electrics", href: "/guides/change-a-lightbulb" },
-  { title: "Fix a running toilet", time: "1 hour", cost: "10-25", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-running-toilet" },
+  { title: "Fix a dripping tap",    time: "45 mins", cost: "£2–5",   level: "Beginner", category: "Plumbing",   href: "/guides/fix-a-dripping-tap",    difficulty: 2, saves: "Save £80–150 today" },
+  { title: "Put up shelves",        time: "1 hour",  cost: "£10–20", level: "Beginner", category: "Carpentry",  href: "/guides/put-up-shelves",        difficulty: 3, saves: "Save £50–80 today" },
+  { title: "Paint a room",          time: "1 day",   cost: "£30–60", level: "Beginner", category: "Decorating", href: "/guides/paint-a-room",          difficulty: 2, saves: "Save £200–500 today" },
+  { title: "Unblock a drain",       time: "20 mins", cost: "Free",   level: "Beginner", category: "Plumbing",   href: "/guides/unblock-a-drain",       difficulty: 1, saves: "Save £60–120 today" },
+  { title: "Bleed a radiator",      time: "15 mins", cost: "£1–3",   level: "Beginner", category: "Heating",    href: "/guides/bleed-a-radiator",      difficulty: 1, saves: "Save £50–80 today" },
+  { title: "Fill a hole in a wall", time: "30 mins", cost: "£3–5",   level: "Beginner", category: "Masonry",    href: "/guides/fill-a-hole-in-a-wall", difficulty: 2, saves: "Save £50–100 today" },
+  { title: "Fit a curtain pole",    time: "45 mins", cost: "£0–15",  level: "Beginner", category: "Fitting",    href: "/guides/fit-a-curtain-pole",    difficulty: 2, saves: "Save £50–80 today" },
+  { title: "Change a lightbulb",    time: "5 mins",  cost: "£5–15",  level: "Beginner", category: "Electrics",  href: "/guides/change-a-lightbulb",    difficulty: 1, saves: "Save £60–100 today" },
+  { title: "Fix a running toilet",  time: "1 hour",  cost: "£10–25", level: "Beginner", category: "Plumbing",   href: "/guides/fix-a-running-toilet",  difficulty: 3, saves: "Save £80–150 today" },
 ]
 
 const categories = ["All", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
@@ -108,13 +109,17 @@ export default function Home() {
           {filteredGuides.map((guide) => {
             const cardClass = "border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md cursor-pointer transition-all group"
             const cardContent = <>
-              <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">{guide.category}</span>
-              <h3 className="font-semibold text-gray-900 my-3 group-hover:text-orange-500 transition-colors">{guide.title}</h3>
-              <div className="flex gap-4 text-sm text-gray-500 mb-3">
-                <span>{guide.time}</span>
-                <span>£{guide.cost}</span>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">{guide.category}</span>
+                <DifficultyMeter level={guide.difficulty} />
               </div>
-              <span className="inline-block bg-green-50 text-green-700 text-s px-2 py-1 rounded-full">{guide.level}</span>
+              <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-orange-500 transition-colors">{guide.title}</h3>
+              <p className="text-xs text-green-700 font-medium mb-3">{guide.saves}</p>
+              <div className="flex gap-4 text-sm text-gray-500 mt-2">
+                <span>{guide.time}</span>
+                <span>{guide.cost}</span>
+                <span className="ml-auto bg-green-50 text-green-700 px-2 py-0.5 rounded-full text-xs">{guide.level}</span>
+              </div>
             </>
             return guide.href
               ? <a key={guide.title} href={guide.href} className={cardClass}>{cardContent}</a>
@@ -151,11 +156,6 @@ export default function Home() {
           <p className="text-gray-500 text-sm mt-4">No spam. Unsubscribe any time.</p>
         </div>
       </section>
-
-      <footer className="border-t border-gray-100 px-6 py-8 text-center text-gray-400 text-sm">
-        <span className="font-bold text-orange-500">FixItFirst</span>
-        <p className="mt-1">Nobody taught you. We will.</p>
-      </footer>
 
       <MobileNav />
     </main>

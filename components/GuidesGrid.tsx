@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import DifficultyMeter from './DifficultyMeter'
 
 type Guide = {
   title: string
@@ -10,6 +11,7 @@ type Guide = {
   category: string
   href: string
   saves: string
+  difficulty: number
 }
 
 const categories = ['All', 'Plumbing', 'Electrics', 'Carpentry', 'Decorating', 'Masonry', 'Heating', 'Fitting']
@@ -55,10 +57,13 @@ export default function GuidesGrid({ guides }: { guides: Guide[] }) {
               href={guide.href}
               className="border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md transition-all group flex flex-col"
             >
-              <span className={`text-xs px-2 py-1 rounded-full self-start font-medium ${categoryColours[guide.category] ?? 'bg-gray-100 text-gray-600'}`}>
-                {guide.category}
-              </span>
-              <h3 className="font-semibold text-gray-900 mt-3 mb-1 group-hover:text-orange-500 transition-colors">
+              <div className="flex items-center justify-between mb-3">
+                <span className={`text-xs px-2 py-1 rounded-full font-medium ${categoryColours[guide.category] ?? 'bg-gray-100 text-gray-600'}`}>
+                  {guide.category}
+                </span>
+                <DifficultyMeter level={guide.difficulty} />
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-orange-500 transition-colors">
                 {guide.title}
               </h3>
               <p className="text-xs text-green-700 font-medium mb-3">{guide.saves}</p>

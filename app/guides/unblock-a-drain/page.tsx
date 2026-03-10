@@ -6,6 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
+import ShareButton from '@/components/ShareButton'
+import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
   title: 'How to Unblock a Drain | FixItFirst',
@@ -28,7 +30,12 @@ export default function UnblockADrain() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Unblock a drain</h1>
+        <p className="text-4xl font-black text-green-600 mb-1">Save £60–120 today</p>
         <p className="text-gray-500 mb-6">20 mins · Beginner · Saves £60-120 vs a plumber</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <ShareButton />
+          <PrintButton />
+        </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">This works for slow or fully blocked sink, bath, and shower drains.</p>
