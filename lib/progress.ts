@@ -35,7 +35,7 @@ export function getLocalDateStr(date = new Date()): string {
 export function getStreak(completionDates: string[]): number {
   if (completionDates.length === 0) return 0
 
-  const uniqueDates = [...new Set(completionDates)].sort().reverse()
+  const uniqueDates = Array.from(new Set(completionDates)).sort().reverse()
   const today = getLocalDateStr()
   const yesterday = getLocalDateStr(new Date(Date.now() - 86_400_000))
 
