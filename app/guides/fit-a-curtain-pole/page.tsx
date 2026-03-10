@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'How to Fit a Curtain Pole | FixItFirst',
+  description: 'How to fit a curtain pole on any wall type, including plasterboard. Step-by-step guide with tools list. Save £50–80 vs a handyman.',
+}
 
 const steps = [
   { title: 'Mark the bracket positions', description: 'Hold the first bracket 15cm beyond the window edge and at least 10cm above the frame. Mark the screw holes lightly with a pencil. Repeat for the second bracket, using a tape measure and spirit level to ensure they are at exactly the same height.' },

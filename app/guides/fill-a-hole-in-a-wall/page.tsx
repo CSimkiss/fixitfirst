@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'How to Fill a Hole in a Wall | FixItFirst',
+  description: 'How to fill holes and cracks in plaster or plasterboard walls. 30-minute guide for beginners using £3–5 of materials. Save £50–100 vs a tradesperson.',
+}
 
 const steps = [
   { title: 'Clean the hole', description: 'Remove any loose plaster, dust, or old filler from the hole using a screwdriver tip or stiff brush. The hole needs to be clean for the filler to bond.' },

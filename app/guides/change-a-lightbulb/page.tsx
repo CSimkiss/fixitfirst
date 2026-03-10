@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'How to Change a Lightbulb | FixItFirst',
+  description: 'How to safely change a lightbulb — bayonet cap, Edison screw, and GU10 fittings explained. Takes 5 minutes. Save £60–100 vs an electrician call-out.',
+}
 
 const steps = [
   { title: 'Turn off the light switch', description: 'Switch the light off at the wall. For ceiling fittings, this is enough. For a lamp, also unplug it from the socket.' },

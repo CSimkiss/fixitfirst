@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'How to Unblock a Drain | FixItFirst',
+  description: 'How to unblock a sink, bath, or shower drain in 20 minutes — no chemicals needed. Step-by-step guide. Save £60–120 vs calling a plumber.',
+}
 
 const steps = [
   { title: 'Remove the drain cover', description: 'Unscrew or lift off the drain cover. Remove any visible hair or debris by hand — wear rubber gloves.' },

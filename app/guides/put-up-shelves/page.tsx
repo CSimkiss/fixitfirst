@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'How to Put Up Shelves | FixItFirst',
+  description: 'How to put up shelves safely on any wall type — masonry or plasterboard. Step-by-step guide for beginners. Save £50–80 vs a handyman.',
+}
 
 const steps = [
   { title: 'Mark the shelf position', description: 'Hold the shelf bracket against the wall at the desired height. Use a spirit level to ensure it is perfectly horizontal. Mark the bracket screw holes lightly with a pencil.' },

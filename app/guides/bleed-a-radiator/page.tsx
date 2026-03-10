@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'How to Bleed a Radiator | FixItFirst',
+  description: 'How to bleed a radiator in 15 minutes and fix cold spots at the top. Only tool needed costs £1. Save £50–80 vs a heating engineer.',
+}
 
 const steps = [
   { title: 'Turn off the heating', description: 'Switch off your central heating and wait 20–30 minutes for the radiators to cool. Never bleed a hot radiator.' },
