@@ -1,8 +1,10 @@
+import MobileNav from '@/components/MobileNav'
+
 export default function Home() {
   const guides = [
     { title: "Fix a dripping tap", time: "45 mins", cost: "0-5", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-dripping-tap" },
-    { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry" },
-    { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating" },
+    { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry", href: "/guides/put-up-shelves" },
+    { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating", href: "/guides/paint-a-room" },
     { title: "Unblock a drain", time: "20 mins", cost: "0-10", level: "Beginner", category: "Plumbing" },
     { title: "Bleed a radiator", time: "15 mins", cost: "Free", level: "Beginner", category: "Heating" },
     { title: "Fill a hole in a wall", time: "30 mins", cost: "5", level: "Beginner", category: "Masonry" },
@@ -14,7 +16,7 @@ export default function Home() {
   const categories = ["All", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white pb-20 md:pb-0">
 
       <nav className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
         <span className="text-2xl font-bold text-orange-500">FixItFirst</span>
@@ -124,6 +126,7 @@ export default function Home() {
         <p className="mt-1">Nobody taught you. We will.</p>
       </footer>
 
+      <MobileNav />
     </main>
   )
 }
