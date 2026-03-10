@@ -91,6 +91,7 @@ export default function ChangeALightbulb() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand the main bulb fitting types used in UK homes and how to work safely around basic electrics. These skills transfer to fitting lampshades and replacing light fittings.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['change-a-lightbulb'].completedCount.toLocaleString()} people</p>
         <CompleteButton />
         <GuideExtras slug="change-a-lightbulb" />
       </div>

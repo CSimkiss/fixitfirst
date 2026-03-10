@@ -99,6 +99,7 @@ export default function PutUpShelves() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand wall types, how to choose the right fixing, and how to use a spirit level accurately. These skills transfer directly to fitting curtain poles, mounting a TV, and hanging heavy pictures.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['put-up-shelves'].completedCount.toLocaleString()} people</p>
         <CompleteButton />
         <GuideExtras slug="put-up-shelves" />
       </div>

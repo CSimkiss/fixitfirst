@@ -99,6 +99,7 @@ export default function FitACurtainPole() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to use a drill, read wall types, and fix things securely to a wall. These skills transfer to hanging shelves, fitting blinds, and mounting a TV bracket.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fit-a-curtain-pole'].completedCount.toLocaleString()} people</p>
         <CompleteButton />
         <GuideExtras slug="fit-a-curtain-pole" />
       </div>

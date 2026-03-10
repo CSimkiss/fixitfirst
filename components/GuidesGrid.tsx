@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import DifficultyMeter from './DifficultyMeter'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import { ALL_GUIDES } from '@/lib/guides'
 
 type Guide = {
   title: string
@@ -51,29 +53,48 @@ export default function GuidesGrid({ guides }: { guides: Guide[] }) {
         <p className="text-gray-400 text-center py-16">No guides in this category yet.</p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((guide) => (
-            <a
-              key={guide.href}
-              href={guide.href}
-              className="border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md transition-all group flex flex-col"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className={`text-xs px-2 py-1 rounded-full font-medium ${categoryColours[guide.category] ?? 'bg-gray-100 text-gray-600'}`}>
-                  {guide.category}
-                </span>
-                <DifficultyMeter level={guide.difficulty} />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-orange-500 transition-colors">
-                {guide.title}
-              </h3>
-              <p className="text-xs text-green-700 font-medium mb-3">{guide.saves}</p>
-              <div className="flex gap-4 text-sm text-gray-500 mt-auto">
-                <span>{guide.time}</span>
-                <span>{guide.cost}</span>
-                <span className="ml-auto bg-green-50 text-green-700 px-2 py-0.5 rounded-full text-xs">{guide.level}</span>
-              </div>
-            </a>
-          ))}
+          {filtered.map((guide) => {
+            const slug = guide.href.split('/').pop() ?? ''
+            const toolCount = GUIDE_TOOLS[slug]?.length ?? 0
+            const isUK = ALL_GUIDES.find(g => g.slug === slug)?.ukSpecific ?? false
+            return (
+              <a
+                key={guide.href}
+                href={guide.href}
+                className="border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md transition-all group flex flex-col"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${categoryColours[guide.category] ?? 'bg-gray-100 text-gray-600'}`}>
+                    {guide.category}
+                  </span>
+                  <DifficultyMeter level={guide.difficulty} />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-orange-500 transition-colors">
+                  {guide.title}
+                </h3>
+                <p className="text-xs text-green-700 font-medium mb-2">{guide.saves}</p>
+                {(toolCount > 0 || isUK) && (
+                  <div className="flex gap-1.5 flex-wrap mb-3">
+                    {toolCount > 0 && (
+                      <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                        🔧 {toolCount} tool{toolCount !== 1 ? 's' : ''}
+                      </span>
+                    )}
+                    {isUK && (
+                      <span className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">
+                        🇬🇧 UK advice
+                      </span>
+                    )}
+                  </div>
+                )}
+                <div className="flex gap-4 text-sm text-gray-500 mt-auto">
+                  <span>{guide.time}</span>
+                  <span>{guide.cost}</span>
+                  <span className="ml-auto bg-green-50 text-green-700 px-2 py-0.5 rounded-full text-xs">{guide.level}</span>
+                </div>
+              </a>
+            )
+          })}
         </div>
       )}
       <p className="text-center text-gray-400 text-sm mt-12">More guides coming soon.</p>

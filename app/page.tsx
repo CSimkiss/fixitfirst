@@ -9,6 +9,8 @@ import Onboarding from '@/components/Onboarding'
 import RecentlyViewed from '@/components/RecentlyViewed'
 import DifficultyMeter from '@/components/DifficultyMeter'
 import CompletedTicker from '@/components/CompletedTicker'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import { ALL_GUIDES } from '@/lib/guides'
 
 const guides = [
   { title: "Fix a dripping tap",    time: "45 mins", cost: "£2–5",   level: "Beginner", category: "Plumbing",   href: "/guides/fix-a-dripping-tap",    difficulty: 2, saves: "Save £80–150 today" },
@@ -192,6 +194,9 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredGuides.map((guide) => {
+            const slug = guide.href.split('/').pop() ?? ''
+            const toolCount = GUIDE_TOOLS[slug]?.length ?? 0
+            const isUK = ALL_GUIDES.find(g => g.slug === slug)?.ukSpecific ?? false
             const cardClass = "border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md cursor-pointer transition-all group"
             const cardContent = <>
               <div className="flex items-center justify-between mb-3">
@@ -199,7 +204,17 @@ export default function Home() {
                 <DifficultyMeter level={guide.difficulty} />
               </div>
               <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-orange-500 transition-colors">{guide.title}</h3>
-              <p className="text-xs text-green-700 font-medium mb-3">{guide.saves}</p>
+              <p className="text-xs text-green-700 font-medium mb-2">{guide.saves}</p>
+              {(toolCount > 0 || isUK) && (
+                <div className="flex gap-1.5 flex-wrap mb-3">
+                  {toolCount > 0 && (
+                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">🔧 {toolCount} tool{toolCount !== 1 ? 's' : ''}</span>
+                  )}
+                  {isUK && (
+                    <span className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">🇬🇧 UK advice</span>
+                  )}
+                </div>
+              )}
               <div className="flex gap-4 text-sm text-gray-500 mt-2">
                 <span>{guide.time}</span>
                 <span>{guide.cost}</span>
