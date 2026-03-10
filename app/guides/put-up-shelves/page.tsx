@@ -1,6 +1,10 @@
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
+import MobileNav from '@/components/MobileNav'
+
 export default function PutUpShelves() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white pb-20 md:pb-0">
       <nav className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
         <a href="/" className="text-2xl font-bold text-orange-500">FixItFirst</a>
         <button className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium">Get Started</button>
@@ -8,7 +12,8 @@ export default function PutUpShelves() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Put up shelves</h1>
-        <p className="text-gray-500 mb-8">1 hour · Beginner · Saves £50-80 vs a handyman</p>
+        <p className="text-gray-500 mb-6">1 hour · Beginner · Saves £50-80 vs a handyman</p>
+        <StepProgress />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">This guide covers fitting a floating shelf or bracket-mounted shelf on a solid or plasterboard wall.</p>
@@ -49,8 +54,9 @@ export default function PutUpShelves() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand wall types, how to choose the right fixing, and how to use a spirit level accurately. These skills transfer directly to fitting curtain poles, mounting a TV, and hanging heavy pictures.</p>
         </div>
-        <button className="w-full bg-orange-500 text-white py-4 rounded-xl text-lg font-semibold hover:bg-orange-600">Mark as Complete</button>
+        <CompleteButton />
       </div>
+      <MobileNav />
     </main>
   )
 }
