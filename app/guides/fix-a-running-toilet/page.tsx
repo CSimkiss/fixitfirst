@@ -5,6 +5,7 @@ import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
 
 export const metadata: Metadata = {
   title: 'How to Fix a Running Toilet | FixItFirst',
@@ -78,6 +79,7 @@ export default function FixARunningToilet() {
         </div>
         <CompleteButton />
       </div>
+      <RecentViewTracker slug="fix-a-running-toilet" title="Fix a running toilet" href="/guides/fix-a-running-toilet" />
       <MobileNav />
     </main>
   )

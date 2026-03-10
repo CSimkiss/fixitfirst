@@ -5,6 +5,7 @@ import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
 
 export const metadata: Metadata = {
   title: 'How to Unblock a Drain | FixItFirst',
@@ -86,6 +87,7 @@ export default function UnblockADrain() {
         </div>
         <CompleteButton />
       </div>
+      <RecentViewTracker slug="unblock-a-drain" title="Unblock a drain" href="/guides/unblock-a-drain" />
       <MobileNav />
     </main>
   )

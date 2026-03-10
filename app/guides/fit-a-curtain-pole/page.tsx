@@ -5,6 +5,7 @@ import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
 
 export const metadata: Metadata = {
   title: 'How to Fit a Curtain Pole | FixItFirst',
@@ -86,6 +87,7 @@ export default function FitACurtainPole() {
         </div>
         <CompleteButton />
       </div>
+      <RecentViewTracker slug="fit-a-curtain-pole" title="Fit a curtain pole" href="/guides/fit-a-curtain-pole" />
       <MobileNav />
     </main>
   )
