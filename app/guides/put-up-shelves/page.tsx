@@ -6,7 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
-import ShareButton from '@/components/ShareButton'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function PutUpShelves() {
         <p className="text-4xl font-black text-green-600 mb-1">Save £50–80 today</p>
         <p className="text-gray-500 mb-6">1 hour · Beginner · Saves £50-80 vs a handyman</p>
         <div className="flex gap-3 flex-wrap mb-6">
-          <ShareButton />
+          <SocialShare title="Put up shelves" />
           <PrintButton />
         </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
@@ -93,6 +94,7 @@ export default function PutUpShelves() {
           <p className="text-sm text-orange-900">You now understand wall types, how to choose the right fixing, and how to use a spirit level accurately. These skills transfer directly to fitting curtain poles, mounting a TV, and hanging heavy pictures.</p>
         </div>
         <CompleteButton />
+        <GuideExtras slug="put-up-shelves" />
       </div>
       <RecentViewTracker slug="put-up-shelves" title="Put up shelves" href="/guides/put-up-shelves" />
       <MobileNav />

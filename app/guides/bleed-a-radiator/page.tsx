@@ -6,7 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
-import ShareButton from '@/components/ShareButton'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function BleedARadiator() {
         <p className="text-4xl font-black text-green-600 mb-1">Save £50–80 today</p>
         <p className="text-gray-500 mb-6">15 mins · Beginner · Saves £50-80 vs a heating engineer</p>
         <div className="flex gap-3 flex-wrap mb-6">
-          <ShareButton />
+          <SocialShare title="Bleed a radiator" />
           <PrintButton />
         </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
@@ -81,6 +82,7 @@ export default function BleedARadiator() {
           <p className="text-sm text-orange-900">You now understand how central heating systems circulate water and why air gets trapped. These skills transfer to balancing radiators and maintaining your boiler pressure.</p>
         </div>
         <CompleteButton />
+        <GuideExtras slug="bleed-a-radiator" />
       </div>
       <RecentViewTracker slug="bleed-a-radiator" title="Bleed a radiator" href="/guides/bleed-a-radiator" />
       <MobileNav />

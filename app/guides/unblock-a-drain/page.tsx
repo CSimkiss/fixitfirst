@@ -6,7 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
-import ShareButton from '@/components/ShareButton'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function UnblockADrain() {
         <p className="text-4xl font-black text-green-600 mb-1">Save £60–120 today</p>
         <p className="text-gray-500 mb-6">20 mins · Beginner · Saves £60-120 vs a plumber</p>
         <div className="flex gap-3 flex-wrap mb-6">
-          <ShareButton />
+          <SocialShare title="Unblock a drain" />
           <PrintButton />
         </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
@@ -93,6 +94,7 @@ export default function UnblockADrain() {
           <p className="text-sm text-orange-900">You now understand how drain blockages form and how to clear them using multiple techniques. These skills apply to any blocked sink, bath, or shower in your home.</p>
         </div>
         <CompleteButton />
+        <GuideExtras slug="unblock-a-drain" />
       </div>
       <RecentViewTracker slug="unblock-a-drain" title="Unblock a drain" href="/guides/unblock-a-drain" />
       <MobileNav />
