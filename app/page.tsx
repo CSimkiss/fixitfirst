@@ -1,8 +1,8 @@
 export default function Home() {
   const guides = [
     { title: "Fix a dripping tap", time: "45 mins", cost: "0-5", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-dripping-tap" },
-    { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry" },
-    { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating" },
+    { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry", href: "/guides/put-up-shelves" },
+    { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating", href: "/guides/paint-a-room" },
     { title: "Unblock a drain", time: "20 mins", cost: "0-10", level: "Beginner", category: "Plumbing", href: "/guides/unblock-a-drain" },
     { title: "Bleed a radiator", time: "15 mins", cost: "Free", level: "Beginner", category: "Heating", href: "/guides/bleed-a-radiator" },
     { title: "Fill a hole in a wall", time: "30 mins", cost: "5", level: "Beginner", category: "Masonry", href: "/guides/fill-a-hole-in-a-wall" },
