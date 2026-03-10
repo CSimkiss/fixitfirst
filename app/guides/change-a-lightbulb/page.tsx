@@ -2,6 +2,15 @@ import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 
+const steps = [
+  { title: 'Turn off the light switch', description: 'Switch the light off at the wall. For ceiling fittings, this is enough. For a lamp, also unplug it from the socket.' },
+  { title: 'Let the bulb cool', description: 'Wait at least 5 minutes. Halogen and incandescent bulbs get extremely hot and can burn you or shatter if touched while warm.' },
+  { title: 'Remove the old bulb', description: 'Bayonet cap: push gently inward, turn anticlockwise, and pull down. Edison screw: turn anticlockwise until it comes free. For GU10 spotlights: grip and pull straight down with a gentle twist.' },
+  { title: 'Check the fitting and wattage', description: 'Match the fitting type of your new bulb to the old one. Check the fitting has a maximum wattage label and do not exceed it.' },
+  { title: 'Insert the new bulb', description: 'Bayonet cap: align the pins with the slots, push in and turn clockwise until it clicks. Edison screw: push in and turn clockwise until snug. For halogen GU10s, use a cloth or gloves — skin oils shorten bulb life.' },
+  { title: 'Test the light', description: 'Switch the light back on. If it does not work, switch off and check the bulb is fully seated. If it still fails, the issue may be with the fitting or circuit.' },
+]
+
 export default function ChangeALightbulb() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -13,23 +22,29 @@ export default function ChangeALightbulb() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Change a lightbulb</h1>
         <p className="text-gray-500 mb-6">5 mins · Beginner · Saves £60-100 vs an electrician</p>
-        <StepProgress />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Changing a bulb is safe as long as the light is switched off and the bulb has cooled down. No tools needed.</p>
           <p className="text-sm text-gray-700 mb-2">Check the fitting type before buying a replacement — the most common UK fittings are bayonet cap (BC/B22) and Edison screw (ES/E27).</p>
         </div>
-        <div className="mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Steps</h2>
-          <div className="space-y-4">
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">1</div><div><h3 className="font-semibold mb-1">Turn off the light switch</h3><p className="text-sm text-gray-600">Switch the light off at the wall. For ceiling fittings, this is enough. For a lamp, also unplug it from the socket.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">2</div><div><h3 className="font-semibold mb-1">Let the bulb cool</h3><p className="text-sm text-gray-600">Wait at least 5 minutes. Halogen and incandescent bulbs get extremely hot and can burn you or shatter if touched while warm.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">3</div><div><h3 className="font-semibold mb-1">Remove the old bulb</h3><p className="text-sm text-gray-600">Bayonet cap: push gently inward, turn anticlockwise, and pull down. Edison screw: turn anticlockwise until it comes free. For GU10 spotlights: grip and pull straight down with a gentle twist.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">4</div><div><h3 className="font-semibold mb-1">Check the fitting and wattage</h3><p className="text-sm text-gray-600">Match the fitting type of your new bulb to the old one. Check the fitting has a maximum wattage label and do not exceed it.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">5</div><div><h3 className="font-semibold mb-1">Insert the new bulb</h3><p className="text-sm text-gray-600">Bayonet cap: align the pins with the slots, push in and turn clockwise until it clicks. Edison screw: push in and turn clockwise until snug — do not overtighten. For halogen GU10s, use a cloth or gloves — skin oils shorten bulb life.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">6</div><div><h3 className="font-semibold mb-1">Test the light</h3><p className="text-sm text-gray-600">Switch the light back on. If it does not work, switch off and check the bulb is fully seated. If it still fails, the issue may be with the fitting or circuit.</p></div></div>
-          </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">No tools required</span> — just your hands</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Step ladder or stable chair</span> — for ceiling fittings</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Replacement bulb</span> — <span className="text-orange-600">buy: match the existing fitting type (B22, E27, or GU10), £5–15</span></span>
+            </li>
+          </ul>
         </div>
+        <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Touching a new halogen bulb with bare hands — oils from your skin cause hot spots that crack the glass.</p>

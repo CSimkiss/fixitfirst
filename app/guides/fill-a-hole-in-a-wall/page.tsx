@@ -2,6 +2,15 @@ import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 
+const steps = [
+  { title: 'Clean the hole', description: 'Remove any loose plaster, dust, or old filler from the hole using a screwdriver tip or stiff brush. The hole needs to be clean for the filler to bond.' },
+  { title: 'Dampen the surface', description: 'Lightly dampen the inside of the hole with a wet finger or cloth. This stops the wall absorbing moisture from the filler too quickly, which causes cracking.' },
+  { title: 'Apply the filler', description: 'Scoop filler onto your filling knife and press it firmly into the hole. For deep holes, apply in layers no thicker than 10mm. Overfill slightly — it will shrink as it dries.' },
+  { title: 'Smooth the surface', description: 'Draw the filling knife flat across the surface to remove the excess and leave it flush with the wall. Wipe away any smears with a damp cloth.' },
+  { title: 'Let it dry fully', description: 'Wait until the filler turns from pink or grey to bright white — usually 2–4 hours. For deep fills, leave it overnight.' },
+  { title: 'Sand and prime', description: 'Sand the dried filler smooth with fine sandpaper. Apply a thin coat of PVA or mist coat before painting to stop the filler soaking up paint unevenly.' },
+]
+
 export default function FillAHoleInAWall() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -13,23 +22,33 @@ export default function FillAHoleInAWall() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fill a hole in a wall</h1>
         <p className="text-gray-500 mb-6">30 mins · Beginner · Saves £50-100 vs a tradesperson</p>
-        <StepProgress />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">This works for small to medium holes and cracks in plaster, plasterboard, or brick walls — caused by rawl plugs, nails, or general wear.</p>
-          <p className="text-sm text-gray-700 mb-2">You will need ready-mixed filler (£3-5 from any DIY shop), a filling knife, fine sandpaper, and a damp cloth.</p>
+          <p className="text-sm text-gray-700 mb-2">You will need ready-mixed filler (£3–5 from any DIY shop), a filling knife, fine sandpaper, and a damp cloth.</p>
         </div>
-        <div className="mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Steps</h2>
-          <div className="space-y-4">
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">1</div><div><h3 className="font-semibold mb-1">Clean the hole</h3><p className="text-sm text-gray-600">Remove any loose plaster, dust, or old filler from the hole using a screwdriver tip or stiff brush. The hole needs to be clean for the filler to bond.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">2</div><div><h3 className="font-semibold mb-1">Dampen the surface</h3><p className="text-sm text-gray-600">Lightly dampen the inside of the hole with a wet finger or cloth. This stops the wall absorbing moisture from the filler too quickly, which causes cracking.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">3</div><div><h3 className="font-semibold mb-1">Apply the filler</h3><p className="text-sm text-gray-600">Scoop filler onto your filling knife and press it firmly into the hole. For deep holes, apply in layers no thicker than 10mm. Overfill slightly — it will shrink as it dries.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">4</div><div><h3 className="font-semibold mb-1">Smooth the surface</h3><p className="text-sm text-gray-600">Draw the filling knife flat across the surface to remove the excess and leave it flush with the wall. Wipe away any smears with a damp cloth.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">5</div><div><h3 className="font-semibold mb-1">Let it dry fully</h3><p className="text-sm text-gray-600">Wait until the filler turns from pink or grey to bright white — usually 2-4 hours. For deep fills, leave it overnight.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">6</div><div><h3 className="font-semibold mb-1">Sand and prime</h3><p className="text-sm text-gray-600">Sand the dried filler smooth with fine sandpaper. Apply a thin coat of PVA or mist coat before painting to stop the filler soaking up paint unevenly.</p></div></div>
-          </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Ready-mixed filler</span> — <span className="text-orange-600">buy: £3–5 from any DIY or hardware shop</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Filling knife / putty knife</span> — <span className="text-orange-600">buy: £3–5, reusable for future repairs</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Fine sandpaper (120–180 grit)</span> — most homes have some</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Damp cloth</span> — any kitchen cloth will do</span>
+            </li>
+          </ul>
         </div>
+        <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Skipping the dampening step, causing the filler to crack as it dries.</p>

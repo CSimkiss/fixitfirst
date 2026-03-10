@@ -2,6 +2,15 @@ import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 
+const steps = [
+  { title: 'Turn off the water supply', description: 'Find the isolation valve under the sink and turn it 90 degrees until it sits across the pipe.' },
+  { title: 'Plug the drain', description: 'Put the plug in so small parts cannot fall down the drain.' },
+  { title: 'Remove the tap handle', description: 'Pop off the decorative cap, remove the screw, lift the handle straight up.' },
+  { title: 'Remove the packing nut', description: 'Use a spanner anticlockwise. Lift out the cartridge.' },
+  { title: 'Replace the washer', description: 'Swap the rubber washer for a matching new one.' },
+  { title: 'Reassemble and test', description: 'Put everything back. Open the valve slowly. No drip? Done.' },
+]
+
 export default function DrippingTap() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -13,23 +22,33 @@ export default function DrippingTap() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fix a dripping tap</h1>
         <p className="text-gray-500 mb-6">45 mins · Beginner · Saves £80-150 vs a plumber</p>
-        <StepProgress />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">This fixes a tap that drips when fully closed.</p>
           <p className="text-sm text-gray-700 mb-2">Legal to DIY. Allowed in most rentals.</p>
         </div>
-        <div className="mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Steps</h2>
-          <div className="space-y-4">
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">1</div><div><h3 className="font-semibold mb-1">Turn off the water supply</h3><p className="text-sm text-gray-600">Find the isolation valve under the sink and turn it 90 degrees until it sits across the pipe.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">2</div><div><h3 className="font-semibold mb-1">Plug the drain</h3><p className="text-sm text-gray-600">Put the plug in so small parts cannot fall down the drain.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">3</div><div><h3 className="font-semibold mb-1">Remove the tap handle</h3><p className="text-sm text-gray-600">Pop off the decorative cap, remove the screw, lift the handle straight up.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">4</div><div><h3 className="font-semibold mb-1">Remove the packing nut</h3><p className="text-sm text-gray-600">Use a spanner anticlockwise. Lift out the cartridge.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">5</div><div><h3 className="font-semibold mb-1">Replace the washer</h3><p className="text-sm text-gray-600">Swap the rubber washer for a matching new one.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">6</div><div><h3 className="font-semibold mb-1">Reassemble and test</h3><p className="text-sm text-gray-600">Put everything back. Open the valve slowly. No drip? Done.</p></div></div>
-          </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Adjustable spanner or spanner set</span> — you probably already have one</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Flat-head screwdriver</span> — standard household tool</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Replacement rubber washer</span> — <span className="text-orange-600">buy: £1–2 from any hardware shop</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">PTFE tape</span> — <span className="text-orange-600">buy: £1 from any hardware shop</span></span>
+            </li>
+          </ul>
         </div>
+        <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not turning water off fully before starting.</p>

@@ -2,6 +2,15 @@ import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 
+const steps = [
+  { title: 'Mark the bracket positions', description: 'Hold the first bracket 15cm beyond the window edge and at least 10cm above the frame. Mark the screw holes lightly with a pencil. Repeat for the second bracket, using a tape measure and spirit level to ensure they are at exactly the same height.' },
+  { title: 'Check for pipes and cables', description: 'Run your detector over each marked position. If it beeps, move your mark a few centimetres and re-check.' },
+  { title: 'Drill the holes', description: 'Use the correct drill bit for your wall type (masonry bit for brick or plaster, wood bit for timber). Drill to the depth of your wall plug. Keep the drill straight and level.' },
+  { title: 'Insert the wall plugs', description: 'Push a wall plug into each hole until it is flush with the wall surface. If it spins freely, the hole is too large — use a larger plug.' },
+  { title: 'Screw on the brackets', description: 'Hold each bracket in position and drive the screws in until firm. Do not overtighten. Check both brackets are level with a spirit level before fully tightening.' },
+  { title: 'Hang the pole and curtains', description: 'Thread the curtain rings onto the pole, clip the pole into the brackets, and fit the end finials. Hang your curtains and test that they draw smoothly.' },
+]
+
 export default function FitACurtainPole() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -13,23 +22,37 @@ export default function FitACurtainPole() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fit a curtain pole</h1>
         <p className="text-gray-500 mb-6">45 mins · Beginner · Saves £50-80 vs a handyman</p>
-        <StepProgress />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Before drilling, use a pipe and cable detector to check for hidden pipes and wires behind the wall. These are inexpensive and available at any DIY shop.</p>
           <p className="text-sm text-gray-700 mb-2">You need a drill, spirit level, pencil, tape measure, and the fixings that come with your pole (wall plugs and screws).</p>
         </div>
-        <div className="mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Steps</h2>
-          <div className="space-y-4">
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">1</div><div><h3 className="font-semibold mb-1">Mark the bracket positions</h3><p className="text-sm text-gray-600">Hold the first bracket 15cm beyond the window edge and at least 10cm above the frame. Mark the screw holes lightly with a pencil. Repeat for the second bracket, using a tape measure and spirit level to ensure they are at exactly the same height.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">2</div><div><h3 className="font-semibold mb-1">Check for pipes and cables</h3><p className="text-sm text-gray-600">Run your detector over each marked position. If it beeps, move your mark a few centimetres and re-check.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">3</div><div><h3 className="font-semibold mb-1">Drill the holes</h3><p className="text-sm text-gray-600">Use the correct drill bit for your wall type (masonry bit for brick or plaster, wood bit for timber). Drill to the depth of your wall plug. Keep the drill straight and level.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">4</div><div><h3 className="font-semibold mb-1">Insert the wall plugs</h3><p className="text-sm text-gray-600">Push a wall plug into each hole until it is flush with the wall surface. If it spins freely, the hole is too large — use a larger plug.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">5</div><div><h3 className="font-semibold mb-1">Screw on the brackets</h3><p className="text-sm text-gray-600">Hold each bracket in position and drive the screws in until firm. Do not overtighten. Check both brackets are level with a spirit level before fully tightening.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">6</div><div><h3 className="font-semibold mb-1">Hang the pole and curtains</h3><p className="text-sm text-gray-600">Thread the curtain rings onto the pole, clip the pole into the brackets, and fit the end finials. Hang your curtains and test that they draw smoothly.</p></div></div>
-          </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Power drill with drill bits</span> — <span className="text-orange-600">buy or borrow if you don't have one</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Pipe and cable detector</span> — <span className="text-orange-600">buy: £10–15, essential before any drilling</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Spirit level</span> — for level brackets</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Tape measure and pencil</span> — standard household items</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Screwdriver</span> — wall plugs and screws come with the pole</span>
+            </li>
+          </ul>
         </div>
+        <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not checking for pipes and cables before drilling — always use a detector first.</p>
