@@ -9,6 +9,7 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -92,8 +93,15 @@ export default function FixARunningToilet() {
           <p className="text-sm text-orange-900">You now understand how a toilet cistern works — the float, fill valve, and flapper. These skills transfer to replacing a full ballvalve, fixing a slow-filling cistern, and understanding your home's water system.</p>
         </div>
         <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fix-a-running-toilet'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['fix-a-running-toilet'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['fix-a-running-toilet'].renterWarning}</p>
+          </div>
+        )}
         <CompleteButton />
         <GuideExtras slug="fix-a-running-toilet" />
+        <NextGuide currentSlug="fix-a-running-toilet" />
       </div>
       <RecentViewTracker slug="fix-a-running-toilet" title="Fix a running toilet" href="/guides/fix-a-running-toilet" />
       <MobileNav />

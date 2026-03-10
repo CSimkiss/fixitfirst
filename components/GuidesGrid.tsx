@@ -16,7 +16,7 @@ type Guide = {
   difficulty: number
 }
 
-const categories = ['All', 'Plumbing', 'Electrics', 'Carpentry', 'Decorating', 'Masonry', 'Heating', 'Fitting']
+const categories = ['All', '⚡ Quick wins', 'Plumbing', 'Electrics', 'Carpentry', 'Decorating', 'Masonry', 'Heating', 'Fitting']
 
 const categoryColours: Record<string, string> = {
   Plumbing: 'bg-blue-50 text-blue-700',
@@ -30,7 +30,11 @@ const categoryColours: Record<string, string> = {
 
 export default function GuidesGrid({ guides }: { guides: Guide[] }) {
   const [active, setActive] = useState('All')
-  const filtered = active === 'All' ? guides : guides.filter((g) => g.category === active)
+  const filtered = active === 'All'
+    ? guides
+    : active === '⚡ Quick wins'
+    ? guides.filter(g => ALL_GUIDES.find(ag => ag.slug === (g.href.split('/').pop() ?? ''))?.quickWin === true)
+    : guides.filter((g) => g.category === active)
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-10">
@@ -56,7 +60,9 @@ export default function GuidesGrid({ guides }: { guides: Guide[] }) {
           {filtered.map((guide) => {
             const slug = guide.href.split('/').pop() ?? ''
             const toolCount = GUIDE_TOOLS[slug]?.length ?? 0
-            const isUK = ALL_GUIDES.find(g => g.slug === slug)?.ukSpecific ?? false
+            const guideData = ALL_GUIDES.find(g => g.slug === slug)
+            const isUK = guideData?.ukSpecific ?? false
+            const isQuickWin = guideData?.quickWin ?? false
             return (
               <a
                 key={guide.href}
@@ -73,8 +79,11 @@ export default function GuidesGrid({ guides }: { guides: Guide[] }) {
                   {guide.title}
                 </h3>
                 <p className="text-xs text-green-700 font-medium mb-2">{guide.saves}</p>
-                {(toolCount > 0 || isUK) && (
+                {(toolCount > 0 || isUK || isQuickWin) && (
                   <div className="flex gap-1.5 flex-wrap mb-3">
+                    {isQuickWin && (
+                      <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-medium">⚡ Quick win</span>
+                    )}
                     {toolCount > 0 && (
                       <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
                         🔧 {toolCount} tool{toolCount !== 1 ? 's' : ''}

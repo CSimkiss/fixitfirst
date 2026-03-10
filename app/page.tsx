@@ -24,7 +24,7 @@ const guides = [
   { title: "Fix a running toilet",  time: "1 hour",  cost: "£10–25", level: "Beginner", category: "Plumbing",   href: "/guides/fix-a-running-toilet",  difficulty: 3, saves: "Save £80–150 today" },
 ]
 
-const categories = ["All", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
+const categories = ["All", "⚡ Quick wins", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
 
 const FEATURED_GUIDE = {
   title: 'Fix a dripping tap',
@@ -51,7 +51,11 @@ export default function Home() {
     } catch {}
   }, [])
 
-  const filteredGuides = activeCategory === 'All' ? guides : guides.filter(g => g.category === activeCategory)
+  const filteredGuides = activeCategory === 'All'
+    ? guides
+    : activeCategory === '⚡ Quick wins'
+    ? guides.filter(g => ALL_GUIDES.find(ag => ag.slug === (g.href.split('/').pop() ?? ''))?.quickWin === true)
+    : guides.filter(g => g.category === activeCategory)
 
   function handleSearch() {
     const q = query.trim()
@@ -196,7 +200,9 @@ export default function Home() {
           {filteredGuides.map((guide) => {
             const slug = guide.href.split('/').pop() ?? ''
             const toolCount = GUIDE_TOOLS[slug]?.length ?? 0
-            const isUK = ALL_GUIDES.find(g => g.slug === slug)?.ukSpecific ?? false
+            const guideData = ALL_GUIDES.find(g => g.slug === slug)
+            const isUK = guideData?.ukSpecific ?? false
+            const isQuickWin = guideData?.quickWin ?? false
             const cardClass = "border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md cursor-pointer transition-all group"
             const cardContent = <>
               <div className="flex items-center justify-between mb-3">
@@ -205,8 +211,11 @@ export default function Home() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-orange-500 transition-colors">{guide.title}</h3>
               <p className="text-xs text-green-700 font-medium mb-2">{guide.saves}</p>
-              {(toolCount > 0 || isUK) && (
+              {(toolCount > 0 || isUK || isQuickWin) && (
                 <div className="flex gap-1.5 flex-wrap mb-3">
+                  {isQuickWin && (
+                    <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-medium">⚡ Quick win</span>
+                  )}
                   {toolCount > 0 && (
                     <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">🔧 {toolCount} tool{toolCount !== 1 ? 's' : ''}</span>
                   )}

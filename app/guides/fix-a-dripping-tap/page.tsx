@@ -9,6 +9,7 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -96,8 +97,15 @@ export default function DrippingTap() {
           <p className="text-sm text-orange-900">You now understand how taps work, how isolation valves work, and how to replace washers. These skills transfer to replacing a full tap and fixing a running toilet.</p>
         </div>
         <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fix-a-dripping-tap'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['fix-a-dripping-tap'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['fix-a-dripping-tap'].renterWarning}</p>
+          </div>
+        )}
         <CompleteButton />
         <GuideExtras slug="fix-a-dripping-tap" />
+        <NextGuide currentSlug="fix-a-dripping-tap" />
       </div>
       <RecentViewTracker slug="fix-a-dripping-tap" title="Fix a dripping tap" href="/guides/fix-a-dripping-tap" />
       <MobileNav />
