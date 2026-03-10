@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import { GUIDE_TOOLS } from '@/lib/tools'
 
 export const metadata: Metadata = {
   title: 'How to Change a Lightbulb | FixItFirst',
@@ -20,10 +23,7 @@ const steps = [
 export default function ChangeALightbulb() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
-      <nav className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-        <a href="/" className="text-2xl font-bold text-orange-500">FixItFirst</a>
-        <button className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium">Get Started</button>
-      </nav>
+      <Nav />
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Change a lightbulb</h1>
@@ -50,6 +50,7 @@ export default function ChangeALightbulb() {
             </li>
           </ul>
         </div>
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['change-a-lightbulb']} />
         <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>

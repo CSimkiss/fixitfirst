@@ -1,5 +1,6 @@
 import MobileNav from '@/components/MobileNav'
 import EmailCapture from '@/components/EmailCapture'
+import Nav from '@/components/Nav'
 
 export default function Home() {
   const guides = [
@@ -19,19 +20,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
 
-      <nav className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-        <span className="text-2xl font-bold text-orange-500">FixItFirst</span>
-        <div className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-          <a href="/guides" className="hover:text-orange-500">Guides</a>
-          <a href="#" className="hover:text-orange-500">My Tools</a>
-          <a href="#" className="hover:text-orange-500">Progress</a>
-          <a href="#" className="hover:text-orange-500">Find a Pro</a>
-        </div>
-        <div className="flex gap-3">
-          <button className="text-sm font-medium text-gray-600 hover:text-orange-500">Log in</button>
-          <button className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-orange-600">Get Started</button>
-        </div>
-      </nav>
+      <Nav />
 
       <section className="bg-gray-950 text-white px-6 py-20 text-center">
         <div className="max-w-3xl mx-auto">
