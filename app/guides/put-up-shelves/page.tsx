@@ -2,6 +2,15 @@ import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 
+const steps = [
+  { title: 'Mark the shelf position', description: 'Hold the shelf bracket against the wall at the desired height. Use a spirit level to ensure it is perfectly horizontal. Mark the bracket screw holes lightly with a pencil.' },
+  { title: 'Check for pipes and cables', description: 'Run your detector over each marked position. Cables typically run vertically from switches and horizontally from sockets. If it beeps, move your mark and re-check.' },
+  { title: 'Identify your wall type and drill', description: 'Tap the wall — a solid sound means masonry (use a masonry bit), a hollow sound means plasterboard (use cavity fixings). Drill to the depth of your wall plug, keeping the drill level.' },
+  { title: 'Insert wall plugs', description: 'Push a wall plug into each hole until flush with the surface. For plasterboard, use cavity anchors — these expand behind the board to grip securely.' },
+  { title: 'Fix the brackets and check level', description: 'Screw the bracket to the wall, leaving screws slightly loose. Hold a spirit level across both brackets and adjust until perfectly level, then fully tighten all screws.' },
+  { title: 'Attach the shelf and load test', description: 'Screw or clip the shelf onto the brackets. Test by pressing down firmly with both hands before placing anything on it. If it flexes, add a third bracket in the middle.' },
+]
+
 export default function PutUpShelves() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -13,23 +22,37 @@ export default function PutUpShelves() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Put up shelves</h1>
         <p className="text-gray-500 mb-6">1 hour · Beginner · Saves £50-80 vs a handyman</p>
-        <StepProgress />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">This guide covers fitting a floating shelf or bracket-mounted shelf on a solid or plasterboard wall.</p>
           <p className="text-sm text-gray-700 mb-2">Before drilling, use a pipe and cable detector to check for hidden pipes and wires. You need a drill, spirit level, tape measure, pencil, and the fixings supplied with your shelf.</p>
         </div>
-        <div className="mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Steps</h2>
-          <div className="space-y-4">
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">1</div><div><h3 className="font-semibold mb-1">Mark the shelf position</h3><p className="text-sm text-gray-600">Hold the shelf bracket (or the shelf itself for floating shelves) against the wall at the desired height. Use a spirit level to ensure it is perfectly horizontal. Mark the bracket screw holes lightly with a pencil.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">2</div><div><h3 className="font-semibold mb-1">Check for pipes and cables</h3><p className="text-sm text-gray-600">Run your detector over each marked position. Cables typically run vertically from switches and horizontally from sockets. If it beeps, move your mark and re-check.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">3</div><div><h3 className="font-semibold mb-1">Identify your wall type and drill</h3><p className="text-sm text-gray-600">Tap the wall — a solid sound means masonry (use a masonry bit), a hollow sound means plasterboard (use cavity fixings, not standard wall plugs). Drill to the depth of your wall plug, keeping the drill level.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">4</div><div><h3 className="font-semibold mb-1">Insert wall plugs</h3><p className="text-sm text-gray-600">Push a wall plug into each hole until flush with the surface. For plasterboard, use cavity anchors — these expand behind the board to grip securely.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">5</div><div><h3 className="font-semibold mb-1">Fix the brackets and check level</h3><p className="text-sm text-gray-600">Screw the bracket to the wall, leaving the screws slightly loose. Hold a spirit level across both brackets and adjust until perfectly level, then fully tighten all screws.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">6</div><div><h3 className="font-semibold mb-1">Attach the shelf and load test</h3><p className="text-sm text-gray-600">Screw or clip the shelf onto the brackets. Test by pressing down firmly with both hands before placing anything on it. If it flexes, add a third bracket in the middle.</p></div></div>
-          </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Power drill with masonry and wood bits</span> — <span className="text-orange-600">buy or borrow if you don't have one</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Pipe and cable detector</span> — <span className="text-orange-600">buy: £10–15, essential before drilling</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Spirit level</span> — borrow from a neighbour if needed</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Tape measure and pencil</span> — standard household items</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Screwdriver</span> — standard household tool</span>
+            </li>
+          </ul>
         </div>
+        <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Using standard wall plugs in plasterboard — they will pull straight out under load. Always use cavity anchors for hollow walls.</p>

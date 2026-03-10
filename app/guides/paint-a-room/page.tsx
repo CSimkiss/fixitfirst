@@ -2,6 +2,15 @@ import StepProgress from '@/components/StepProgress'
 import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 
+const steps = [
+  { title: 'Prepare the room', description: 'Move furniture to the centre and cover with dust sheets. Remove switch plates and socket covers. Lay dust sheets on the floor and tape them to the skirting boards.' },
+  { title: 'Fill and sand the walls', description: 'Fill any holes or cracks with ready-mixed filler and let dry completely. Sand the filled areas smooth, then lightly sand the entire wall to give the new paint something to grip. Wipe down with a damp cloth to remove dust.' },
+  { title: 'Apply masking tape', description: 'Run masking tape along the top of the skirting boards, around window frames, door frames, and the ceiling line. Press the tape edge down firmly to prevent bleed-through.' },
+  { title: 'Cut in around the edges', description: 'Using your angled brush, paint a neat band about 5cm wide along all edges — ceiling line, corners, skirting boards, and around any fixtures. Do one wall at a time so the edges stay wet when you roll.' },
+  { title: 'Roll the walls', description: 'Load the roller and apply paint in a large W or M shape, then fill in the gaps without lifting the roller. Work in sections of about 1 square metre, blending into the cut-in edges while still wet. Apply thin coats — two thin coats always beat one thick one.' },
+  { title: 'Apply a second coat and finish', description: 'Let the first coat dry fully — usually 2–4 hours. Apply a second coat in the same way. Once dry, carefully remove the masking tape at a 45-degree angle. Touch up any missed spots with the brush.' },
+]
+
 export default function PaintARoom() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -13,23 +22,41 @@ export default function PaintARoom() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Paint a room</h1>
         <p className="text-gray-500 mb-6">1 day · Beginner · Saves £200-500 vs a decorator</p>
-        <StepProgress />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Good preparation is 80% of a professional-looking paint job. Rushing the prep is the number one reason DIY painting looks amateur.</p>
           <p className="text-sm text-gray-700 mb-2">You need: emulsion paint, a roller and tray, a 2-inch angled brush for cutting in, masking tape, dust sheets, filler, and sandpaper.</p>
         </div>
-        <div className="mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Steps</h2>
-          <div className="space-y-4">
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">1</div><div><h3 className="font-semibold mb-1">Prepare the room</h3><p className="text-sm text-gray-600">Move furniture to the centre and cover with dust sheets. Remove switch plates and socket covers. Lay dust sheets on the floor and tape them to the skirting boards.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">2</div><div><h3 className="font-semibold mb-1">Fill and sand the walls</h3><p className="text-sm text-gray-600">Fill any holes or cracks with ready-mixed filler and let dry completely. Sand the filled areas smooth, then lightly sand the entire wall to give the new paint something to grip. Wipe down with a damp cloth to remove dust.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">3</div><div><h3 className="font-semibold mb-1">Apply masking tape</h3><p className="text-sm text-gray-600">Run masking tape along the top of the skirting boards, around window frames, door frames, and the ceiling line (if you are not painting the ceiling the same colour). Press the tape edge down firmly to prevent bleed-through.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">4</div><div><h3 className="font-semibold mb-1">Cut in around the edges</h3><p className="text-sm text-gray-600">Using your angled brush, paint a neat band about 5cm wide along all edges — ceiling line, corners, skirting boards, and around any fixtures. This is called cutting in. Do one wall at a time so the edges stay wet when you roll.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">5</div><div><h3 className="font-semibold mb-1">Roll the walls</h3><p className="text-sm text-gray-600">Load the roller and apply paint in a large W or M shape, then fill in the gaps without lifting the roller. Work in sections of about 1 square metre, blending into the cut-in edges while still wet. Apply thin coats — two thin coats always beat one thick one.</p></div></div>
-            <div className="flex gap-4"><div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">6</div><div><h3 className="font-semibold mb-1">Apply a second coat and finish</h3><p className="text-sm text-gray-600">Let the first coat dry fully — usually 2-4 hours. Apply a second coat in the same way. Once dry, carefully remove the masking tape at a 45-degree angle. Touch up any missed spots with the brush.</p></div></div>
-          </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Emulsion paint</span> — <span className="text-orange-600">buy: £15–30 per tin, choose the correct finish (matt for walls, silk for high-moisture rooms)</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Roller, roller sleeve and tray</span> — <span className="text-orange-600">buy: £8–15 as a set</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">2-inch angled cutting-in brush</span> — <span className="text-orange-600">buy: £3–6, essential for clean edges</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Masking tape</span> — <span className="text-orange-600">buy: £2–5 per roll</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Dust sheets</span> — <span className="text-orange-600">buy or borrow: old bedsheets work fine too</span></span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Sandpaper and ready-mixed filler</span> — for wall preparation</span>
+            </li>
+          </ul>
         </div>
+        <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Skipping the fill and sand step — every imperfection in the wall shows up under fresh paint.</p>
