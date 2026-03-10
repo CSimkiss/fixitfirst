@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import MobileNav from '@/components/MobileNav'
 import EmailCapture from '@/components/EmailCapture'
@@ -24,10 +24,30 @@ const guides = [
 
 const categories = ["All", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
 
+const FEATURED_GUIDE = {
+  title: 'Fix a dripping tap',
+  saves: 'Save £80–150 today',
+  time: '45 mins',
+  cost: '£2–5',
+  level: 'Beginner',
+  category: 'Plumbing',
+  href: '/guides/fix-a-dripping-tap',
+  difficulty: 2,
+  description: 'A dripping tap wastes 5,500 litres of water a year. One £2 rubber washer fixes it. This is the perfect first plumbing job.',
+}
+
 export default function Home() {
   const router = useRouter()
   const [query, setQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
+  const [showFirstTimeBanner, setShowFirstTimeBanner] = useState(false)
+
+  useEffect(() => {
+    try {
+      const done = localStorage.getItem('fixitfirst-onboarding-complete')
+      if (!done) setShowFirstTimeBanner(true)
+    } catch {}
+  }, [])
 
   const filteredGuides = activeCategory === 'All' ? guides : guides.filter(g => g.category === activeCategory)
 
@@ -40,6 +60,32 @@ export default function Home() {
     <main className="min-h-screen bg-white pb-20 md:pb-0">
 
       <Onboarding />
+
+      {showFirstTimeBanner && (
+        <div className="bg-blue-600 text-white px-6 py-4">
+          <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🏠</span>
+              <div>
+                <p className="font-semibold">First time in your own place?</p>
+                <p className="text-blue-100 text-sm">Welcome! We'll walk you through the basics — no experience needed.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <a href="/tier-1" className="bg-white text-blue-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-50 transition-colors">
+                Start here →
+              </a>
+              <button
+                onClick={() => setShowFirstTimeBanner(false)}
+                className="text-blue-200 hover:text-white text-xl leading-none"
+                aria-label="Dismiss"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Nav />
 
@@ -93,6 +139,40 @@ export default function Home() {
       <div className="px-6 py-4 max-w-5xl mx-auto">
         <CompletedTicker />
       </div>
+
+      {/* This week's featured fix */}
+      <section className="px-6 py-8 max-w-5xl mx-auto">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Featured fix this week</span>
+        </div>
+        <a
+          href={FEATURED_GUIDE.href}
+          className="block border-2 border-orange-200 rounded-2xl p-6 hover:border-orange-400 hover:shadow-lg transition-all group bg-orange-50"
+        >
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-2 flex-wrap">
+                <span className="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full font-medium">{FEATURED_GUIDE.category}</span>
+                <DifficultyMeter level={FEATURED_GUIDE.difficulty} />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors mb-1">{FEATURED_GUIDE.title}</h2>
+              <p className="text-3xl font-black text-green-600 mb-3">{FEATURED_GUIDE.saves}</p>
+              <p className="text-gray-600 text-sm mb-4 max-w-xl">{FEATURED_GUIDE.description}</p>
+              <div className="flex gap-4 text-sm text-gray-500 flex-wrap">
+                <span>⏱ {FEATURED_GUIDE.time}</span>
+                <span>💰 {FEATURED_GUIDE.cost}</span>
+                <span className="bg-green-50 text-green-700 px-2 py-0.5 rounded-full text-xs font-medium">{FEATURED_GUIDE.level}</span>
+              </div>
+            </div>
+            <div className="flex-shrink-0 hidden sm:block">
+              <div className="w-20 h-20 bg-orange-500 rounded-2xl flex items-center justify-center text-4xl">🔧</div>
+            </div>
+          </div>
+          <div className="mt-5 inline-flex items-center gap-2 text-orange-600 font-semibold text-sm group-hover:gap-3 transition-all">
+            Read the guide <span>→</span>
+          </div>
+        </a>
+      </section>
 
       <section className="px-6 py-12 max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
