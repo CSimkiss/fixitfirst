@@ -3,12 +3,12 @@ export default function Home() {
     { title: "Fix a dripping tap", time: "45 mins", cost: "0-5", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-dripping-tap" },
     { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry" },
     { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating" },
-    { title: "Unblock a drain", time: "20 mins", cost: "0-10", level: "Beginner", category: "Plumbing" },
-    { title: "Bleed a radiator", time: "15 mins", cost: "Free", level: "Beginner", category: "Heating" },
-    { title: "Fill a hole in a wall", time: "30 mins", cost: "5", level: "Beginner", category: "Masonry" },
-    { title: "Fit a curtain pole", time: "45 mins", cost: "0-15", level: "Beginner", category: "Fitting" },
-    { title: "Change a lightbulb", time: "5 mins", cost: "5-15", level: "Beginner", category: "Electrics" },
-    { title: "Fix a running toilet", time: "1 hour", cost: "10-25", level: "Beginner", category: "Plumbing" },
+    { title: "Unblock a drain", time: "20 mins", cost: "0-10", level: "Beginner", category: "Plumbing", href: "/guides/unblock-a-drain" },
+    { title: "Bleed a radiator", time: "15 mins", cost: "Free", level: "Beginner", category: "Heating", href: "/guides/bleed-a-radiator" },
+    { title: "Fill a hole in a wall", time: "30 mins", cost: "5", level: "Beginner", category: "Masonry", href: "/guides/fill-a-hole-in-a-wall" },
+    { title: "Fit a curtain pole", time: "45 mins", cost: "0-15", level: "Beginner", category: "Fitting", href: "/guides/fit-a-curtain-pole" },
+    { title: "Change a lightbulb", time: "5 mins", cost: "5-15", level: "Beginner", category: "Electrics", href: "/guides/change-a-lightbulb" },
+    { title: "Fix a running toilet", time: "1 hour", cost: "10-25", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-running-toilet" },
   ]
 
   const categories = ["All", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
