@@ -1,24 +1,43 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import MobileNav from '@/components/MobileNav'
 import EmailCapture from '@/components/EmailCapture'
 import Nav from '@/components/Nav'
+import Onboarding from '@/components/Onboarding'
+import RecentlyViewed from '@/components/RecentlyViewed'
+
+const guides = [
+  { title: "Fix a dripping tap", time: "45 mins", cost: "0-5", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-dripping-tap" },
+  { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry", href: "/guides/put-up-shelves" },
+  { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating", href: "/guides/paint-a-room" },
+  { title: "Unblock a drain", time: "20 mins", cost: "0-10", level: "Beginner", category: "Plumbing", href: "/guides/unblock-a-drain" },
+  { title: "Bleed a radiator", time: "15 mins", cost: "Free", level: "Beginner", category: "Heating", href: "/guides/bleed-a-radiator" },
+  { title: "Fill a hole in a wall", time: "30 mins", cost: "5", level: "Beginner", category: "Masonry", href: "/guides/fill-a-hole-in-a-wall" },
+  { title: "Fit a curtain pole", time: "45 mins", cost: "0-15", level: "Beginner", category: "Fitting", href: "/guides/fit-a-curtain-pole" },
+  { title: "Change a lightbulb", time: "5 mins", cost: "5-15", level: "Beginner", category: "Electrics", href: "/guides/change-a-lightbulb" },
+  { title: "Fix a running toilet", time: "1 hour", cost: "10-25", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-running-toilet" },
+]
+
+const categories = ["All", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
 
 export default function Home() {
-  const guides = [
-    { title: "Fix a dripping tap", time: "45 mins", cost: "0-5", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-dripping-tap" },
-    { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry", href: "/guides/put-up-shelves" },
-    { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating", href: "/guides/paint-a-room" },
-    { title: "Unblock a drain", time: "20 mins", cost: "0-10", level: "Beginner", category: "Plumbing", href: "/guides/unblock-a-drain" },
-    { title: "Bleed a radiator", time: "15 mins", cost: "Free", level: "Beginner", category: "Heating", href: "/guides/bleed-a-radiator" },
-    { title: "Fill a hole in a wall", time: "30 mins", cost: "5", level: "Beginner", category: "Masonry", href: "/guides/fill-a-hole-in-a-wall" },
-    { title: "Fit a curtain pole", time: "45 mins", cost: "0-15", level: "Beginner", category: "Fitting", href: "/guides/fit-a-curtain-pole" },
-    { title: "Change a lightbulb", time: "5 mins", cost: "5-15", level: "Beginner", category: "Electrics", href: "/guides/change-a-lightbulb" },
-    { title: "Fix a running toilet", time: "1 hour", cost: "10-25", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-running-toilet" },
-  ]
+  const router = useRouter()
+  const [query, setQuery] = useState('')
+  const [activeCategory, setActiveCategory] = useState('All')
 
-  const categories = ["All", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
+  const filteredGuides = activeCategory === 'All' ? guides : guides.filter(g => g.category === activeCategory)
+
+  function handleSearch() {
+    const q = query.trim()
+    if (q) router.push(`/search?q=${encodeURIComponent(q)}`)
+  }
 
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
+
+      <Onboarding />
 
       <Nav />
 
@@ -31,14 +50,28 @@ export default function Home() {
           <div className="relative max-w-xl mx-auto">
             <input
               type="text"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleSearch()}
               placeholder="What needs fixing? e.g. dripping tap..."
               className="w-full bg-white text-gray-900 rounded-xl px-5 py-4 text-lg pr-16 focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
-            <button className="absolute right-3 top-3 bg-orange-500 text-white px-4 py-2 rounded-lg font-medium">Go</button>
+            <button
+              onClick={handleSearch}
+              className="absolute right-3 top-3 bg-orange-500 text-white px-4 py-2 rounded-lg font-medium"
+            >
+              Go
+            </button>
           </div>
           <div className="flex gap-2 mt-5 flex-wrap justify-center">
             {["Dripping tap", "Blocked drain", "No hot water", "Leaking toilet", "Paint a room"].map((q) => (
-              <span key={q} className="bg-white/10 text-white px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-white/20 border border-white/20">{q}</span>
+              <span
+                key={q}
+                onClick={() => router.push(`/search?q=${encodeURIComponent(q)}`)}
+                className="bg-white/10 text-white px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-white/20 border border-white/20"
+              >
+                {q}
+              </span>
             ))}
           </div>
         </div>
@@ -53,6 +86,8 @@ export default function Home() {
         </div>
       </section>
 
+      <RecentlyViewed />
+
       <section className="px-6 py-16 max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Popular Guides</h2>
@@ -60,13 +95,17 @@ export default function Home() {
         </div>
         <div className="flex gap-2 mb-8 flex-wrap">
           {categories.map((cat) => (
-            <button key={cat} className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${cat === "All" ? "bg-orange-500 text-white border-orange-500" : "bg-white text-gray-600 border-gray-200 hover:border-orange-300"}`}>
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${cat === activeCategory ? "bg-orange-500 text-white border-orange-500" : "bg-white text-gray-600 border-gray-200 hover:border-orange-300"}`}
+            >
               {cat}
             </button>
           ))}
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {guides.map((guide) => {
+          {filteredGuides.map((guide) => {
             const cardClass = "border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md cursor-pointer transition-all group"
             const cardContent = <>
               <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">{guide.category}</span>

@@ -5,6 +5,7 @@ import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
 
 export const metadata: Metadata = {
   title: 'How to Paint a Room | FixItFirst',
@@ -90,6 +91,7 @@ export default function PaintARoom() {
         </div>
         <CompleteButton />
       </div>
+      <RecentViewTracker slug="paint-a-room" title="Paint a room" href="/guides/paint-a-room" />
       <MobileNav />
     </main>
   )

@@ -5,6 +5,7 @@ import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
 
 export const metadata: Metadata = {
   title: 'How to Bleed a Radiator | FixItFirst',
@@ -74,6 +75,7 @@ export default function BleedARadiator() {
         </div>
         <CompleteButton />
       </div>
+      <RecentViewTracker slug="bleed-a-radiator" title="Bleed a radiator" href="/guides/bleed-a-radiator" />
       <MobileNav />
     </main>
   )

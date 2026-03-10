@@ -5,6 +5,7 @@ import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
 
 export const metadata: Metadata = {
   title: 'Fix a Dripping Tap | FixItFirst',
@@ -82,6 +83,7 @@ export default function DrippingTap() {
         </div>
         <CompleteButton />
       </div>
+      <RecentViewTracker slug="fix-a-dripping-tap" title="Fix a dripping tap" href="/guides/fix-a-dripping-tap" />
       <MobileNav />
     </main>
   )
