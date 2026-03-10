@@ -9,6 +9,8 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'How to Change a Lightbulb | FixItFirst',
@@ -32,11 +34,15 @@ export default function ChangeALightbulb() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Change a lightbulb</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £60–100 today</p>
-        <p className="text-gray-500 mb-6">5 mins · Beginner · Saves £60-100 vs an electrician</p>
+        
+<p className="text-gray-500 mb-6">5 mins · Beginner · Saves £60-100 vs an electrician</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['change-a-lightbulb'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Change a lightbulb" />
-          <PrintButton />
+          
+<PrintButton />
         </div>
+        <DifficultyComparison slug="change-a-lightbulb" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Changing a bulb is safe as long as the light is switched off and the bulb has cooled down. No tools needed.</p>

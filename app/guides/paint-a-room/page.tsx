@@ -9,6 +9,8 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'How to Paint a Room | FixItFirst',
@@ -32,11 +34,15 @@ export default function PaintARoom() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Paint a room</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £200–500 today</p>
-        <p className="text-gray-500 mb-6">1 day · Beginner · Saves £200-500 vs a decorator</p>
+        
+<p className="text-gray-500 mb-6">1 day · Beginner · Saves £200-500 vs a decorator</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['paint-a-room'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Paint a room" />
-          <PrintButton />
+          
+<PrintButton />
         </div>
+        <DifficultyComparison slug="paint-a-room" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Good preparation is 80% of a professional-looking paint job. Rushing the prep is the number one reason DIY painting looks amateur.</p>
