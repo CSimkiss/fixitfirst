@@ -6,6 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
+import ShareButton from '@/components/ShareButton'
+import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
   title: 'How to Put Up Shelves | FixItFirst',
@@ -28,7 +30,12 @@ export default function PutUpShelves() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Put up shelves</h1>
+        <p className="text-4xl font-black text-green-600 mb-1">Save £50–80 today</p>
         <p className="text-gray-500 mb-6">1 hour · Beginner · Saves £50-80 vs a handyman</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <ShareButton />
+          <PrintButton />
+        </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">This guide covers fitting a floating shelf or bracket-mounted shelf on a solid or plasterboard wall.</p>
