@@ -1,6 +1,6 @@
 export default function Home() {
   const guides = [
-    { title: "Fix a dripping tap", time: "45 mins", cost: "0-5", level: "Beginner", category: "Plumbing" },
+    { title: "Fix a dripping tap", time: "45 mins", cost: "0-5", level: "Beginner", category: "Plumbing", href: "/guides/fix-a-dripping-tap" },
     { title: "Put up shelves", time: "1 hour", cost: "10-20", level: "Beginner", category: "Carpentry" },
     { title: "Paint a room", time: "1 day", cost: "30-60", level: "Beginner", category: "Decorating" },
     { title: "Unblock a drain", time: "20 mins", cost: "0-10", level: "Beginner", category: "Plumbing" },
@@ -74,8 +74,9 @@ export default function Home() {
           ))}
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {guides.map((guide) => (
-            <div key={guide.title} className="border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md cursor-pointer transition-all group">
+          {guides.map((guide) => {
+            const cardClass = "border border-gray-200 rounded-xl p-5 hover:border-orange-300 hover:shadow-md cursor-pointer transition-all group"
+            const cardContent = <>
               <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">{guide.category}</span>
               <h3 className="font-semibold text-gray-900 my-3 group-hover:text-orange-500 transition-colors">{guide.title}</h3>
               <div className="flex gap-4 text-sm text-gray-500 mb-3">
@@ -83,8 +84,11 @@ export default function Home() {
                 <span>£{guide.cost}</span>
               </div>
               <span className="inline-block bg-green-50 text-green-700 text-s px-2 py-1 rounded-full">{guide.level}</span>
-            </div>
-          ))}
+            </>
+            return guide.href
+              ? <a key={guide.title} href={guide.href} className={cardClass}>{cardContent}</a>
+              : <div key={guide.title} className={cardClass}>{cardContent}</div>
+          })}
         </div>
       </section>
 
