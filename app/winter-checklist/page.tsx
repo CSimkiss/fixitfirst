@@ -72,7 +72,7 @@ export default function WinterChecklist() {
   const done = checked.size
   const percent = Math.round((done / total) * 100)
 
-  const categories = [...new Set(CHECKLIST.map(i => i.category))]
+  const categories = Array.from(new Set(CHECKLIST.map(i => i.category)))
 
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
