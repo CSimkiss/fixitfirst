@@ -6,7 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
-import ShareButton from '@/components/ShareButton'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function DrippingTap() {
         <p className="text-4xl font-black text-green-600 mb-1">Save £80–150 today</p>
         <p className="text-gray-500 mb-6">45 mins · Beginner · Saves £80-150 vs a plumber</p>
         <div className="flex gap-3 flex-wrap mb-6">
-          <ShareButton />
+          <SocialShare title="Fix a dripping tap" />
           <PrintButton />
         </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
@@ -89,6 +90,7 @@ export default function DrippingTap() {
           <p className="text-sm text-orange-900">You now understand how taps work, how isolation valves work, and how to replace washers. These skills transfer to replacing a full tap and fixing a running toilet.</p>
         </div>
         <CompleteButton />
+        <GuideExtras slug="fix-a-dripping-tap" />
       </div>
       <RecentViewTracker slug="fix-a-dripping-tap" title="Fix a dripping tap" href="/guides/fix-a-dripping-tap" />
       <MobileNav />

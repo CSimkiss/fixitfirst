@@ -6,7 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
-import ShareButton from '@/components/ShareButton'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function PaintARoom() {
         <p className="text-4xl font-black text-green-600 mb-1">Save £200–500 today</p>
         <p className="text-gray-500 mb-6">1 day · Beginner · Saves £200-500 vs a decorator</p>
         <div className="flex gap-3 flex-wrap mb-6">
-          <ShareButton />
+          <SocialShare title="Paint a room" />
           <PrintButton />
         </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
@@ -97,6 +98,7 @@ export default function PaintARoom() {
           <p className="text-sm text-orange-900">You now know how to prepare, cut in, and roll a wall to a professional standard. These skills transfer to painting ceilings, woodwork, and eventually more advanced techniques like colour blocking and feature walls.</p>
         </div>
         <CompleteButton />
+        <GuideExtras slug="paint-a-room" />
       </div>
       <RecentViewTracker slug="paint-a-room" title="Paint a room" href="/guides/paint-a-room" />
       <MobileNav />

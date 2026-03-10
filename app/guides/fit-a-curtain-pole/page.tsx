@@ -6,7 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
-import ShareButton from '@/components/ShareButton'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function FitACurtainPole() {
         <p className="text-4xl font-black text-green-600 mb-1">Save £50–80 today</p>
         <p className="text-gray-500 mb-6">45 mins · Beginner · Saves £50-80 vs a handyman</p>
         <div className="flex gap-3 flex-wrap mb-6">
-          <ShareButton />
+          <SocialShare title="Fit a curtain pole" />
           <PrintButton />
         </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
@@ -93,6 +94,7 @@ export default function FitACurtainPole() {
           <p className="text-sm text-orange-900">You now know how to use a drill, read wall types, and fix things securely to a wall. These skills transfer to hanging shelves, fitting blinds, and mounting a TV bracket.</p>
         </div>
         <CompleteButton />
+        <GuideExtras slug="fit-a-curtain-pole" />
       </div>
       <RecentViewTracker slug="fit-a-curtain-pole" title="Fit a curtain pole" href="/guides/fit-a-curtain-pole" />
       <MobileNav />

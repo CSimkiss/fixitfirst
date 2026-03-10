@@ -6,7 +6,8 @@ import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
-import ShareButton from '@/components/ShareButton'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function FillAHoleInAWall() {
         <p className="text-4xl font-black text-green-600 mb-1">Save £50–100 today</p>
         <p className="text-gray-500 mb-6">30 mins · Beginner · Saves £50-100 vs a tradesperson</p>
         <div className="flex gap-3 flex-wrap mb-6">
-          <ShareButton />
+          <SocialShare title="Fill a hole in a wall" />
           <PrintButton />
         </div>
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
@@ -89,6 +90,7 @@ export default function FillAHoleInAWall() {
           <p className="text-sm text-orange-900">You now understand how wall filler works and how to apply it cleanly. These skills transfer to skimming larger areas, repairing cracks in ceilings, and preparing walls for decorating.</p>
         </div>
         <CompleteButton />
+        <GuideExtras slug="fill-a-hole-in-a-wall" />
       </div>
       <RecentViewTracker slug="fill-a-hole-in-a-wall" title="Fill a hole in a wall" href="/guides/fill-a-hole-in-a-wall" />
       <MobileNav />

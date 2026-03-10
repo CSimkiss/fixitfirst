@@ -8,6 +8,7 @@ import Nav from '@/components/Nav'
 import Onboarding from '@/components/Onboarding'
 import RecentlyViewed from '@/components/RecentlyViewed'
 import DifficultyMeter from '@/components/DifficultyMeter'
+import CompletedTicker from '@/components/CompletedTicker'
 
 const guides = [
   { title: "Fix a dripping tap",    time: "45 mins", cost: "£2–5",   level: "Beginner", category: "Plumbing",   href: "/guides/fix-a-dripping-tap",    difficulty: 2, saves: "Save £80–150 today" },
@@ -89,7 +90,11 @@ export default function Home() {
 
       <RecentlyViewed />
 
-      <section className="px-6 py-16 max-w-5xl mx-auto">
+      <div className="px-6 py-4 max-w-5xl mx-auto">
+        <CompletedTicker />
+      </div>
+
+      <section className="px-6 py-12 max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Popular Guides</h2>
           <a href="/guides" className="text-orange-500 text-sm font-medium hover:underline">View all guides →</a>
