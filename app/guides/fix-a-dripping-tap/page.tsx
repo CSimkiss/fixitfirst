@@ -95,6 +95,7 @@ export default function DrippingTap() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how taps work, how isolation valves work, and how to replace washers. These skills transfer to replacing a full tap and fixing a running toilet.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fix-a-dripping-tap'].completedCount.toLocaleString()} people</p>
         <CompleteButton />
         <GuideExtras slug="fix-a-dripping-tap" />
       </div>

@@ -87,6 +87,7 @@ export default function BleedARadiator() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how central heating systems circulate water and why air gets trapped. These skills transfer to balancing radiators and maintaining your boiler pressure.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['bleed-a-radiator'].completedCount.toLocaleString()} people</p>
         <CompleteButton />
         <GuideExtras slug="bleed-a-radiator" />
       </div>

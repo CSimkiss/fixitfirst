@@ -95,6 +95,7 @@ export default function FillAHoleInAWall() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how wall filler works and how to apply it cleanly. These skills transfer to skimming larger areas, repairing cracks in ceilings, and preparing walls for decorating.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fill-a-hole-in-a-wall'].completedCount.toLocaleString()} people</p>
         <CompleteButton />
         <GuideExtras slug="fill-a-hole-in-a-wall" />
       </div>

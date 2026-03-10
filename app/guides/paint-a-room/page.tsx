@@ -103,6 +103,7 @@ export default function PaintARoom() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to prepare, cut in, and roll a wall to a professional standard. These skills transfer to painting ceilings, woodwork, and eventually more advanced techniques like colour blocking and feature walls.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['paint-a-room'].completedCount.toLocaleString()} people</p>
         <CompleteButton />
         <GuideExtras slug="paint-a-room" />
       </div>

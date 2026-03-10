@@ -99,6 +99,7 @@ export default function UnblockADrain() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how drain blockages form and how to clear them using multiple techniques. These skills apply to any blocked sink, bath, or shower in your home.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['unblock-a-drain'].completedCount.toLocaleString()} people</p>
         <CompleteButton />
         <GuideExtras slug="unblock-a-drain" />
       </div>
