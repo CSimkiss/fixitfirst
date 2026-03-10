@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import MobileNav from '@/components/MobileNav'
 import GuidesGrid from '@/components/GuidesGrid'
+import Nav from '@/components/Nav'
 
 export const metadata: Metadata = {
   title: 'All DIY Guides | FixItFirst',
@@ -22,10 +23,7 @@ const guides = [
 export default function GuidesPage() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
-      <nav className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-        <a href="/" className="text-2xl font-bold text-orange-500">FixItFirst</a>
-        <button className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium">Get Started</button>
-      </nav>
+      <Nav />
 
       <div className="bg-gray-950 text-white px-6 py-14 text-center">
         <a href="/" className="text-sm text-gray-400 hover:text-orange-400 mb-4 inline-block">← Back to home</a>
