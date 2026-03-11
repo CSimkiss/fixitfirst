@@ -37,6 +37,15 @@ const guides = [
   { title: 'Fix a sticking drawer', time: '15 mins', cost: 'Free–£3', level: 'Beginner', category: 'Carpentry', href: '/guides/fix-a-sticking-drawer', saves: 'Save £30–50 today', difficulty: 1 },
   { title: 'Hang a picture frame properly', time: '20 mins', cost: '£2–6', level: 'Beginner', category: 'Carpentry', href: '/guides/hang-a-picture-frame', saves: 'Save £30–60 today', difficulty: 1 },
   { title: 'Fix a broken cabinet hinge', time: '20 mins', cost: 'Free–£10', level: 'Beginner', category: 'Carpentry', href: '/guides/fix-a-broken-cabinet-hinge', saves: 'Save £30–60 today', difficulty: 1 },
+
+  { title: 'Fill and sand a wall', time: '45 mins', cost: '£5–10', level: 'Beginner', category: 'Decorating', href: '/guides/fill-and-sand-a-wall', saves: 'Save £50–100 today', difficulty: 2 },
+  { title: 'Tile a splashback', time: 'Half a day', cost: '£30–80', level: 'Intermediate', category: 'Decorating', href: '/guides/tile-a-splashback', saves: 'Save £150–300 today', difficulty: 3 },
+  { title: 'Strip wallpaper', time: 'Half a day', cost: '£12–25', level: 'Beginner', category: 'Decorating', href: '/guides/strip-wallpaper', saves: 'Save £100–200 today', difficulty: 2 },
+  { title: 'Repair a crack in a ceiling', time: '1 hour', cost: '£6–22', level: 'Beginner', category: 'Decorating', href: '/guides/repair-a-ceiling-crack', saves: 'Save £80–150 today', difficulty: 2 },
+  { title: 'What to do if your boiler breaks down', time: '30 mins', cost: 'Free', level: 'Beginner', category: 'Heating', href: '/guides/boiler-breakdown', saves: 'Save £100–300 today', difficulty: 1 },
+  { title: 'Turn off your electricity at the fuse box', time: '5 mins', cost: 'Free', level: 'Beginner', category: 'Electrics', href: '/guides/turn-off-electricity-fuse-box', saves: 'Essential safety knowledge', difficulty: 1 },
+  { title: 'Read your energy meter', time: '5 mins', cost: 'Free', level: 'Beginner', category: 'General', href: '/guides/read-your-energy-meter', saves: 'Prevents overcharging', difficulty: 1 },
+  { title: 'Draft proof a door or window', time: '30 mins', cost: '£8–20', level: 'Beginner', category: 'General', href: '/guides/draft-proof-door-window', saves: 'Save £50–150 per year', difficulty: 1 },
 ]
 
 export default function GuidesPage() {
