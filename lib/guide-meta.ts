@@ -57,4 +57,52 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 1247,
     renterWarning: 'Landlords are legally responsible for keeping toilets in working order. Report it in writing first. If they fail to act within a reasonable time (14 days for non-emergencies), contact your local council\'s Environmental Health department.',
   },
+  'fix-a-leaking-pipe-joint': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar difficulty to fixing a dripping tap — the main skill is knowing when to stop tightening',
+    completedCount: 1842,
+    renterWarning: 'Landlords are legally responsible for fixing leaking pipes. Report it in writing first. If there is a risk of water damage and they do not act within 24 hours, contact Environmental Health.',
+  },
+  'replace-a-toilet-seat': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'One of the easiest jobs on the site — easier than bleeding a radiator',
+    completedCount: 2891,
+    renterWarning: 'Landlords are responsible for providing a working toilet seat. Report a broken seat in writing. Replacing it yourself is usually fine — but keep the receipt and tell your landlord, so it is not deducted from your deposit.',
+  },
+  'fix-low-water-pressure': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Easier than fixing a dripping tap — mostly investigation rather than physical work',
+    completedCount: 1347,
+    renterWarning: 'If low pressure is a whole-house issue, it is the landlord\'s responsibility to investigate and fix. Report it in writing. For single-tap issues, cleaning an aerator is a reasonable tenant repair.',
+  },
+  'unblock-a-toilet': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar to unblocking a drain — straightforward once you have the right plunger',
+    completedCount: 3421,
+    renterWarning: 'Landlords are responsible for maintaining drainage. However, if you caused the blockage (flushing wet wipes, nappies, etc.) you may be liable. Most standard blockages from normal use are the landlord\'s responsibility.',
+  },
+  'replace-a-shower-head': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'One of the easiest plumbing jobs — similar to changing a lightbulb',
+    completedCount: 4103,
+    renterWarning: 'A like-for-like shower head replacement is reasonable maintenance in most tenancies. Keep the old head and receipt, and let your landlord know if it was damaged to avoid deposit issues.',
+  },
+  'turn-off-water-mains': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'The easiest guide on the site — but one of the most important things to know',
+    completedCount: 5612,
+    renterWarning: 'Ask your landlord or letting agent where the stop cock is when you move in — this is a basic piece of information they should provide. Also ask about the external stop cock location.',
+  },
+  'repressurise-a-boiler': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Easier than bleeding a radiator — just opening valves and watching a gauge',
+    completedCount: 7823,
+    renterWarning: 'Repressurising a boiler is normal maintenance you can do yourself. If you need to do it more than once a month, report it to your landlord in writing — a persistent pressure drop means a leak that is their responsibility to fix.',
+  },
+  'fix-a-cold-radiator': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar to bleeding a radiator — this guide just covers more causes of the same problem',
+    completedCount: 5234,
+    renterWarning: 'Landlords are responsible for a functional heating system. Bleeding a radiator is reasonable self-maintenance. If a radiator is cold due to a faulty valve or sludge, report it in writing.',
+  },
 }
