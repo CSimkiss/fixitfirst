@@ -60,6 +60,15 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   'fix-a-sticking-drawer': [],
   'hang-a-picture-frame': ['hammer', 'tape-measure', 'spirit-level', 'cable-detector'],
   'fix-a-broken-cabinet-hinge': ['screwdriver-cross'],
+
+  'fill-and-sand-a-wall': ['filling-knife'],
+  'tile-a-splashback': ['spirit-level', 'tape-measure'],
+  'strip-wallpaper': ['filling-knife'],
+  'repair-a-ceiling-crack': ['filling-knife', 'step-ladder'],
+  'boiler-breakdown': [],
+  'turn-off-electricity-fuse-box': [],
+  'read-your-energy-meter': [],
+  'draft-proof-door-window': ['tape-measure'],
 }
 
 export const TOOLS_STORAGE_KEY = 'fixitfirst-owned-tools'

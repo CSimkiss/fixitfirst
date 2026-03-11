@@ -159,4 +159,52 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 2987,
     renterWarning: 'Cabinet hinges in a rented property are the landlord\'s responsibility to fix. Adjusting hinges is harmless maintenance; replacing a hinge is a minor repair your landlord should fund — report it in writing first.',
   },
+  'fill-and-sand-a-wall': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar difficulty to filling a hole in a wall — this guide just covers the full process in more detail',
+    completedCount: 3891,
+    renterWarning: 'Filling small nail holes when you leave is expected and helps protect your deposit. For larger holes, check your tenancy agreement — significant damage beyond fair wear and tear may be chargeable.',
+  },
+  'tile-a-splashback': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'More involved than filling and painting — but very achievable if you take it slowly',
+    completedCount: 1243,
+    renterWarning: 'Always get your landlord\'s written permission before tiling in a rented property. Tiling is a permanent change and removing tiles without permission will almost certainly cost you your deposit.',
+  },
+  'strip-wallpaper': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar effort to painting a room — more physical than technical',
+    completedCount: 2187,
+    renterWarning: 'Never strip wallpaper in a rented property without written permission from your landlord. If you expose damaged plaster underneath, you may be liable for the repair cost.',
+  },
+  'repair-a-ceiling-crack': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar to filling a hole in a wall — slightly harder because you are working overhead',
+    completedCount: 1654,
+    renterWarning: 'Report ceiling cracks to your landlord in writing, with a photo. Cosmetic hairline cracks are normal wear and tear. Larger cracks may indicate a problem the landlord needs to investigate.',
+  },
+  'boiler-breakdown': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'No physical work involved — this is a diagnostic guide',
+    completedCount: 4521,
+    renterWarning: 'A broken boiler in winter is an emergency. Landlords must fix heating and hot water within 24 hours in cold weather. Contact them immediately in writing, keep a record, and if they do not act, contact your local council Environmental Health team.',
+  },
+  'turn-off-electricity-fuse-box': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'The easiest guide on the site — but one of the most important',
+    completedCount: 4872,
+    renterWarning: 'Ask your landlord or letting agent where the consumer unit is when you move in. This is basic safety information they should provide. If the unit is locked in a communal area, ask for a key or access instructions.',
+  },
+  'read-your-energy-meter': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'One of the easiest guides on the site — anyone can do this in 2 minutes',
+    completedCount: 6341,
+    renterWarning: 'In a rented property, you are responsible for submitting your own meter readings to your energy supplier unless your rent includes bills. Ask your landlord who the supplier is when you move in and register as the account holder.',
+  },
+  'draft-proof-door-window': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Easier than filling a hole in a wall — this is mostly measuring and sticking',
+    completedCount: 3187,
+    renterWarning: 'Draft proofing with self-adhesive strips is reversible and does not damage the property — this is reasonable maintenance any tenant can do. For door sweeps that need screwing in, get your landlord\'s permission first.',
+  },
 }
