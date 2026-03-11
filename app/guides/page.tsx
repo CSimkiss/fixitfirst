@@ -18,6 +18,15 @@ const guides = [
   { title: 'Paint a room',          time: '1 day',   cost: '£30–60', level: 'Beginner', category: 'Decorating', href: '/guides/paint-a-room',          saves: 'Save £200–500 today', difficulty: 2 },
   { title: 'Fill a hole in a wall', time: '30 mins', cost: '£3–5',   level: 'Beginner', category: 'Masonry',    href: '/guides/fill-a-hole-in-a-wall', saves: 'Save £50–100 today',  difficulty: 2 },
   { title: 'Bleed a radiator',      time: '15 mins', cost: '£1–3',   level: 'Beginner', category: 'Heating',    href: '/guides/bleed-a-radiator',      saves: 'Save £50–80 today',   difficulty: 1 },
+
+  { title: 'Fix a leaking pipe joint', time: '30 mins', cost: '£3–8', level: 'Beginner', category: 'Plumbing', href: '/guides/fix-a-leaking-pipe-joint', saves: 'Save £60–120 today', difficulty: 2 },
+  { title: 'Replace a toilet seat', time: '20 mins', cost: '£15–40', level: 'Beginner', category: 'Plumbing', href: '/guides/replace-a-toilet-seat', saves: 'Save £40–80 today', difficulty: 1 },
+  { title: 'Fix low water pressure', time: '30 mins', cost: 'Free–£10', level: 'Beginner', category: 'Plumbing', href: '/guides/fix-low-water-pressure', saves: 'Save £60–100 today', difficulty: 1 },
+  { title: 'Unblock a toilet', time: '20 mins', cost: 'Free–£12', level: 'Beginner', category: 'Plumbing', href: '/guides/unblock-a-toilet', saves: 'Save £60–120 today', difficulty: 1 },
+  { title: 'Replace a shower head', time: '15 mins', cost: '£10–40', level: 'Beginner', category: 'Plumbing', href: '/guides/replace-a-shower-head', saves: 'Save £40–80 today', difficulty: 1 },
+  { title: 'Turn off your water mains', time: '5 mins', cost: 'Free', level: 'Beginner', category: 'Plumbing', href: '/guides/turn-off-water-mains', saves: 'Prevents flood damage', difficulty: 1 },
+  { title: 'Repressurise a boiler', time: '10 mins', cost: 'Free', level: 'Beginner', category: 'Heating', href: '/guides/repressurise-a-boiler', saves: 'Save £50–80 today', difficulty: 1 },
+  { title: 'Fix a cold radiator', time: '20 mins', cost: 'Free–£3', level: 'Beginner', category: 'Heating', href: '/guides/fix-a-cold-radiator', saves: 'Save £50–80 today', difficulty: 1 },
 ]
 
 export default function GuidesPage() {

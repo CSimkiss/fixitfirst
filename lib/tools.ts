@@ -41,6 +41,15 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   'fix-a-running-toilet': ['screwdriver-flat'],
   'paint-a-room': ['filling-knife', 'paintbrush', 'roller-tray'],
   'unblock-a-drain': ['plunger', 'rubber-gloves'],
+
+  'fix-a-leaking-pipe-joint': ['adjustable-spanner'],
+  'replace-a-toilet-seat': ['screwdriver-cross', 'pliers'],
+  'fix-low-water-pressure': ['adjustable-spanner'],
+  'unblock-a-toilet': ['plunger', 'rubber-gloves'],
+  'replace-a-shower-head': ['adjustable-spanner'],
+  'turn-off-water-mains': [],
+  'repressurise-a-boiler': [],
+  'fix-a-cold-radiator': ['bleed-key'],
 }
 
 export const TOOLS_STORAGE_KEY = 'fixitfirst-owned-tools'
