@@ -105,4 +105,58 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 5234,
     renterWarning: 'Landlords are responsible for a functional heating system. Bleeding a radiator is reasonable self-maintenance. If a radiator is cold due to a faulty valve or sludge, report it in writing.',
   },
+  'replace-a-plug-fuse': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'The easiest electrical job there is — no wiring involved',
+    completedCount: 9241,
+    renterWarning: 'Replacing a plug fuse is basic maintenance any tenant can do. If the appliance is one your landlord provided and it keeps blowing fuses, report it — a faulty appliance is their responsibility to replace.',
+  },
+  'reset-a-tripped-circuit-breaker': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Easier than changing a lightbulb — just finding the box and flicking a switch',
+    completedCount: 6187,
+    renterWarning: 'If the circuit keeps tripping, report it to your landlord in writing — it may indicate a wiring fault that is their responsibility to investigate. Do not ignore recurring trips.',
+  },
+  'replace-a-light-switch': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Slightly more involved than replacing a plug fuse — but still very manageable for a beginner',
+    completedCount: 3028,
+    renterWarning: 'Like-for-like switch replacement is generally acceptable, but always get your landlord\'s written agreement before doing any electrical work in a rented property. Keep a record of what you did.',
+  },
+  'fix-a-doorbell': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar difficulty to replacing a plug fuse — mostly fault-finding rather than wiring',
+    completedCount: 2143,
+    renterWarning: 'A broken doorbell is the landlord\'s responsibility to repair. Report it in writing. Battery replacement is reasonable tenant maintenance; anything beyond that should be the landlord\'s cost.',
+  },
+  'fix-a-squeaky-floorboard': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar to filling a hole in a wall — quick once you know the technique',
+    completedCount: 1876,
+    renterWarning: 'Report squeaky floorboards to your landlord in writing. Screwing down a floorboard is a minor repair — most landlords are fine with it, but get written permission before you start.',
+  },
+  'fix-a-sticking-door': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar to filling a hole in a wall — methodical more than technical',
+    completedCount: 2654,
+    renterWarning: 'Sticking doors are the landlord\'s responsibility to fix. Report it in writing. Tightening a loose hinge screw is fine; sanding the door should have the landlord\'s agreement first.',
+  },
+  'fix-a-sticking-drawer': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'One of the easiest jobs on the site — no tools required in most cases',
+    completedCount: 3312,
+    renterWarning: 'Sticking drawers in fitted furniture are the landlord\'s responsibility. Wax lubrication is harmless and fine for any tenant to do. Sanding should be agreed with the landlord first.',
+  },
+  'hang-a-picture-frame': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar to fitting a curtain pole — the measuring and levelling is the main skill',
+    completedCount: 5108,
+    renterWarning: 'Most tenancy agreements require written permission before drilling walls. Some landlords are relaxed about picture hooks; others are not. Ask before you drill. Use adhesive strips for lightweight frames to avoid the issue entirely.',
+  },
+  'fix-a-broken-cabinet-hinge': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Easier than fitting a curtain pole — no drilling required in most cases',
+    completedCount: 2987,
+    renterWarning: 'Cabinet hinges in a rented property are the landlord\'s responsibility to fix. Adjusting hinges is harmless maintenance; replacing a hinge is a minor repair your landlord should fund — report it in writing first.',
+  },
 }

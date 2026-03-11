@@ -27,6 +27,16 @@ const guides = [
   { title: 'Turn off your water mains', time: '5 mins', cost: 'Free', level: 'Beginner', category: 'Plumbing', href: '/guides/turn-off-water-mains', saves: 'Prevents flood damage', difficulty: 1 },
   { title: 'Repressurise a boiler', time: '10 mins', cost: 'Free', level: 'Beginner', category: 'Heating', href: '/guides/repressurise-a-boiler', saves: 'Save £50–80 today', difficulty: 1 },
   { title: 'Fix a cold radiator', time: '20 mins', cost: 'Free–£3', level: 'Beginner', category: 'Heating', href: '/guides/fix-a-cold-radiator', saves: 'Save £50–80 today', difficulty: 1 },
+
+  { title: 'Replace a plug fuse', time: '5 mins', cost: '£1–3', level: 'Beginner', category: 'Electrics', href: '/guides/replace-a-plug-fuse', saves: 'Save £30–60 today', difficulty: 1 },
+  { title: 'Reset a tripped circuit breaker', time: '10 mins', cost: 'Free', level: 'Beginner', category: 'Electrics', href: '/guides/reset-a-tripped-circuit-breaker', saves: 'Save £40–60 today', difficulty: 1 },
+  { title: 'Replace a light switch', time: '30 mins', cost: '£5–15', level: 'Beginner', category: 'Electrics', href: '/guides/replace-a-light-switch', saves: 'Save £60–100 today', difficulty: 2 },
+  { title: 'Fix a doorbell', time: '30 mins', cost: '£3–25', level: 'Beginner', category: 'Electrics', href: '/guides/fix-a-doorbell', saves: 'Save £40–80 today', difficulty: 1 },
+  { title: 'Fix a squeaky floorboard', time: '20 mins', cost: '£2–8', level: 'Beginner', category: 'Carpentry', href: '/guides/fix-a-squeaky-floorboard', saves: 'Save £40–60 today', difficulty: 1 },
+  { title: 'Fix a sticking door', time: '45 mins', cost: 'Free–£4', level: 'Beginner', category: 'Carpentry', href: '/guides/fix-a-sticking-door', saves: 'Save £50–80 today', difficulty: 2 },
+  { title: 'Fix a sticking drawer', time: '15 mins', cost: 'Free–£3', level: 'Beginner', category: 'Carpentry', href: '/guides/fix-a-sticking-drawer', saves: 'Save £30–50 today', difficulty: 1 },
+  { title: 'Hang a picture frame properly', time: '20 mins', cost: '£2–6', level: 'Beginner', category: 'Carpentry', href: '/guides/hang-a-picture-frame', saves: 'Save £30–60 today', difficulty: 1 },
+  { title: 'Fix a broken cabinet hinge', time: '20 mins', cost: 'Free–£10', level: 'Beginner', category: 'Carpentry', href: '/guides/fix-a-broken-cabinet-hinge', saves: 'Save £30–60 today', difficulty: 1 },
 ]
 
 export default function GuidesPage() {
