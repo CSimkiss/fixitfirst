@@ -10,6 +10,9 @@ import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import NextGuide from '@/components/NextGuide'
+import ConfidenceSelector from '@/components/ConfidenceSelector'
+import HelpfulRating from '@/components/HelpfulRating'
+import TimeTracker from '@/components/TimeTracker'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -75,7 +78,9 @@ export default function PutUpShelves() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['put-up-shelves']} />
-        <StepProgress steps={steps} />
+        <ConfidenceSelector slug="put-up-shelves" />
+        <StepProgress steps={steps} slug="put-up-shelves" />
+        <TimeTracker slug="put-up-shelves" totalMins={60} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Using standard wall plugs in plasterboard — they will pull straight out under load. Always use cavity anchors for hollow walls.</p>
@@ -107,6 +112,7 @@ export default function PutUpShelves() {
             <p className="text-sm text-amber-900">{GUIDE_META['put-up-shelves'].renterWarning}</p>
           </div>
         )}
+        <HelpfulRating slug="put-up-shelves" />
         <CompleteButton />
         <GuideExtras slug="put-up-shelves" />
         <NextGuide currentSlug="put-up-shelves" />
