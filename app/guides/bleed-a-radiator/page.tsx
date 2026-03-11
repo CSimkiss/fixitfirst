@@ -10,9 +10,6 @@ import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import NextGuide from '@/components/NextGuide'
-import ConfidenceSelector from '@/components/ConfidenceSelector'
-import HelpfulRating from '@/components/HelpfulRating'
-import TimeTracker from '@/components/TimeTracker'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -66,9 +63,7 @@ export default function BleedARadiator() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['bleed-a-radiator']} />
-        <ConfidenceSelector slug="bleed-a-radiator" />
         <StepProgress steps={steps} slug="bleed-a-radiator" />
-        <TimeTracker slug="bleed-a-radiator" totalMins={15} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Opening the valve too far and letting too much water out, dropping the boiler pressure.</p>
@@ -100,7 +95,6 @@ export default function BleedARadiator() {
             <p className="text-sm text-amber-900">{GUIDE_META['bleed-a-radiator'].renterWarning}</p>
           </div>
         )}
-        <HelpfulRating slug="bleed-a-radiator" />
         <CompleteButton />
         <GuideExtras slug="bleed-a-radiator" />
         <NextGuide currentSlug="bleed-a-radiator" />

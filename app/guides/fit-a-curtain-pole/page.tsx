@@ -10,9 +10,6 @@ import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import NextGuide from '@/components/NextGuide'
-import ConfidenceSelector from '@/components/ConfidenceSelector'
-import HelpfulRating from '@/components/HelpfulRating'
-import TimeTracker from '@/components/TimeTracker'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -78,9 +75,7 @@ export default function FitACurtainPole() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fit-a-curtain-pole']} />
-        <ConfidenceSelector slug="fit-a-curtain-pole" />
         <StepProgress steps={steps} slug="fit-a-curtain-pole" />
-        <TimeTracker slug="fit-a-curtain-pole" totalMins={45} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not checking for pipes and cables before drilling — always use a detector first.</p>
@@ -112,7 +107,6 @@ export default function FitACurtainPole() {
             <p className="text-sm text-amber-900">{GUIDE_META['fit-a-curtain-pole'].renterWarning}</p>
           </div>
         )}
-        <HelpfulRating slug="fit-a-curtain-pole" />
         <CompleteButton />
         <GuideExtras slug="fit-a-curtain-pole" />
         <NextGuide currentSlug="fit-a-curtain-pole" />
