@@ -71,7 +71,7 @@ export default function FillAHoleInAWall() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fill-a-hole-in-a-wall']} />
-        <StepProgress steps={steps} />
+        <StepProgress steps={steps} slug="fill-a-hole-in-a-wall" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Skipping the dampening step, causing the filler to crack as it dries.</p>

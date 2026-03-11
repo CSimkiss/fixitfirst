@@ -79,7 +79,7 @@ export default function PaintARoom() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['paint-a-room']} />
-        <StepProgress steps={steps} />
+        <StepProgress steps={steps} slug="paint-a-room" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Skipping the fill and sand step — every imperfection in the wall shows up under fresh paint.</p>

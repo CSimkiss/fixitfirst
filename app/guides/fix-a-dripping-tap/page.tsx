@@ -71,7 +71,7 @@ export default function DrippingTap() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-dripping-tap']} />
-        <StepProgress steps={steps} />
+        <StepProgress steps={steps} slug="fix-a-dripping-tap" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not turning water off fully before starting.</p>

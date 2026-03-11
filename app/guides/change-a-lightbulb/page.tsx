@@ -67,7 +67,7 @@ export default function ChangeALightbulb() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['change-a-lightbulb']} />
-        <StepProgress steps={steps} />
+        <StepProgress steps={steps} slug="change-a-lightbulb" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Touching a new halogen bulb with bare hands — oils from your skin cause hot spots that crack the glass.</p>

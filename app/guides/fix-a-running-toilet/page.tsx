@@ -67,7 +67,7 @@ export default function FixARunningToilet() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-running-toilet']} />
-        <StepProgress steps={steps} />
+        <StepProgress steps={steps} slug="fix-a-running-toilet" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not turning off the isolation valve before replacing the flapper, leading to water everywhere.</p>

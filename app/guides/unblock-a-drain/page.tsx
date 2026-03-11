@@ -75,7 +75,7 @@ export default function UnblockADrain() {
           </ul>
         </div>
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['unblock-a-drain']} />
-        <StepProgress steps={steps} />
+        <StepProgress steps={steps} slug="unblock-a-drain" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Using chemical drain cleaner at the same time as a plunger — the chemicals can splash back dangerously.</p>
