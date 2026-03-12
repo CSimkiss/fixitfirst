@@ -1,20 +1,45 @@
 'use client'
 
 import { useState } from 'react'
+import { supabase } from '@/lib/supabase'
 
-export default function EmailCapture() {
+interface EmailCaptureProps {
+  source?: string
+}
+
+export default function EmailCapture({ source = 'unknown' }: EmailCaptureProps) {
   const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'duplicate' | 'error'>('idle')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setStatus('loading')
+
+    const { error } = await supabase
+      .from('email_signups')
+      .insert({ email, source })
+
+    if (!error) {
+      setStatus('success')
+    } else if (error.code === '23505') {
+      setStatus('duplicate')
+    } else {
+      setStatus('error')
+    }
   }
 
-  if (submitted) {
+  if (status === 'success') {
     return (
       <p className="text-green-400 font-semibold text-lg">
-        ✓ You&apos;re on the list — we&apos;ll let you know when we launch.
+        ✓ You&apos;re in! First fix lands in your inbox soon.
+      </p>
+    )
+  }
+
+  if (status === 'duplicate') {
+    return (
+      <p className="text-blue-400 font-semibold text-lg">
+        ✓ You&apos;re already signed up!
       </p>
     )
   }
@@ -31,10 +56,14 @@ export default function EmailCapture() {
       />
       <button
         type="submit"
-        className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors whitespace-nowrap"
+        disabled={status === 'loading'}
+        className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors whitespace-nowrap disabled:opacity-70"
       >
-        Notify me
+        {status === 'loading' ? 'Saving…' : 'Notify me'}
       </button>
+      {status === 'error' && (
+        <p className="text-red-400 text-sm mt-1 w-full">Something went wrong. Please try again.</p>
+      )}
     </form>
   )
 }

@@ -97,7 +97,7 @@ export default function FindAProPage() {
           <p className="text-gray-300 text-sm mb-6">
             We&apos;re vetting tradespeople across the UK. Be first to search when it goes live.
           </p>
-          <EmailCapture />
+          <EmailCapture source="find-a-pro" />
         </div>
 
         {/* Why trust section */}
