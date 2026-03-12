@@ -261,7 +261,7 @@ export default function Home() {
           <p className="text-orange-400 text-sm font-semibold uppercase tracking-wide mb-4">Coming soon</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get notified when we launch</h2>
           <p className="text-gray-300 mb-8 text-lg">We&apos;re building something that will save you hundreds of pounds a year. Be the first to know.</p>
-          <EmailCapture />
+          <EmailCapture source="homepage" />
           <p className="text-gray-500 text-sm mt-4">No spam. Unsubscribe any time.</p>
         </div>
       </section>

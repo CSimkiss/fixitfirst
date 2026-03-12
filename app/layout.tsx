@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import StorageBanner from "@/components/StorageBanner";
+import NewsletterPopup from "@/components/NewsletterPopup";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <StorageBanner />
+        <NewsletterPopup />
       </body>
     </html>
   );

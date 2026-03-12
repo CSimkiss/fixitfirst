@@ -46,7 +46,7 @@ export default function NewsletterPage() {
             No fluff. No spam. Just practical DIY skills that save you money, delivered every Monday morning.
           </p>
           <div className="max-w-md mx-auto">
-            <EmailCapture />
+            <EmailCapture source="newsletter" />
           </div>
           <p className="text-gray-500 text-sm mt-4">Free forever. Unsubscribe any time with one click.</p>
         </div>
@@ -89,7 +89,7 @@ export default function NewsletterPage() {
         <div className="max-w-md mx-auto">
           <h2 className="text-2xl font-bold mb-4">Join thousands of readers</h2>
           <p className="text-gray-400 mb-8">Start getting better at this stuff from Monday.</p>
-          <EmailCapture />
+          <EmailCapture source="newsletter" />
         </div>
       </section>
 
