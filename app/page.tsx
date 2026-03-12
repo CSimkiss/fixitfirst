@@ -22,6 +22,16 @@ const guides = [
   { title: "Fit a curtain pole",    time: "45 mins", cost: "£0–15",  level: "Beginner", category: "Fitting",    href: "/guides/fit-a-curtain-pole",    difficulty: 2, saves: "Save £50–80 today" },
   { title: "Change a lightbulb",    time: "5 mins",  cost: "£5–15",  level: "Beginner", category: "Electrics",  href: "/guides/change-a-lightbulb",    difficulty: 1, saves: "Save £60–100 today" },
   { title: "Fix a running toilet",  time: "1 hour",  cost: "£10–25", level: "Beginner", category: "Plumbing",   href: "/guides/fix-a-running-toilet",  difficulty: 3, saves: "Save £80–150 today" },
+
+  { title: "Replace a plug fuse",              time: "5 mins",  cost: "£1–3",   level: "Beginner", category: "Electrics",  href: "/guides/replace-a-plug-fuse",              difficulty: 1, saves: "Save £30–60 today" },
+  { title: "Reset a tripped circuit breaker",  time: "10 mins", cost: "Free",   level: "Beginner", category: "Electrics",  href: "/guides/reset-a-tripped-circuit-breaker",  difficulty: 1, saves: "Save £40–60 today" },
+  { title: "Replace a light switch",           time: "30 mins", cost: "£3–15",  level: "Beginner", category: "Electrics",  href: "/guides/replace-a-light-switch",           difficulty: 2, saves: "Save £60–100 today" },
+  { title: "Fix a doorbell",                   time: "30 mins", cost: "£2–12",  level: "Beginner", category: "Electrics",  href: "/guides/fix-a-doorbell",                   difficulty: 1, saves: "Save £40–80 today" },
+  { title: "Fix a squeaky floorboard",         time: "20 mins", cost: "£2–8",   level: "Beginner", category: "Carpentry",  href: "/guides/fix-a-squeaky-floorboard",         difficulty: 1, saves: "Save £40–60 today" },
+  { title: "Fix a sticking door",              time: "45 mins", cost: "Free–£4",level: "Beginner", category: "Carpentry",  href: "/guides/fix-a-sticking-door",              difficulty: 2, saves: "Save £50–80 today" },
+  { title: "Fix a sticking drawer",            time: "15 mins", cost: "Free–£3",level: "Beginner", category: "Carpentry",  href: "/guides/fix-a-sticking-drawer",            difficulty: 1, saves: "Save £30–50 today" },
+  { title: "Hang a picture frame",             time: "20 mins", cost: "£2–6",   level: "Beginner", category: "Carpentry",  href: "/guides/hang-a-picture-frame",             difficulty: 1, saves: "Save £30–60 today" },
+  { title: "Fix a broken cabinet hinge",       time: "20 mins", cost: "Free–£8",level: "Beginner", category: "Carpentry",  href: "/guides/fix-a-broken-cabinet-hinge",       difficulty: 1, saves: "Save £30–60 today" },
 ]
 
 const categories = ["All", "⚡ Quick wins", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]

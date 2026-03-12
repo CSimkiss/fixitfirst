@@ -1,100 +1,133 @@
 import type { Metadata } from 'next'
-import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
-import MobileNav from '@/components/MobileNav'
-import Nav from '@/components/Nav'
-import ToolsWarning from '@/components/ToolsWarning'
-import { GUIDE_TOOLS } from '@/lib/tools'
-import RecentViewTracker from '@/components/RecentViewTracker'
-import SocialShare from '@/components/SocialShare'
-import GuideExtras from '@/components/GuideExtras'
-import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
-import DifficultyComparison from '@/components/DifficultyComparison'
-import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'Reset a Tripped Circuit Breaker | FixItFirst',
   description: 'Reset a tripped circuit breaker in 10 minutes. Step-by-step guide to your consumer unit — covers overloads, faults, and RCD trips. Save £40–60.',
 }
 
-const steps = [
-  { title: 'Find the consumer unit', description: 'Open the cover of your consumer unit (the grey or white box with rows of switches). Look for a breaker that has tripped to the middle or off position — it will be out of line with the others.' },
-  { title: 'Identify the circuit', description: 'The breakers are usually labelled — upstairs sockets, downstairs lights, etc. Knowing which one tripped tells you where to look for the cause.' },
-  { title: 'Reduce the load first', description: 'If the breaker tripped due to overload (too many appliances on one circuit), unplug several items from that circuit before resetting. Overloaded circuits are the most common cause.' },
-  { title: 'Reset the breaker', description: 'Push the switch firmly all the way to off, then back up to on. It should click and stay in the on position.' },
-  { title: 'Test the circuit', description: 'Turn on a light or plug in one appliance to confirm power is restored on that circuit.' },
-  { title: 'If it trips again', description: 'Unplug every appliance on that circuit one at a time, then reset. When the breaker stays up with one item unplugged, that item is faulty — do not use it.' },
-]
-
 export default function ResetATrippedCircuitBreaker() {
   return (
-    <main className="min-h-screen bg-white pb-20 md:pb-0">
-      <Nav />
+    <main className="min-h-screen bg-white">
+      <nav className="bg-white border-b border-gray-100 px-6 py-4 flex items-center sticky top-0 z-50">
+        <a href="/" className="text-2xl font-bold text-orange-500 mr-8">FixItFirst</a>
+        <div className="ml-auto">
+          <a href="/guides" className="text-sm text-gray-500 hover:text-orange-500">← All guides</a>
+        </div>
+      </nav>
+
       <div className="max-w-3xl mx-auto px-6 py-10">
-        <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
+        <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
+
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Reset a tripped circuit breaker</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £40–60 today</p>
-        <p className="text-gray-500 mb-6">10 mins · Beginner · Saves £40–60 vs an electrician</p>
-        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['reset-a-tripped-circuit-breaker'].lastUpdated}</p>
-        <div className="flex gap-3 flex-wrap mb-6">
-          <SocialShare title="Reset a tripped circuit breaker" />
-          <PrintButton />
-        </div>
-        <DifficultyComparison slug="reset-a-tripped-circuit-breaker" />
+        <p className="text-gray-500 mb-8">10 mins · Beginner · Saves £40–60 vs an electrician</p>
+
+        {/* Before you start */}
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
-          <p className="text-sm text-gray-700 mb-2">A tripped circuit breaker is a safety feature, not a fault. It has cut the power to protect your wiring. Resetting it takes 2 minutes.</p>
-          <p className="text-sm text-gray-700 mb-2">Your consumer unit (fuse box) is usually under the stairs, in the hallway, or in the kitchen. Open it and look for any switch that is in a different position to the others.</p>
+          <p className="text-sm text-gray-700 mb-2">A tripped breaker is your home's electrical safety system doing its job — it cut the power to protect you from an overload or fault. Resetting it takes seconds once you know why it tripped.</p>
+          <p className="text-sm text-gray-700">Your consumer unit (fuse box) is usually in a hallway, under the stairs, or in the kitchen. It is the grey or white box with rows of switches.</p>
         </div>
+
+        {/* Tools needed */}
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">
             <li className="flex items-start gap-3 text-sm">
               <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">No tools needed</span> — just your consumer unit</span>
+              <span><span className="font-medium">Nothing needed</span> — everything is already in your consumer unit</span>
             </li>
           </ul>
         </div>
-        {/* No tracked tools for this guide */}
-        <StepProgress steps={steps} slug="reset-a-tripped-circuit-breaker" />
+
+        {/* Steps */}
+        <div className="mb-8">
+          <h2 className="font-semibold text-gray-900 mb-4">Steps</h2>
+          <ol className="space-y-5">
+            <li className="flex gap-4">
+              <span className="flex-shrink-0 w-7 h-7 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5">1</span>
+              <div>
+                <p className="font-semibold text-gray-900 mb-1">Find the consumer unit</p>
+                <p className="text-sm text-gray-600">Open the cover of your consumer unit. Look for a breaker that has tripped to the middle or off position — it will be out of line with the others.</p>
+              </div>
+            </li>
+            <li className="flex gap-4">
+              <span className="flex-shrink-0 w-7 h-7 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5">2</span>
+              <div>
+                <p className="font-semibold text-gray-900 mb-1">Identify the circuit</p>
+                <p className="text-sm text-gray-600">The breakers are usually labelled — upstairs sockets, downstairs lights, etc. Knowing which one tripped tells you where to look for the cause.</p>
+              </div>
+            </li>
+            <li className="flex gap-4">
+              <span className="flex-shrink-0 w-7 h-7 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5">3</span>
+              <div>
+                <p className="font-semibold text-gray-900 mb-1">Reduce the load first</p>
+                <p className="text-sm text-gray-600">If the breaker tripped due to overload (too many appliances on one circuit), unplug several items from that circuit before resetting.</p>
+              </div>
+            </li>
+            <li className="flex gap-4">
+              <span className="flex-shrink-0 w-7 h-7 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5">4</span>
+              <div>
+                <p className="font-semibold text-gray-900 mb-1">Reset the breaker</p>
+                <p className="text-sm text-gray-600">Push the switch firmly all the way to off, then back up to on. It should click and stay in the on position.</p>
+              </div>
+            </li>
+            <li className="flex gap-4">
+              <span className="flex-shrink-0 w-7 h-7 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5">5</span>
+              <div>
+                <p className="font-semibold text-gray-900 mb-1">Test the circuit</p>
+                <p className="text-sm text-gray-600">Turn on a light or plug in one appliance to confirm power is restored on that circuit.</p>
+              </div>
+            </li>
+            <li className="flex gap-4">
+              <span className="flex-shrink-0 w-7 h-7 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5">6</span>
+              <div>
+                <p className="font-semibold text-gray-900 mb-1">If it trips again</p>
+                <p className="text-sm text-gray-600">Unplug every appliance on that circuit one at a time, then reset. When the breaker stays up with one item unplugged, that item is faulty — do not use it.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        {/* Where beginners go wrong */}
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
-          <p className="text-sm text-yellow-900 mb-2">Resetting without reducing the load — it will just trip again immediately.</p>
-          <p className="text-sm text-yellow-900 mb-2">Ignoring a breaker that keeps tripping — a recurring trip means a fault that needs an electrician.</p>
-          <p className="text-sm text-yellow-900">Confusing the RCD (the large test switch) with individual breakers — if the RCD has tripped, press Test and then reset it by pushing firmly up.</p>
+          <p className="text-sm text-yellow-900 mb-2">Resetting without removing the cause — if you are overloading the circuit, it will just trip again.</p>
+          <p className="text-sm text-yellow-900 mb-2">Ignoring a breaker that trips repeatedly — this indicates a faulty appliance or a wiring fault. Do not force it on.</p>
+          <p className="text-sm text-yellow-900">Confusing the main switch with a circuit breaker — the main switch controls all power; individual breakers control one circuit each.</p>
         </div>
+
+        {/* Stop and call a pro */}
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-red-800 mb-3">Stop and call a electrician if...</h2>
-          <p className="text-sm text-red-900 mb-1">The breaker will not stay on after resetting with all appliances unplugged</p>
+          <h2 className="font-semibold text-red-800 mb-3">Stop and call an electrician if...</h2>
+          <p className="text-sm text-red-900 mb-1">The breaker trips immediately every time you reset it with nothing plugged in</p>
           <p className="text-sm text-red-900 mb-1">There is a burning smell or scorch marks near the consumer unit</p>
-          <p className="text-sm text-red-900">The RCD will not reset and keeps tripping</p>
+          <p className="text-sm text-red-900">The RCD (the wider switch labelled with a T or test button) keeps tripping — this indicates an earth fault</p>
         </div>
+
+        {/* Cost breakdown */}
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
-            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Resetting yourself</span><span className="font-medium">Free</span></div>
-            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Electrician to investigate a fault</span><span className="font-medium">£80–150</span></div>
-            <div className="flex justify-between py-2"><span className="text-gray-600">Electrician emergency call-out</span><span className="font-medium text-red-600">£100–250</span></div>
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Resetting a tripped breaker</span><span className="font-medium">Free</span></div>
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Replacing a faulty appliance</span><span className="font-medium">Varies</span></div>
+            <div className="flex justify-between py-2"><span className="text-gray-600">Electrician to investigate a fault</span><span className="font-medium text-red-600">£40–60</span></div>
           </div>
         </div>
-        <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
+
+        {/* What you just learned */}
+        <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-8">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
-          <p className="text-sm text-orange-900">You now understand how your consumer unit works, what a trip means, and how to safely reset it. Knowing your circuit labels is one of the most useful things you can do as a homeowner.</p>
+          <p className="text-sm text-orange-900">You now know how your consumer unit works, how to identify which circuit has tripped, and how to safely restore power. This knowledge also helps you isolate circuits safely before doing any electrical work.</p>
         </div>
-        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['reset-a-tripped-circuit-breaker'].completedCount.toLocaleString()} people</p>
-        {GUIDE_META['reset-a-tripped-circuit-breaker'].renterWarning && (
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
-            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
-            <p className="text-sm text-amber-900">{GUIDE_META['reset-a-tripped-circuit-breaker'].renterWarning}</p>
-          </div>
-        )}
-        <CompleteButton />
-        <GuideExtras slug="reset-a-tripped-circuit-breaker" />
-        <NextGuide currentSlug="reset-a-tripped-circuit-breaker" />
+
+        <div className="border-t border-gray-100 pt-8 text-center">
+          <p className="text-sm text-gray-500 mb-4">Ready for another fix?</p>
+          <a href="/guides" className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors">
+            Browse all guides →
+          </a>
+        </div>
       </div>
-      <RecentViewTracker slug="reset-a-tripped-circuit-breaker" title="Reset a tripped circuit breaker" href="/guides/reset-a-tripped-circuit-breaker" />
-      <MobileNav />
     </main>
   )
 }
