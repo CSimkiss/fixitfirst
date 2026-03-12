@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
-import { COMPLETED_GUIDES_KEY } from '@/lib/progress'
 import { ALL_GUIDES } from '@/lib/guides'
+import { useCompletions } from '@/lib/useCompletions'
 
 // Midpoint savings per guide (from saves range)
 const GUIDE_SAVINGS: Record<string, { min: number; max: number; label: string }> = {
@@ -32,15 +32,8 @@ const GUIDE_EMOJIS: Record<string, string> = {
 }
 
 export default function SavingsTracker() {
-  const [completionMap, setCompletionMap] = useState<Record<string, string>>({})
-  const [mounted, setMounted] = useState(false)
+  const { completionMap, user, mounted } = useCompletions()
   const [shared, setShared] = useState(false)
-
-  useEffect(() => {
-    const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-    setCompletionMap(raw ? JSON.parse(raw) : {})
-    setMounted(true)
-  }, [])
 
   if (!mounted) return null
 
@@ -90,6 +83,25 @@ export default function SavingsTracker() {
       </div>
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
+
+        {/* Sign-in prompt for guests */}
+        {!user && (
+          <div className="flex items-start gap-4 bg-blue-50 border border-blue-200 rounded-2xl px-6 py-5">
+            <span className="text-2xl shrink-0">☁️</span>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-blue-900 mb-1">Sign in to save your progress across devices</p>
+              <p className="text-sm text-blue-700 mb-3">Your savings data is currently stored in this browser only. Sign in to sync it everywhere.</p>
+              <div className="flex gap-3 flex-wrap">
+                <a href="/sign-up" className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                  Create free account
+                </a>
+                <a href="/login" className="text-sm font-medium text-blue-600 hover:underline self-center">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Progress bar */}
         <div className="bg-gray-50 rounded-2xl p-6">

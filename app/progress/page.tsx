@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
-import { COMPLETED_GUIDES_KEY, TIERS, getTier, getStreak } from '@/lib/progress'
+import { TIERS, getTier, getStreak } from '@/lib/progress'
 import { ALL_GUIDES } from '@/lib/guides'
+import { useCompletions } from '@/lib/useCompletions'
 
 const CATEGORY_COLOURS: Record<string, string> = {
   Plumbing:   'bg-blue-50 text-blue-700',
@@ -17,14 +17,7 @@ const CATEGORY_COLOURS: Record<string, string> = {
 }
 
 export default function ProgressPage() {
-  const [completionMap, setCompletionMap] = useState<Record<string, string>>({})
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-    setCompletionMap(raw ? JSON.parse(raw) : {})
-    setMounted(true)
-  }, [])
+  const { completionMap, user, mounted } = useCompletions()
 
   if (!mounted) return null
 
@@ -77,6 +70,25 @@ export default function ProgressPage() {
             </p>
           </div>
         </div>
+
+        {/* Sign-in prompt for guests */}
+        {!user && (
+          <div className="flex items-start gap-4 bg-blue-50 border border-blue-200 rounded-2xl px-6 py-5">
+            <span className="text-2xl shrink-0">☁️</span>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-blue-900 mb-1">Sign in to save your progress across devices</p>
+              <p className="text-sm text-blue-700 mb-3">Your completions are currently saved to this browser only. Create a free account to sync them everywhere.</p>
+              <div className="flex gap-3 flex-wrap">
+                <a href="/sign-up" className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                  Create free account
+                </a>
+                <a href="/login" className="text-sm font-medium text-blue-600 hover:underline self-center">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Tier roadmap */}
         <div>
