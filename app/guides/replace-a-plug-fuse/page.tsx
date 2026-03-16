@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Replace a Plug Fuse | FixItFirst',
+  title: 'How to Replace a Plug Fuse | FixItFirst',
   description: 'Replace a plug fuse in 5 minutes. Step-by-step UK guide — covers fuse ratings, how to test a fuse, and what to do if it blows again. Save £30–60.',
+  openGraph: {
+    title: 'How to Replace a Plug Fuse | FixItFirst',
+    description: 'Replace a plug fuse in 5 minutes. Step-by-step UK guide — covers fuse ratings, how to test a fuse, and what to do if it blows again. Save £30–60.',
+    url: 'https://fixit-first.co.uk/guides/replace-a-plug-fuse',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

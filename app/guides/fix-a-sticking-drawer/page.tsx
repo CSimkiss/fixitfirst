@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Sticking Drawer | FixItFirst',
+  title: 'How to Fix a Sticking Drawer | FixItFirst',
   description: 'Fix a sticking drawer in 15 minutes with no tools. Step-by-step guide covering wooden runners, metal runners, and humidity swelling. Save £30–50.',
+  openGraph: {
+    title: 'How to Fix a Sticking Drawer | FixItFirst',
+    description: 'Fix a sticking drawer in 15 minutes with no tools. Step-by-step guide covering wooden runners, metal runners, and humidity swelling. Save £30–50.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-sticking-drawer',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

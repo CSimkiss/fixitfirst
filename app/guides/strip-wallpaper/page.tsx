@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Strip Wallpaper | FixItFirst',
   description: 'Strip wallpaper in half a day with the right tools and technique. Step-by-step beginner guide. Save £100–200 vs a decorator.',
+  openGraph: {
+    title: 'How to Strip Wallpaper | FixItFirst',
+    description: 'Strip wallpaper in half a day with the right tools and technique. Step-by-step beginner guide. Save £100–200 vs a decorator.',
+    url: 'https://fixit-first.co.uk/guides/strip-wallpaper',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

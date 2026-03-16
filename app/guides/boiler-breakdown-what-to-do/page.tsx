@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'What to Do When Your Boiler Breaks Down | FixItFirst',
   description: 'Diagnose a boiler breakdown in 30 minutes. Step-by-step guide — check pressure, error codes, pilot light, and when to call a Gas Safe engineer.',
+  openGraph: {
+    title: 'What to Do When Your Boiler Breaks Down | FixItFirst',
+    description: 'Diagnose a boiler breakdown in 30 minutes. Step-by-step guide — check pressure, error codes, pilot light, and when to call a Gas Safe engineer.',
+    url: 'https://fixit-first.co.uk/guides/boiler-breakdown-what-to-do',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

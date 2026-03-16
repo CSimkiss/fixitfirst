@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Dripping Tap | FixItFirst',
+  title: 'How to Fix a Dripping Tap | FixItFirst',
   description: 'Learn how to fix a dripping tap in 45 minutes. Step-by-step guide with a full tools list. Save £80–150 vs calling a plumber.',
+  openGraph: {
+    title: 'How to Fix a Dripping Tap | FixItFirst',
+    description: 'Learn how to fix a dripping tap in 45 minutes. Step-by-step guide with a full tools list. Save £80–150 vs calling a plumber.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-dripping-tap',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

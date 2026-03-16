@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Repressurise a Boiler | FixItFirst',
   description: 'Repressurise your boiler in 10 minutes. Step-by-step UK guide — covers finding the filling loop and reading the pressure gauge. Save £50–80.',
+  openGraph: {
+    title: 'How to Repressurise a Boiler | FixItFirst',
+    description: 'Repressurise your boiler in 10 minutes. Step-by-step UK guide — covers finding the filling loop and reading the pressure gauge. Save £50–80.',
+    url: 'https://fixit-first.co.uk/guides/repressurise-a-boiler',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

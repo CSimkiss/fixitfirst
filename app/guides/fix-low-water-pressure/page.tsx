@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix Low Water Pressure | FixItFirst',
+  title: 'How to Fix Low Water Pressure | FixItFirst',
   description: 'Diagnose and fix low water pressure at home in under 30 minutes. Covers aerators, stop valves, and when to call the water company. Save £60–100.',
+  openGraph: {
+    title: 'How to Fix Low Water Pressure | FixItFirst',
+    description: 'Diagnose and fix low water pressure at home in under 30 minutes. Covers aerators, stop valves, and when to call the water company. Save £60–100.',
+    url: 'https://fixit-first.co.uk/guides/fix-low-water-pressure',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

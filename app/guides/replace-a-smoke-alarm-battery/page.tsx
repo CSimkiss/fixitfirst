@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Replace a Smoke Alarm Battery | FixItFirst',
+  title: 'How to Replace a Smoke Alarm Battery | FixItFirst',
   description: 'Replace a smoke alarm battery in 5 minutes and silence the low-battery chirp. Essential home safety guide. UK recommendations included.',
+  openGraph: {
+    title: 'How to Replace a Smoke Alarm Battery | FixItFirst',
+    description: 'Replace a smoke alarm battery in 5 minutes and silence the low-battery chirp. Essential home safety guide. UK recommendations included.',
+    url: 'https://fixit-first.co.uk/guides/replace-a-smoke-alarm-battery',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

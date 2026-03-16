@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Leaking Garden Tap | FixItFirst',
+  title: 'How to Fix a Leaking Garden Tap | FixItFirst',
   description: 'Fix a leaking garden tap in 30 minutes. Step-by-step guide — covers the tap washer, gland packing, and back-plate connections. Save £60–100.',
+  openGraph: {
+    title: 'How to Fix a Leaking Garden Tap | FixItFirst',
+    description: 'Fix a leaking garden tap in 30 minutes. Step-by-step guide — covers the tap washer, gland packing, and back-plate connections. Save £60–100.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-garden-tap',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

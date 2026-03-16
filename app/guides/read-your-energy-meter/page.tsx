@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Read Your Energy Meter | FixItFirst',
   description: 'Read your gas and electricity meter correctly in under 5 minutes. Step-by-step UK guide. Submit regular readings to avoid estimated bills.',
+  openGraph: {
+    title: 'How to Read Your Energy Meter | FixItFirst',
+    description: 'Read your gas and electricity meter correctly in under 5 minutes. Step-by-step UK guide. Submit regular readings to avoid estimated bills.',
+    url: 'https://fixit-first.co.uk/guides/read-your-energy-meter',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Fix a Running Toilet | FixItFirst',
   description: 'How to stop a toilet that keeps running after flushing — covers float arm adjustment and flapper valve replacement. Save £80–150 vs a plumber.',
+  openGraph: {
+    title: 'How to Fix a Running Toilet | FixItFirst',
+    description: 'How to stop a toilet that keeps running after flushing — covers float arm adjustment and flapper valve replacement. Save £80–150 vs a plumber.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-running-toilet',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

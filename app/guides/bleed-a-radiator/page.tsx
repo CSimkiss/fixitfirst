@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Bleed a Radiator | FixItFirst',
   description: 'How to bleed a radiator in 15 minutes and fix cold spots at the top. Only tool needed costs £1. Save £50–80 vs a heating engineer.',
+  openGraph: {
+    title: 'How to Bleed a Radiator | FixItFirst',
+    description: 'How to bleed a radiator in 15 minutes and fix cold spots at the top. Only tool needed costs £1. Save £50–80 vs a heating engineer.',
+    url: 'https://fixit-first.co.uk/guides/bleed-a-radiator',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

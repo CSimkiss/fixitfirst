@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Repair a Crack in a Ceiling | FixItFirst',
   description: 'Repair a hairline or small crack in a ceiling in under an hour. Step-by-step beginner guide. Save £80–150 vs a decorator.',
+  openGraph: {
+    title: 'How to Repair a Crack in a Ceiling | FixItFirst',
+    description: 'Repair a hairline or small crack in a ceiling in under an hour. Step-by-step beginner guide. Save £80–150 vs a decorator.',
+    url: 'https://fixit-first.co.uk/guides/repair-a-ceiling-crack',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

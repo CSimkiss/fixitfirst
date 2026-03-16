@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Replace a Toilet Seat | FixItFirst',
+  title: 'How to Replace a Toilet Seat | FixItFirst',
   description: 'Replace a toilet seat in 20 minutes with no plumbing knowledge. Step-by-step guide. Save £40–80 vs calling a plumber.',
+  openGraph: {
+    title: 'How to Replace a Toilet Seat | FixItFirst',
+    description: 'Replace a toilet seat in 20 minutes with no plumbing knowledge. Step-by-step guide. Save £40–80 vs calling a plumber.',
+    url: 'https://fixit-first.co.uk/guides/replace-a-toilet-seat',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

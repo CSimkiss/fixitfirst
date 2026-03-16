@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'What to Do If Your Boiler Breaks Down | FixItFirst',
   description: 'Boiler broken? Work through this checklist before calling an engineer. Covers error codes, pressure, pilot light, and when to call for help.',
+  openGraph: {
+    title: 'What to Do If Your Boiler Breaks Down | FixItFirst',
+    description: 'Boiler broken? Work through this checklist before calling an engineer. Covers error codes, pressure, pilot light, and when to call for help.',
+    url: 'https://fixit-first.co.uk/guides/boiler-breakdown',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
