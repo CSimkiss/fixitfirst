@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
+import DashboardSkeleton from '@/components/DashboardSkeleton'
 import { useCompletions } from '@/lib/useCompletions'
 import { getTier, TIERS } from '@/lib/progress'
 import { ALL_GUIDES } from '@/lib/guides'
@@ -61,18 +62,13 @@ export default function DashboardPage() {
     if (!loading && !user) router.replace('/login')
   }, [loading, user, router])
 
-  // Show spinner while auth + data are loading — never a blank page
+  // Show skeleton while auth + data are loading — page structure appears instantly
   if (loading) {
     return (
-      <main className="min-h-screen bg-gray-50">
+      <main className="min-h-screen bg-gray-50 pb-20 md:pb-0">
         <Nav />
-        <div className="flex flex-col items-center justify-center py-32 gap-4 text-gray-400">
-          <svg className="w-8 h-8 animate-spin text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-          </svg>
-          <p className="text-sm">Loading your dashboard…</p>
-        </div>
+        <DashboardSkeleton />
+        <MobileNav />
       </main>
     )
   }
