@@ -1,12 +1,11 @@
 import { Resend } from 'resend'
 import { NextRequest, NextResponse } from 'next/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const FIRST_GUIDE_URL = 'https://fixitfirst.co.uk/guides/fix-a-dripping-tap'
 const FROM = 'FixItFirst <hello@fixitfirst.co.uk>'
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
   const { email } = await req.json()
 
   if (!email) {
