@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import StorageBanner from "@/components/StorageBanner";
 import NewsletterPopup from "@/components/NewsletterPopup";
+import CookieBanner from "@/components/CookieBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         <Footer />
         <StorageBanner />
         <NewsletterPopup />
+        <CookieBanner />
       </body>
     </html>
   );

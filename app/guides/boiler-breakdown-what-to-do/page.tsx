@@ -47,6 +47,9 @@ export default function BoilerBreakdownWhatToDo() {
           <p className="text-sm text-gray-700 mb-2">Many boiler "breakdowns" can be resolved without an engineer. Low pressure, a tripped thermostat, a frozen condensate pipe, or a simple reset fix the problem in around 30% of callouts.</p>
           <p className="text-sm text-gray-700">Never attempt to work on the gas supply itself. If you smell gas, leave the building immediately, call the National Gas Emergency Service on 0800 111 999, and do not return until they have given the all-clear.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

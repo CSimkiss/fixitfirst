@@ -49,6 +49,9 @@ export default function PutUpShelves() {
           <p className="text-sm text-gray-700 mb-2">This guide covers fitting a floating shelf or bracket-mounted shelf on a solid or plasterboard wall.</p>
           <p className="text-sm text-gray-700 mb-2">Before drilling, use a pipe and cable detector to check for hidden pipes and wires. You need a drill, spirit level, tape measure, pencil, and the fixings supplied with your shelf.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

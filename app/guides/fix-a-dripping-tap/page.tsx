@@ -49,6 +49,9 @@ export default function DrippingTap() {
           <p className="text-sm text-gray-700 mb-2">This fixes a tap that drips when fully closed.</p>
           <p className="text-sm text-gray-700 mb-2">Legal to DIY. Allowed in most rentals.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

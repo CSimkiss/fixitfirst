@@ -47,6 +47,9 @@ export default function ReplaceAShowerHead() {
           <p className="text-sm text-gray-700 mb-2">Replacing a shower head is one of the easiest plumbing jobs — in most cases you just unscrew the old one and screw on the new one.</p>
           <p className="text-sm text-gray-700 mb-2">Standard UK shower hoses use a universal ½-inch BSP connection. Any shower head from a hardware shop will fit. You do not need to turn off the water.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

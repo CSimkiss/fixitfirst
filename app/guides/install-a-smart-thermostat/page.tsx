@@ -47,6 +47,9 @@ export default function InstallASmartThermostat() {
           <p className="text-sm text-gray-700 mb-2">Smart thermostats save money by learning your schedule and adjusting heating automatically. Studies show average savings of £150–300 per year on heating bills compared to a standard thermostat.</p>
           <p className="text-sm text-gray-700">This is a job involving low-voltage heating wiring (not mains electrical wiring). It is legal to do yourself in the UK. The risk is low if you follow the manufacturer wiring diagram carefully.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

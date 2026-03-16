@@ -47,6 +47,9 @@ export default function ReplaceALightSwitch() {
           <p className="text-sm text-gray-700 mb-2">Replacing a light switch is one of the safest electrical jobs at home. Light switches carry low current, and the work is entirely at the switch — not at the consumer unit.</p>
           <p className="text-sm text-gray-700 mb-2">The critical rule: always turn off the power at the consumer unit before touching any wiring. Not just the switch itself — the actual circuit breaker.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

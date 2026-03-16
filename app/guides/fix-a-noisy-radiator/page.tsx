@@ -47,6 +47,9 @@ export default function FixANoisyRadiator() {
           <p className="text-sm text-gray-700 mb-2">Most radiator noises are caused by one of four things: trapped air (gurgling), thermal expansion (ticking), water hammer (banging), or a worn valve (hissing). Listen carefully to identify which type of noise you have — the fix is different for each.</p>
           <p className="text-sm text-gray-700">Some ticking when the heating first comes on is completely normal — metal expanding as it heats. The noise should stop once the system reaches temperature.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

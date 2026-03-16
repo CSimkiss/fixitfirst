@@ -47,6 +47,9 @@ export default function LayDeckingBoards() {
           <p className="text-sm text-gray-700 mb-2">Ground-level decking (under 600mm high, not attached to the house structure) does not require planning permission in England and Wales in most cases. Raised decks or those attached to the house may need Building Regulations approval — check with your local council if unsure.</p>
           <p className="text-sm text-gray-700">This guide covers ground-level or low-level deck construction with a timber joist frame. Allow one full day for a deck up to 20m². Larger or raised decks need more time and possibly professional structural help.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

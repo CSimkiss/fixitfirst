@@ -47,6 +47,9 @@ export default function RepressuriseABoiler() {
           <p className="text-sm text-gray-700 mb-2">If your boiler has an error code or your radiators are cold throughout the house, check the pressure gauge on the boiler front. If it reads below 1 bar, the system needs repressurising.</p>
           <p className="text-sm text-gray-700">This is a safe, straightforward job on any sealed central heating system (the most common type in UK homes). It takes 10 minutes.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

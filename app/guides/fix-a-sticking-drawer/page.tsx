@@ -47,6 +47,9 @@ export default function FixAStickingDrawer() {
           <p className="text-sm text-gray-700 mb-2">Most sticky drawers are caused by humidity making the wood swell, or grit and debris on the runners. Wax and a clean fixes it in minutes.</p>
           <p className="text-sm text-gray-700">Pull the drawer completely out first — look at the runners and the drawer sides. That tells you exactly what you are dealing with.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">
