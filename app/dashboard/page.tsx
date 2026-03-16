@@ -9,7 +9,70 @@ import { useCompletions } from '@/lib/useCompletions'
 import { getTier, TIERS } from '@/lib/progress'
 import { ALL_GUIDES } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
-import { TOOLS_STORAGE_KEY } from '@/lib/tools'
+import { ALL_TOOLS, GUIDE_TOOLS, TOOLS_STORAGE_KEY, type Tool } from '@/lib/tools'
+import { RETAILERS } from '@/lib/affiliates'
+
+// ─── ToolCard ─────────────────────────────────────────────────────────────────
+
+function ToolCard({
+  tool,
+  guideNames,
+  owned,
+}: {
+  tool: Tool
+  guideNames: string[]
+  owned: boolean
+}) {
+  return (
+    <div className={`bg-white border rounded-xl p-4 ${owned ? 'border-green-200' : 'border-gray-200'}`}>
+      {/* Name + category */}
+      <div className="flex items-start justify-between gap-2 mb-2">
+        <div>
+          <p className="font-semibold text-gray-900 text-sm leading-snug">{tool.name}</p>
+          <p className="text-xs text-gray-400 mt-0.5">{tool.category}</p>
+        </div>
+        {owned && (
+          <span className="shrink-0 text-xs font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">
+            Owned
+          </span>
+        )}
+      </div>
+
+      {/* Which guides need this tool */}
+      {guideNames.length > 0 ? (
+        <div className="flex flex-wrap gap-1 mb-3">
+          {guideNames.map(title => (
+            <span
+              key={title}
+              className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full leading-relaxed"
+            >
+              {title}
+            </span>
+          ))}
+        </div>
+      ) : (
+        <p className="text-xs text-gray-400 mb-3">Not required by any current guide</p>
+      )}
+
+      {/* Retailer pills */}
+      <div className="flex flex-wrap gap-1.5">
+        {RETAILERS.map(r => (
+          <a
+            key={r.id}
+            href={r.buildUrl(tool.name)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`text-xs font-semibold px-2.5 py-1 rounded-full ${r.bg} ${r.colour} hover:opacity-90 transition-opacity`}
+          >
+            {r.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 // Midpoint savings per guide (£)
 const SAVINGS_MIDPOINT: Record<string, number> = {
@@ -92,6 +155,19 @@ export default function DashboardPage() {
     (sum, slug) => sum + (ALL_GUIDES.find(g => g.slug === slug)?.skillPoints ?? 0),
     0,
   )
+
+  // Invert GUIDE_TOOLS: toolId → guide titles that need it
+  const toolToGuides: Record<string, string[]> = {}
+  for (const [slug, toolIds] of Object.entries(GUIDE_TOOLS)) {
+    const guide = ALL_GUIDES.find(g => g.slug === slug)
+    if (!guide) continue
+    for (const toolId of toolIds) {
+      ;(toolToGuides[toolId] ??= []).push(guide.title)
+    }
+  }
+
+  const ownedToolObjects  = ALL_TOOLS.filter(t =>  ownedTools.includes(t.id))
+  const neededToolObjects = ALL_TOOLS.filter(t => !ownedTools.includes(t.id))
 
   return (
     <main className="min-h-screen bg-gray-50 pb-20 md:pb-0">
@@ -226,6 +302,66 @@ export default function DashboardPage() {
               ))}
             </div>
           )}
+        </div>
+
+        {/* Tools */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-semibold text-gray-900">My tools</h2>
+            <a href="/tools" className="text-sm text-orange-500 hover:underline">Manage →</a>
+          </div>
+
+          {/* Tools you own */}
+          <div className="mb-8">
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+              ✅ Tools you own ({ownedToolObjects.length})
+            </h3>
+            {ownedToolObjects.length === 0 ? (
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
+                <p className="text-2xl mb-2">🔧</p>
+                <p className="text-sm">
+                  Visit{' '}
+                  <a href="/tools" className="text-orange-500 hover:underline">My Tools</a>
+                  {' '}to mark what you already own.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {ownedToolObjects.map(tool => (
+                  <ToolCard
+                    key={tool.id}
+                    tool={tool}
+                    guideNames={toolToGuides[tool.id] ?? []}
+                    owned
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Tools you still need */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+              🛒 Tools you still need ({neededToolObjects.length})
+            </h3>
+            {neededToolObjects.length === 0 ? (
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
+                <p className="text-2xl mb-2">🎉</p>
+                <p className="text-sm">You have everything you need for the guides!</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {neededToolObjects.map(tool => (
+                  <ToolCard
+                    key={tool.id}
+                    tool={tool}
+                    guideNames={toolToGuides[tool.id] ?? []}
+                    owned={false}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Quick links */}
