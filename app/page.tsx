@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import MobileNav from '@/components/MobileNav'
 import EmailCapture from '@/components/EmailCapture'
@@ -11,6 +11,9 @@ import DifficultyMeter from '@/components/DifficultyMeter'
 import CompletedTicker from '@/components/CompletedTicker'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import { ALL_GUIDES } from '@/lib/guides'
+
+// Derive the real count directly from the data so this never goes stale
+const GUIDE_COUNT = ALL_GUIDES.length
 
 const guides = [
   { title: "Fix a dripping tap",    time: "45 mins", cost: "£2–5",   level: "Beginner", category: "Plumbing",   href: "/guides/fix-a-dripping-tap",    difficulty: 2, saves: "Save £80–150 today" },
@@ -42,15 +45,6 @@ export default function Home() {
   const router = useRouter()
   const [query, setQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
-  const [showFirstTimeBanner, setShowFirstTimeBanner] = useState(false)
-
-  useEffect(() => {
-    try {
-      const done = localStorage.getItem('fixitfirst-onboarding-complete')
-      if (!done) setShowFirstTimeBanner(true)
-    } catch {}
-  }, [])
-
   const filteredGuides = activeCategory === 'All'
     ? guides
     : activeCategory === '⚡ Quick wins'
@@ -65,33 +59,8 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
 
+      {/* Onboarding modal — only shows on first visit, sets localStorage key when done */}
       <Onboarding />
-
-      {showFirstTimeBanner && (
-        <div className="bg-blue-600 text-white px-6 py-4">
-          <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">🏠</span>
-              <div>
-                <p className="font-semibold">First time in your own place?</p>
-                <p className="text-blue-100 text-sm">Welcome! We'll walk you through the basics — no experience needed.</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <a href="/tier-1" className="bg-white text-blue-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-50 transition-colors">
-                Start here →
-              </a>
-              <button
-                onClick={() => setShowFirstTimeBanner(false)}
-                className="text-blue-200 hover:text-white text-xl leading-none"
-                aria-label="Dismiss"
-              >
-                ×
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       <Nav />
 
@@ -133,7 +102,7 @@ export default function Home() {
 
       <section className="bg-orange-500 text-white py-6 px-6">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 text-center">
-          <div><div className="text-2xl font-bold">150+</div><div className="text-orange-100 text-sm">Guides</div></div>
+          <div><div className="text-2xl font-bold">{GUIDE_COUNT}</div><div className="text-orange-100 text-sm">Guides</div></div>
           <div><div className="text-2xl font-bold">Free</div><div className="text-orange-100 text-sm">To get started</div></div>
           <div><div className="text-2xl font-bold">6 tiers</div><div className="text-orange-100 text-sm">Beginner to builder</div></div>
           <div><div className="text-2xl font-bold">100s saved</div><div className="text-orange-100 text-sm">vs calling a pro</div></div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 
 const NAV_ITEMS = [
@@ -32,6 +33,7 @@ const NAV_ITEMS = [
 
 export default function MobileNav() {
   const [loggedIn, setLoggedIn] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setLoggedIn(!!data.session?.user))
@@ -47,16 +49,36 @@ export default function MobileNav() {
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex md:hidden z-50">
       {NAV_ITEMS.map(({ key, href, label, path }) => {
         const resolvedHref = key === 'progress' && loggedIn ? '/dashboard' : href
+
+        // Determine if this tab is active based on the current path
+        const isActive =
+          key === 'home'
+            ? pathname === '/'
+            : key === 'progress'
+            ? pathname.startsWith('/progress') || pathname.startsWith('/dashboard')
+            : key === 'guides'
+            ? pathname === '/guides' || pathname.startsWith('/guides/')
+            : pathname === resolvedHref || pathname.startsWith(resolvedHref + '/')
+
         return (
           <a
             key={key}
             href={resolvedHref}
-            className="flex flex-col items-center gap-1 flex-1 py-3 text-gray-500 hover:text-orange-500 transition-colors"
+            className={`flex flex-col items-center gap-1 flex-1 py-3 transition-colors ${
+              isActive ? 'text-orange-500' : 'text-gray-400 hover:text-gray-600'
+            }`}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={isActive ? 2.5 : 2}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" d={path} />
             </svg>
-            <span className="text-xs font-medium">{label}</span>
+            <span className={`text-xs ${isActive ? 'font-semibold' : 'font-medium'}`}>{label}</span>
           </a>
         )
       })}
