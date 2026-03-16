@@ -12,7 +12,7 @@ const steps = [
   { title: 'Turn off the boiler', description: 'Switch off the boiler at the boiler itself, then turn off the power at the consumer unit for the heating circuit. Confirm there is no power by testing the existing thermostat — it should be dead.' },
   { title: 'Remove the old thermostat', description: 'Unscrew the existing thermostat from the wall. Note and photograph the wires and which terminal each connects to. UK standard wiring: Live (L), Neutral (N), and Switched Live (also called COM or SL). Some systems have just two wires.' },
   { title: 'Install the new base plate', description: 'Screw the new thermostat base plate to the wall at the same location, using the existing holes where possible. Feed the existing wires through the base plate.' },
-  { title: 'Connect the wires', description: 'Follow the new thermostat's wiring diagram — the manual will have UK-specific instructions. Connect Live, Neutral, and Switched Live to the terminals marked in the guide. Tighten each terminal screw securely.' },
+  { title: 'Connect the wires', description: 'Follow the new thermostat\'s wiring diagram — the manual will have UK-specific instructions. Connect Live, Neutral, and Switched Live to the terminals marked in the guide. Tighten each terminal screw securely.' },
   { title: 'Attach the display and set up the app', description: 'Click the thermostat display onto the base plate. Restore power. Follow the in-app setup: connect to your home WiFi, set your schedule and target temperatures. Most apps offer an energy-saving assistant to optimise settings.' },
 ]
 
