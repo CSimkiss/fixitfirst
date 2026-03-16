@@ -17,9 +17,22 @@ const CATEGORY_COLOURS: Record<string, string> = {
 }
 
 export default function ProgressPage() {
-  const { completionMap, user, mounted } = useCompletions()
+  const { completionMap, user, loading, error } = useCompletions()
 
-  if (!mounted) return null
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-white">
+        <Nav />
+        <div className="flex flex-col items-center justify-center py-32 gap-4 text-gray-400">
+          <svg className="w-8 h-8 animate-spin text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+          </svg>
+          <p className="text-sm">Loading your progress…</p>
+        </div>
+      </main>
+    )
+  }
 
   const completedSlugs = Object.keys(completionMap)
   const completedCount = completedSlugs.length
@@ -70,6 +83,14 @@ export default function ProgressPage() {
             </p>
           </div>
         </div>
+
+        {/* Error banner — Supabase fetch failed, fell back to localStorage */}
+        {error && (
+          <div className="flex items-start gap-3 bg-amber-50 border border-amber-300 rounded-xl px-5 py-4 text-sm text-amber-800">
+            <span className="shrink-0 text-lg">⚠️</span>
+            <span>{error}</span>
+          </div>
+        )}
 
         {/* Sign-in prompt for guests */}
         {!user && (
