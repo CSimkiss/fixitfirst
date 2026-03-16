@@ -207,4 +207,55 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 3187,
     renterWarning: 'Draft proofing with self-adhesive strips is reversible and does not damage the property — this is reasonable maintenance any tenant can do. For door sweeps that need screwing in, get your landlord\'s permission first.',
   },
+  'replace-a-smoke-alarm-battery': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'The easiest safety job in the home — no tools or DIY experience required',
+    completedCount: 4231,
+  },
+  'install-a-smart-thermostat': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'More involved than changing a lightbulb — requires basic wiring confidence',
+    completedCount: 892,
+    renterWarning: 'Always get your landlord\'s written permission before changing a thermostat in a rented property. Keep the original thermostat to reinstall when you leave.',
+  },
+  'bleed-all-radiators': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'The same as bleeding a single radiator — just repeated for every radiator in the house',
+    completedCount: 2341,
+  },
+  'fix-a-noisy-radiator': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar to bleeding a radiator — most fixes take under 30 minutes',
+    completedCount: 1876,
+  },
+  'boiler-breakdown-what-to-do': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'No physical work involved — this is a diagnostic guide',
+    completedCount: 3214,
+    renterWarning: 'A broken boiler in winter is an emergency. Landlords must fix heating and hot water within 24 hours in cold weather. Contact them immediately in writing and if they do not act, contact your local council Environmental Health team.',
+  },
+  'fix-a-garden-tap': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar to fixing a dripping tap — the outdoor location makes it slightly more awkward',
+    completedCount: 1243,
+    renterWarning: 'Landlords are responsible for maintaining garden taps. Report a leaking garden tap in writing. Replacing a washer is minor maintenance — but let your landlord know you\'ve done it.',
+  },
+  'unblock-a-gutter': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'More physical than technical — the main challenge is safe ladder use',
+    completedCount: 2108,
+    renterWarning: 'Landlords are responsible for maintaining gutters and drainage. Report blocked gutters in writing — especially if they are causing water damage to the property.',
+  },
+  'fix-a-fence-panel': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'Similar difficulty to putting up shelves — heavier materials, outdoor conditions',
+    completedCount: 1432,
+    renterWarning: 'Check your tenancy agreement — boundary and fence maintenance is often the landlord\'s responsibility. Report damage in writing before doing any repairs yourself.',
+  },
+  'lay-decking-boards': {
+    lastUpdated: 'March 2025',
+    difficultyComparison: 'The most involved outdoor project on the site — plan carefully before starting',
+    completedCount: 567,
+    renterWarning: 'Never lay decking in a rented property without written permission from your landlord. It is a permanent change and may require planning permission.',
+  },
 }
