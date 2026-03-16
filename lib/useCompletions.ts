@@ -7,19 +7,30 @@ import type { User } from '@supabase/supabase-js'
 
 export type CompletionMap = Record<string, string> // slug → 'YYYY-MM-DD'
 
+const SUPABASE_TIMEOUT_MS = 3_000
+
+// Single Supabase query for all completions, wrapped in a 3-second timeout.
+// If the query doesn't respond in time, the timeout wins and the caller
+// falls back to the locally-cached copy.
 async function fetchSupabaseCompletions(userId: string): Promise<CompletionMap> {
-  const { data, error } = await supabase
+  const queryPromise = supabase
     .from('completions')
     .select('guide_slug, completed_at')
     .eq('user_id', userId)
+    .then(({ data, error }) => {
+      if (error) throw error
+      const map: CompletionMap = {}
+      for (const row of data ?? []) {
+        map[row.guide_slug] = (row.completed_at as string).split('T')[0]
+      }
+      return map
+    })
 
-  if (error) throw error
+  const timeoutPromise = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error('timeout')), SUPABASE_TIMEOUT_MS),
+  )
 
-  const map: CompletionMap = {}
-  for (const row of data ?? []) {
-    map[row.guide_slug] = (row.completed_at as string).split('T')[0]
-  }
-  return map
+  return Promise.race([queryPromise, timeoutPromise])
 }
 
 function readLocalCompletions(): CompletionMap {
@@ -41,35 +52,56 @@ function writeLocalCompletions(map: CompletionMap) {
 export function useCompletions() {
   const [completionMap, setCompletionMap] = useState<CompletionMap>({})
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [authResolved, setAuthResolved] = useState(false)
+  const [syncing, setSyncing] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // onAuthStateChange fires INITIAL_SESSION synchronously on subscribe,
-    // giving us the session reliably without a separate getSession() call.
-    // Using both getSession() + onAuthStateChange causes a race condition
-    // where two async operations compete to set state, producing blank screens.
+    // Background Supabase sync — does NOT block the UI.
+    // Auth resolution and cache read happen first (synchronously once
+    // INITIAL_SESSION fires), then this runs in parallel.
+    async function syncFromSupabase(userId: string) {
+      setSyncing(true)
+      setError(null)
+      try {
+        const map = await fetchSupabaseCompletions(userId)
+        setCompletionMap(map)
+        writeLocalCompletions(map) // keep cache fresh for next visit
+      } catch (err) {
+        const isTimeout = err instanceof Error && err.message === 'timeout'
+        console.error(
+          '[useCompletions]',
+          isTimeout ? 'timed out after 3s, using cache' : 'fetch failed, using cache',
+          err,
+        )
+        // Don't overwrite state — cache is already displayed
+        setError('Could not sync your progress from the server. Showing cached data.')
+      } finally {
+        setSyncing(false)
+      }
+    }
+
+    // onAuthStateChange fires INITIAL_SESSION synchronously on subscribe
+    // (~50ms, reads localStorage). We use that to:
+    //   1. Immediately show cached completions — zero wait for the user
+    //   2. Kick off a background Supabase sync without blocking the UI
+    // The `loading` flag (authResolved) only covers the auth step, not the
+    // Supabase round-trip, so the skeleton disappears almost instantly.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      (_event, session) => {
         const currentUser = session?.user ?? null
         setUser(currentUser)
 
+        // Show cache immediately — visible before Supabase responds
+        setCompletionMap(readLocalCompletions())
+
         if (currentUser) {
-          try {
-            setError(null)
-            const map = await fetchSupabaseCompletions(currentUser.id)
-            setCompletionMap(map)
-          } catch (err) {
-            console.error('[useCompletions] Supabase fetch failed, falling back to localStorage:', err)
-            setError('Could not load your saved progress. Showing local data instead.')
-            setCompletionMap(readLocalCompletions())
-          }
-        } else {
-          setError(null)
-          setCompletionMap(readLocalCompletions())
+          // Fire-and-forget: sync runs in background, UI already has cache
+          syncFromSupabase(currentUser.id)
         }
 
-        setLoading(false)
+        // Auth is resolved; skeleton can go away even if Supabase is still loading
+        setAuthResolved(true)
       },
     )
 
@@ -79,8 +111,12 @@ export function useCompletions() {
   const markComplete = useCallback(async (slug: string) => {
     const dateStr = getLocalDateStr()
 
-    // Optimistic update — UI reflects the change immediately
-    setCompletionMap(prev => ({ ...prev, [slug]: dateStr }))
+    // Optimistic update + cache write happen together, synchronously
+    setCompletionMap(prev => {
+      const next = { ...prev, [slug]: dateStr }
+      writeLocalCompletions(next)
+      return next
+    })
 
     if (user) {
       const { error: upsertError } = await supabase
@@ -91,26 +127,18 @@ export function useCompletions() {
         )
 
       if (upsertError) {
-        console.error('[useCompletions] Failed to save to Supabase, writing to localStorage:', upsertError)
-        // Persist locally so the completion is not lost on refresh
-        const local = readLocalCompletions()
-        local[slug] = dateStr
-        writeLocalCompletions(local)
+        console.error('[useCompletions] Upsert failed, completion kept in localStorage:', upsertError)
       }
-    } else {
-      const local = readLocalCompletions()
-      local[slug] = dateStr
-      writeLocalCompletions(local)
     }
   }, [user])
 
   return {
     completionMap,
     user,
-    loading,
+    loading: !authResolved, // brief: only until INITIAL_SESSION fires (~50ms)
+    syncing,                 // true while background Supabase fetch is running
     error,
-    // `mounted` kept for backwards compatibility — true once loading is done
-    mounted: !loading,
+    mounted: authResolved,   // backwards-compat alias for !loading
     markComplete,
   }
 }

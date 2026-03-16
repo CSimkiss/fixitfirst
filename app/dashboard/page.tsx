@@ -47,7 +47,7 @@ const SAVINGS_MIDPOINT: Record<string, number> = {
 
 export default function DashboardPage() {
   const router = useRouter()
-  const { completionMap, user, loading, error } = useCompletions()
+  const { completionMap, user, loading, syncing, error } = useCompletions()
   const [ownedTools, setOwnedTools] = useState<string[]>([])
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function DashboardPage() {
         <div className="max-w-4xl mx-auto">
           <p className="text-gray-400 text-sm mb-1">Welcome back</p>
           <h1 className="text-3xl md:text-4xl font-bold mb-1 truncate">{user.email}</h1>
-          <div className="flex items-center gap-2 mt-3">
+          <div className="flex items-center gap-2 mt-3 flex-wrap">
             <span className="text-2xl">{tier.emoji}</span>
             <span className={`text-sm font-semibold px-3 py-1 rounded-full ${tier.bg} ${tier.colour}`}>
               {tier.name}
@@ -110,6 +110,15 @@ export default function DashboardPage() {
             {nextTier && (
               <span className="text-gray-500 text-sm">
                 · {nextTier.min - completedCount} guide{nextTier.min - completedCount !== 1 ? 's' : ''} to {nextTier.name}
+              </span>
+            )}
+            {syncing && (
+              <span className="flex items-center gap-1.5 text-xs text-gray-500 ml-auto">
+                <svg className="w-3 h-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                </svg>
+                Syncing…
               </span>
             )}
           </div>
