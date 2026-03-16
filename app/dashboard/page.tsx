@@ -39,7 +39,6 @@ const SAVINGS_MIDPOINT: Record<string, number> = {
   'reset-a-tripped-circuit-breaker': 50,
   'replace-a-light-switch':   80,
   'fix-a-doorbell':           60,
-  'put-up-shelves':           65,
   'repressurise-a-boiler':    65,
   'fix-a-cold-radiator':      65,
   'boiler-breakdown':        200,
