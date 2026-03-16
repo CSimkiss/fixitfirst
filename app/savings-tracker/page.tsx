@@ -84,18 +84,20 @@ export default function SavingsTracker() {
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
 
-        {/* Sign-in prompt for guests */}
+        {/* Sign-in warning for guests */}
         {!user && (
-          <div className="flex items-start gap-4 bg-blue-50 border border-blue-200 rounded-2xl px-6 py-5">
-            <span className="text-2xl shrink-0">☁️</span>
+          <div className="flex items-start gap-4 bg-amber-50 border border-amber-300 rounded-2xl px-6 py-5">
+            <span className="text-2xl shrink-0">⚠️</span>
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-blue-900 mb-1">Sign in to save your progress across devices</p>
-              <p className="text-sm text-blue-700 mb-3">Your savings data is currently stored in this browser only. Sign in to sync it everywhere.</p>
+              <p className="font-semibold text-amber-900 mb-1">You&apos;re not signed in</p>
+              <p className="text-sm text-amber-800 mb-3">
+                Your savings are only stored in this browser. If you clear your cache or switch devices, you&apos;ll lose your data. Sign up free to keep it safe.
+              </p>
               <div className="flex gap-3 flex-wrap">
-                <a href="/sign-up" className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                  Create free account
+                <a href="/sign-up" className="bg-amber-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors">
+                  Sign up free
                 </a>
-                <a href="/login" className="text-sm font-medium text-blue-600 hover:underline self-center">
+                <a href="/login" className="text-sm font-medium text-amber-700 hover:underline self-center">
                   Log in
                 </a>
               </div>
