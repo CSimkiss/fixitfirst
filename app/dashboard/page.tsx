@@ -46,7 +46,7 @@ const SAVINGS_MIDPOINT: Record<string, number> = {
 
 export default function DashboardPage() {
   const router = useRouter()
-  const { completionMap, user, mounted } = useCompletions()
+  const { completionMap, user, loading, error } = useCompletions()
   const [ownedTools, setOwnedTools] = useState<string[]>([])
 
   useEffect(() => {
@@ -56,12 +56,29 @@ export default function DashboardPage() {
     } catch {}
   }, [])
 
-  // Redirect guests to login
+  // Redirect guests once auth is resolved — never redirect while still loading
   useEffect(() => {
-    if (mounted && !user) router.replace('/login')
-  }, [mounted, user, router])
+    if (!loading && !user) router.replace('/login')
+  }, [loading, user, router])
 
-  if (!mounted || !user) return null
+  // Show spinner while auth + data are loading — never a blank page
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-gray-50">
+        <Nav />
+        <div className="flex flex-col items-center justify-center py-32 gap-4 text-gray-400">
+          <svg className="w-8 h-8 animate-spin text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+          </svg>
+          <p className="text-sm">Loading your dashboard…</p>
+        </div>
+      </main>
+    )
+  }
+
+  // Auth resolved, no user → redirect underway
+  if (!user) return null
 
   const completedSlugs = Object.keys(completionMap)
   const completedCount = completedSlugs.length
@@ -74,10 +91,7 @@ export default function DashboardPage() {
   )
 
   const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, ownedTools))
-
-  // First guide the user hasn't completed yet
   const nextGuide = ALL_GUIDES.find(g => !completionMap[g.slug])
-
   const totalPoints = completedSlugs.reduce(
     (sum, slug) => sum + (ALL_GUIDES.find(g => g.slug === slug)?.skillPoints ?? 0),
     0,
@@ -107,6 +121,14 @@ export default function DashboardPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 py-10 space-y-10">
+
+        {/* Error banner — shown when Supabase fetch failed and we fell back to local data */}
+        {error && (
+          <div className="flex items-start gap-3 bg-amber-50 border border-amber-300 rounded-xl px-5 py-4 text-sm text-amber-800">
+            <span className="shrink-0 text-lg">⚠️</span>
+            <span>{error}</span>
+          </div>
+        )}
 
         {/* Stats grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -191,10 +213,7 @@ export default function DashboardPage() {
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {earnedBadges.map(badge => (
-                <div
-                  key={badge.id}
-                  className="bg-white border border-gray-200 rounded-xl p-4 text-center"
-                >
+                <div key={badge.id} className="bg-white border border-gray-200 rounded-xl p-4 text-center">
                   <div className="text-3xl mb-2">{badge.emoji}</div>
                   <p className="text-sm font-semibold text-gray-800">{badge.name}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{badge.description}</p>
