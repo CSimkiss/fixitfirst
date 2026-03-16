@@ -32,7 +32,7 @@ export default function FillAHoleInAWall() {
     <main className="min-h-screen bg-white pb-20 md:pb-0">
       <Nav />
       <div className="max-w-3xl mx-auto px-6 py-10">
-        <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
+        <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fill a hole in a wall</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £50–100 today</p>
         
