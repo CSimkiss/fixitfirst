@@ -24,50 +24,72 @@ function ToolCard({
   owned: boolean
 }) {
   return (
-    <div className={`bg-white border rounded-xl p-4 ${owned ? 'border-green-200' : 'border-gray-200'}`}>
-      {/* Name + category */}
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <div>
-          <p className="font-semibold text-gray-900 text-sm leading-snug">{tool.name}</p>
+    <div className={`rounded-xl border p-4 flex flex-col gap-3 ${
+      owned ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-200'
+    }`}>
+
+      {/* Icon + name + category */}
+      <div className="flex items-start gap-3">
+        <div className={`shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${
+          owned ? 'bg-green-100' : 'bg-gray-100'
+        }`}>
+          {owned ? (
+            <svg className="w-4 h-4 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
+            </svg>
+          ) : (
+            <svg className="w-4 h-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M19 5.5a4.5 4.5 0 0 1-4.791 4.49c-.873-.055-1.808.128-2.368.8l-6.024 7.23a2.724 2.724 0 1 1-3.837-3.837L9.21 8.16c.672-.56.855-1.495.8-2.368a4.5 4.5 0 0 1 5.873-4.575c.324.105.39.51.15.752L13.34 4.16a.905.905 0 0 0 0 1.277l1.224 1.224a.905.905 0 0 0 1.276 0l2.192-2.192c.241-.241.647-.174.752.15.14.435.216.9.216 1.381ZM4.5 17a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z" clipRule="evenodd" />
+            </svg>
+          )}
+        </div>
+        <div className="min-w-0">
+          <p className={`text-sm font-medium leading-snug ${owned ? 'text-gray-400' : 'text-gray-900'}`}>
+            {tool.name}
+          </p>
           <p className="text-xs text-gray-400 mt-0.5">{tool.category}</p>
         </div>
-        {owned && (
-          <span className="shrink-0 text-xs font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">
-            Owned
-          </span>
-        )}
       </div>
 
-      {/* Which guides need this tool */}
-      {guideNames.length > 0 ? (
-        <div className="flex flex-wrap gap-1 mb-3">
+      {/* Guide chips — which guides use this tool */}
+      {guideNames.length > 0 && (
+        <div className="flex flex-wrap gap-1">
           {guideNames.map(title => (
             <span
               key={title}
-              className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full leading-relaxed"
+              className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md"
             >
               {title}
             </span>
           ))}
         </div>
-      ) : (
-        <p className="text-xs text-gray-400 mb-3">Not required by any current guide</p>
       )}
 
-      {/* Retailer pills */}
-      <div className="flex flex-wrap gap-1.5">
-        {RETAILERS.map(r => (
-          <a
-            key={r.id}
-            href={r.buildUrl(tool.name)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-xs font-semibold px-2.5 py-1 rounded-full ${r.bg} ${r.colour} hover:opacity-90 transition-opacity`}
-          >
-            {r.name}
-          </a>
-        ))}
-      </div>
+      {/* Retailer links — subtle text links, only shown when not owned */}
+      {!owned && (
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <svg className="w-3 h-3 text-gray-300 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M1 1.75A.75.75 0 0 1 1.75 1h1.628a1.75 1.75 0 0 1 1.734 1.51L5.35 5h12.15a1 1 0 0 1 .98 1.2l-1.5 7.5A1 1 0 0 1 16 14.5H7a1 1 0 0 1-.98-.8L4.342 6.395 4.09 4.51A.25.25 0 0 0 3.842 4.5H1.75A.75.75 0 0 1 1 3.75Zm6.5 10a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z" />
+          </svg>
+          <span className="text-xs text-gray-300">Find it at:</span>
+          {RETAILERS.map((r, i) => (
+            <span key={r.id} className="flex items-center gap-1">
+              {i > 0 && <span className="text-gray-200 select-none">·</span>}
+              <a
+                href={r.buildUrl(tool.name)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-gray-400 hover:text-gray-700 transition-colors inline-flex items-center gap-0.5"
+              >
+                {r.name}
+                <svg className="w-2.5 h-2.5 opacity-40" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Zm6.75-3a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0V4.06l-6.22 6.22a.75.75 0 0 1-1.06-1.06L14.44 3h-3.19a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
+                </svg>
+              </a>
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -307,26 +329,24 @@ export default function DashboardPage() {
         {/* Tools */}
         <div>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-semibold text-gray-900">My tools</h2>
-            <a href="/tools" className="text-sm text-orange-500 hover:underline">Manage →</a>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">My tools</h2>
+              {neededToolObjects.length > 0 && (
+                <p className="text-sm text-gray-400 mt-0.5">{neededToolObjects.length} still to get</p>
+              )}
+            </div>
+            <a href="/tools" className="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+              Manage →
+            </a>
           </div>
 
           {/* Tools you own */}
-          <div className="mb-8">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-              ✅ Tools you own ({ownedToolObjects.length})
-            </h3>
-            {ownedToolObjects.length === 0 ? (
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
-                <p className="text-2xl mb-2">🔧</p>
-                <p className="text-sm">
-                  Visit{' '}
-                  <a href="/tools" className="text-orange-500 hover:underline">My Tools</a>
-                  {' '}to mark what you already own.
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {ownedToolObjects.length > 0 && (
+            <div className="mb-6">
+              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
+                You own · {ownedToolObjects.length}
+              </p>
+              <div className="grid grid-cols-2 gap-2">
                 {ownedToolObjects.map(tool => (
                   <ToolCard
                     key={tool.id}
@@ -336,21 +356,39 @@ export default function DashboardPage() {
                   />
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Tools you still need */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-              🛒 Tools you still need ({neededToolObjects.length})
-            </h3>
+            <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
+              Still to get · {neededToolObjects.length}
+            </p>
             {neededToolObjects.length === 0 ? (
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
-                <p className="text-2xl mb-2">🎉</p>
-                <p className="text-sm">You have everything you need for the guides!</p>
+              <div className="bg-white border border-gray-200 rounded-xl p-5 text-center text-gray-400">
+                <p className="text-sm">You have everything you need — well equipped!</p>
               </div>
+            ) : ownedToolObjects.length === 0 ? (
+              <>
+                <div className="bg-gray-50 border border-dashed border-gray-200 rounded-xl p-4 mb-3 text-center">
+                  <p className="text-xs text-gray-400">
+                    <a href="/tools" className="text-orange-500 hover:underline">Mark what you already own</a>
+                    {' '}to track your kit.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {neededToolObjects.map(tool => (
+                    <ToolCard
+                      key={tool.id}
+                      tool={tool}
+                      guideNames={toolToGuides[tool.id] ?? []}
+                      owned={false}
+                    />
+                  ))}
+                </div>
+              </>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 {neededToolObjects.map(tool => (
                   <ToolCard
                     key={tool.id}
