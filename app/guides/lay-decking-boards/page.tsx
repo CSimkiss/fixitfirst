@@ -1,6 +1,17 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'Lay Decking Boards | FixItFirst',
@@ -24,14 +35,18 @@ export default function LayDeckingBoards() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Lay decking boards</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £500–1,500 on labour</p>
-        <p className="text-gray-500 mb-8">Full day · Intermediate · Saves £500–1,500 vs a landscaper</p>
-
+        <p className="text-gray-500 mb-6">Full day · Intermediate · Saves £500–1,500 on labour costs</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['lay-decking-boards'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Lay decking boards" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="lay-decking-boards" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Ground-level decking (under 600mm high, not attached to the house structure) does not require planning permission in England and Wales in most cases. Raised decks or those attached to the house may need Building Regulations approval — check with your local council if unsure.</p>
           <p className="text-sm text-gray-700">This guide covers ground-level or low-level deck construction with a timber joist frame. Allow one full day for a deck up to 20m². Larger or raised decks need more time and possibly professional structural help.</p>
         </div>
-
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">
@@ -65,33 +80,20 @@ export default function LayDeckingBoards() {
             </li>
           </ul>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['lay-decking-boards']} />
+        <StepProgress steps={steps} slug="lay-decking-boards" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Using untreated timber for the frame — it will rot within 2–3 years. Always use UC4 pressure-treated timber for any ground-contact applications.</p>
           <p className="text-sm text-yellow-900 mb-2">Not pre-drilling near board ends — screwing close to the end without a pilot hole splits the board.</p>
           <p className="text-sm text-yellow-900">Skipping the board treatment on completion — bare or cut decking absorbs water immediately. Apply decking oil or stain within a week of installation.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a landscaper if...</h2>
           <p className="text-sm text-red-900 mb-1">The deck needs to be over 600mm high — this requires structural calculations and likely Building Regulations approval</p>
           <p className="text-sm text-red-900 mb-1">The ground is significantly uneven or sloped — a level frame on uneven ground requires experience to get right</p>
           <p className="text-sm text-red-900">You need to cut through or near drains, cables, or tree roots underground — always check for underground services first</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -100,12 +102,22 @@ export default function LayDeckingBoards() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Landscaper for same job (labour + materials)</span><span className="font-medium text-red-600">£900–2,200</span></div>
           </div>
         </div>
-
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to build a timber deck frame, lay and fix boards correctly, and finish to a professional standard. The framing and fastening skills transfer directly to raised garden beds, outbuildings, and timber storage structures.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['lay-decking-boards'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['lay-decking-boards'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['lay-decking-boards'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="lay-decking-boards" />
+        <NextGuide currentSlug="lay-decking-boards" />
       </div>
+      <RecentViewTracker slug="lay-decking-boards" title="Lay decking boards" href="/guides/lay-decking-boards" />
       <MobileNav />
     </main>
   )
