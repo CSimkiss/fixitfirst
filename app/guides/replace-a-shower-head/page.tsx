@@ -32,7 +32,7 @@ export default function ReplaceAShowerHead() {
     <main className="min-h-screen bg-white pb-20 md:pb-0">
       <Nav />
       <div className="max-w-3xl mx-auto px-6 py-10">
-        <a href="/" className="text-sm text-orange-500 mb-6 inline-block">Back to guides</a>
+        <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Replace a shower head</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £40–80 today</p>
         <p className="text-gray-500 mb-6">15 mins · Beginner · Saves £40–80 vs a plumber</p>

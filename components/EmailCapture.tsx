@@ -2,19 +2,47 @@
 
 import { useState } from 'react'
 
-export default function EmailCapture() {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+interface EmailCaptureProps {
+  source?: string
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
+export default function EmailCapture({ source = 'unknown' }: EmailCaptureProps) {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'duplicate' | 'error'>('idle')
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setStatus('loading')
+
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source }),
+    })
+
+    const data = await res.json()
+
+    if (!res.ok) {
+      setStatus('error')
+    } else if (data.duplicate) {
+      setStatus('duplicate')
+    } else {
+      setStatus('success')
+    }
   }
 
-  if (submitted) {
+  if (status === 'success') {
     return (
       <p className="text-green-400 font-semibold text-lg">
-        ✓ You&apos;re on the list — we&apos;ll let you know when we launch.
+        ✓ You&apos;re in! First fix lands in your inbox soon.
+      </p>
+    )
+  }
+
+  if (status === 'duplicate') {
+    return (
+      <p className="text-blue-400 font-semibold text-lg">
+        ✓ You&apos;re already signed up!
       </p>
     )
   }
@@ -31,10 +59,14 @@ export default function EmailCapture() {
       />
       <button
         type="submit"
-        className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors whitespace-nowrap"
+        disabled={status === 'loading'}
+        className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors whitespace-nowrap disabled:opacity-70"
       >
-        Notify me
+        {status === 'loading' ? 'Saving…' : 'Notify me'}
       </button>
+      {status === 'error' && (
+        <p className="text-red-400 text-sm mt-1 w-full">Something went wrong. Please try again.</p>
+      )}
     </form>
   )
 }

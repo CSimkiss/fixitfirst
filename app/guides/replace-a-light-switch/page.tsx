@@ -1,19 +1,30 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'Replace a Light Switch | FixItFirst',
-  description: 'Replace a light switch in 30 minutes. Step-by-step guide — covers turning off power safely, connecting wires, and fitting a new faceplate. Save £60–100.',
+  description: 'Replace a light switch safely in 30 minutes. Step-by-step UK guide — covers turning off power, wiring, and fitting the new plate. Save £60–100.',
 }
 
 const steps = [
-  { title: 'Turn off the circuit at the consumer unit', description: 'Find the breaker labelled for the lights in that room and switch it off. Never rely on just turning the light switch off — the wiring behind is still live until the circuit breaker is off.' },
-  { title: 'Confirm the power is off', description: 'Use a plug-in socket tester or try a lamp on the same circuit. Better still, use a non-contact voltage tester near the switch before touching any wires.' },
-  { title: 'Remove the old switch faceplate', description: 'Unscrew the two screws at the top and bottom of the faceplate. Pull it forward carefully. There will be 1–3 wires connected to the back — do not pull sharply.' },
-  { title: 'Photograph the wiring before disconnecting', description: 'Take a clear photo of how the wires are connected. UK single switches typically have one or two wires (COM and L1). Two-way switches have three (COM, L1, L2). This photo is your reference when connecting the new switch.' },
-  { title: 'Transfer the wires to the new switch', description: 'Connect each wire to the matching terminal on the new switch following your photo. The terminals will be labelled COM, L1, and (for two-way) L2. Tighten each screw securely — a loose wire is a fire risk.' },
-  { title: 'Fix the new faceplate and test', description: 'Fold the wires neatly back into the back box. Screw on the new faceplate. Restore power at the consumer unit and test the switch.' },
+  { title: 'Turn off the power at the consumer unit', description: 'Find the lighting circuit breaker for this room in your consumer unit and switch it off. Test the light confirms the power is off.' },
+  { title: 'Remove the old switch plate', description: 'Undo the two screws on the face plate. Gently ease it away from the wall — the wires are still connected behind it.' },
+  { title: 'Photograph the wiring', description: 'Before touching anything, take a clear photo showing exactly which wire goes to which terminal. This is your reference if anything looks unclear later.' },
+  { title: 'Disconnect the wires', description: 'Loosen each terminal screw and pull the wire free. Note the terminal labels — COM (common), L1, L2.' },
+  { title: 'Connect the new switch', description: 'Using your photo as a guide, reconnect each wire to the matching terminal on the new switch. Tighten each terminal screw firmly so the wire cannot pull free.' },
+  { title: 'Fit and test', description: 'Fold the wires carefully back into the backbox, screw the new plate in, restore power at the consumer unit, and test the switch.' },
 ]
 
 export default function ReplaceALightSwitch() {
@@ -24,76 +35,81 @@ export default function ReplaceALightSwitch() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Replace a light switch</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £60–100 today</p>
-        <p className="text-gray-500 mb-8">30 mins · Beginner · Saves £60–100 vs an electrician</p>
-
+        <p className="text-gray-500 mb-6">30 mins · Beginner · Saves £60–100 vs an electrician</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['replace-a-light-switch'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Replace a light switch" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="replace-a-light-switch" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
-          <p className="text-sm text-gray-700 mb-2">Replacing a like-for-like switch (same style, same number of wires) is straightforward. You are only changing the faceplate — the wiring stays in the back box and just transfers to the new switch terminals.</p>
-          <p className="text-sm text-gray-700">In the UK, replacing a switch faceplate for like-for-like is DIY-legal. You do not need to notify Building Control for a simple switch replacement. Always isolate the circuit first.</p>
+          <p className="text-sm text-gray-700 mb-2">Replacing a light switch is one of the safest electrical jobs at home. Light switches carry low current, and the work is entirely at the switch — not at the consumer unit.</p>
+          <p className="text-sm text-gray-700 mb-2">The critical rule: always turn off the power at the consumer unit before touching any wiring. Not just the switch itself — the actual circuit breaker.</p>
         </div>
-
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">
             <li className="flex items-start gap-3 text-sm">
               <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Flat-head and cross-head screwdriver</span> — for back box and terminal screws</span>
+              <span><span className="font-medium">Flat-head screwdriver</span> — to open terminal screws</span>
             </li>
             <li className="flex items-start gap-3 text-sm">
               <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Phone or camera</span> — to photograph wiring before disconnecting</span>
+              <span><span className="font-medium">Cross-head screwdriver</span> — to remove the face plate</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Phone camera</span> — photograph the wiring before disconnecting anything</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Pipe & cable detector</span> — to confirm no cables in the wall before any drilling</span>
             </li>
             <li className="flex items-start gap-3 text-sm">
               <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement light switch</span> — <span className="text-orange-600">buy: £3–15 — match the type: single/double, one-way/two-way</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Non-contact voltage tester</span> — <span className="text-orange-600">buy: £8–15 — strongly recommended before touching any wires</span></span>
+              <span><span className="font-medium">Replacement switch</span> — <span className="text-orange-600">buy: buy: £5–15 — standard 1-gang or 2-gang white plate from any hardware shop</span></span>
             </li>
           </ul>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['replace-a-light-switch']} />
+        <StepProgress steps={steps} slug="replace-a-light-switch" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
-          <p className="text-sm text-yellow-900 mb-2">Not turning off the circuit breaker — turning the light switch off does not make the wiring safe.</p>
-          <p className="text-sm text-yellow-900 mb-2">Not photographing the wiring — once wires are disconnected, it is easy to forget which terminal each connected to.</p>
-          <p className="text-sm text-yellow-900">Buying the wrong switch type — a one-way switch will not work where a two-way is needed (e.g. at the top and bottom of a staircase).</p>
+          <p className="text-sm text-yellow-900 mb-2">Not turning off the power at the consumer unit — turning off the switch is not enough. The live wire is still live.</p>
+          <p className="text-sm text-yellow-900 mb-2">Reconnecting wires to the wrong terminals — always use your photo as a reference.</p>
+          <p className="text-sm text-yellow-900">Overtightening the face plate screws — this cracks the plastic. Finger-tight plus a quarter-turn is enough.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-red-800 mb-3">Stop and call an electrician if...</h2>
-          <p className="text-sm text-red-900 mb-1">You find more wires than expected or wiring you do not recognise — older homes have different wire colours</p>
-          <p className="text-sm text-red-900 mb-1">There are burn marks or melted insulation on any wire</p>
-          <p className="text-sm text-red-900">You want to add a dimmer, smart switch, or change to a different circuit configuration</p>
+          <h2 className="font-semibold text-red-800 mb-3">Stop and call a electrician if...</h2>
+          <p className="text-sm text-red-900 mb-1">You find more than 3 wires at the switch — this may be two-way switching or loop wiring</p>
+          <p className="text-sm text-red-900 mb-1">There is any burning smell or discolouration on the existing wiring</p>
+          <p className="text-sm text-red-900">You are not confident after seeing the wiring — there is no shame in stopping</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
-            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Standard replacement switch</span><span className="font-medium">£3–8</span></div>
-            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Chrome or designer switch</span><span className="font-medium">£8–20</span></div>
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Replacement switch plate</span><span className="font-medium">£5–15</span></div>
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">With matching sockets to update the room</span><span className="font-medium">£20–40</span></div>
             <div className="flex justify-between py-2"><span className="text-gray-600">Electrician would charge</span><span className="font-medium text-red-600">£60–100</span></div>
           </div>
         </div>
-
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
-          <p className="text-sm text-orange-900">You now know how to safely isolate a circuit and replace a switch faceplate. These skills apply equally to replacing plug sockets — same process, same safety steps.</p>
+          <p className="text-sm text-orange-900">You now understand how a single-gang light switch is wired and how to safely isolate a circuit. This transfers to replacing plug sockets and fitting dimmer switches.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['replace-a-light-switch'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['replace-a-light-switch'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['replace-a-light-switch'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="replace-a-light-switch" />
+        <NextGuide currentSlug="replace-a-light-switch" />
       </div>
+      <RecentViewTracker slug="replace-a-light-switch" title="Replace a light switch" href="/guides/replace-a-light-switch" />
       <MobileNav />
     </main>
   )

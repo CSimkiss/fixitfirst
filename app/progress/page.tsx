@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
-import { COMPLETED_GUIDES_KEY, TIERS, getTier, getStreak } from '@/lib/progress'
+import { TIERS, getTier, getStreak } from '@/lib/progress'
 import { ALL_GUIDES } from '@/lib/guides'
+import { useCompletions } from '@/lib/useCompletions'
 
 const CATEGORY_COLOURS: Record<string, string> = {
   Plumbing:   'bg-blue-50 text-blue-700',
@@ -17,16 +17,31 @@ const CATEGORY_COLOURS: Record<string, string> = {
 }
 
 export default function ProgressPage() {
-  const [completionMap, setCompletionMap] = useState<Record<string, string>>({})
-  const [mounted, setMounted] = useState(false)
+  const { completionMap, user, loading, syncing, error } = useCompletions()
 
-  useEffect(() => {
-    const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-    setCompletionMap(raw ? JSON.parse(raw) : {})
-    setMounted(true)
-  }, [])
-
-  if (!mounted) return null
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-white pb-20 md:pb-0">
+        <Nav />
+        <div className="animate-pulse">
+          <div className="bg-gray-950 px-6 py-14 text-center">
+            <div className="h-3 w-24 bg-gray-700 rounded mx-auto mb-3" />
+            <div className="h-10 w-40 bg-gray-700 rounded mx-auto mb-3" />
+            <div className="h-4 w-56 bg-gray-800 rounded mx-auto mb-2" />
+            <div className="h-3 w-48 bg-gray-800 rounded mx-auto" />
+          </div>
+          <div className="max-w-3xl mx-auto px-6 py-10 space-y-4">
+            <div className="h-20 bg-gray-100 rounded-2xl" />
+            <div className="h-48 bg-gray-100 rounded-2xl" />
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {[...Array(6)].map((_, i) => <div key={i} className="h-20 bg-gray-100 rounded-xl" />)}
+            </div>
+          </div>
+        </div>
+        <MobileNav />
+      </main>
+    )
+  }
 
   const completedSlugs = Object.keys(completionMap)
   const completedCount = completedSlugs.length
@@ -59,6 +74,15 @@ export default function ProgressPage() {
           <span className="text-orange-400 text-lg font-bold">⭐ {totalPoints}</span>
           <span className="text-gray-400 text-sm">/ {maxPoints} skill points</span>
         </div>
+        {syncing && (
+          <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-gray-500">
+            <svg className="w-3 h-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+            </svg>
+            Syncing with server…
+          </div>
+        )}
       </div>
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
@@ -77,6 +101,33 @@ export default function ProgressPage() {
             </p>
           </div>
         </div>
+
+        {/* Error banner — Supabase fetch failed, fell back to localStorage */}
+        {error && (
+          <div className="flex items-start gap-3 bg-amber-50 border border-amber-300 rounded-xl px-5 py-4 text-sm text-amber-800">
+            <span className="shrink-0 text-lg">⚠️</span>
+            <span>{error}</span>
+          </div>
+        )}
+
+        {/* Sign-in prompt for guests */}
+        {!user && (
+          <div className="flex items-start gap-4 bg-blue-50 border border-blue-200 rounded-2xl px-6 py-5">
+            <span className="text-2xl shrink-0">☁️</span>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-blue-900 mb-1">Sign in to save your progress across devices</p>
+              <p className="text-sm text-blue-700 mb-3">Your completions are currently saved to this browser only. Create a free account to sync them everywhere.</p>
+              <div className="flex gap-3 flex-wrap">
+                <a href="/sign-up" className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                  Create free account
+                </a>
+                <a href="/login" className="text-sm font-medium text-blue-600 hover:underline self-center">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Tier roadmap */}
         <div>

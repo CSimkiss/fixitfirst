@@ -1,15 +1,30 @@
 'use client'
 
 import { useState } from 'react'
+import { supabase } from '@/lib/supabase'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setError('')
+    setLoading(true)
+
+    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+
+    setLoading(false)
+
+    if (authError) {
+      setError(authError.message)
+    } else {
+      setSuccess(true)
+      window.location.href = '/'
+    }
   }
 
   return (
@@ -20,17 +35,22 @@ export default function LoginPage() {
 
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 w-full max-w-md">
-          {submitted ? (
+          {success ? (
             <div className="text-center py-6">
               <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">👋</div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">Welcome back!</h2>
-              <p className="text-gray-500 mb-6">Backend coming soon — stay tuned.</p>
-              <a href="/" className="text-orange-500 font-medium hover:underline">Back to home →</a>
+              <p className="text-gray-500 mb-6">Signing you in…</p>
             </div>
           ) : (
             <>
               <h1 className="text-2xl font-bold text-gray-900 mb-2">Log in</h1>
               <p className="text-gray-500 text-sm mb-6">Good to have you back.</p>
+
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-4">
+                  {error}
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -60,9 +80,10 @@ export default function LoginPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-orange-500 text-white py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
+                  disabled={loading}
+                  className="w-full bg-orange-500 text-white py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Log in
+                  {loading ? 'Logging in…' : 'Log in'}
                 </button>
               </form>
 

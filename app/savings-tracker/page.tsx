@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
-import { COMPLETED_GUIDES_KEY } from '@/lib/progress'
 import { ALL_GUIDES } from '@/lib/guides'
+import { useCompletions } from '@/lib/useCompletions'
 
 // Midpoint savings per guide (from saves range)
 const GUIDE_SAVINGS: Record<string, { min: number; max: number; label: string }> = {
@@ -32,15 +32,8 @@ const GUIDE_EMOJIS: Record<string, string> = {
 }
 
 export default function SavingsTracker() {
-  const [completionMap, setCompletionMap] = useState<Record<string, string>>({})
-  const [mounted, setMounted] = useState(false)
+  const { completionMap, user, mounted } = useCompletions()
   const [shared, setShared] = useState(false)
-
-  useEffect(() => {
-    const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-    setCompletionMap(raw ? JSON.parse(raw) : {})
-    setMounted(true)
-  }, [])
 
   if (!mounted) return null
 
@@ -57,7 +50,7 @@ export default function SavingsTracker() {
   const maxSaving = Math.max(...guideRows.map(r => r.midpoint))
 
   function handleShare() {
-    const text = `I've saved £${totalSaved} doing my own home repairs with FixItFirst! 🔧 ${completedSlugs.length} guides completed. Check it out at fixitfirst.co.uk`
+    const text = `I've saved £${totalSaved} doing my own home repairs with FixItFirst! 🔧 ${completedSlugs.length} guides completed. Check it out at fixit-first.co.uk`
     if (typeof navigator !== 'undefined' && navigator.share) {
       navigator.share({ title: 'My DIY savings', text }).catch(() => {})
     } else {
@@ -90,6 +83,27 @@ export default function SavingsTracker() {
       </div>
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
+
+        {/* Sign-in warning for guests */}
+        {!user && (
+          <div className="flex items-start gap-4 bg-amber-50 border border-amber-300 rounded-2xl px-6 py-5">
+            <span className="text-2xl shrink-0">⚠️</span>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-amber-900 mb-1">You&apos;re not signed in</p>
+              <p className="text-sm text-amber-800 mb-3">
+                Your savings are only stored in this browser. If you clear your cache or switch devices, you&apos;ll lose your data. Sign up free to keep it safe.
+              </p>
+              <div className="flex gap-3 flex-wrap">
+                <a href="/sign-up" className="bg-amber-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors">
+                  Sign up free
+                </a>
+                <a href="/login" className="text-sm font-medium text-amber-700 hover:underline self-center">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Progress bar */}
         <div className="bg-gray-50 rounded-2xl p-6">
