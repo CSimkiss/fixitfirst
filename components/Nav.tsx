@@ -28,11 +28,20 @@ export default function Nav() {
       <div className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
         <a href="/guides" className="hover:text-orange-500">Guides</a>
         <a href="/tools" className="hover:text-orange-500">My Tools</a>
+        {user && (
+          <a href="/dashboard" className="hover:text-orange-500">My Dashboard</a>
+        )}
       </div>
       <div className="ml-auto flex items-center gap-3">
         {user ? (
           <>
             <span className="hidden md:block text-sm text-gray-500 truncate max-w-[160px]">{user.email}</span>
+            <a
+              href="/dashboard"
+              className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors"
+            >
+              My Dashboard
+            </a>
             <button
               onClick={handleSignOut}
               className="text-sm font-medium text-gray-600 hover:text-orange-500"
