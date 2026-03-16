@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Fit a Curtain Pole | FixItFirst',
   description: 'How to fit a curtain pole on any wall type, including plasterboard. Step-by-step guide with tools list. Save £50–80 vs a handyman.',
+  openGraph: {
+    title: 'How to Fit a Curtain Pole | FixItFirst',
+    description: 'How to fit a curtain pole on any wall type, including plasterboard. Step-by-step guide with tools list. Save £50–80 vs a handyman.',
+    url: 'https://fixit-first.co.uk/guides/fit-a-curtain-pole',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

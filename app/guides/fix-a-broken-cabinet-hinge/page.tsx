@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Broken Cabinet Hinge | FixItFirst',
+  title: 'How to Fix a Broken Cabinet Hinge | FixItFirst',
   description: 'Fix a broken or misaligned cabinet hinge in 20 minutes. Step-by-step guide for concealed cup hinges. Save £30–60 vs calling a carpenter.',
+  openGraph: {
+    title: 'How to Fix a Broken Cabinet Hinge | FixItFirst',
+    description: 'Fix a broken or misaligned cabinet hinge in 20 minutes. Step-by-step guide for concealed cup hinges. Save £30–60 vs calling a carpenter.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-broken-cabinet-hinge',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

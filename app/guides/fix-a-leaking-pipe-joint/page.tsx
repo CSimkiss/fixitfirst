@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Leaking Pipe Joint | FixItFirst',
+  title: 'How to Fix a Leaking Pipe Joint | FixItFirst',
   description: 'Stop a leaking pipe joint yourself in 30 minutes. Step-by-step guide covering PTFE tape and compression fittings. Save £60–120 vs a plumber.',
+  openGraph: {
+    title: 'How to Fix a Leaking Pipe Joint | FixItFirst',
+    description: 'Stop a leaking pipe joint yourself in 30 minutes. Step-by-step guide covering PTFE tape and compression fittings. Save £60–120 vs a plumber.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-leaking-pipe-joint',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

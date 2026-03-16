@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Replace a Light Switch | FixItFirst',
+  title: 'How to Replace a Light Switch | FixItFirst',
   description: 'Replace a light switch safely in 30 minutes. Step-by-step UK guide — covers turning off power, wiring, and fitting the new plate. Save £60–100.',
+  openGraph: {
+    title: 'How to Replace a Light Switch | FixItFirst',
+    description: 'Replace a light switch safely in 30 minutes. Step-by-step UK guide — covers turning off power, wiring, and fitting the new plate. Save £60–100.',
+    url: 'https://fixit-first.co.uk/guides/replace-a-light-switch',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

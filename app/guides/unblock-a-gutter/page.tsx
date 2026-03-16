@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Unblock a Gutter | FixItFirst',
+  title: 'How to Unblock a Gutter | FixItFirst',
   description: 'Unblock a gutter and clear a downpipe in 1 hour. Step-by-step guide covering safe ladder use, debris removal, and checking gutter fall. Save £80–150.',
+  openGraph: {
+    title: 'How to Unblock a Gutter | FixItFirst',
+    description: 'Unblock a gutter and clear a downpipe in 1 hour. Step-by-step guide covering safe ladder use, debris removal, and checking gutter fall. Save £80–150.',
+    url: 'https://fixit-first.co.uk/guides/unblock-a-gutter',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

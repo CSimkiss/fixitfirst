@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Bleed All Radiators in Your Home | FixItFirst',
+  title: 'How to Bleed All Radiators in Your Home | FixItFirst',
   description: 'Bleed all radiators in your home in under an hour. Step-by-step guide — correct order, boiler pressure checks, and when to balance. Save £80–150.',
+  openGraph: {
+    title: 'How to Bleed All Radiators in Your Home | FixItFirst',
+    description: 'Bleed all radiators in your home in under an hour. Step-by-step guide — correct order, boiler pressure checks, and when to balance. Save £80–150.',
+    url: 'https://fixit-first.co.uk/guides/bleed-all-radiators',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

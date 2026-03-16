@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Reset a Tripped Circuit Breaker | FixItFirst',
+  title: 'How to Reset a Tripped Circuit Breaker | FixItFirst',
   description: 'Reset a tripped circuit breaker in 10 minutes. Step-by-step guide to your consumer unit — covers overloads, faults, and RCD trips. Save £40–60.',
+  openGraph: {
+    title: 'How to Reset a Tripped Circuit Breaker | FixItFirst',
+    description: 'Reset a tripped circuit breaker in 10 minutes. Step-by-step guide to your consumer unit — covers overloads, faults, and RCD trips. Save £40–60.',
+    url: 'https://fixit-first.co.uk/guides/reset-a-tripped-circuit-breaker',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

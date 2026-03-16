@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Fill a Hole in a Wall | FixItFirst',
   description: 'How to fill holes and cracks in plaster or plasterboard walls. 30-minute guide for beginners using £3–5 of materials. Save £50–100 vs a tradesperson.',
+  openGraph: {
+    title: 'How to Fill a Hole in a Wall | FixItFirst',
+    description: 'How to fill holes and cracks in plaster or plasterboard walls. 30-minute guide for beginners using £3–5 of materials. Save £50–100 vs a tradesperson.',
+    url: 'https://fixit-first.co.uk/guides/fill-a-hole-in-a-wall',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

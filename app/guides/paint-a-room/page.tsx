@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Paint a Room | FixItFirst',
   description: 'How to paint a room to a professional standard — full prep, cutting in, and rolling guide for beginners. Save £200–500 vs hiring a decorator.',
+  openGraph: {
+    title: 'How to Paint a Room | FixItFirst',
+    description: 'How to paint a room to a professional standard — full prep, cutting in, and rolling guide for beginners. Save £200–500 vs hiring a decorator.',
+    url: 'https://fixit-first.co.uk/guides/paint-a-room',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

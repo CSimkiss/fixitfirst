@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Put Up Shelves | FixItFirst',
   description: 'How to put up shelves safely on any wall type — masonry or plasterboard. Step-by-step guide for beginners. Save £50–80 vs a handyman.',
+  openGraph: {
+    title: 'How to Put Up Shelves | FixItFirst',
+    description: 'How to put up shelves safely on any wall type — masonry or plasterboard. Step-by-step guide for beginners. Save £50–80 vs a handyman.',
+    url: 'https://fixit-first.co.uk/guides/put-up-shelves',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

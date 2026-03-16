@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Cold Radiator | FixItFirst',
+  title: 'How to Fix a Cold Radiator | FixItFirst',
   description: 'Diagnose and fix a cold radiator in 20 minutes. Covers bleeding, thermostatic valves, and lockshield valves. Save £50–80 vs a heating engineer.',
+  openGraph: {
+    title: 'How to Fix a Cold Radiator | FixItFirst',
+    description: 'Diagnose and fix a cold radiator in 20 minutes. Covers bleeding, thermostatic valves, and lockshield valves. Save £50–80 vs a heating engineer.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-cold-radiator',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

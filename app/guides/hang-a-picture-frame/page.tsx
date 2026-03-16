@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Hang a Picture Frame Properly | FixItFirst',
+  title: 'How to Hang a Picture Frame | FixItFirst',
   description: 'Hang a picture frame straight and securely in 20 minutes. Step-by-step guide covering wall types, fixings, and getting it level. Save £30–60.',
+  openGraph: {
+    title: 'How to Hang a Picture Frame | FixItFirst',
+    description: 'Hang a picture frame straight and securely in 20 minutes. Step-by-step guide covering wall types, fixings, and getting it level. Save £30–60.',
+    url: 'https://fixit-first.co.uk/guides/hang-a-picture-frame',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

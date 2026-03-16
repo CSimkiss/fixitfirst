@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Squeaky Floorboard | FixItFirst',
+  title: 'How to Fix a Squeaky Floorboard | FixItFirst',
   description: 'Fix a squeaky floorboard in 20 minutes using a screw. Step-by-step beginner guide. Save £40–60 vs calling a carpenter.',
+  openGraph: {
+    title: 'How to Fix a Squeaky Floorboard | FixItFirst',
+    description: 'Fix a squeaky floorboard in 20 minutes using a screw. Step-by-step beginner guide. Save £40–60 vs calling a carpenter.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-squeaky-floorboard',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

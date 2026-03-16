@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Install a Smart Thermostat | FixItFirst',
+  title: 'How to Install a Smart Thermostat | FixItFirst',
   description: 'Install a smart thermostat yourself in 1–2 hours. Step-by-step guide covering compatibility, wiring, and app setup. Save £150–300 per year on heating bills.',
+  openGraph: {
+    title: 'How to Install a Smart Thermostat | FixItFirst',
+    description: 'Install a smart thermostat yourself in 1–2 hours. Step-by-step guide covering compatibility, wiring, and app setup. Save £150–300 per year on heating bills.',
+    url: 'https://fixit-first.co.uk/guides/install-a-smart-thermostat',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

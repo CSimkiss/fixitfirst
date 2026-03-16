@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Unblock a Toilet | FixItFirst',
+  title: 'How to Unblock a Toilet | FixItFirst',
   description: 'Unblock a toilet yourself in under 20 minutes using a plunger. Step-by-step guide for complete beginners. Save £60–120 vs a plumber.',
+  openGraph: {
+    title: 'How to Unblock a Toilet | FixItFirst',
+    description: 'Unblock a toilet yourself in under 20 minutes using a plunger. Step-by-step guide for complete beginners. Save £60–120 vs a plumber.',
+    url: 'https://fixit-first.co.uk/guides/unblock-a-toilet',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

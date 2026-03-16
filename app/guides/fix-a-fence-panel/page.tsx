@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Fence Panel | FixItFirst',
+  title: 'How to Fix a Fence Panel | FixItFirst',
   description: 'Fix or replace a fence panel in 2 hours. Step-by-step guide covering panel replacement, post repair, and weatherproofing. Save £100–200.',
+  openGraph: {
+    title: 'How to Fix a Fence Panel | FixItFirst',
+    description: 'Fix or replace a fence panel in 2 hours. Step-by-step guide covering panel replacement, post repair, and weatherproofing. Save £100–200.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-fence-panel',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

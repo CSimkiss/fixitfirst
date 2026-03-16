@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Noisy Radiator | FixItFirst',
+  title: 'How to Fix a Noisy Radiator | FixItFirst',
   description: 'Fix a noisy radiator in 30 minutes. Step-by-step guide — diagnose banging, gurgling, ticking, or hissing and fix it yourself. Save £50–80.',
+  openGraph: {
+    title: 'How to Fix a Noisy Radiator | FixItFirst',
+    description: 'Fix a noisy radiator in 30 minutes. Step-by-step guide — diagnose banging, gurgling, ticking, or hissing and fix it yourself. Save £50–80.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-noisy-radiator',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

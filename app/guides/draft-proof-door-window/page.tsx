@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Draft Proof a Door or Window | FixItFirst',
   description: 'Draft proof a door or window in 30 minutes. Step-by-step guide covering self-adhesive foam strips, brush strips, and door sweeps. Save £50–150 per year.',
+  openGraph: {
+    title: 'How to Draft Proof a Door or Window | FixItFirst',
+    description: 'Draft proof a door or window in 30 minutes. Step-by-step guide covering self-adhesive foam strips, brush strips, and door sweeps. Save £50–150 per year.',
+    url: 'https://fixit-first.co.uk/guides/draft-proof-door-window',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

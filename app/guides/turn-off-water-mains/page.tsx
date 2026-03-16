@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Turn Off Your Water Mains | FixItFirst',
   description: 'Find and turn off your water mains stop cock quickly. Essential emergency skill — could save thousands in flood damage. Step-by-step guide.',
+  openGraph: {
+    title: 'How to Turn Off Your Water Mains | FixItFirst',
+    description: 'Find and turn off your water mains stop cock quickly. Essential emergency skill — could save thousands in flood damage. Step-by-step guide.',
+    url: 'https://fixit-first.co.uk/guides/turn-off-water-mains',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

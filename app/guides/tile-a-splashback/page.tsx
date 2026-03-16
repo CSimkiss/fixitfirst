@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Tile a Splashback | FixItFirst',
   description: 'Tile a kitchen or bathroom splashback yourself in half a day. Step-by-step beginner guide. Save £150–300 vs a tiler.',
+  openGraph: {
+    title: 'How to Tile a Splashback | FixItFirst',
+    description: 'Tile a kitchen or bathroom splashback yourself in half a day. Step-by-step beginner guide. Save £150–300 vs a tiler.',
+    url: 'https://fixit-first.co.uk/guides/tile-a-splashback',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

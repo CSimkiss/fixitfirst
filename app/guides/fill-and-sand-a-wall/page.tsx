@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Fill and Sand a Wall | FixItFirst',
   description: 'Fill holes and cracks in a wall and sand smooth in under an hour. Step-by-step beginner guide. Save £50–100 vs a decorator.',
+  openGraph: {
+    title: 'How to Fill and Sand a Wall | FixItFirst',
+    description: 'Fill holes and cracks in a wall and sand smooth in under an hour. Step-by-step beginner guide. Save £50–100 vs a decorator.',
+    url: 'https://fixit-first.co.uk/guides/fill-and-sand-a-wall',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Turn Off Your Electricity at the Fuse Box | FixItFirst',
   description: 'Learn how to turn off your electricity at the consumer unit in seconds. Essential emergency skill every homeowner and renter needs.',
+  openGraph: {
+    title: 'How to Turn Off Your Electricity at the Fuse Box | FixItFirst',
+    description: 'Learn how to turn off your electricity at the consumer unit in seconds. Essential emergency skill every homeowner and renter needs.',
+    url: 'https://fixit-first.co.uk/guides/turn-off-electricity-fuse-box',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

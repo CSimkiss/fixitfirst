@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Doorbell | FixItFirst',
+  title: 'How to Fix a Doorbell | FixItFirst',
   description: 'Fix a broken doorbell in 30 minutes. Step-by-step guide covering batteries, button faults, wiring, and wireless replacements. Save £40–80.',
+  openGraph: {
+    title: 'How to Fix a Doorbell | FixItFirst',
+    description: 'Fix a broken doorbell in 30 minutes. Step-by-step guide covering batteries, button faults, wiring, and wireless replacements. Save £40–80.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-doorbell',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

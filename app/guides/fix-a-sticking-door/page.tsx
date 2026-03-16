@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Sticking Door | FixItFirst',
+  title: 'How to Fix a Sticking Door | FixItFirst',
   description: 'Fix a sticking door in under an hour. Step-by-step guide — covers dropped hinges, swollen wood, and sanding. Save £50–80 vs a carpenter.',
+  openGraph: {
+    title: 'How to Fix a Sticking Door | FixItFirst',
+    description: 'Fix a sticking door in under an hour. Step-by-step guide — covers dropped hinges, swollen wood, and sanding. Save £50–80 vs a carpenter.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-sticking-door',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

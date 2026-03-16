@@ -14,8 +14,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Lay Decking Boards | FixItFirst',
+  title: 'How to Lay Decking Boards | FixItFirst',
   description: 'Lay decking boards yourself in a full day. Step-by-step guide covering joist frames, board spacing, fixing, and finishing. Save £500–1,500 on labour.',
+  openGraph: {
+    title: 'How to Lay Decking Boards | FixItFirst',
+    description: 'Lay decking boards yourself in a full day. Step-by-step guide covering joist frames, board spacing, fixing, and finishing. Save £500–1,500 on labour.',
+    url: 'https://fixit-first.co.uk/guides/lay-decking-boards',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

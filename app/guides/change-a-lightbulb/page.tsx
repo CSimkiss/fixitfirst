@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Change a Lightbulb | FixItFirst',
   description: 'How to safely change a lightbulb — bayonet cap, Edison screw, and GU10 fittings explained. Takes 5 minutes. Save £60–100 vs an electrician call-out.',
+  openGraph: {
+    title: 'How to Change a Lightbulb | FixItFirst',
+    description: 'How to safely change a lightbulb — bayonet cap, Edison screw, and GU10 fittings explained. Takes 5 minutes. Save £60–100 vs an electrician call-out.',
+    url: 'https://fixit-first.co.uk/guides/change-a-lightbulb',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [

@@ -16,6 +16,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Unblock a Drain | FixItFirst',
   description: 'How to unblock a sink, bath, or shower drain in 20 minutes — no chemicals needed. Step-by-step guide. Save £60–120 vs calling a plumber.',
+  openGraph: {
+    title: 'How to Unblock a Drain | FixItFirst',
+    description: 'How to unblock a sink, bath, or shower drain in 20 minutes — no chemicals needed. Step-by-step guide. Save £60–120 vs calling a plumber.',
+    url: 'https://fixit-first.co.uk/guides/unblock-a-drain',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
