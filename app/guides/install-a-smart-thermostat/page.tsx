@@ -1,0 +1,97 @@
+import type { Metadata } from 'next'
+import Nav from '@/components/Nav'
+import MobileNav from '@/components/MobileNav'
+
+export const metadata: Metadata = {
+  title: 'Install a Smart Thermostat | FixItFirst',
+  description: 'Install a smart thermostat yourself in 1–2 hours. Step-by-step guide covering compatibility, wiring, and app setup. Save £150–300 per year on heating bills.',
+}
+
+const steps = [
+  { title: 'Check compatibility', description: 'Most UK smart thermostats (Nest, Hive, Tado, Drayton Wiser) work with standard gas combi boilers. Check the manufacturer compatibility checker with your boiler model. If you have an older system with a hot water cylinder, check whether the thermostat supports multi-zone systems.' },
+  { title: 'Turn off the boiler', description: 'Switch off the boiler at the boiler itself, then turn off the power at the consumer unit for the heating circuit. Confirm there is no power by testing the existing thermostat — it should be dead.' },
+  { title: 'Remove the old thermostat', description: 'Unscrew the existing thermostat from the wall. Note and photograph the wires and which terminal each connects to. UK standard wiring: Live (L), Neutral (N), and Switched Live (also called COM or SL). Some systems have just two wires.' },
+  { title: 'Install the new base plate', description: 'Screw the new thermostat base plate to the wall at the same location, using the existing holes where possible. Feed the existing wires through the base plate.' },
+  { title: 'Connect the wires', description: 'Follow the new thermostat\'s wiring diagram — the manual will have UK-specific instructions. Connect Live, Neutral, and Switched Live to the terminals marked in the guide. Tighten each terminal screw securely.' },
+  { title: 'Attach the display and set up the app', description: 'Click the thermostat display onto the base plate. Restore power. Follow the in-app setup: connect to your home WiFi, set your schedule and target temperatures. Most apps offer an energy-saving assistant to optimise settings.' },
+]
+
+export default function InstallASmartThermostat() {
+  return (
+    <main className="min-h-screen bg-white pb-20 md:pb-0">
+      <Nav />
+      <div className="max-w-3xl mx-auto px-6 py-10">
+        <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Install a smart thermostat</h1>
+        <p className="text-4xl font-black text-green-600 mb-1">Save £150–300 per year</p>
+        <p className="text-gray-500 mb-8">1–2 hours · Intermediate · Saves £150–300 per year on heating</p>
+
+        <div className="bg-gray-50 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
+          <p className="text-sm text-gray-700 mb-2">Smart thermostats save money by learning your schedule and adjusting heating automatically. Studies show average savings of £150–300 per year on heating bills compared to a standard thermostat.</p>
+          <p className="text-sm text-gray-700">This is a job involving low-voltage heating wiring (not mains electrical wiring). It is legal to do yourself in the UK. The risk is low if you follow the manufacturer wiring diagram carefully.</p>
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Cross-head screwdriver</span> — for wall plate and terminals</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
+              <span><span className="font-medium">Phone or camera</span> — to photograph existing wiring before disconnecting</span>
+            </li>
+            <li className="flex items-start gap-3 text-sm">
+              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
+              <span><span className="font-medium">Smart thermostat kit</span> — <span className="text-orange-600">buy: £60–200 — Nest, Hive, Tado, or Drayton Wiser are popular UK options</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <ol className="space-y-4 mb-6">
+          {steps.map((step, i) => (
+            <li key={i} className="flex gap-4">
+              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
+              <div>
+                <p className="font-semibold text-gray-900">{step.title}</p>
+                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
+          <p className="text-sm text-yellow-900 mb-2">Not checking compatibility first — some older boilers or system boilers need a different configuration or a professional install.</p>
+          <p className="text-sm text-yellow-900 mb-2">Mixing up Live and Switched Live wires — the boiler will not fire correctly. Always follow the manufacturer's UK wiring diagram, not a generic one.</p>
+          <p className="text-sm text-yellow-900">Not configuring the schedule properly — the default settings are rarely optimal. Spend 10 minutes in the app setting your actual heating times.</p>
+        </div>
+
+        <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-red-800 mb-3">Stop and call a heating engineer if...</h2>
+          <p className="text-sm text-red-900 mb-1">Your system has more than 3 wires at the thermostat — it may be a more complex system requiring professional configuration</p>
+          <p className="text-sm text-red-900 mb-1">The boiler does not fire after installation — do not leave the heating non-functional overnight in cold weather</p>
+          <p className="text-sm text-red-900">You have an oil boiler, heat pump, or underfloor heating system — check compatibility requirements carefully</p>
+        </div>
+
+        <div className="bg-gray-50 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Budget smart thermostat (self-install)</span><span className="font-medium">£60–90</span></div>
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Premium smart thermostat (self-install)</span><span className="font-medium">£120–200</span></div>
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Professional install cost</span><span className="font-medium">£80–150</span></div>
+            <div className="flex justify-between py-2"><span className="text-gray-600">Annual savings once installed</span><span className="font-medium text-green-600">£150–300</span></div>
+          </div>
+        </div>
+
+        <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
+          <p className="text-sm text-orange-900">You now understand how heating control wiring works and how to replace a thermostat. This pays for itself in energy savings within the first year and gives you full control over your heating schedule from anywhere.</p>
+        </div>
+      </div>
+      <MobileNav />
+    </main>
+  )
+}
