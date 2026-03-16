@@ -47,6 +47,9 @@ export default function FixAGardenTap() {
           <p className="text-sm text-gray-700 mb-2">Garden taps leak for one of three reasons: a worn washer (most common), worn gland packing around the spindle, or a loose back-plate connection. Identifying the exact leak point before starting saves time and money on parts.</p>
           <p className="text-sm text-gray-700">A dripping garden tap wastes up to 5,000 litres of water per year. With water meter charges this adds £15–30 to your annual water bill — worth fixing quickly.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

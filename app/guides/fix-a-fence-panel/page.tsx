@@ -47,6 +47,9 @@ export default function FixAFencePanel() {
           <p className="text-sm text-gray-700 mb-2">In England and Wales, boundary responsibility is defined in your title deeds — check which side of the fence is yours before spending money on repairs. The convention is the posts face your side, but this is not always the legal boundary.</p>
           <p className="text-sm text-gray-700">After a storm, check all panels and posts — even those that look fine may have weakened fixings that will fail in the next storm.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

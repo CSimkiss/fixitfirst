@@ -47,6 +47,9 @@ export default function FixAStickingDoor() {
           <p className="text-sm text-gray-700 mb-2">Doors stick because of three things: loose hinges (most common), swollen wood from humidity, or a shifted door frame.</p>
           <p className="text-sm text-gray-700">Always check the hinges first. A single loose screw on a hinge causes the door to drop and drag — and tightening it takes 30 seconds.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

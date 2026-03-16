@@ -47,6 +47,9 @@ export default function HangAPictureFrame() {
           <p className="text-sm text-gray-700 mb-2">Getting a picture to hang straight and stay there requires the right fixing for your wall type. Solid walls (brick or block) need masonry anchors; hollow stud walls need toggle anchors or a screw into a stud.</p>
           <p className="text-sm text-gray-700">Always use a cable and pipe detector before drilling. Cables run vertically from sockets and switches; pipes run to radiators and bathrooms.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

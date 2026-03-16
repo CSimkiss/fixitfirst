@@ -47,6 +47,9 @@ export default function ReplaceASmokeAlarmBattery() {
           <p className="text-sm text-gray-700 mb-2">A smoke alarm that chirps every 30–60 seconds has a low battery — this is its warning signal. Do not remove the battery and leave the alarm disconnected. A home without a working smoke alarm is significantly more dangerous in a fire.</p>
           <p className="text-sm text-gray-700">Test all your smoke alarms once a month by pressing the test button. Replace batteries annually — a good habit is to do it when the clocks change.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

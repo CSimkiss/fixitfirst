@@ -47,6 +47,9 @@ export default function ResetATrippedCircuitBreaker() {
           <p className="text-sm text-gray-700 mb-2">A tripped circuit breaker is a safety feature, not a fault. It has cut the power to protect your wiring. Resetting it takes 2 minutes.</p>
           <p className="text-sm text-gray-700 mb-2">Your consumer unit (fuse box) is usually under the stairs, in the hallway, or in the kitchen. Open it and look for any switch that is in a different position to the others.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

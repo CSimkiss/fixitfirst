@@ -15,7 +15,17 @@ export default function Footer() {
             <a href="/find-a-pro" className="hover:text-orange-500 transition-colors">Find a Pro</a>
           </nav>
         </div>
-        <p className="text-gray-400 text-xs mt-8 md:text-center">© 2024 FixItFirst. All rights reserved.</p>
+        <div className="border-t border-gray-100 mt-8 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-gray-400">
+            <a href="/privacy-policy" className="hover:text-orange-500 transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-orange-500 transition-colors">Terms of Use</a>
+            <a href="/cookies" className="hover:text-orange-500 transition-colors">Cookies</a>
+          </nav>
+          <p className="text-xs text-gray-400">
+            FixItFirst is a participant in affiliate programmes including Amazon Associates and Awin. We earn from qualifying purchases.
+          </p>
+        </div>
+        <p className="text-gray-400 text-xs mt-4 md:text-center">© 2024 FixItFirst. All rights reserved.</p>
       </div>
     </footer>
   )

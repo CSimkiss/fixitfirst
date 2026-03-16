@@ -47,6 +47,9 @@ export default function ReplaceAToiletSeat() {
           <p className="text-sm text-gray-700 mb-2">This is one of the easiest jobs in the house. No tools needed beyond a screwdriver for most modern seats.</p>
           <p className="text-sm text-gray-700 mb-2">Measure your toilet pan before buying a replacement — pan shapes vary (round, D-shape, square-front). Check the distance between the hinge bolt holes too.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

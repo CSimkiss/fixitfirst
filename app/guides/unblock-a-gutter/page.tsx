@@ -47,6 +47,9 @@ export default function UnblockAGutter() {
           <p className="text-sm text-gray-700 mb-2">Blocked gutters cause water to overflow and run down the outside of the house, leading to damp walls, damaged fascias, and flooded foundations over time. Clearing them takes an hour and protects thousands of pounds of property.</p>
           <p className="text-sm text-gray-700">Clean gutters once a year — autumn, after leaves have fallen, is the best time. If you have overhanging trees, twice a year may be needed.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

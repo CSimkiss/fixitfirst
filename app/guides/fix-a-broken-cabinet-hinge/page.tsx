@@ -47,6 +47,9 @@ export default function FixABrokenCabinetHinge() {
           <p className="text-sm text-gray-700 mb-2">Most kitchen and bathroom cabinets use concealed cup hinges — the kind with a large round cup pressed into the door. These are designed to be adjusted and replaced without tools beyond a screwdriver.</p>
           <p className="text-sm text-gray-700">Before buying a new hinge, try the adjustment screws. Most drooping or misaligned cabinet doors just need a small tweak with a cross-head screwdriver — no new parts required.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

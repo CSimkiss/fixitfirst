@@ -49,6 +49,9 @@ export default function FixARunningToilet() {
           <p className="text-sm text-gray-700 mb-2">A running toilet constantly trickles water into the bowl after flushing. This is almost always caused by a faulty flapper valve or a misadjusted float arm — both are cheap and easy to fix.</p>
           <p className="text-sm text-gray-700 mb-2">You will need to look inside the cistern (the tank at the back of the toilet). It is just water — nothing unpleasant.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

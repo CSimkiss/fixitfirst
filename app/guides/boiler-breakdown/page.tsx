@@ -47,6 +47,9 @@ export default function BoilerBreakdown() {
           <p className="text-sm text-gray-700 mb-2">Most boiler faults have simple causes — low pressure, a tripped circuit, or an error code with a known fix. Work through this checklist before paying for an engineer call-out.</p>
           <p className="text-sm text-gray-700 mb-2">If you smell gas at any point: do not touch any switches, leave the house immediately, and call the National Gas Emergency line on 0800 111 999.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">

@@ -47,6 +47,9 @@ export default function ReadYourEnergyMeter() {
           <p className="text-sm text-gray-700 mb-2">If you do not submit regular meter readings, your energy supplier estimates your usage — and estimates are often wrong, leading to a surprise bill or an overpayment.</p>
           <p className="text-sm text-gray-700">Most homes have two meters: one for electricity and one for gas. Smart meters send readings automatically. If you have a traditional meter with a dial or number display, you need to read it yourself.</p>
         </div>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
+        </div>
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">
