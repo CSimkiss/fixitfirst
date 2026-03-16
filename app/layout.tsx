@@ -8,6 +8,7 @@ import NewsletterPopup from "@/components/NewsletterPopup";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fixit-first.co.uk"),
   title: "FixItFirst — DIY Guides for People Nobody Taught",
   description: "Step-by-step DIY guides written for complete beginners. Fix taps, unblock drains, paint rooms and more — no experience needed. Save hundreds vs calling a tradesperson.",
 };

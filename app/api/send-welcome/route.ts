@@ -1,8 +1,8 @@
 import { Resend } from 'resend'
 import { NextRequest, NextResponse } from 'next/server'
 
-const FIRST_GUIDE_URL = 'https://fixitfirst.co.uk/guides/fix-a-dripping-tap'
-const FROM = 'FixItFirst <hello@fixitfirst.co.uk>'
+const FIRST_GUIDE_URL = 'https://fixit-first.co.uk/guides/fix-a-dripping-tap'
+const FROM = 'FixItFirst <hello@fixit-first.co.uk>'
 
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY)
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
           <tr>
             <td style="background:#f9fafb;padding:24px 40px;text-align:center;border-top:1px solid #f3f4f6;">
               <p style="margin:0;font-size:12px;color:#9ca3af;line-height:1.6;">
-                You signed up at <a href="https://fixitfirst.co.uk" style="color:#f97316;text-decoration:none;">fixitfirst.co.uk</a>.<br/>
+                You signed up at <a href="https://fixit-first.co.uk" style="color:#f97316;text-decoration:none;">fixit-first.co.uk</a>.<br/>
                 Free forever. <a href="#" style="color:#9ca3af;">Unsubscribe</a> any time with one click.
               </p>
             </td>
@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
 </html>
 `
 
-  const { error } = await resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from: FROM,
     to: email,
     subject: 'Welcome to FixItFirst — nobody taught you. We will.',
@@ -119,9 +119,10 @@ export async function POST(req: NextRequest) {
   })
 
   if (error) {
-    console.error('Resend error:', error)
+    console.error('[send-welcome] Resend error:', JSON.stringify(error))
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
   }
 
+  console.log('[send-welcome] Sent to', email, '— Resend id:', data?.id)
   return NextResponse.json({ ok: true })
 }

@@ -50,7 +50,7 @@ export default function SavingsTracker() {
   const maxSaving = Math.max(...guideRows.map(r => r.midpoint))
 
   function handleShare() {
-    const text = `I've saved £${totalSaved} doing my own home repairs with FixItFirst! 🔧 ${completedSlugs.length} guides completed. Check it out at fixitfirst.co.uk`
+    const text = `I've saved £${totalSaved} doing my own home repairs with FixItFirst! 🔧 ${completedSlugs.length} guides completed. Check it out at fixit-first.co.uk`
     if (typeof navigator !== 'undefined' && navigator.share) {
       navigator.share({ title: 'My DIY savings', text }).catch(() => {})
     } else {
