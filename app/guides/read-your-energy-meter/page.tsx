@@ -1,6 +1,17 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'How to Read Your Energy Meter | FixItFirst',
@@ -23,15 +34,19 @@ export default function ReadYourEnergyMeter() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Read your energy meter</h1>
-        <p className="text-4xl font-black text-green-600 mb-1">Prevent overcharging</p>
-        <p className="text-gray-500 mb-8">5 mins · Beginner · Prevents estimated billing</p>
-
+        <p className="text-4xl font-black text-green-600 mb-1">Prevents overcharging</p>
+        <p className="text-gray-500 mb-6">5 mins · Beginner · Avoid estimated bills</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['read-your-energy-meter'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Read your energy meter" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="read-your-energy-meter" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">If you do not submit regular meter readings, your energy supplier estimates your usage — and estimates are often wrong, leading to a surprise bill or an overpayment.</p>
           <p className="text-sm text-gray-700">Most homes have two meters: one for electricity and one for gas. Smart meters send readings automatically. If you have a traditional meter with a dial or number display, you need to read it yourself.</p>
         </div>
-
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">
@@ -41,32 +56,19 @@ export default function ReadYourEnergyMeter() {
             </li>
           </ul>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['read-your-energy-meter']} />
+        <StepProgress steps={steps} slug="read-your-energy-meter" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Including the red decimal digits in the reading — suppliers only want the whole number.</p>
           <p className="text-sm text-yellow-900 mb-2">Reading dial meters in the wrong direction — always read left to right.</p>
           <p className="text-sm text-yellow-900">Submitting a reading lower than the previous one — call your supplier if you think the meter may be faulty.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call your energy supplier if...</h2>
           <p className="text-sm text-red-900 mb-1">Your meter reading is going down or staying the same — the meter may be faulty</p>
           <p className="text-sm text-red-900">You cannot find your meter at all — ask your landlord or the property management</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -75,12 +77,22 @@ export default function ReadYourEnergyMeter() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Engineer to check a faulty meter</span><span className="font-medium text-red-600">Free — this is the supplier's responsibility</span></div>
           </div>
         </div>
-
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to read any type of UK energy meter and submit accurate readings. This prevents estimated bills and ensures you only pay for what you actually use.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['read-your-energy-meter'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['read-your-energy-meter'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['read-your-energy-meter'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="read-your-energy-meter" />
+        <NextGuide currentSlug="read-your-energy-meter" />
       </div>
+      <RecentViewTracker slug="read-your-energy-meter" title="Read your energy meter" href="/guides/read-your-energy-meter" />
       <MobileNav />
     </main>
   )

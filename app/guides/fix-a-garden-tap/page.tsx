@@ -1,6 +1,17 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'Fix a Leaking Garden Tap | FixItFirst',
@@ -24,14 +35,18 @@ export default function FixAGardenTap() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fix a leaking garden tap</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £60–100 today</p>
-        <p className="text-gray-500 mb-8">30 mins · Beginner · Saves £60–100 vs a plumber</p>
-
+        <p className="text-gray-500 mb-6">30 mins · Beginner · Saves £60–100 vs a plumber</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['fix-a-garden-tap'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Fix a leaking garden tap" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="fix-a-garden-tap" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Garden taps leak for one of three reasons: a worn washer (most common), worn gland packing around the spindle, or a loose back-plate connection. Identifying the exact leak point before starting saves time and money on parts.</p>
           <p className="text-sm text-gray-700">A dripping garden tap wastes up to 5,000 litres of water per year. With water meter charges this adds £15–30 to your annual water bill — worth fixing quickly.</p>
         </div>
-
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">
@@ -53,33 +68,20 @@ export default function FixAGardenTap() {
             </li>
           </ul>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-garden-tap']} />
+        <StepProgress steps={steps} slug="fix-a-garden-tap" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not turning off the water supply before disassembling — water will spray everywhere.</p>
           <p className="text-sm text-yellow-900 mb-2">Buying the wrong washer size — take the old washer with you to the hardware shop. Garden tap washers are larger than indoor tap washers.</p>
           <p className="text-sm text-yellow-900">Overtightening when reassembling — too tight cracks older plastic body taps and damages thread seals.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a plumber if...</h2>
           <p className="text-sm text-red-900 mb-1">The tap body itself is cracked or corroded — it needs replacing</p>
           <p className="text-sm text-red-900 mb-1">The back-plate is leaking inside the wall — this requires access to the pipe within</p>
           <p className="text-sm text-red-900">The isolation valve inside has seized and cannot be turned off</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -88,12 +90,22 @@ export default function FixAGardenTap() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£60–100</span></div>
           </div>
         </div>
-
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to diagnose tap leaks and replace a washer or gland packing. These exact skills transfer to fixing indoor taps — the mechanism is identical.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fix-a-garden-tap'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['fix-a-garden-tap'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['fix-a-garden-tap'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="fix-a-garden-tap" />
+        <NextGuide currentSlug="fix-a-garden-tap" />
       </div>
+      <RecentViewTracker slug="fix-a-garden-tap" title="Fix a leaking garden tap" href="/guides/fix-a-garden-tap" />
       <MobileNav />
     </main>
   )

@@ -1,6 +1,17 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'Fix a Sticking Door | FixItFirst',
@@ -24,14 +35,18 @@ export default function FixAStickingDoor() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fix a sticking door</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £50–80 today</p>
-        <p className="text-gray-500 mb-8">45 mins · Beginner · Saves £50–80 vs a carpenter</p>
-
+        <p className="text-gray-500 mb-6">45 mins · Beginner · Saves £50–80 vs a carpenter</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['fix-a-sticking-door'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Fix a sticking door" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="fix-a-sticking-door" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Doors stick because of three things: loose hinges (most common), swollen wood from humidity, or a shifted door frame.</p>
           <p className="text-sm text-gray-700">Always check the hinges first. A single loose screw on a hinge causes the door to drop and drag — and tightening it takes 30 seconds.</p>
         </div>
-
         <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
           <ul className="space-y-3">
@@ -53,33 +68,20 @@ export default function FixAStickingDoor() {
             </li>
           </ul>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-sticking-door']} />
+        <StepProgress steps={steps} slug="fix-a-sticking-door" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Reaching for sandpaper before checking the hinges — a loose hinge is the cause far more often.</p>
           <p className="text-sm text-yellow-900 mb-2">Removing too much material in one go — take small passes and test each time.</p>
           <p className="text-sm text-yellow-900">Not sealing the sanded area — it will stick again within weeks if left bare.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a carpenter if...</h2>
           <p className="text-sm text-red-900 mb-1">The door frame is visibly twisted, cracked, or no longer square</p>
           <p className="text-sm text-red-900 mb-1">The door sticks all the way around, not just at one point</p>
           <p className="text-sm text-red-900">The door has dropped so far that the hinges are pulling out of the frame</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -88,12 +90,22 @@ export default function FixAStickingDoor() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Carpenter would charge</span><span className="font-medium text-red-600">£50–80</span></div>
           </div>
         </div>
-
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand why doors stick and how to work through the causes systematically. This transfers to adjusting door frames, fitting new hinges, and hanging new internal doors.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fix-a-sticking-door'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['fix-a-sticking-door'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['fix-a-sticking-door'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="fix-a-sticking-door" />
+        <NextGuide currentSlug="fix-a-sticking-door" />
       </div>
+      <RecentViewTracker slug="fix-a-sticking-door" title="Fix a sticking door" href="/guides/fix-a-sticking-door" />
       <MobileNav />
     </main>
   )

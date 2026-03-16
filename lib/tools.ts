@@ -69,6 +69,15 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   'turn-off-electricity-fuse-box': [],
   'read-your-energy-meter': [],
   'draft-proof-door-window': ['tape-measure'],
+  'replace-a-smoke-alarm-battery': [],
+  'install-a-smart-thermostat': ['screwdriver-flat', 'screwdriver-cross', 'cable-detector'],
+  'bleed-all-radiators': ['bleed-key'],
+  'fix-a-noisy-radiator': ['adjustable-spanner', 'bleed-key'],
+  'boiler-breakdown-what-to-do': [],
+  'fix-a-garden-tap': ['adjustable-spanner', 'screwdriver-flat'],
+  'unblock-a-gutter': ['step-ladder', 'rubber-gloves'],
+  'fix-a-fence-panel': ['hammer', 'drill', 'tape-measure'],
+  'lay-decking-boards': ['drill', 'drill-bits', 'tape-measure', 'spirit-level', 'hammer'],
 }
 
 export const TOOLS_STORAGE_KEY = 'fixitfirst-owned-tools'
