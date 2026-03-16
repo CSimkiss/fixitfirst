@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import MobileNav from '@/components/MobileNav'
-import GuidesGrid from '@/components/GuidesGrid'
 import Nav from '@/components/Nav'
 
 export const metadata: Metadata = {
@@ -8,25 +7,67 @@ export const metadata: Metadata = {
   description: 'Browse all FixItFirst DIY guides — plumbing, electrics, decorating, heating and more. Step-by-step instructions written for complete beginners.',
 }
 
-const guides = [
-  { title: 'Fix a dripping tap',    time: '45 mins', cost: '£2–5',   level: 'Beginner', category: 'Plumbing',   href: '/guides/fix-a-dripping-tap',    saves: 'Save £80–150 today',  difficulty: 2 },
-  { title: 'Unblock a drain',       time: '20 mins', cost: 'Free',   level: 'Beginner', category: 'Plumbing',   href: '/guides/unblock-a-drain',       saves: 'Save £60–120 today',  difficulty: 1 },
-  { title: 'Fix a running toilet',  time: '1 hour',  cost: '£10–25', level: 'Beginner', category: 'Plumbing',   href: '/guides/fix-a-running-toilet',  saves: 'Save £80–150 today',  difficulty: 3 },
-  { title: 'Change a lightbulb',    time: '5 mins',  cost: '£5–15',  level: 'Beginner', category: 'Electrics',  href: '/guides/change-a-lightbulb',    saves: 'Save £60–100 today',  difficulty: 1 },
-  { title: 'Put up shelves',        time: '1 hour',  cost: '£10–20', level: 'Beginner', category: 'Carpentry',  href: '/guides/put-up-shelves',        saves: 'Save £50–80 today',   difficulty: 3 },
-  { title: 'Fit a curtain pole',    time: '45 mins', cost: '£0–15',  level: 'Beginner', category: 'Fitting',    href: '/guides/fit-a-curtain-pole',    saves: 'Save £50–80 today',   difficulty: 2 },
-  { title: 'Paint a room',          time: '1 day',   cost: '£30–60', level: 'Beginner', category: 'Decorating', href: '/guides/paint-a-room',          saves: 'Save £200–500 today', difficulty: 2 },
-  { title: 'Fill a hole in a wall', time: '30 mins', cost: '£3–5',   level: 'Beginner', category: 'Masonry',    href: '/guides/fill-a-hole-in-a-wall', saves: 'Save £50–100 today',  difficulty: 2 },
-  { title: 'Bleed a radiator',      time: '15 mins', cost: '£1–3',   level: 'Beginner', category: 'Heating',    href: '/guides/bleed-a-radiator',      saves: 'Save £50–80 today',   difficulty: 1 },
-
-  { title: 'Fix a leaking pipe joint', time: '30 mins', cost: '£3–8', level: 'Beginner', category: 'Plumbing', href: '/guides/fix-a-leaking-pipe-joint', saves: 'Save £60–120 today', difficulty: 2 },
-  { title: 'Replace a toilet seat', time: '20 mins', cost: '£15–40', level: 'Beginner', category: 'Plumbing', href: '/guides/replace-a-toilet-seat', saves: 'Save £40–80 today', difficulty: 1 },
-  { title: 'Fix low water pressure', time: '30 mins', cost: 'Free–£10', level: 'Beginner', category: 'Plumbing', href: '/guides/fix-low-water-pressure', saves: 'Save £60–100 today', difficulty: 1 },
-  { title: 'Unblock a toilet', time: '20 mins', cost: 'Free–£12', level: 'Beginner', category: 'Plumbing', href: '/guides/unblock-a-toilet', saves: 'Save £60–120 today', difficulty: 1 },
-  { title: 'Replace a shower head', time: '15 mins', cost: '£10–40', level: 'Beginner', category: 'Plumbing', href: '/guides/replace-a-shower-head', saves: 'Save £40–80 today', difficulty: 1 },
-  { title: 'Turn off your water mains', time: '5 mins', cost: 'Free', level: 'Beginner', category: 'Plumbing', href: '/guides/turn-off-water-mains', saves: 'Prevents flood damage', difficulty: 1 },
-  { title: 'Repressurise a boiler', time: '10 mins', cost: 'Free', level: 'Beginner', category: 'Heating', href: '/guides/repressurise-a-boiler', saves: 'Save £50–80 today', difficulty: 1 },
-  { title: 'Fix a cold radiator', time: '20 mins', cost: 'Free–£3', level: 'Beginner', category: 'Heating', href: '/guides/fix-a-cold-radiator', saves: 'Save £50–80 today', difficulty: 1 },
+const categories = [
+  {
+    name: 'Plumbing',
+    guides: [
+      { title: 'Fix a dripping tap', time: '45 mins', level: 'Beginner', saves: 'Save £80–150', href: '/guides/fix-a-dripping-tap' },
+      { title: 'Unblock a drain', time: '20 mins', level: 'Beginner', saves: 'Save £60–120', href: '/guides/unblock-a-drain' },
+      { title: 'Fix a running toilet', time: '1 hour', level: 'Beginner', saves: 'Save £80–150', href: '/guides/fix-a-running-toilet' },
+      { title: 'Fix a leaking pipe joint', time: '30 mins', level: 'Beginner', saves: 'Save £60–120', href: '/guides/fix-a-leaking-pipe-joint' },
+      { title: 'Replace a toilet seat', time: '20 mins', level: 'Beginner', saves: 'Save £40–80', href: '/guides/replace-a-toilet-seat' },
+      { title: 'Fix low water pressure', time: '30 mins', level: 'Beginner', saves: 'Save £60–100', href: '/guides/fix-low-water-pressure' },
+      { title: 'Unblock a toilet', time: '20 mins', level: 'Beginner', saves: 'Save £60–120', href: '/guides/unblock-a-toilet' },
+      { title: 'Replace a shower head', time: '15 mins', level: 'Beginner', saves: 'Save £40–80', href: '/guides/replace-a-shower-head' },
+      { title: 'Turn off your water mains', time: '5 mins', level: 'Beginner', saves: 'Prevents flood damage', href: '/guides/turn-off-water-mains' },
+    ],
+  },
+  {
+    name: 'Electrics',
+    guides: [
+      { title: 'Change a lightbulb', time: '5 mins', level: 'Beginner', saves: 'Save £60–100', href: '/guides/change-a-lightbulb' },
+      { title: 'Replace a plug fuse', time: '5 mins', level: 'Beginner', saves: 'Save £30–60', href: '/guides/replace-a-plug-fuse' },
+      { title: 'Reset a tripped circuit breaker', time: '10 mins', level: 'Beginner', saves: 'Save £40–60', href: '/guides/reset-a-tripped-circuit-breaker' },
+      { title: 'Replace a light switch', time: '30 mins', level: 'Beginner', saves: 'Save £60–100', href: '/guides/replace-a-light-switch' },
+      { title: 'Fix a doorbell', time: '30 mins', level: 'Beginner', saves: 'Save £40–80', href: '/guides/fix-a-doorbell' },
+      { title: 'Replace a smoke alarm battery', time: '5 mins', level: 'Beginner', saves: 'Keeps your home protected', href: '/guides/replace-a-smoke-alarm-battery' },
+      { title: 'Install a smart thermostat', time: '1–2 hours', level: 'Intermediate', saves: 'Save £150–300/year', href: '/guides/install-a-smart-thermostat' },
+    ],
+  },
+  {
+    name: 'Carpentry & Fitting',
+    guides: [
+      { title: 'Put up shelves', time: '1 hour', level: 'Beginner', saves: 'Save £50–80', href: '/guides/put-up-shelves' },
+      { title: 'Fit a curtain pole', time: '45 mins', level: 'Beginner', saves: 'Save £50–80', href: '/guides/fit-a-curtain-pole' },
+    ],
+  },
+  {
+    name: 'Decorating',
+    guides: [
+      { title: 'Paint a room', time: '1 day', level: 'Beginner', saves: 'Save £200–500', href: '/guides/paint-a-room' },
+      { title: 'Fill a hole in a wall', time: '30 mins', level: 'Beginner', saves: 'Save £50–100', href: '/guides/fill-a-hole-in-a-wall' },
+    ],
+  },
+  {
+    name: 'Heating',
+    guides: [
+      { title: 'Bleed a radiator', time: '15 mins', level: 'Beginner', saves: 'Save £50–80', href: '/guides/bleed-a-radiator' },
+      { title: 'Bleed all radiators', time: '1 hour', level: 'Beginner', saves: 'Save £80–150', href: '/guides/bleed-all-radiators' },
+      { title: 'Fix a cold radiator', time: '20 mins', level: 'Beginner', saves: 'Save £50–80', href: '/guides/fix-a-cold-radiator' },
+      { title: 'Fix a noisy radiator', time: '30 mins', level: 'Beginner', saves: 'Save £50–80', href: '/guides/fix-a-noisy-radiator' },
+      { title: 'Repressurise a boiler', time: '10 mins', level: 'Beginner', saves: 'Save £50–80', href: '/guides/repressurise-a-boiler' },
+      { title: 'Boiler breakdown: what to do', time: '30 mins', level: 'Beginner', saves: 'Save £100–300', href: '/guides/boiler-breakdown-what-to-do' },
+    ],
+  },
+  {
+    name: 'Outdoor',
+    guides: [
+      { title: 'Fix a leaking garden tap', time: '30 mins', level: 'Beginner', saves: 'Save £60–100', href: '/guides/fix-a-garden-tap' },
+      { title: 'Unblock a gutter', time: '1 hour', level: 'Beginner', saves: 'Save £80–150', href: '/guides/unblock-a-gutter' },
+      { title: 'Fix a fence panel', time: '2 hours', level: 'Beginner', saves: 'Save £100–200', href: '/guides/fix-a-fence-panel' },
+      { title: 'Lay decking boards', time: 'Full day', level: 'Intermediate', saves: 'Save £500–1,500', href: '/guides/lay-decking-boards' },
+    ],
+  },
 ]
 
 export default function GuidesPage() {
@@ -40,7 +81,29 @@ export default function GuidesPage() {
         <p className="text-gray-300 text-lg">Step-by-step fixes for real problems. Written for complete beginners.</p>
       </div>
 
-      <GuidesGrid guides={guides} />
+      <div className="max-w-4xl mx-auto px-6 py-10 space-y-12">
+        {categories.map((category) => (
+          <section key={category.name}>
+            <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">{category.name}</h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {category.guides.map((guide) => (
+                <a
+                  key={guide.href}
+                  href={guide.href}
+                  className="flex items-start justify-between gap-4 p-4 rounded-xl border border-gray-200 hover:border-orange-300 hover:bg-orange-50 transition-colors"
+                >
+                  <div>
+                    <p className="font-medium text-gray-900 text-sm">{guide.title}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">{guide.time} · {guide.level}</p>
+                  </div>
+                  <span className="text-xs font-semibold text-green-700 bg-green-50 px-2 py-1 rounded-full shrink-0 whitespace-nowrap">{guide.saves}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
       <MobileNav />
     </main>
   )
