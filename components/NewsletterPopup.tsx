@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
 
 const DISMISSED_KEY = 'fixitfirst-newsletter-popup-dismissed'
 
@@ -28,17 +27,21 @@ export default function NewsletterPopup() {
     e.preventDefault()
     setStatus('loading')
 
-    const { error } = await supabase
-      .from('email_signups')
-      .insert({ email, source: 'popup' })
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source: 'popup' }),
+    })
 
-    if (!error) {
-      setStatus('success')
-      try { localStorage.setItem(DISMISSED_KEY, '1') } catch {}
-    } else if (error.code === '23505') {
+    const data = await res.json()
+
+    if (!res.ok) {
+      setStatus('error')
+    } else if (data.duplicate) {
       setStatus('duplicate')
     } else {
-      setStatus('error')
+      setStatus('success')
+      try { localStorage.setItem(DISMISSED_KEY, '1') } catch {}
     }
   }
 

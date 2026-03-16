@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
 
 interface EmailCaptureProps {
   source?: string
@@ -15,16 +14,20 @@ export default function EmailCapture({ source = 'unknown' }: EmailCaptureProps) 
     e.preventDefault()
     setStatus('loading')
 
-    const { error } = await supabase
-      .from('email_signups')
-      .insert({ email, source })
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source }),
+    })
 
-    if (!error) {
-      setStatus('success')
-    } else if (error.code === '23505') {
+    const data = await res.json()
+
+    if (!res.ok) {
+      setStatus('error')
+    } else if (data.duplicate) {
       setStatus('duplicate')
     } else {
-      setStatus('error')
+      setStatus('success')
     }
   }
 
