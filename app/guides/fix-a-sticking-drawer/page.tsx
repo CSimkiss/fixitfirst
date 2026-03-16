@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,23 +60,15 @@ export default function FixAStickingDrawer() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Nothing essential</span> — most fixes need no tools at all</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Candle or bar of soap</span> — <span className="text-orange-600">free — the best lubricant for wooden runners</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">120-grit sandpaper</span> — <span className="text-orange-600">buy: £2 — only needed if wax alone does not fix it</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Nothing essential', hint: 'most fixes need no tools at all' },
+    { icon: 'buy', name: 'Candle or bar of soap', hint: 'free — the best lubricant for wooden runners', hintOrange: true },
+    { icon: 'buy', name: '120-grit sandpaper', hint: 'buy: £2 — only needed if wax alone does not fix it', hintOrange: true },
+  ]}
+          slug="fix-a-sticking-drawer"
+          guideName="Fix a sticking drawer"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-sticking-drawer']} />
         <StepProgress steps={steps} slug="fix-a-sticking-drawer" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -96,6 +90,8 @@ export default function FixAStickingDrawer() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Carpenter would charge</span><span className="font-medium text-red-600">£30–50</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know why drawers stick and how to fix them with minimal effort. This technique works on any wooden furniture — chests of drawers, wardrobes, and bedside tables.</p>

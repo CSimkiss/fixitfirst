@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,27 +60,16 @@ export default function FixAGardenTap() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Adjustable spanner</span> — to remove the packing nut</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Cross-head screwdriver</span> — to remove the tap handle</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement tap washer</span> — <span className="text-orange-600">buy: £1–3 — take the old one to the hardware shop to match the size</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">PTFE tape</span> — <span className="text-orange-600">buy: £1–2 — for sealing threaded connections</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Adjustable spanner', hint: 'to remove the packing nut', toolId: 'adjustable-spanner' },
+    { icon: 'check', name: 'Cross-head screwdriver', hint: 'to remove the tap handle', toolId: 'screwdriver-cross' },
+    { icon: 'buy', name: 'Replacement tap washer', hint: 'buy: £1–3 — take the old one to the hardware shop to match the size', hintOrange: true },
+    { icon: 'buy', name: 'PTFE tape', hint: 'buy: £1–2 — for sealing threaded connections', hintOrange: true },
+  ]}
+          slug="fix-a-garden-tap"
+          guideName="Fix a leaking garden tap"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-garden-tap']} />
         <StepProgress steps={steps} slug="fix-a-garden-tap" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -101,6 +92,8 @@ export default function FixAGardenTap() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£60–100</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to diagnose tap leaks and replace a washer or gland packing. These exact skills transfer to fixing indoor taps — the mechanism is identical.</p>

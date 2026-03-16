@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,31 +60,17 @@ export default function RepairACeilingCrack() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Step ladder or stable platform</span> — to reach the ceiling safely</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Filling knife (4-inch)</span> — to apply and smooth the filler</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Fine sandpaper 240-grit</span> — to finish the repair</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Flexible filler or fine surface filler</span> — <span className="text-orange-600">buy: £4–8 — flexible filler is better for cracks that may move slightly</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Ceiling paint</span> — <span className="text-orange-600">buy: £6–12 — white matt is standard for ceilings</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Step ladder or stable platform', hint: 'to reach the ceiling safely', toolId: 'step-ladder' },
+    { icon: 'check', name: 'Filling knife (4-inch)', hint: 'to apply and smooth the filler', toolId: 'filling-knife' },
+    { icon: 'check', name: 'Fine sandpaper 240-grit', hint: 'to finish the repair' },
+    { icon: 'buy', name: 'Flexible filler or fine surface filler', hint: 'buy: £4–8 — flexible filler is better for cracks that may move slightly', hintOrange: true },
+    { icon: 'buy', name: 'Ceiling paint', hint: 'buy: £6–12 — white matt is standard for ceilings', hintOrange: true },
+  ]}
+          slug="repair-a-ceiling-crack"
+          guideName="Repair a crack in a ceiling"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['repair-a-ceiling-crack']} />
         <StepProgress steps={steps} slug="repair-a-ceiling-crack" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -105,6 +93,8 @@ export default function RepairACeilingCrack() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Decorator would charge</span><span className="font-medium text-red-600">£80–150</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You can now assess whether a ceiling crack is cosmetic or structural, and repair the cosmetic type to a professional standard.</p>

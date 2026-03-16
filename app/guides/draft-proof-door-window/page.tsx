@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,31 +60,17 @@ export default function DraftProofDoorWindow() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Scissors or craft knife</span> — to cut the strip to length</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Tape measure</span> — to measure the frame length</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Clean cloth</span> — to wipe the frame before applying adhesive strips</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Self-adhesive foam strip</span> — <span className="text-orange-600">buy: £3–6 — use E-profile for large gaps, P-profile for small gaps</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Brush strip or door sweep</span> — <span className="text-orange-600">buy: £5–10 — for the gap under an external door</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Scissors or craft knife', hint: 'to cut the strip to length' },
+    { icon: 'check', name: 'Tape measure', hint: 'to measure the frame length', toolId: 'tape-measure' },
+    { icon: 'check', name: 'Clean cloth', hint: 'to wipe the frame before applying adhesive strips' },
+    { icon: 'buy', name: 'Self-adhesive foam strip', hint: 'buy: £3–6 — use E-profile for large gaps, P-profile for small gaps', hintOrange: true },
+    { icon: 'buy', name: 'Brush strip or door sweep', hint: 'buy: £5–10 — for the gap under an external door', hintOrange: true },
+  ]}
+          slug="draft-proof-door-window"
+          guideName="Draft proof a door or window"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['draft-proof-door-window']} />
         <StepProgress steps={steps} slug="draft-proof-door-window" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -105,6 +93,8 @@ export default function DraftProofDoorWindow() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Tradesperson would charge</span><span className="font-medium text-red-600">£80–150</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know the different types of draft proofing and where to apply them. This is one of the most cost-effective energy-saving measures available — no specialist skills required.</p>

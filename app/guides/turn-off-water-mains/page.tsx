@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,23 +60,15 @@ export default function TurnOffWaterMains() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">No tools usually needed</span> — most stop cocks can be turned by hand</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Flat-head screwdriver</span> — <span className="text-orange-600">some older stop cocks require a screwdriver in the slot — already in most homes</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Stop cock key</span> — <span className="text-orange-600">buy: £3–5 from a plumber's merchant — useful if the stop cock is stiff or in a pit outside</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'No tools usually needed', hint: 'most stop cocks can be turned by hand' },
+    { icon: 'buy', name: 'Flat-head screwdriver', hint: 'some older stop cocks require a screwdriver in the slot — already in most homes', hintOrange: true, toolId: 'screwdriver-flat' },
+    { icon: 'buy', name: 'Stop cock key', hint: 'buy: £3–5 from a plumber\'s merchant — useful if the stop cock is stiff or in a pit outside', hintOrange: true },
+  ]}
+          slug="turn-off-water-mains"
+          guideName="Turn off your water mains"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['turn-off-water-mains']} />
         <StepProgress steps={steps} slug="turn-off-water-mains" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -97,6 +91,8 @@ export default function TurnOffWaterMains() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber to replace a seized stop cock</span><span className="font-medium text-red-600">£80–150</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to shut off water to your whole home in seconds. This is the single most important plumbing skill — it limits the damage from any burst pipe or appliance failure.</p>

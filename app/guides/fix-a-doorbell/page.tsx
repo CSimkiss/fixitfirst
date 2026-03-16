@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,27 +60,16 @@ export default function FixADoorbell() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Cross-head screwdriver</span> — to remove the button from the wall</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Flat-head screwdriver</span> — to open terminal connections</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement batteries</span> — <span className="text-orange-600">buy: buy: £3–5 — check the chime unit inside; most use AA or a 9V block</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement button</span> — <span className="text-orange-600">buy: buy: £5–10 if the button is faulty</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Cross-head screwdriver', hint: 'to remove the button from the wall', toolId: 'screwdriver-cross' },
+    { icon: 'check', name: 'Flat-head screwdriver', hint: 'to open terminal connections', toolId: 'screwdriver-flat' },
+    { icon: 'buy', name: 'Replacement batteries', hint: 'buy: buy: £3–5 — check the chime unit inside; most use AA or a 9V block', hintOrange: true },
+    { icon: 'buy', name: 'Replacement button', hint: 'buy: buy: £5–10 if the button is faulty', hintOrange: true },
+  ]}
+          slug="fix-a-doorbell"
+          guideName="Fix a doorbell"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-doorbell']} />
         <StepProgress steps={steps} slug="fix-a-doorbell" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -102,6 +93,8 @@ export default function FixADoorbell() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Electrician would charge</span><span className="font-medium text-red-600">£40–80</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You can now diagnose a doorbell fault systematically — batteries, button, then wiring. This logical approach to fault-finding applies to any low-voltage electrical system.</p>

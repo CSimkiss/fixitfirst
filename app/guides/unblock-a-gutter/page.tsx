@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,31 +60,17 @@ export default function UnblockAGutter() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Ladder with standoff bracket</span> — essential for safe gutter access</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Rubber gloves and bucket</span> — for debris removal</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Garden hose</span> — to flush and test the gutter flow</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Drain rods or flexible brush</span> — <span className="text-orange-600">buy: £10–20 — for blocked downpipes</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Gutter sealant</span> — <span className="text-orange-600">buy: £4–8 — for cracked joints or small holes</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Ladder with standoff bracket', hint: 'essential for safe gutter access' },
+    { icon: 'check', name: 'Rubber gloves and bucket', hint: 'for debris removal', toolId: 'rubber-gloves' },
+    { icon: 'check', name: 'Garden hose', hint: 'to flush and test the gutter flow' },
+    { icon: 'buy', name: 'Drain rods or flexible brush', hint: 'buy: £10–20 — for blocked downpipes', hintOrange: true },
+    { icon: 'buy', name: 'Gutter sealant', hint: 'buy: £4–8 — for cracked joints or small holes', hintOrange: true },
+  ]}
+          slug="unblock-a-gutter"
+          guideName="Unblock a gutter"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['unblock-a-gutter']} />
         <StepProgress steps={steps} slug="unblock-a-gutter" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -105,6 +93,8 @@ export default function UnblockAGutter() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Tradesperson to clear and inspect</span><span className="font-medium text-red-600">£80–150</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to clear, flush, and inspect your gutters — and how to identify when a bracket, joint, or fascia needs attention. Annual gutter maintenance prevents expensive damp problems inside the house.</p>

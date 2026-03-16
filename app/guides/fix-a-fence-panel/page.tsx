@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,35 +60,18 @@ export default function FixAFencePanel() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Hammer and nail bar / pry bar</span> — to remove old nails and panel</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Tape measure</span> — to confirm panel size before buying</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Drill and screwdriver</span> — for galvanised screws</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement fence panel</span> — <span className="text-orange-600">buy: £20–60 — standard 6ft wide panels from any DIY store</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Galvanised screws or nails</span> — <span className="text-orange-600">buy: £3–6 — must be galvanised for outdoor use</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Fence preservative</span> — <span className="text-orange-600">buy: £8–15 — apply to all bare wood after fitting</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Hammer and nail bar / pry bar', hint: 'to remove old nails and panel', toolId: 'hammer' },
+    { icon: 'check', name: 'Tape measure', hint: 'to confirm panel size before buying', toolId: 'tape-measure' },
+    { icon: 'check', name: 'Drill and screwdriver', hint: 'for galvanised screws' },
+    { icon: 'buy', name: 'Replacement fence panel', hint: 'buy: £20–60 — standard 6ft wide panels from any DIY store', hintOrange: true },
+    { icon: 'buy', name: 'Galvanised screws or nails', hint: 'buy: £3–6 — must be galvanised for outdoor use', hintOrange: true },
+    { icon: 'buy', name: 'Fence preservative', hint: 'buy: £8–15 — apply to all bare wood after fitting', hintOrange: true },
+  ]}
+          slug="fix-a-fence-panel"
+          guideName="Fix a fence panel"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-fence-panel']} />
         <StepProgress steps={steps} slug="fix-a-fence-panel" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -109,6 +94,8 @@ export default function FixAFencePanel() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Fencer would charge per panel</span><span className="font-medium text-red-600">£100–200 (labour + materials)</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to assess fence damage, replace a panel, and maintain wood to extend its life. The same principles apply to gate repairs, trellis fixing, and decking maintenance.</p>

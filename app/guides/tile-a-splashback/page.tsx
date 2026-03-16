@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,51 +60,22 @@ export default function TileASplashback() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Tape measure and pencil</span> — for marking out</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Spirit level</span> — to keep rows straight</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Notched adhesive spreader</span> — usually included with tile adhesive</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Grout spreader or old credit card</span> — to apply grout</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Sponge and bucket</span> — for cleaning off excess grout</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Tiles</span> — <span className="text-orange-600">buy: allow 10% extra for cuts and breakages</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Tile adhesive</span> — <span className="text-orange-600">buy: £8–15 — use a waterproof type for kitchen and bathroom</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Grout</span> — <span className="text-orange-600">buy: £5–10 — choose a colour to complement your tiles</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Tile spacers</span> — <span className="text-orange-600">buy: £2–3 — 2mm or 3mm for standard joints</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Tile cutter or score-and-snap tool</span> — <span className="text-orange-600">buy: £10–20 if you need to cut tiles</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Tape measure and pencil', hint: 'for marking out', toolId: 'tape-measure' },
+    { icon: 'check', name: 'Spirit level', hint: 'to keep rows straight', toolId: 'spirit-level' },
+    { icon: 'check', name: 'Notched adhesive spreader', hint: 'usually included with tile adhesive' },
+    { icon: 'check', name: 'Grout spreader or old credit card', hint: 'to apply grout' },
+    { icon: 'check', name: 'Sponge and bucket', hint: 'for cleaning off excess grout' },
+    { icon: 'buy', name: 'Tiles', hint: 'buy: allow 10% extra for cuts and breakages', hintOrange: true },
+    { icon: 'buy', name: 'Tile adhesive', hint: 'buy: £8–15 — use a waterproof type for kitchen and bathroom', hintOrange: true },
+    { icon: 'buy', name: 'Grout', hint: 'buy: £5–10 — choose a colour to complement your tiles', hintOrange: true },
+    { icon: 'buy', name: 'Tile spacers', hint: 'buy: £2–3 — 2mm or 3mm for standard joints', hintOrange: true },
+    { icon: 'buy', name: 'Tile cutter or score-and-snap tool', hint: 'buy: £10–20 if you need to cut tiles', hintOrange: true },
+  ]}
+          slug="tile-a-splashback"
+          guideName="Tile a splashback"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['tile-a-splashback']} />
         <StepProgress steps={steps} slug="tile-a-splashback" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -125,6 +98,8 @@ export default function TileASplashback() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Tiler would charge</span><span className="font-medium text-red-600">£150–300 (plus tiles)</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to plan a tile layout, apply adhesive correctly, and grout neatly. These skills transfer to tiling a bathroom floor, wall, or shower enclosure.</p>
