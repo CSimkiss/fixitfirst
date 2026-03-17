@@ -162,7 +162,10 @@ export default function ProgressPage() {
   const earnedBadgesCount = earnedBadges.length
 
   function scrollTo(id: string) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const el = document.getElementById(id)
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY - 80
+    window.scrollTo({ top, behavior: 'smooth' })
   }
 
   // Level system
@@ -271,7 +274,7 @@ export default function ProgressPage() {
             value={<>⭐ {totalPoints}</>}
             valueClass="text-purple-600 group-hover:text-purple-700 transition-colors"
             label="Skill points"
-            onClick={() => scrollTo('skill-tiers')}
+            onClick={() => scrollTo('skill-tiers-anchor')}
             hoverBorderClass="hover:border-purple-300"
           />
 
@@ -280,7 +283,7 @@ export default function ProgressPage() {
             value={completedCount}
             valueClass="text-orange-500 group-hover:text-orange-600 transition-colors"
             label="Guides completed"
-            onClick={user ? () => scrollTo('your-guides') : undefined}
+            onClick={user ? () => scrollTo('your-guides-anchor') : undefined}
             hoverBorderClass="hover:border-orange-300"
             locked={!user}
             lockedHint="Sign in to save progress across devices"
@@ -302,7 +305,7 @@ export default function ProgressPage() {
             value={earnedBadgesCount}
             valueClass="text-yellow-500 group-hover:text-yellow-600 transition-colors"
             label="Badges earned"
-            onClick={user ? () => scrollTo('badges') : undefined}
+            onClick={user ? () => scrollTo('badges-anchor') : undefined}
             hoverBorderClass="hover:border-yellow-300"
             locked={!user}
             lockedHint="Sign in to save progress across devices"
@@ -337,7 +340,8 @@ export default function ProgressPage() {
         )}
 
         {/* Tier roadmap */}
-        <div id="skill-tiers">
+        <div id="skill-tiers-anchor" className="scroll-mt-20" />
+        <div>
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Skill tiers</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {TIERS.map((t) => {
@@ -370,7 +374,8 @@ export default function ProgressPage() {
         </div>
 
         {/* Guide grid — split into sections */}
-        <div id="your-guides" className="space-y-8">
+        <div id="your-guides-anchor" className="scroll-mt-20" />
+        <div className="space-y-8">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">Your guides</h2>
             {completedCount === 0 && (
@@ -456,7 +461,8 @@ export default function ProgressPage() {
         </div>
 
         {/* Badges */}
-        <div id="badges">
+        <div id="badges-anchor" className="scroll-mt-20" />
+        <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Badges earned</h2>
             <a href="/badges" className="text-sm text-orange-500 hover:underline">View all →</a>

@@ -151,7 +151,10 @@ export default function DashboardPage() {
     : false
 
   function scrollTo(id: string) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const el = document.getElementById(id)
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY - 80
+    window.scrollTo({ top, behavior: 'smooth' })
   }
 
   // Invert GUIDE_TOOLS: toolId → guide titles that need it
@@ -215,7 +218,7 @@ export default function DashboardPage() {
             value={completedCount}
             valueClass="text-orange-500 group-hover:text-orange-600 transition-colors"
             label="Guides completed"
-            href="/progress#your-guides"
+            href="/progress#your-guides-anchor"
             hoverBorderClass="hover:border-orange-300"
           />
           <StatCard
@@ -229,14 +232,14 @@ export default function DashboardPage() {
             value={<>⭐ {totalPoints}</>}
             valueClass="text-purple-600 group-hover:text-purple-700 transition-colors"
             label="Skill points"
-            onClick={() => scrollTo('skill-tiers')}
+            onClick={() => scrollTo('skill-tiers-anchor')}
             hoverBorderClass="hover:border-purple-300"
           />
           <StatCard
             value={earnedBadges.length}
             valueClass="text-yellow-500 group-hover:text-yellow-600 transition-colors"
             label="Badges earned"
-            onClick={() => scrollTo('badges')}
+            onClick={() => scrollTo('badges-anchor')}
             hoverBorderClass="hover:border-yellow-300"
           />
         </div>
@@ -286,7 +289,8 @@ export default function DashboardPage() {
         )}
 
         {/* Current tier card */}
-        <div id="skill-tiers" className={`rounded-2xl border-2 p-6 flex items-center gap-5 ${tier.bg} border-current ${tier.colour}`}>
+        <div id="skill-tiers-anchor" className="scroll-mt-20" />
+        <div className={`rounded-2xl border-2 p-6 flex items-center gap-5 ${tier.bg} border-current ${tier.colour}`}>
           <span className="text-5xl shrink-0">{tier.emoji}</span>
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest opacity-60 mb-1">Your skill level</p>
@@ -305,7 +309,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Badges */}
-        <div id="badges">
+        <div id="badges-anchor" className="scroll-mt-20" />
+        <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Badges earned</h2>
             <a href="/badges" className="text-sm text-orange-500 hover:underline">View all →</a>
