@@ -260,11 +260,11 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
 
 function NextGuideCard({
   guide,
-  reason,
+  reason = 'easiest',
   onClose,
 }: {
   guide: Guide
-  reason: RecommendationReason
+  reason?: RecommendationReason
   onClose: () => void
 }) {
   const contextLabel =
