@@ -1,23 +1,46 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
+import { ALL_GUIDES, GUIDE_BY_SLUG } from '@/lib/guides'
 
 export const metadata: Metadata = {
   title: 'DIY vs Tradesperson Cost Comparison | FixItFirst',
   description: 'Compare DIY cost vs tradesperson cost across all guides. See exactly how much you save doing it yourself.',
 }
 
-const COMPARISONS = [
-  { slug: 'fix-a-dripping-tap',    title: 'Fix a dripping tap',    time: '45 mins', diy: '£2–5',   pro: '£80–150',  saving: '£75–148',  savingMin: 75,  guideHref: '/guides/fix-a-dripping-tap'    },
-  { slug: 'unblock-a-drain',       title: 'Unblock a drain',       time: '20 mins', diy: 'Free',   pro: '£60–120',  saving: '£60–120',  savingMin: 60,  guideHref: '/guides/unblock-a-drain'       },
-  { slug: 'fix-a-running-toilet',  title: 'Fix a running toilet',  time: '1 hour',  diy: '£10–25', pro: '£80–150',  saving: '£55–140',  savingMin: 55,  guideHref: '/guides/fix-a-running-toilet'  },
-  { slug: 'paint-a-room',          title: 'Paint a room',          time: '1 day',   diy: '£30–60', pro: '£200–500', saving: '£140–470', savingMin: 140, guideHref: '/guides/paint-a-room'          },
-  { slug: 'put-up-shelves',        title: 'Put up shelves',        time: '1 hour',  diy: '£10–20', pro: '£50–120',  saving: '£30–110',  savingMin: 30,  guideHref: '/guides/put-up-shelves'        },
-  { slug: 'bleed-a-radiator',      title: 'Bleed a radiator',      time: '15 mins', diy: '£1–3',   pro: '£50–80',   saving: '£47–79',   savingMin: 47,  guideHref: '/guides/bleed-a-radiator'      },
-  { slug: 'fill-a-hole-in-a-wall', title: 'Fill a hole in a wall', time: '30 mins', diy: '£3–5',   pro: '£50–100',  saving: '£45–97',   savingMin: 45,  guideHref: '/guides/fill-a-hole-in-a-wall' },
-  { slug: 'fit-a-curtain-pole',    title: 'Fit a curtain pole',    time: '45 mins', diy: '£0–15',  pro: '£50–80',   saving: '£35–80',   savingMin: 35,  guideHref: '/guides/fit-a-curtain-pole'    },
-  { slug: 'change-a-lightbulb',    title: 'Change a lightbulb',    time: '5 mins',  diy: '£5–15',  pro: '£60–100',  saving: '£45–95',   savingMin: 45,  guideHref: '/guides/change-a-lightbulb'    },
-]
+// Pro (tradesperson) cost data — the only info not already in lib/guides.ts
+const PRO_COSTS: Record<string, { label: string; min: number; max: number }> = {
+  'fix-a-dripping-tap':    { label: '£80–150',  min: 80,  max: 150 },
+  'unblock-a-drain':       { label: '£60–120',  min: 60,  max: 120 },
+  'fix-a-running-toilet':  { label: '£80–150',  min: 80,  max: 150 },
+  'paint-a-room':          { label: '£200–500', min: 200, max: 500 },
+  'put-up-shelves':        { label: '£50–120',  min: 50,  max: 120 },
+  'bleed-a-radiator':      { label: '£50–80',   min: 50,  max: 80  },
+  'fill-a-hole-in-a-wall': { label: '£50–100',  min: 50,  max: 100 },
+  'fit-a-curtain-pole':    { label: '£50–80',   min: 50,  max: 80  },
+  'change-a-lightbulb':    { label: '£60–100',  min: 60,  max: 100 },
+}
+
+const COMPARISON_SLUGS = Object.keys(PRO_COSTS)
+
+const COMPARISONS = COMPARISON_SLUGS.map(slug => {
+  const guide = GUIDE_BY_SLUG[slug]
+  const pro = PRO_COSTS[slug]
+  const savingMin = pro.min - guide.estimatedSavingsMax  // conservative: pro min minus DIY max
+  const savingMinClamped = Math.max(0, savingMin)
+  const savingLabel = `£${savingMinClamped}–${pro.max - (guide.estimatedSavingsMin === 0 ? 0 : 0)}`
+  // Use estimatedSavingsMin as the saving floor (it already represents pro - diy saving)
+  return {
+    slug,
+    title: guide.title,
+    time: guide.time,
+    diy: guide.cost,
+    pro: pro.label,
+    saving: `£${guide.estimatedSavingsMin}–${guide.estimatedSavingsMax}`,
+    savingMin: guide.estimatedSavingsMin,
+    guideHref: guide.href,
+  }
+})
 
 const totalSavingMin = COMPARISONS.reduce((acc, c) => acc + c.savingMin, 0)
 
@@ -31,7 +54,7 @@ export default function ComparePage() {
         <h1 className="text-3xl md:text-5xl font-bold mb-3">DIY vs Tradesperson</h1>
         <p className="text-gray-300 text-lg">Every guide. Every saving. In one table.</p>
         <div className="mt-6 inline-block bg-green-500 text-white px-6 py-3 rounded-xl">
-          <p className="text-sm font-medium text-green-100">Do all 9 guides yourself and save</p>
+          <p className="text-sm font-medium text-green-100">Do all {COMPARISONS.length} guides yourself and save</p>
           <p className="text-4xl font-black">£{totalSavingMin}+</p>
           <p className="text-sm text-green-100">vs calling a tradesperson for each job</p>
         </div>
@@ -70,7 +93,7 @@ export default function ComparePage() {
             </tbody>
             <tfoot className="bg-orange-50 border-t-2 border-orange-200">
               <tr>
-                <td className="px-5 py-4 font-bold text-gray-900">All 9 guides</td>
+                <td className="px-5 py-4 font-bold text-gray-900">All {COMPARISONS.length} guides</td>
                 <td className="px-4 py-4"></td>
                 <td className="px-4 py-4 text-center font-bold text-green-700">~£60–200</td>
                 <td className="px-4 py-4 text-center font-bold text-red-600">£630–1,400</td>
