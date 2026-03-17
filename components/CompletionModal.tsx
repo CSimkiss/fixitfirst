@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { TIERS } from '@/lib/progress'
 import { totalSavings, tierLevel } from '@/lib/completions'
-import { ALL_GUIDES, getRecommendedNextGuide, type Guide } from '@/lib/guides'
+import { ALL_GUIDES, getRecommendation, type Guide, type RecommendationReason } from '@/lib/guides'
 import { screwfixToolUrl } from '@/lib/affiliates'
 import type { CompletionMap } from '@/lib/completions'
 
@@ -96,8 +96,10 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
     : 100
   const guidesToNextTier = nextTier ? nextTier.min - completedCount : 0
 
-  const nextGuide     = getRecommendedNextGuide(completionMap)
-  const toolSuggestion = GUIDE_TOOL_SUGGESTION[slug] ?? null
+  const recommendation  = getRecommendation(completionMap)
+  const nextGuide       = recommendation?.guide ?? null
+  const nextReason      = recommendation?.reason ?? 'easiest'
+  const toolSuggestion  = GUIDE_TOOL_SUGGESTION[slug] ?? null
 
   return (
     /* Backdrop */
@@ -209,7 +211,7 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
           )}
 
           {/* Recommended next guide */}
-          {nextGuide && <NextGuideCard guide={nextGuide} onClose={onClose} />}
+          {nextGuide && <NextGuideCard guide={nextGuide} reason={nextReason} onClose={onClose} />}
 
         </div>
 
@@ -247,7 +249,21 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
 
 // ─── Sub-component ─────────────────────────────────────────────────────────────
 
-function NextGuideCard({ guide, onClose }: { guide: Guide; onClose: () => void }) {
+function NextGuideCard({
+  guide,
+  reason,
+  onClose,
+}: {
+  guide: Guide
+  reason: RecommendationReason
+  onClose: () => void
+}) {
+  const contextLabel =
+    reason === 'tool-overlap'    ? 'Uses tools you already have'
+    : reason === 'same-category' ? `Next step for your ${guide.category}`
+    : reason === 'quick-win'     ? 'Quick win to keep your streak'
+    : null
+
   return (
     <a
       href={guide.href}
@@ -257,6 +273,11 @@ function NextGuideCard({ guide, onClose }: { guide: Guide; onClose: () => void }
       <p className="text-orange-400 text-xs font-semibold uppercase tracking-wide mb-1.5">
         Recommended next
       </p>
+      {contextLabel && (
+        <p className="inline-flex items-center gap-1 bg-white/10 text-gray-300 text-xs font-medium rounded-full px-2.5 py-0.5 mb-2">
+          <span className="text-green-400">✓</span> {contextLabel}
+        </p>
+      )}
       <p className="font-bold text-base group-hover:text-orange-400 transition-colors mb-1">
         {guide.title}
       </p>
