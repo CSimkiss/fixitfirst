@@ -12,6 +12,7 @@ import { ALL_GUIDES, getRecommendedNextGuide } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
 import { ALL_TOOLS, GUIDE_TOOLS, TOOLS_STORAGE_KEY, type Tool } from '@/lib/tools'
 import { RETAILERS } from '@/lib/affiliates'
+import StatCard from '@/components/StatCard'
 
 // ─── ToolCard ─────────────────────────────────────────────────────────────────
 
@@ -149,6 +150,10 @@ export default function DashboardPage() {
       (GUIDE_TOOLS[nextGuide.slug] ?? []).every(id => ownedTools.includes(id))
     : false
 
+  function scrollTo(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   // Invert GUIDE_TOOLS: toolId → guide titles that need it
   const toolToGuides: Record<string, string[]> = {}
   for (const [slug, toolIds] of Object.entries(GUIDE_TOOLS)) {
@@ -206,22 +211,34 @@ export default function DashboardPage() {
 
         {/* Stats grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <a href="/progress" className="bg-white rounded-2xl border border-gray-200 p-5 text-center hover:border-orange-300 hover:shadow-sm transition-all group">
-            <p className="text-3xl font-black text-orange-500 group-hover:text-orange-600 transition-colors">{completedCount}</p>
-            <p className="text-sm text-gray-500 mt-1">Guides completed</p>
-          </a>
-          <a href="/savings-tracker" className="bg-white rounded-2xl border border-gray-200 p-5 text-center hover:border-green-300 hover:shadow-sm transition-all group">
-            <p className="text-3xl font-black text-green-600 group-hover:text-green-700 transition-colors">£{totalSaved}</p>
-            <p className="text-sm text-gray-500 mt-1">Money saved</p>
-          </a>
-          <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
-            <p className="text-3xl font-black text-purple-600">⭐ {totalPoints}</p>
-            <p className="text-sm text-gray-500 mt-1">Skill points</p>
-          </div>
-          <a href="/badges" className="bg-white rounded-2xl border border-gray-200 p-5 text-center hover:border-yellow-300 hover:shadow-sm transition-all group">
-            <p className="text-3xl font-black text-yellow-500 group-hover:text-yellow-600 transition-colors">{earnedBadges.length}</p>
-            <p className="text-sm text-gray-500 mt-1">Badges earned</p>
-          </a>
+          <StatCard
+            value={completedCount}
+            valueClass="text-orange-500 group-hover:text-orange-600 transition-colors"
+            label="Guides completed"
+            href="/progress#your-guides"
+            hoverBorderClass="hover:border-orange-300"
+          />
+          <StatCard
+            value={`£${totalSaved}`}
+            valueClass="text-green-600 group-hover:text-green-700 transition-colors"
+            label="Money saved"
+            href="/savings-tracker"
+            hoverBorderClass="hover:border-green-300"
+          />
+          <StatCard
+            value={<>⭐ {totalPoints}</>}
+            valueClass="text-purple-600 group-hover:text-purple-700 transition-colors"
+            label="Skill points"
+            onClick={() => scrollTo('skill-tiers')}
+            hoverBorderClass="hover:border-purple-300"
+          />
+          <StatCard
+            value={earnedBadges.length}
+            valueClass="text-yellow-500 group-hover:text-yellow-600 transition-colors"
+            label="Badges earned"
+            onClick={() => scrollTo('badges')}
+            hoverBorderClass="hover:border-yellow-300"
+          />
         </div>
 
         {/* ── Recommended next guide ─────────────────────────────────── */}
@@ -269,7 +286,7 @@ export default function DashboardPage() {
         )}
 
         {/* Current tier card */}
-        <div className={`rounded-2xl border-2 p-6 flex items-center gap-5 ${tier.bg} border-current ${tier.colour}`}>
+        <div id="skill-tiers" className={`rounded-2xl border-2 p-6 flex items-center gap-5 ${tier.bg} border-current ${tier.colour}`}>
           <span className="text-5xl shrink-0">{tier.emoji}</span>
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest opacity-60 mb-1">Your skill level</p>
@@ -288,7 +305,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Badges */}
-        <div>
+        <div id="badges">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Badges earned</h2>
             <a href="/badges" className="text-sm text-orange-500 hover:underline">View all →</a>
