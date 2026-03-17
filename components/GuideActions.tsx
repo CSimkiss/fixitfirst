@@ -12,7 +12,7 @@
  * running totals, tier status, an affiliate tool nudge, and the next guide.
  */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCompletions } from '@/lib/useCompletions'
 import { ALL_GUIDES, GUIDE_BY_SLUG, getRecommendedNextGuide } from '@/lib/guides'
 import SocialShare from '@/components/SocialShare'
@@ -44,6 +44,18 @@ export default function GuideActions({
     setSaving(false)
     setShowModal(true)
   }
+
+  // Allow StepProgress (sibling component) to trigger the full completion flow
+  // via a custom event, so both CTAs share a single handler with no duplicated logic.
+  useEffect(() => {
+    function onEarlyComplete(e: Event) {
+      const detail = (e as CustomEvent<{ slug: string }>).detail
+      if (detail?.slug === slug) handleClick()
+    }
+    window.addEventListener('fixitfirst:mark-complete', onEarlyComplete)
+    return () => window.removeEventListener('fixitfirst:mark-complete', onEarlyComplete)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug, completed])
 
   // Derive next guide reactively — re-computes whenever completionMap changes
   const nextGuide = getRecommendedNextGuide(completionMap, ALL_GUIDES.filter(g => g.slug !== slug))

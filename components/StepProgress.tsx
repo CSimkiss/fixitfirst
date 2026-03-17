@@ -8,7 +8,7 @@ type Step = { title: string; description: string }
 export default function StepProgress({ steps, slug }: { steps: Step[]; slug?: string }) {
   const [current, setCurrent] = useState(0)
   const total = steps.length
-  const { completionMap, markComplete, mounted } = useCompletions()
+  const { completionMap, mounted } = useCompletions()
   const [saving, setSaving] = useState(false)
 
   const completed = slug ? !!completionMap[slug] : false
@@ -23,11 +23,11 @@ export default function StepProgress({ steps, slug }: { steps: Step[]; slug?: st
     setCurrent(n)
   }
 
-  async function handleEarlyComplete() {
+  function handleEarlyComplete() {
     if (!slug || completed || saving) return
     setSaving(true)
-    await markComplete(slug)
-    setSaving(false)
+    window.dispatchEvent(new CustomEvent('fixitfirst:mark-complete', { detail: { slug } }))
+    // saving resets when completionMap updates (completed becomes true, button hides)
   }
 
   return (
