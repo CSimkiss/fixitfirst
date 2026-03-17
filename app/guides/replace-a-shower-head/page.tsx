@@ -64,8 +64,8 @@ export default function ReplaceAShowerHead() {
           tools={[
     { icon: 'check', name: 'Adjustable spanner or pliers', hint: 'to grip the connection — wrap jaws in a cloth to avoid scratching', toolId: 'adjustable-spanner' },
     { icon: 'check', name: 'Old cloth', hint: 'to grip and protect the chrome' },
-    { icon: 'buy', name: 'Replacement shower head', hint: 'buy: buy: £10–40 from any hardware shop or supermarket', hintOrange: true },
-    { icon: 'buy', name: 'PTFE tape', hint: 'buy: buy: £1 — recommended for a reliable seal', hintOrange: true },
+    { icon: 'buy', name: 'Replacement shower head', hint: 'buy from any hardware shop or supermarket', hintOrange: true },
+    { icon: 'buy', name: 'PTFE tape', hint: 'buy — recommended for a reliable seal', hintOrange: true },
   ]}
           slug="replace-a-shower-head"
           guideName="Replace a shower head"

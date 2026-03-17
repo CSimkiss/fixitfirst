@@ -67,8 +67,8 @@ export default function UnblockADrain() {
     { icon: 'check', name: 'Rubber gloves', hint: 'standard household item', toolId: 'rubber-gloves' },
     { icon: 'check', name: 'Kettle', hint: 'for boiling water flush' },
     { icon: 'check', name: 'Bicarbonate of soda and white vinegar', hint: 'most homes have these' },
-    { icon: 'buy', name: 'Cup plunger', hint: 'buy: £5–8, worth having in every home', hintOrange: true, toolId: 'plunger' },
-    { icon: 'buy', name: 'Drain snake', hint: 'buy: £5–10 if the plunger doesn\'t work (or use a bent wire coat hanger)', hintOrange: true, toolId: 'drain-snake' },
+    { icon: 'buy', name: 'Cup plunger', hint: 'buy — 8, worth having in every home', hintOrange: true, toolId: 'plunger' },
+    { icon: 'buy', name: 'Drain snake', hint: 'buy — 10 if the plunger doesn\'t work (or use a bent wire coat hanger)', hintOrange: true, toolId: 'drain-snake' },
   ]}
           slug="unblock-a-drain"
           guideName="Unblock a drain"

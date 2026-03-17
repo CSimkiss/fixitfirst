@@ -104,6 +104,9 @@ export default function ToolsSection({ tools, slug: _slug, guideName }: Props) {
           </a>
         </p>
       )}
+      <p className="text-xs text-gray-400 mt-3">
+        Prices shown on retailer sites. Always check current pricing before purchasing.
+      </p>
     </div>
   )
 }

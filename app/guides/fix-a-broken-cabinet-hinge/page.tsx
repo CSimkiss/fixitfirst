@@ -63,7 +63,7 @@ export default function FixABrokenCabinetHinge() {
         <ToolsSection
           tools={[
     { icon: 'check', name: 'Cross-head screwdriver', hint: 'for all hinge screws', toolId: 'screwdriver-cross' },
-    { icon: 'buy', name: 'Replacement hinge', hint: 'buy: £2–5 — take the old hinge to match the cup diameter, usually 35mm, and the arm length', hintOrange: true },
+    { icon: 'buy', name: 'Replacement hinge', hint: 'buy — take the old hinge to match the cup diameter, usually 35mm, and the arm length', hintOrange: true },
   ]}
           slug="fix-a-broken-cabinet-hinge"
           guideName="Fix a broken cabinet hinge"

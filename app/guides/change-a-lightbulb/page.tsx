@@ -66,7 +66,7 @@ export default function ChangeALightbulb() {
           tools={[
     { icon: 'check', name: 'No tools required', hint: 'just your hands' },
     { icon: 'check', name: 'Step ladder or stable chair', hint: 'for ceiling fittings', toolId: 'step-ladder' },
-    { icon: 'buy', name: 'Replacement bulb', hint: 'buy: match the existing fitting type (B22, E27, or GU10), £5–15', hintOrange: true },
+    { icon: 'buy', name: 'Replacement bulb', hint: 'buy — match the existing fitting type (B22, E27, or GU10)', hintOrange: true },
   ]}
           slug="change-a-lightbulb"
           guideName="Change a lightbulb"

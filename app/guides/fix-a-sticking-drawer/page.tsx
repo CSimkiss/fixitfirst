@@ -64,7 +64,7 @@ export default function FixAStickingDrawer() {
           tools={[
     { icon: 'check', name: 'Nothing essential', hint: 'most fixes need no tools at all' },
     { icon: 'buy', name: 'Candle or bar of soap', hint: 'free — the best lubricant for wooden runners', hintOrange: true },
-    { icon: 'buy', name: '120-grit sandpaper', hint: 'buy: £2 — only needed if wax alone does not fix it', hintOrange: true },
+    { icon: 'buy', name: '120-grit sandpaper', hint: 'buy — only needed if wax alone does not fix it', hintOrange: true },
   ]}
           slug="fix-a-sticking-drawer"
           guideName="Fix a sticking drawer"

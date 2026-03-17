@@ -63,7 +63,7 @@ export default function ReplaceASmokeAlarmBattery() {
         <ToolsSection
           tools={[
     { icon: 'check', name: 'Step ladder or chair', hint: 'to reach ceiling-mounted alarms safely', toolId: 'step-ladder' },
-    { icon: 'buy', name: 'Replacement battery', hint: 'buy: £2–5 — check type first: usually 9V PP3, AA, or AAA', hintOrange: true },
+    { icon: 'buy', name: 'Replacement battery', hint: 'buy — check type first: usually 9V PP3, AA, or AAA', hintOrange: true },
   ]}
           slug="replace-a-smoke-alarm-battery"
           guideName="Replace a smoke alarm battery"

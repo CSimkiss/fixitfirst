@@ -54,7 +54,7 @@ export default function ReplaceAPlugFuse() {
         <DifficultyComparison slug="replace-a-plug-fuse" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
-          <p className="text-sm text-gray-700 mb-2">UK plugs contain a small fuse inside them. When an appliance suddenly stops working, the plug fuse is the first thing to check — it costs £1 and takes 2 minutes.</p>
+          <p className="text-sm text-gray-700 mb-2">UK plugs contain a small fuse inside them. When an appliance suddenly stops working, the plug fuse is the first thing to check — it costs little and takes 2 minutes.</p>
           <p className="text-sm text-gray-700 mb-2">This fix works for any standard UK 3-pin plug. If the appliance trips the whole circuit rather than just going dead, see our circuit breaker guide instead.</p>
         </div>
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
@@ -63,7 +63,7 @@ export default function ReplaceAPlugFuse() {
         <ToolsSection
           tools={[
     { icon: 'check', name: 'Flat-head screwdriver', hint: 'to open the plug', toolId: 'screwdriver-flat' },
-    { icon: 'buy', name: 'Replacement fuse', hint: 'buy: buy: £1–3 — must match the existing rating (3A or 13A stamped on the side)', hintOrange: true },
+    { icon: 'buy', name: 'Replacement fuse', hint: 'buy — must match the existing rating (3A or 13A stamped on the side)', hintOrange: true },
   ]}
           slug="replace-a-plug-fuse"
           guideName="Replace a plug fuse"

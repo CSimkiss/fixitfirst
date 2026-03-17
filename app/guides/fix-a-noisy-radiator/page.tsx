@@ -64,8 +64,8 @@ export default function FixANoisyRadiator() {
           tools={[
     { icon: 'check', name: 'Adjustable spanner', hint: 'to adjust valve packing nuts', toolId: 'adjustable-spanner' },
     { icon: 'check', name: 'Old cloth', hint: 'to catch drips when bleeding' },
-    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy: £1–3 — needed for gurgling radiators', hintOrange: true, toolId: 'bleed-key' },
-    { icon: 'buy', name: 'Pipe foam or felt', hint: 'buy: £3–5 — to cushion pipes rattling in brackets', hintOrange: true },
+    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy — needed for gurgling radiators', hintOrange: true, toolId: 'bleed-key' },
+    { icon: 'buy', name: 'Pipe foam or felt', hint: 'buy — to cushion pipes rattling in brackets', hintOrange: true },
   ]}
           slug="fix-a-noisy-radiator"
           guideName="Fix a noisy radiator"

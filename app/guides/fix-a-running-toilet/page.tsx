@@ -66,7 +66,7 @@ export default function FixARunningToilet() {
           tools={[
     { icon: 'check', name: 'Towel or cloth', hint: 'to set the cistern lid on and catch any drips' },
     { icon: 'check', name: 'Screwdriver', hint: 'needed for some cistern types to adjust the ballvalve' },
-    { icon: 'buy', name: 'Replacement flapper valve', hint: 'buy only if needed: £5–15, take the old one to the shop to match the size', hintOrange: true },
+    { icon: 'buy', name: 'Replacement flapper valve', hint: 'buy only if needed — take the old one to the shop to match the size', hintOrange: true },
   ]}
           slug="fix-a-running-toilet"
           guideName="Fix a running toilet"

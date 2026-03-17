@@ -64,8 +64,8 @@ export default function FixAGardenTap() {
           tools={[
     { icon: 'check', name: 'Adjustable spanner', hint: 'to remove the packing nut', toolId: 'adjustable-spanner' },
     { icon: 'check', name: 'Cross-head screwdriver', hint: 'to remove the tap handle', toolId: 'screwdriver-cross' },
-    { icon: 'buy', name: 'Replacement tap washer', hint: 'buy: £1–3 — take the old one to the hardware shop to match the size', hintOrange: true },
-    { icon: 'buy', name: 'PTFE tape', hint: 'buy: £1–2 — for sealing threaded connections', hintOrange: true },
+    { icon: 'buy', name: 'Replacement tap washer', hint: 'buy — take the old one to the hardware shop to match the size', hintOrange: true },
+    { icon: 'buy', name: 'PTFE tape', hint: 'buy — for sealing threaded connections', hintOrange: true },
   ]}
           slug="fix-a-garden-tap"
           guideName="Fix a leaking garden tap"

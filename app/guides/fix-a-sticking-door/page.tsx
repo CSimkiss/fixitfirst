@@ -64,7 +64,7 @@ export default function FixAStickingDoor() {
           tools={[
     { icon: 'check', name: 'Flat-head screwdriver', hint: 'to tighten hinge screws', toolId: 'screwdriver-flat' },
     { icon: 'check', name: 'Cross-head screwdriver', hint: 'some hinges use cross-head fixings', toolId: 'screwdriver-cross' },
-    { icon: 'buy', name: '80-grit sandpaper', hint: 'buy: £2–4 if sanding is needed', hintOrange: true },
+    { icon: 'buy', name: '80-grit sandpaper', hint: 'buy — 4 if sanding is needed', hintOrange: true },
     { icon: 'buy', name: 'Candle or bar of soap', hint: 'free lubricant — rub on the door edge before sanding', hintOrange: true },
   ]}
           slug="fix-a-sticking-door"

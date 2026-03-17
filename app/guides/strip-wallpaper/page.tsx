@@ -64,9 +64,9 @@ export default function StripWallpaper() {
           tools={[
     { icon: 'check', name: 'Plastic dustsheets or newspaper', hint: 'to protect the floor and skirting' },
     { icon: 'check', name: 'Bucket and large sponge', hint: 'for applying the soaking solution' },
-    { icon: 'buy', name: 'Wallpaper scorer', hint: 'buy: £3–5 — scores the surface so water penetrates through vinyl-coated wallpaper', hintOrange: true },
-    { icon: 'buy', name: 'Stripping solution', hint: 'buy: £4–8 — mix with warm water; warm water alone works for uncoated paper', hintOrange: true },
-    { icon: 'buy', name: 'Broad scraper (4–6 inch)', hint: 'buy: £5–10 if you do not have one', hintOrange: true },
+    { icon: 'buy', name: 'Wallpaper scorer', hint: 'buy — scores the surface so water penetrates through vinyl-coated wallpaper', hintOrange: true },
+    { icon: 'buy', name: 'Stripping solution', hint: 'buy — mix with warm water; warm water alone works for uncoated paper', hintOrange: true },
+    { icon: 'buy', name: 'Broad scraper (4–6 inch)', hint: 'buy — 10 if you do not have one', hintOrange: true },
   ]}
           slug="strip-wallpaper"
           guideName="Strip wallpaper"

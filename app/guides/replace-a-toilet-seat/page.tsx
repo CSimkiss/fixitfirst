@@ -64,7 +64,7 @@ export default function ReplaceAToiletSeat() {
           tools={[
     { icon: 'check', name: 'Screwdriver (cross-head)', hint: 'most hinge bolts use cross-head fixings' },
     { icon: 'check', name: 'Adjustable spanner or pliers', hint: 'to grip the nut under the pan if needed', toolId: 'adjustable-spanner' },
-    { icon: 'buy', name: 'Replacement toilet seat', hint: 'buy: buy: £15–40 — measure your pan first', hintOrange: true },
+    { icon: 'buy', name: 'Replacement toilet seat', hint: 'buy — measure your pan first', hintOrange: true },
   ]}
           slug="replace-a-toilet-seat"
           guideName="Replace a toilet seat"

@@ -64,8 +64,8 @@ export default function FixALeakingPipeJoint() {
           tools={[
     { icon: 'check', name: 'Adjustable spanner', hint: 'you almost certainly already have one', toolId: 'adjustable-spanner' },
     { icon: 'check', name: 'Old towels or cloths', hint: 'to dry the joint and catch drips' },
-    { icon: 'buy', name: 'PTFE thread seal tape', hint: 'buy: buy: £1–2 from any hardware shop', hintOrange: true },
-    { icon: 'buy', name: 'Replacement olive if needed', hint: 'buy: buy: 50p–£1 for compression joints — take the old one to match', hintOrange: true },
+    { icon: 'buy', name: 'PTFE thread seal tape', hint: 'buy from any hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Replacement olive if needed', hint: 'buy — take the old one to match', hintOrange: true },
   ]}
           slug="fix-a-leaking-pipe-joint"
           guideName="Fix a leaking pipe joint"
