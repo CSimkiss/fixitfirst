@@ -87,7 +87,13 @@ export default function Home() {
             </button>
           </div>
           <div className="flex gap-2 mt-5 flex-wrap justify-center">
-            {["Dripping tap", "Blocked drain", "No hot water", "Leaking toilet", "Paint a room"].map((q) => (
+            <a
+              href="/guides/fix-a-dripping-tap"
+              className="bg-orange-500 hover:bg-orange-400 text-white px-3 py-1 rounded-full text-sm font-semibold border border-orange-400"
+            >
+              ★ Start here: Fix a dripping tap
+            </a>
+            {["Blocked drain", "No hot water", "Leaking toilet", "Paint a room"].map((q) => (
               <span
                 key={q}
                 onClick={() => router.push(`/search?q=${encodeURIComponent(q)}`)}
@@ -96,6 +102,17 @@ export default function Home() {
                 {q}
               </span>
             ))}
+          </div>
+
+          {/* Primary CTA */}
+          <div className="mt-8">
+            <a
+              href="/guides/fix-a-dripping-tap"
+              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-400 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors shadow-lg shadow-orange-500/30"
+            >
+              Start your first fix →
+            </a>
+            <p className="text-gray-400 text-sm mt-3">Takes 10–20 mins · No experience needed</p>
           </div>
         </div>
       </section>
@@ -118,7 +135,7 @@ export default function Home() {
       {/* This week's featured fix */}
       <section className="px-6 py-8 max-w-5xl mx-auto">
         <div className="flex items-center gap-2 mb-4">
-          <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Featured fix this week</span>
+          <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Start here — most common fix</span>
         </div>
         <a
           href={FEATURED_GUIDE.href}
@@ -143,8 +160,8 @@ export default function Home() {
               <div className="w-20 h-20 bg-orange-500 rounded-2xl flex items-center justify-center text-4xl">🔧</div>
             </div>
           </div>
-          <div className="mt-5 inline-flex items-center gap-2 text-orange-600 font-semibold text-sm group-hover:gap-3 transition-all">
-            Read the guide <span>→</span>
+          <div className="mt-5 inline-flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm group-hover:bg-orange-600 transition-colors">
+            Start this fix →
           </div>
         </a>
       </section>
@@ -165,6 +182,7 @@ export default function Home() {
             </button>
           ))}
         </div>
+        <p className="text-sm text-gray-400 mb-4">Pick any — or start with the one above</p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredGuides.map((guide) => {
             const slug = guide.href.split('/').pop() ?? ''
@@ -206,9 +224,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-gray-50 px-6 py-16">
+      <section className="bg-gray-50 px-6 py-10 border-t border-gray-100">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-12">How FixItFirst works</h2>
+          <h2 className="text-lg font-semibold text-gray-500 mb-8">How FixItFirst works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { step: "1", title: "Search your problem", desc: "Type what's broken or browse by room. We'll find the right guide instantly." },
