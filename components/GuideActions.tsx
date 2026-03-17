@@ -7,24 +7,15 @@
  * Both use a single useCompletions() instance, so marking a guide complete
  * updates the button label AND the next-guide recommendation in one React render
  * cycle with no page refresh required.
+ *
+ * On completion a CompletionModal is shown celebrating progress, showing
+ * running totals, tier status, an affiliate tool nudge, and the next guide.
  */
 
 import { useState } from 'react'
 import { useCompletions } from '@/lib/useCompletions'
-import { ALL_GUIDES } from '@/lib/guides'
-
-// Recommended learning order used to pick the next guide
-const RECOMMENDED_ORDER = [
-  'change-a-lightbulb',
-  'bleed-a-radiator',
-  'unblock-a-drain',
-  'fill-a-hole-in-a-wall',
-  'fix-a-dripping-tap',
-  'fit-a-curtain-pole',
-  'put-up-shelves',
-  'paint-a-room',
-  'fix-a-running-toilet',
-]
+import { ALL_GUIDES, getRecommendedNextGuide } from '@/lib/guides'
+import CompletionModal from '@/components/CompletionModal'
 
 export default function GuideActions({
   slug,
@@ -34,7 +25,8 @@ export default function GuideActions({
   children?: React.ReactNode
 }) {
   const { completionMap, markComplete, mounted } = useCompletions()
-  const [saving, setSaving] = useState(false)
+  const [saving, setSaving]       = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const completed = !!completionMap[slug]
 
@@ -43,15 +35,11 @@ export default function GuideActions({
     setSaving(true)
     await markComplete(slug)
     setSaving(false)
+    setShowModal(true)
   }
 
   // Derive next guide reactively — re-computes whenever completionMap changes
-  const completedSlugs = Object.keys(completionMap)
-  const nextGuide =
-    RECOMMENDED_ORDER
-      .filter(s => s !== slug && !completedSlugs.includes(s))
-      .map(s => ALL_GUIDES.find(g => g.slug === s))
-      .find(Boolean) ?? null
+  const nextGuide = getRecommendedNextGuide(completionMap, ALL_GUIDES.filter(g => g.slug !== slug))
 
   return (
     <>
@@ -92,6 +80,15 @@ export default function GuideActions({
             </span>
           </a>
         </div>
+      )}
+
+      {/* Completion modal — portal rendered via fixed positioning */}
+      {showModal && (
+        <CompletionModal
+          slug={slug}
+          completionMap={completionMap}
+          onClose={() => setShowModal(false)}
+        />
       )}
     </>
   )
