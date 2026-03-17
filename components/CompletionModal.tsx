@@ -164,7 +164,7 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
           <p className="text-sm text-gray-500 text-center -mt-1">
             {completedCount > 1
               ? `That's ${completedCount} jobs you didn't need to pay someone else for.`
-              : 'You're building real DIY confidence.'}
+              : "You're building real DIY confidence."}
           </p>
 
           {/* Tier progress */}
