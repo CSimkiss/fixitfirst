@@ -5,6 +5,7 @@ import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { ALL_GUIDES } from '@/lib/guides'
 import { useCompletions } from '@/lib/useCompletions'
+import { totalSavings } from '@/lib/completions'
 
 
 export default function SavingsTracker() {
@@ -25,7 +26,7 @@ export default function SavingsTracker() {
     return { ...g, midpoint, savingsLabel, done }
   })
 
-  const totalSaved = guideRows.filter(r => r.done).reduce((sum, r) => sum + r.midpoint, 0)
+  const totalSaved = totalSavings(completionMap)
   const potentialTotal = guideRows.reduce((sum, r) => sum + r.midpoint, 0)
   const maxSaving = Math.max(...guideRows.map(r => r.midpoint))
 

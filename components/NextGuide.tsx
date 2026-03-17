@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { ALL_GUIDES } from '@/lib/guides'
-import { COMPLETED_GUIDES_KEY } from '@/lib/progress'
+import { getCompletionMap } from '@/lib/completions'
 
 // Recommended learning order, easiest to hardest
 const RECOMMENDED_ORDER = [
@@ -22,8 +22,7 @@ export default function NextGuide({ currentSlug }: { currentSlug: string }) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-      const completed: string[] = raw ? Object.keys(JSON.parse(raw)) : []
+      const completed: string[] = Object.keys(getCompletionMap())
 
       const next = RECOMMENDED_ORDER
         .filter(slug => slug !== currentSlug && !completed.includes(slug))

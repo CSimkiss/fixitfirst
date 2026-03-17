@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { ALL_BADGES } from '@/lib/badges'
-import { COMPLETED_GUIDES_KEY } from '@/lib/progress'
+import { getCompletionMap } from '@/lib/completions'
 import { TOOLS_STORAGE_KEY } from '@/lib/tools'
 
 export default function BadgesPage() {
@@ -14,8 +14,7 @@ export default function BadgesPage() {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-      if (raw) setCompletedSlugs(Object.keys(JSON.parse(raw)))
+      setCompletedSlugs(Object.keys(getCompletionMap()))
       const tools = localStorage.getItem(TOOLS_STORAGE_KEY)
       if (tools) setOwnedTools(JSON.parse(tools))
     } catch {}

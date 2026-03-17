@@ -6,7 +6,8 @@ import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import DashboardSkeleton from '@/components/DashboardSkeleton'
 import { useCompletions } from '@/lib/useCompletions'
-import { getTier, TIERS } from '@/lib/progress'
+import { TIERS } from '@/lib/progress'
+import { totalSavings, tierLevel } from '@/lib/completions'
 import { ALL_GUIDES } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
 import { ALL_TOOLS, GUIDE_TOOLS, TOOLS_STORAGE_KEY, type Tool } from '@/lib/tools'
@@ -96,40 +97,6 @@ function ToolCard({
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-// Midpoint savings per guide (£)
-const SAVINGS_MIDPOINT: Record<string, number> = {
-  'fix-a-dripping-tap':      115,
-  'put-up-shelves':           65,
-  'paint-a-room':            350,
-  'unblock-a-drain':          90,
-  'bleed-a-radiator':         65,
-  'fill-a-hole-in-a-wall':    75,
-  'fit-a-curtain-pole':       65,
-  'change-a-lightbulb':       80,
-  'fix-a-running-toilet':    115,
-  'fix-a-leaking-pipe-joint': 90,
-  'replace-a-toilet-seat':    60,
-  'fix-low-water-pressure':   80,
-  'unblock-a-toilet':         90,
-  'replace-a-shower-head':    60,
-  'tile-a-splashback':       225,
-  'strip-wallpaper':         150,
-  'repair-a-ceiling-crack':  115,
-  'fill-and-sand-a-wall':     75,
-  'fix-a-squeaky-floorboard': 50,
-  'fix-a-sticking-door':      65,
-  'hang-a-picture-frame':     45,
-  'fix-a-broken-cabinet-hinge': 45,
-  'fix-a-sticking-drawer':    40,
-  'replace-a-plug-fuse':      45,
-  'reset-a-tripped-circuit-breaker': 50,
-  'replace-a-light-switch':   80,
-  'fix-a-doorbell':           60,
-  'repressurise-a-boiler':    65,
-  'fix-a-cold-radiator':      65,
-  'boiler-breakdown':        200,
-}
-
 export default function DashboardPage() {
   const router = useRouter()
   const { completionMap, user, loading, syncing, error } = useCompletions()
@@ -163,13 +130,10 @@ export default function DashboardPage() {
 
   const completedSlugs = Object.keys(completionMap)
   const completedCount = completedSlugs.length
-  const tier = getTier(completedCount)
+  const tier = tierLevel(completionMap)
   const nextTier = TIERS[TIERS.indexOf(tier) + 1]
 
-  const totalSaved = completedSlugs.reduce(
-    (sum, slug) => sum + (SAVINGS_MIDPOINT[slug] ?? 0),
-    0,
-  )
+  const totalSaved = totalSavings(completionMap)
 
   const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, ownedTools))
   const nextGuide = ALL_GUIDES.find(g => !completionMap[g.slug])

@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { COMPLETED_GUIDES_KEY, getLocalDateStr } from '@/lib/progress'
+import {
+  getCompletionMap,
+  markComplete as localMarkComplete,
+  upsertSupabaseCompletion,
+} from '@/lib/completions'
 import type { User } from '@supabase/supabase-js'
 
 export default function CompleteButton() {
@@ -28,9 +32,7 @@ export default function CompleteButton() {
           .maybeSingle()
         setCompleted(!!data)
       } else {
-        const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-        const map: Record<string, string> = raw ? JSON.parse(raw) : {}
-        setCompleted(!!map[slug])
+        setCompleted(!!getCompletionMap()[slug])
       }
       setMounted(true)
     }
@@ -48,18 +50,15 @@ export default function CompleteButton() {
     setSaving(true)
 
     if (user) {
-      const { error } = await supabase
-        .from('completions')
-        .upsert(
-          { user_id: user.id, guide_slug: slug, completed_at: new Date().toISOString() },
-          { onConflict: 'user_id,guide_slug' },
-        )
-      if (!error) setCompleted(true)
+      try {
+        await upsertSupabaseCompletion(user.id, slug)
+        localMarkComplete(slug)
+        setCompleted(true)
+      } catch (err) {
+        console.error('[CompleteButton] Upsert failed:', err)
+      }
     } else {
-      const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-      const map: Record<string, string> = raw ? JSON.parse(raw) : {}
-      map[slug] = getLocalDateStr()
-      localStorage.setItem(COMPLETED_GUIDES_KEY, JSON.stringify(map))
+      localMarkComplete(slug)
       setCompleted(true)
     }
     setSaving(false)
