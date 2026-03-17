@@ -9,7 +9,8 @@ export default function DifficultyComparison({ slug }: { slug: string }) {
   if (!meta) return null
 
   return (
-    <div className="relative inline-block mb-6">
+    <div className="mb-6">
+      <div className="relative inline-block">
       <button
         onClick={() => setOpen(!open)}
         onMouseEnter={() => setOpen(true)}
@@ -31,6 +32,8 @@ export default function DifficultyComparison({ slug }: { slug: string }) {
           <div className="absolute top-full left-4 border-4 border-transparent border-t-gray-900" />
         </div>
       )}
+      </div>
+      <p className="text-xs text-gray-400 mt-1">Only basic tools needed — most homes already have them.</p>
     </div>
   )
 }

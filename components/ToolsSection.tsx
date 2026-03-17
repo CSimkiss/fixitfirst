@@ -57,7 +57,7 @@ export default function ToolsSection({ tools, slug: _slug, guideName }: Props) {
                 )}
                 {showBuy && tool.name && (
                   <span className="flex flex-col gap-0.5 text-xs mt-0.5 w-full">
-                    <span className="text-gray-400 italic">Worth having — this unlocks future fixes too.</span>
+                    <span className="text-gray-400 italic">Worth having — you will use it for other fixes too.</span>
                     <span className="flex items-center gap-1 flex-wrap">
                       <span className="text-gray-400">· Get it:</span>
                       <a
