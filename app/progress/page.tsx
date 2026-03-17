@@ -1,12 +1,15 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { TIERS } from '@/lib/progress'
-import { ALL_GUIDES } from '@/lib/guides'
+import { ALL_GUIDES, getRecommendation } from '@/lib/guides'
 import { useCompletions } from '@/lib/useCompletions'
 import { streakCount, tierLevel, totalSavings } from '@/lib/completions'
 import { ALL_BADGES } from '@/lib/badges'
+import { ALL_TOOLS, GUIDE_TOOLS as GUIDE_TOOL_MAP, TOOLS_STORAGE_KEY } from '@/lib/tools'
+import { screwfixToolUrl } from '@/lib/affiliates'
 
 const CATEGORY_COLOURS: Record<string, string> = {
   Plumbing:   'bg-blue-50 text-blue-700',
@@ -18,6 +21,13 @@ const CATEGORY_COLOURS: Record<string, string> = {
   Fitting:    'bg-teal-50 text-teal-700',
 }
 
+const MILESTONES = [
+  { at: 3,  label: 'Bathroom Basics' },
+  { at: 6,  label: 'Kitchen Confidence' },
+  { at: 10, label: 'Home Master' },
+  { at: 20, label: 'Full DIY Independence' },
+]
+
 // Lock icon used on muted stat cards for guests
 function LockIcon() {
   return (
@@ -27,8 +37,99 @@ function LockIcon() {
   )
 }
 
+interface GuideCardProps {
+  guide: typeof ALL_GUIDES[0]
+  done: boolean
+  date?: string
+  ownedSet: Set<string>
+  toolById: Record<string, { id: string; name: string; category: string }>
+}
+
+function GuideCard({ guide, done, date, ownedSet, toolById }: GuideCardProps) {
+  const missing = done
+    ? []
+    : (GUIDE_TOOL_MAP[guide.slug] ?? []).filter(id => !ownedSet.has(id) && toolById[id])
+
+  return (
+    <div
+      className={`rounded-xl border p-4 flex flex-col gap-2 ${
+        done ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-white'
+      }`}
+    >
+      <a
+        href={`/guides/${guide.slug}`}
+        className="flex gap-3 items-start group"
+      >
+        <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-sm font-bold ${
+          done ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-400'
+        }`}>
+          {done ? '✓' : '○'}
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className={`text-sm font-semibold leading-snug group-hover:text-orange-500 transition-colors ${done ? 'text-green-900' : 'text-gray-700'}`}>
+            {guide.title}
+          </p>
+          <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+            <span className={`text-xs px-2 py-0.5 rounded-full ${CATEGORY_COLOURS[guide.category] ?? 'bg-gray-100 text-gray-600'}`}>
+              {guide.category}
+            </span>
+            <span className={`text-xs px-2 py-0.5 rounded-full ${done ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-400'}`}>
+              ⭐ {guide.skillPoints} pts
+            </span>
+          </div>
+          {done && date && (
+            <p className="text-xs text-green-600 mt-1">Completed {date}</p>
+          )}
+        </div>
+      </a>
+
+      {/* Tool monetisation — only for incomplete guides with unowned tools */}
+      {!done && missing.length > 0 && (
+        <div className="pl-10 text-xs text-gray-500">
+          <span className="font-medium text-gray-600">You&apos;ll need: </span>
+          {missing.map((id, i) => (
+            <span key={id}>
+              {toolById[id].name}
+              {' '}
+              <a
+                href={screwfixToolUrl(toolById[id].name)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:underline"
+              >
+                Find it
+              </a>
+              {i < missing.length - 1 ? ', ' : ''}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Find a pro fallback — only for incomplete guides */}
+      {!done && (
+        <div className="pl-10">
+          <a
+            href="/find-a-pro"
+            className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            Don&apos;t want to do this? Find a pro →
+          </a>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function ProgressPage() {
   const { completionMap, user, loading, syncing, error } = useCompletions()
+  const [ownedTools, setOwnedTools] = useState<string[]>([])
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(TOOLS_STORAGE_KEY)
+      if (raw) setOwnedTools(JSON.parse(raw))
+    } catch {}
+  }, [])
 
   if (loading) {
     return (
@@ -66,6 +167,29 @@ export default function ProgressPage() {
   const totalSaved = totalSavings(completionMap)
   const earnedBadgesCount = ALL_BADGES.filter(b => b.check(completedSlugs, [])).length
 
+  // Level system
+  const levelNumber = TIERS.indexOf(tier) + 1
+
+  // Next recommendation
+  const recommendation = getRecommendation(completionMap)
+
+  // Guide sections
+  const completedGuides = ALL_GUIDES.filter(g => completionMap[g.slug])
+  const incompleteGuides = ALL_GUIDES.filter(g => !completionMap[g.slug])
+  const sortedIncomplete = [...incompleteGuides].sort(
+    (a, b) => a.difficulty - b.difficulty || a.timeMinutes - b.timeMinutes
+  )
+  const recommendedNext = sortedIncomplete.slice(0, 3)
+  const recommendedSlugs = new Set(recommendedNext.map(g => g.slug))
+  const remainingGuides = incompleteGuides.filter(g => !recommendedSlugs.has(g.slug))
+
+  // Milestone
+  const nextMilestone = MILESTONES.find(m => completedCount < m.at)
+
+  // Tool lookup helpers
+  const toolById = Object.fromEntries(ALL_TOOLS.map(t => [t.id, t]))
+  const ownedSet = new Set(ownedTools)
+
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
       <Nav />
@@ -100,16 +224,43 @@ export default function ProgressPage() {
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
 
+        {/* Level badge */}
+        <div>
+          <span className="inline-flex items-center gap-2 bg-purple-50 border border-purple-200 rounded-full px-4 py-1.5 text-sm font-semibold text-purple-700">
+            {tier.emoji} Level {levelNumber}: {tier.name}
+          </span>
+        </div>
+
+        {/* Next fix card */}
+        {recommendation && (
+          <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6">
+            <p className="text-xs font-semibold uppercase tracking-wide text-orange-500 mb-2">Your next fix</p>
+            <h2 className="text-xl font-bold text-gray-900 mb-1">{recommendation.guide.title}</h2>
+            <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <span>⏱ {recommendation.guide.time}</span>
+              {recommendation.guide.estimatedSavingsMax > 0 && (
+                <span>💰 Save £{recommendation.guide.estimatedSavingsMin}–{recommendation.guide.estimatedSavingsMax}</span>
+              )}
+            </div>
+            <a
+              href={recommendation.guide.href}
+              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            >
+              Start next fix →
+            </a>
+          </div>
+        )}
+
         {/* Streak */}
         <div className="flex items-center gap-4 bg-orange-50 border border-orange-200 rounded-2xl px-6 py-5">
           <span className="text-4xl">{streak > 0 ? '🔥' : '💤'}</span>
           <div>
             <p className="text-2xl font-bold text-gray-900">
-              {streak > 0 ? `${streak} day streak` : 'No active streak'}
+              {streak > 0 ? `${streak} day streak — don't break it` : 'No active streak'}
             </p>
             <p className="text-sm text-gray-500">
               {streak > 0
-                ? 'Complete a guide today to keep it going'
+                ? 'Complete one fix today to keep it alive'
                 : 'Complete a guide to start your streak'}
             </p>
           </div>
@@ -235,51 +386,90 @@ export default function ProgressPage() {
           </div>
         </div>
 
-        {/* Guide grid */}
-        <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Your guides</h2>
-          {completedCount === 0 && (
-            <p className="text-sm text-gray-400 mb-4">
-              Complete a guide and hit &ldquo;Mark as Complete&rdquo; to track your progress here.
-            </p>
-          )}
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {ALL_GUIDES.map((guide) => {
-              const done = !!completionMap[guide.slug]
-              const date = completionMap[guide.slug]
-              return (
-                <a
-                  key={guide.slug}
-                  href={`/guides/${guide.slug}`}
-                  className={`rounded-xl border p-4 flex gap-3 items-start hover:border-orange-300 transition-all group ${
-                    done ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-white'
-                  }`}
-                >
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-sm font-bold ${
-                    done ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-400'
-                  }`}>
-                    {done ? '✓' : '○'}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className={`text-sm font-semibold leading-snug group-hover:text-orange-500 transition-colors ${done ? 'text-green-900' : 'text-gray-700'}`}>
-                      {guide.title}
-                    </p>
-                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${CATEGORY_COLOURS[guide.category] ?? 'bg-gray-100 text-gray-600'}`}>
-                        {guide.category}
-                      </span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${done ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-400'}`}>
-                        ⭐ {guide.skillPoints} pts
-                      </span>
-                    </div>
-                    {done && date && (
-                      <p className="text-xs text-green-600 mt-1">Completed {date}</p>
-                    )}
-                  </div>
-                </a>
-              )
-            })}
+        {/* Guide grid — split into sections */}
+        <div className="space-y-8">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-gray-900">Your guides</h2>
+            {completedCount === 0 && (
+              <p className="text-sm text-gray-400">
+                Complete a guide and hit &ldquo;Mark as Complete&rdquo; to track progress
+              </p>
+            )}
           </div>
+
+          {/* Milestone block */}
+          {nextMilestone && (
+            <div className="flex items-center gap-3 bg-purple-50 border border-purple-200 rounded-xl px-5 py-4 text-sm">
+              <span className="text-lg">🏆</span>
+              <p className="text-purple-800">
+                <span className="font-semibold">
+                  Complete {nextMilestone.at - completedCount} more fix{nextMilestone.at - completedCount !== 1 ? 'es' : ''} to unlock:
+                </span>{' '}
+                {nextMilestone.label}
+              </p>
+            </div>
+          )}
+
+          {/* Completed guides */}
+          {completedGuides.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-3">
+                ✓ Completed ({completedGuides.length})
+              </h3>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {completedGuides.map((guide) => (
+                  <GuideCard
+                    key={guide.slug}
+                    guide={guide}
+                    done
+                    date={completionMap[guide.slug]}
+                    ownedSet={ownedSet}
+                    toolById={toolById}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Recommended next */}
+          {recommendedNext.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold text-orange-600 uppercase tracking-wide mb-3">
+                Recommended next
+              </h3>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {recommendedNext.map((guide) => (
+                  <GuideCard
+                    key={guide.slug}
+                    guide={guide}
+                    done={false}
+                    ownedSet={ownedSet}
+                    toolById={toolById}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Remaining guides */}
+          {remainingGuides.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                Remaining ({remainingGuides.length})
+              </h3>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {remainingGuides.map((guide) => (
+                  <GuideCard
+                    key={guide.slug}
+                    guide={guide}
+                    done={false}
+                    ownedSet={ownedSet}
+                    toolById={toolById}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
       </div>
