@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
+import CategoryJumpNav from '@/components/CategoryJumpNav'
 
 export const metadata: Metadata = {
   title: 'All DIY Guides | FixItFirst',
@@ -176,9 +177,16 @@ export default function GuidesPage() {
           </a>
         </section>
 
+        {/* ── Category jump nav ─────────────────────────────────────────────── */}
+        <div className="-mb-6 border-t border-gray-100 pt-4">
+          <CategoryJumpNav />
+        </div>
+
         {/* ── Categories ────────────────────────────────────────────────────── */}
-        {CATEGORIES.map((cat) => (
-          <section key={cat.label}>
+        {CATEGORIES.map((cat) => {
+          const id = cat.label.toLowerCase().replace(/\s*&\s*/g, '-').replace(/\s+/g, '-')
+          return (
+          <section key={cat.label} id={id}>
             <h2 className="text-xl font-bold text-gray-900 mb-0.5">{cat.label}</h2>
             <p className="text-sm text-gray-400 mb-4">{cat.description}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -213,7 +221,8 @@ export default function GuidesPage() {
               })}
             </div>
           </section>
-        ))}
+        )})}
+
 
       </div>
 
