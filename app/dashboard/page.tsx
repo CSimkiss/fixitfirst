@@ -162,8 +162,8 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="bg-gray-950 text-white px-6 py-12">
         <div className="max-w-4xl mx-auto">
-          <p className="text-gray-400 text-sm mb-1">Welcome back</p>
-          <h1 className="text-3xl md:text-4xl font-bold mb-1 truncate">{user.email}</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-0.5">Welcome back</h1>
+          <p className="text-gray-400 text-xs md:text-sm truncate">{user.email}</p>
           <div className="flex items-center gap-2 mt-3 flex-wrap">
             <span className="text-2xl">{tier.emoji}</span>
             <span className={`text-sm font-semibold px-3 py-1 rounded-full ${tier.bg} ${tier.colour}`}>
@@ -199,22 +199,22 @@ export default function DashboardPage() {
 
         {/* Stats grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
-            <p className="text-3xl font-black text-orange-500">{completedCount}</p>
+          <a href="/progress" className="bg-white rounded-2xl border border-gray-200 p-5 text-center hover:border-orange-300 hover:shadow-sm transition-all group">
+            <p className="text-3xl font-black text-orange-500 group-hover:text-orange-600 transition-colors">{completedCount}</p>
             <p className="text-sm text-gray-500 mt-1">Guides completed</p>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
-            <p className="text-3xl font-black text-green-600">£{totalSaved}</p>
+          </a>
+          <a href="/savings-tracker" className="bg-white rounded-2xl border border-gray-200 p-5 text-center hover:border-green-300 hover:shadow-sm transition-all group">
+            <p className="text-3xl font-black text-green-600 group-hover:text-green-700 transition-colors">£{totalSaved}</p>
             <p className="text-sm text-gray-500 mt-1">Money saved</p>
-          </div>
+          </a>
           <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
             <p className="text-3xl font-black text-purple-600">⭐ {totalPoints}</p>
             <p className="text-sm text-gray-500 mt-1">Skill points</p>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
-            <p className="text-3xl font-black text-yellow-500">{earnedBadges.length}</p>
+          <a href="/badges" className="bg-white rounded-2xl border border-gray-200 p-5 text-center hover:border-yellow-300 hover:shadow-sm transition-all group">
+            <p className="text-3xl font-black text-yellow-500 group-hover:text-yellow-600 transition-colors">{earnedBadges.length}</p>
             <p className="text-sm text-gray-500 mt-1">Badges earned</p>
-          </div>
+          </a>
         </div>
 
         {/* Current tier card */}

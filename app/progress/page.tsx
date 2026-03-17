@@ -5,7 +5,8 @@ import MobileNav from '@/components/MobileNav'
 import { TIERS } from '@/lib/progress'
 import { ALL_GUIDES } from '@/lib/guides'
 import { useCompletions } from '@/lib/useCompletions'
-import { streakCount, tierLevel } from '@/lib/completions'
+import { streakCount, tierLevel, totalSavings } from '@/lib/completions'
+import { ALL_BADGES } from '@/lib/badges'
 
 const CATEGORY_COLOURS: Record<string, string> = {
   Plumbing:   'bg-blue-50 text-blue-700',
@@ -15,6 +16,15 @@ const CATEGORY_COLOURS: Record<string, string> = {
   Masonry:    'bg-stone-50 text-stone-700',
   Heating:    'bg-red-50 text-red-700',
   Fitting:    'bg-teal-50 text-teal-700',
+}
+
+// Lock icon used on muted stat cards for guests
+function LockIcon() {
+  return (
+    <svg className="w-3.5 h-3.5 text-gray-400 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clipRule="evenodd" />
+    </svg>
+  )
 }
 
 export default function ProgressPage() {
@@ -53,6 +63,8 @@ export default function ProgressPage() {
     return sum + (ALL_GUIDES.find(g => g.slug === slug)?.skillPoints ?? 0)
   }, 0)
   const maxPoints = ALL_GUIDES.reduce((sum, g) => sum + g.skillPoints, 0)
+  const totalSaved = totalSavings(completionMap)
+  const earnedBadgesCount = ALL_BADGES.filter(b => b.check(completedSlugs, [])).length
 
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -101,6 +113,66 @@ export default function ProgressPage() {
                 : 'Complete a guide to start your streak'}
             </p>
           </div>
+        </div>
+
+        {/* Summary stats — Skill Points always shown; other 3 muted with lock for guests */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* Skill Points — always shown normally */}
+          <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
+            <p className="text-3xl font-black text-purple-600">⭐ {totalPoints}</p>
+            <p className="text-sm text-gray-500 mt-1">Skill points</p>
+          </div>
+
+          {/* Guides Completed */}
+          {user ? (
+            <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
+              <p className="text-3xl font-black text-orange-500">{completedCount}</p>
+              <p className="text-sm text-gray-500 mt-1">Guides completed</p>
+            </div>
+          ) : (
+            <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 text-center">
+              <p className="text-3xl font-black text-gray-300">{completedCount}</p>
+              <div className="flex items-center justify-center gap-1 mt-1">
+                <LockIcon />
+                <p className="text-sm text-gray-400">Guides completed</p>
+              </div>
+              <p className="text-xs text-gray-400 mt-1">Sign in to save progress across devices</p>
+            </div>
+          )}
+
+          {/* Money Saved */}
+          {user ? (
+            <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
+              <p className="text-3xl font-black text-green-600">£{totalSaved}</p>
+              <p className="text-sm text-gray-500 mt-1">Money saved</p>
+            </div>
+          ) : (
+            <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 text-center">
+              <p className="text-3xl font-black text-gray-300">£{totalSaved}</p>
+              <div className="flex items-center justify-center gap-1 mt-1">
+                <LockIcon />
+                <p className="text-sm text-gray-400">Money saved</p>
+              </div>
+              <p className="text-xs text-gray-400 mt-1">Sign in to save progress across devices</p>
+            </div>
+          )}
+
+          {/* Badges Earned */}
+          {user ? (
+            <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
+              <p className="text-3xl font-black text-yellow-500">{earnedBadgesCount}</p>
+              <p className="text-sm text-gray-500 mt-1">Badges earned</p>
+            </div>
+          ) : (
+            <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 text-center">
+              <p className="text-3xl font-black text-gray-300">{earnedBadgesCount}</p>
+              <div className="flex items-center justify-center gap-1 mt-1">
+                <LockIcon />
+                <p className="text-sm text-gray-400">Badges earned</p>
+              </div>
+              <p className="text-xs text-gray-400 mt-1">Sign in to save progress across devices</p>
+            </div>
+          )}
         </div>
 
         {/* Error banner — Supabase fetch failed, fell back to localStorage */}
