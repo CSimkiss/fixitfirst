@@ -100,7 +100,6 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
   const toolSuggestion = GUIDE_TOOL_SUGGESTION[slug] ?? null
 
   return (
-    /* Backdrop */
     <div
       className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm px-0 md:px-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
