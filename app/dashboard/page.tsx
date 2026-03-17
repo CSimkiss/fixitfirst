@@ -234,6 +234,9 @@ export default function DashboardPage() {
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
+                  {streak > 0 && (
+                    <p className="text-sm text-orange-500 font-medium mb-1">🔥 Keep your streak going</p>
+                  )}
                   <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-500 transition-colors mb-1">
                     {nextGuide.title}
                   </h3>
@@ -253,44 +256,21 @@ export default function DashboardPage() {
                   )}
                 </div>
                 <div className="shrink-0 bg-orange-500 text-white rounded-xl px-4 py-2 text-sm font-semibold group-hover:bg-orange-600 transition-colors whitespace-nowrap">
-                  Start →
+                  Start this fix →
                 </div>
               </div>
             </a>
           </div>
         )}
 
-        {/* ── Primary CTA ────────────────────────────────────────────── */}
-        {nextGuide && (
-          <button
-            onClick={() => recommendedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            className="w-full flex items-center gap-3 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 transition-colors text-white rounded-2xl px-6 py-4"
-          >
-            <span className="text-xl">⚡</span>
-            <span className="font-semibold text-base">
-              {streak > 0 ? 'Keep your streak going →' : 'Continue your next fix →'}
-            </span>
-          </button>
-        )}
-
         {/* ── Streak ─────────────────────────────────────────────────── */}
         {streak > 0 && (
-          <div className="bg-orange-50 border border-orange-200 rounded-2xl px-5 py-4 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">🔥</span>
-              <div>
-                <p className="font-semibold text-gray-900 text-sm">{streak} day streak — don&apos;t break it</p>
-                <p className="text-xs text-gray-500 mt-0.5">Keep going to build your habit</p>
-              </div>
+          <div className="bg-orange-50 border border-orange-200 rounded-2xl px-5 py-4 flex items-center gap-3">
+            <span className="text-2xl shrink-0" aria-hidden="true">🔥</span>
+            <div>
+              <p className="font-semibold text-gray-900 text-sm">{streak} day streak — don&apos;t break it</p>
+              <p className="text-xs text-gray-500 mt-0.5">This next fix keeps it alive</p>
             </div>
-            {nextGuide && (
-              <button
-                onClick={() => recommendedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                className="shrink-0 text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors whitespace-nowrap"
-              >
-                Keep streak alive →
-              </button>
-            )}
           </div>
         )}
 
@@ -301,6 +281,7 @@ export default function DashboardPage() {
             <p className="text-xs font-semibold uppercase tracking-widest opacity-60 mb-1">Your skill level</p>
             <h2 className="text-2xl font-bold">{tier.name}</h2>
             <p className="opacity-70 text-sm mt-0.5">{tier.description}</p>
+            <p className="opacity-60 text-sm mt-0.5">You&apos;re building real DIY confidence</p>
             {nextTier && (
               <p className="text-sm mt-2 opacity-60">
                 {nextTier.min - completedCount} more fix{nextTier.min - completedCount !== 1 ? 'es' : ''} to reach <strong>{nextTier.name}</strong>
@@ -341,13 +322,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">My tools</h2>
-              <p className="text-sm text-gray-400 mt-0.5">
-                {ownedToolObjects.length > 0
-                  ? "You've got what you need for these fixes"
-                  : neededToolObjects.length > 0
-                    ? `${neededToolObjects.length} still to get`
-                    : null}
-              </p>
+              <p className="text-sm text-gray-400 mt-0.5">You&apos;ve got what you need for your next fix</p>
             </div>
             <a href="/tools" className="text-sm text-gray-400 hover:text-gray-700 transition-colors">
               Manage →
