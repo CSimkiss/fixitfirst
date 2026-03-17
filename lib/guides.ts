@@ -68,32 +68,141 @@ export const GUIDE_BY_SLUG: Record<string, Guide> = Object.fromEntries(
   ALL_GUIDES.map(g => [g.slug, g])
 )
 
+// ─── Tool inference ────────────────────────────────────────────────────────────
+
+/**
+ * Tools required / typically used per guide slug.
+ * Used to infer what tools a user already has from their completed guides.
+ */
+export const GUIDE_TOOLS: Record<string, string[]> = {
+  'fix-a-dripping-tap':             ['spanner', 'screwdriver'],
+  'put-up-shelves':                 ['drill', 'screwdriver'],
+  'paint-a-room':                   ['filling-knife', 'paint-roller'],
+  'unblock-a-drain':                ['plunger'],
+  'bleed-a-radiator':               ['bleed-key'],
+  'fill-a-hole-in-a-wall':          ['filling-knife'],
+  'fit-a-curtain-pole':             ['drill', 'screwdriver'],
+  'fix-a-running-toilet':           ['screwdriver', 'spanner'],
+  'fix-a-leaking-pipe-joint':       ['spanner', 'ptfe-tape'],
+  'replace-a-toilet-seat':          ['screwdriver', 'spanner'],
+  'fix-low-water-pressure':         ['spanner'],
+  'unblock-a-toilet':               ['plunger'],
+  'replace-a-shower-head':          ['spanner'],
+  'fix-a-cold-radiator':            ['bleed-key', 'spanner'],
+  'replace-a-plug-fuse':            ['screwdriver'],
+  'replace-a-light-switch':         ['screwdriver'],
+  'fix-a-doorbell':                 ['screwdriver', 'drill'],
+  'fix-a-squeaky-floorboard':       ['drill', 'screwdriver'],
+  'fix-a-sticking-door':            ['screwdriver', 'plane'],
+  'hang-a-picture-frame':           ['drill', 'screwdriver'],
+  'fix-a-broken-cabinet-hinge':     ['screwdriver'],
+  'fill-and-sand-a-wall':           ['filling-knife'],
+  'tile-a-splashback':              ['filling-knife', 'tile-cutter'],
+  'strip-wallpaper':                ['scraper', 'filling-knife'],
+  'repair-a-ceiling-crack':         ['filling-knife'],
+  'replace-a-smoke-alarm-battery':  ['screwdriver'],
+  'install-a-smart-thermostat':     ['screwdriver', 'drill'],
+  'bleed-all-radiators':            ['bleed-key'],
+  'fix-a-noisy-radiator':           ['bleed-key', 'spanner'],
+  'fix-a-garden-tap':               ['spanner'],
+  'fix-a-fence-panel':              ['drill', 'screwdriver'],
+  'lay-decking-boards':             ['drill', 'screwdriver'],
+}
+
+/** Returns the set of tool IDs the user likely owns, inferred from completed guides. */
+export function inferToolSet(completionMap: Record<string, string>): Set<string> {
+  const tools = new Set<string>()
+  for (const slug of Object.keys(completionMap)) {
+    for (const tool of (GUIDE_TOOLS[slug] ?? [])) tools.add(tool)
+  }
+  return tools
+}
+
+// ─── Recommendation engine ────────────────────────────────────────────────────
+
+export type RecommendationReason = 'tool-overlap' | 'same-category' | 'quick-win' | 'easiest'
+
+export type Recommendation = { guide: Guide; reason: RecommendationReason }
+
+/**
+ * Return the best next guide recommendation with a contextual reason label.
+ *
+ * Ranking priority:
+ *  1. Guide uses tools the user already has (inferred from completions) — same category first
+ *  2. Same category as the most-recently-completed guide
+ *  3. Quick win: ≤ 20 minutes
+ *  4. Easiest incomplete guide overall (difficulty → timeMinutes)
+ *
+ * Within each tier, guides are sorted by difficulty then time (easiest first).
+ * Skill matching: the user's target difficulty grows with completion count,
+ * acting as a soft tiebreaker inside each priority level.
+ */
+export function getRecommendation(
+  completionMap: Record<string, string>,
+  guides: Guide[] = ALL_GUIDES,
+): Recommendation | null {
+  const incomplete = guides.filter(g => !completionMap[g.slug])
+  if (incomplete.length === 0) return null
+
+  const userTools     = inferToolSet(completionMap)
+  const completedCount = Object.keys(completionMap).length
+
+  // Target difficulty rises with experience: 1 guide → diff ≤ 2, 5 guides → diff ≤ 3, etc.
+  const targetDifficulty = Math.min(5, 1 + Math.floor(completedCount / 3))
+
+  const byEasiness = (a: Guide, b: Guide) =>
+    a.difficulty - b.difficulty || a.timeMinutes - b.timeMinutes
+
+  // Soft skill tiebreaker: prefer guides at or just above the user's current level
+  const bySkillMatch = (a: Guide, b: Guide) => {
+    const da = Math.abs(a.difficulty - targetDifficulty)
+    const db = Math.abs(b.difficulty - targetDifficulty)
+    return da - db || a.timeMinutes - b.timeMinutes
+  }
+
+  // Most-recently-completed guide (lexicographic ISO date sort)
+  const lastSlug = Object.entries(completionMap)
+    .sort((a, b) => b[1].localeCompare(a[1]))[0]?.[0]
+  const lastCategory = guides.find(g => g.slug === lastSlug)?.category
+
+  // Guides where the user already owns every required tool (non-empty list only)
+  const withToolOverlap = incomplete.filter(g => {
+    const needed = GUIDE_TOOLS[g.slug] ?? []
+    return needed.length > 0 && needed.every(t => userTools.has(t))
+  })
+
+  // 1. Tool overlap + same category
+  if (lastCategory && withToolOverlap.length > 0) {
+    const best = withToolOverlap.filter(g => g.category === lastCategory).sort(bySkillMatch)
+    if (best.length > 0) return { guide: best[0], reason: 'tool-overlap' }
+  }
+
+  // 2. Tool overlap (any category)
+  if (withToolOverlap.length > 0) {
+    return { guide: withToolOverlap.sort(bySkillMatch)[0], reason: 'tool-overlap' }
+  }
+
+  // 3. Same category
+  if (lastCategory) {
+    const sameCat = incomplete.filter(g => g.category === lastCategory).sort(byEasiness)
+    if (sameCat.length > 0) return { guide: sameCat[0], reason: 'same-category' }
+  }
+
+  // 4. Quick win (≤ 20 min)
+  const quickWins = incomplete.filter(g => g.timeMinutes <= 20).sort(byEasiness)
+  if (quickWins.length > 0) return { guide: quickWins[0], reason: 'quick-win' }
+
+  // 5. Easiest overall
+  return { guide: [...incomplete].sort(byEasiness)[0], reason: 'easiest' }
+}
+
 /**
  * Return the single best incomplete guide to do next.
- *
- * Priority rules (in order):
- *  1. Same category as the most recently completed guide, sorted easiest first
- *  2. Fallback: easiest incomplete guide overall (difficulty → timeMinutes)
+ * Thin wrapper around getRecommendation for backward compatibility.
  */
 export function getRecommendedNextGuide(
   completionMap: Record<string, string>,
   guides: Guide[] = ALL_GUIDES,
 ): Guide | null {
-  const incomplete = guides.filter(g => !completionMap[g.slug])
-  if (incomplete.length === 0) return null
-
-  const byEasiness = (a: Guide, b: Guide) =>
-    a.difficulty - b.difficulty || a.timeMinutes - b.timeMinutes
-
-  // Most-recently-completed guide (latest ISO date string sorts lexicographically)
-  const lastSlug = Object.entries(completionMap)
-    .sort((a, b) => b[1].localeCompare(a[1]))[0]?.[0]
-  const lastCategory = guides.find(g => g.slug === lastSlug)?.category
-
-  if (lastCategory) {
-    const sameCat = incomplete.filter(g => g.category === lastCategory).sort(byEasiness)
-    if (sameCat.length > 0) return sameCat[0]
-  }
-
-  return [...incomplete].sort(byEasiness)[0]
+  return getRecommendation(completionMap, guides)?.guide ?? null
 }

@@ -14,7 +14,7 @@
 
 import { useState, useEffect } from 'react'
 import { useCompletions } from '@/lib/useCompletions'
-import { ALL_GUIDES, GUIDE_BY_SLUG, getRecommendedNextGuide } from '@/lib/guides'
+import { ALL_GUIDES, GUIDE_BY_SLUG, getRecommendation } from '@/lib/guides'
 import SocialShare from '@/components/SocialShare'
 import CompletionModal from '@/components/CompletionModal'
 
@@ -58,7 +58,15 @@ export default function GuideActions({
   }, [slug, completed])
 
   // Derive next guide reactively — re-computes whenever completionMap changes
-  const nextGuide = getRecommendedNextGuide(completionMap, ALL_GUIDES.filter(g => g.slug !== slug))
+  const recommendation = getRecommendation(completionMap, ALL_GUIDES.filter(g => g.slug !== slug))
+  const nextGuide      = recommendation?.guide ?? null
+  const nextReason     = recommendation?.reason ?? 'easiest'
+
+  const contextLabel =
+    nextReason === 'tool-overlap'    ? 'Uses tools you already have'
+    : nextReason === 'same-category' ? `Next step for your ${nextGuide?.category}`
+    : nextReason === 'quick-win'     ? 'Quick win to keep your streak'
+    : null
 
   return (
     <>
@@ -119,6 +127,11 @@ export default function GuideActions({
       {mounted && nextGuide && (
         <div className="mt-8 bg-gray-950 text-white rounded-2xl p-6">
           <p className="text-orange-400 text-xs font-semibold uppercase tracking-wide mb-2">Don&apos;t stop now — next fix</p>
+          {contextLabel && (
+            <p className="inline-flex items-center gap-1 bg-white/10 text-gray-300 text-xs font-medium rounded-full px-2.5 py-0.5 mb-3">
+              <span className="text-green-400">✓</span> {contextLabel}
+            </p>
+          )}
           <a href={nextGuide.href} className="group block">
             <h3 className="text-xl font-bold mb-1 group-hover:text-orange-400 transition-colors">{nextGuide.title}</h3>
             <p className="text-green-400 font-bold mb-3">{nextGuide.saves}</p>
