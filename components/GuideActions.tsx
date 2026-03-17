@@ -16,6 +16,7 @@ import { useState } from 'react'
 import { useCompletions } from '@/lib/useCompletions'
 import { ALL_GUIDES, GUIDE_BY_SLUG, getRecommendedNextGuide } from '@/lib/guides'
 import SocialShare from '@/components/SocialShare'
+import CompletionModal from '@/components/CompletionModal'
 
 export default function GuideActions({
   slug,
