@@ -56,25 +56,28 @@ export default function ToolsSection({ tools, slug: _slug, guideName }: Props) {
                   </span>
                 )}
                 {showBuy && tool.name && (
-                  <span className="flex items-center gap-1 text-xs flex-wrap">
-                    <span className="text-gray-400">· Find it:</span>
-                    <a
-                      href={screwfixToolUrl(tool.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
-                    >
-                      Screwfix
-                    </a>
-                    <span className="text-gray-300">|</span>
-                    <a
-                      href={amazonToolUrl(tool.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
-                    >
-                      Amazon
-                    </a>
+                  <span className="flex flex-col gap-0.5 text-xs mt-0.5 w-full">
+                    <span className="text-gray-400 italic">Worth having — this unlocks future fixes too.</span>
+                    <span className="flex items-center gap-1 flex-wrap">
+                      <span className="text-gray-400">· Get it:</span>
+                      <a
+                        href={screwfixToolUrl(tool.name)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Screwfix
+                      </a>
+                      <span className="text-gray-300">|</span>
+                      <a
+                        href={amazonToolUrl(tool.name)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Amazon
+                      </a>
+                    </span>
                   </span>
                 )}
               </span>

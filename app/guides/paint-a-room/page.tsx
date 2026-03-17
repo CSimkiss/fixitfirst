@@ -43,9 +43,9 @@ export default function PaintARoom() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Paint a room</h1>
-        <p className="text-4xl font-black text-green-600 mb-1">Save £200–500 today</p>
+        <p className="text-4xl font-black text-green-600 mb-1">Save £200–500 in 1 day — no decorator needed</p>
         
-<p className="text-gray-500 mb-6">1 day · Beginner · Saves £200-500 vs a decorator</p>
+<p className="text-gray-600 mb-6">Most people hire a decorator for this. You probably don't need to.</p>
         <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['paint-a-room'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Paint a room" />
@@ -101,7 +101,7 @@ export default function PaintARoom() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to prepare, cut in, and roll a wall to a professional standard. These skills transfer to painting ceilings, woodwork, and eventually more advanced techniques like colour blocking and feature walls.</p>
         </div>
-        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['paint-a-room'].completedCount.toLocaleString()} people</p>
+        <p className="text-sm text-gray-500 text-center mb-3">Most people would pay a tradesperson for this.</p>
         {GUIDE_META['paint-a-room'].renterWarning && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
             <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>

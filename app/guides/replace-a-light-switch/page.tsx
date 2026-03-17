@@ -43,8 +43,8 @@ export default function ReplaceALightSwitch() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Replace a light switch</h1>
-        <p className="text-4xl font-black text-green-600 mb-1">Save £60–100 today</p>
-        <p className="text-gray-500 mb-6">30 mins · Beginner · Saves £60–100 vs an electrician</p>
+        <p className="text-4xl font-black text-green-600 mb-1">Save £60–100 in 30 mins — no electrician needed</p>
+        <p className="text-gray-600 mb-6">Most people call an electrician for this. You probably don't need to.</p>
         <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['replace-a-light-switch'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Replace a light switch" />
@@ -98,7 +98,7 @@ export default function ReplaceALightSwitch() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how a single-gang light switch is wired and how to safely isolate a circuit. This transfers to replacing plug sockets and fitting dimmer switches.</p>
         </div>
-        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['replace-a-light-switch'].completedCount.toLocaleString()} people</p>
+        <p className="text-sm text-gray-500 text-center mb-3">Most people would pay a tradesperson for this.</p>
         {GUIDE_META['replace-a-light-switch'].renterWarning && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
             <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>

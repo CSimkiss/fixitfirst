@@ -43,8 +43,8 @@ export default function ReplaceAToiletSeat() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Replace a toilet seat</h1>
-        <p className="text-4xl font-black text-green-600 mb-1">Save £40–80 today</p>
-        <p className="text-gray-500 mb-6">20 mins · Beginner · Saves £40–80 vs a plumber</p>
+        <p className="text-4xl font-black text-green-600 mb-1">Save £40–80 in 20 mins — no plumber needed</p>
+        <p className="text-gray-600 mb-6">Most people call a plumber for this. You probably don't need to.</p>
         <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['replace-a-toilet-seat'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Replace a toilet seat" />
@@ -99,7 +99,7 @@ export default function ReplaceAToiletSeat() {
           <h2 className="font-semibold text-blue-800 mb-3">What this unlocks</h2>
           <p className="text-sm text-blue-900">You can now tackle other bathroom fitting tasks: replacing a towel rail, fitting a toilet roll holder, or replacing a basin pop-up plug mechanism.</p>
         </div>
-        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['replace-a-toilet-seat'].completedCount.toLocaleString()} people</p>
+        <p className="text-sm text-gray-500 text-center mb-3">Most people would pay a tradesperson for this.</p>
         {GUIDE_META['replace-a-toilet-seat'].renterWarning && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
             <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
