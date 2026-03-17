@@ -14,7 +14,7 @@ export type Tier = {
 export const TIERS: Tier[] = [
   { name: 'Curious',    emoji: '👀', min: 0, max: 0, description: 'Just getting started',      colour: 'text-gray-600',   bg: 'bg-gray-100'   },
   { name: 'Capable',    emoji: '🔧', min: 1, max: 2, description: 'Building confidence',        colour: 'text-blue-700',   bg: 'bg-blue-100'   },
-  { name: 'Competent',  emoji: '🛠️', min: 3, max: 4, description: 'Getting things done',        colour: 'text-teal-700',   bg: 'bg-teal-100'   },
+  { name: 'Competent',  emoji: '🛠️', min: 3, max: 4, description: 'You fix things yourself now', colour: 'text-teal-700',   bg: 'bg-teal-100'   },
   { name: 'Confident',  emoji: '💪', min: 5, max: 6, description: 'Making it look easy',        colour: 'text-orange-700', bg: 'bg-orange-100' },
   { name: 'Skilled',    emoji: '⭐', min: 7, max: 8, description: 'Friends ask for help',       colour: 'text-purple-700', bg: 'bg-purple-100' },
   { name: 'Builder',    emoji: '🏗️', min: 9, max: 9, description: 'Full DIY independence',      colour: 'text-green-700',  bg: 'bg-green-100'  },
