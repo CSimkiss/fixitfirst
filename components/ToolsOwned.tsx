@@ -33,20 +33,28 @@ function countReadyWithTool(toolId: string, owned: string[]): number {
   ).length
 }
 
+type ScoredTool = {
+  id: string
+  name: string
+  gain: number       // guides newly unlocked
+  totalUsage: number // total guides this tool appears in
+  score: number
+}
+
 /**
- * Best next tool to acquire.
+ * Top N tools to acquire, ranked by:
+ *   score = (unlockedGuides × 2) + totalUsage
  *
- * Scoring: score = (unlockedGuides × 2) + totalUsage
- *   unlockedGuides = guides that become fully ready if this tool is added
- *   totalUsage     = total guides this tool appears in (breadth signal)
+ * Tie-breaking:
+ *   1. Higher unlockedGuides wins (more immediate value)
+ *   2. Hand tools beat power tools (simpler, cheaper)
+ *   3. Alphabetical by name
  *
- * Only tools that would unlock ≥1 guide are considered.
+ * Only tools that would unlock ≥1 guide are included.
  */
-function findNextBestTool(
-  owned: string[],
-): { id: string; name: string; gain: number } | null {
+function findTopTools(owned: string[], limit: number): ScoredTool[] {
   const currentReady = countReadyGuides(owned)
-  let best: { id: string; name: string; gain: number; score: number } | null = null
+  const results: ScoredTool[] = []
 
   for (const tool of ALL_TOOLS) {
     if (owned.includes(tool.id)) continue
@@ -60,12 +68,20 @@ function findNextBestTool(
     if (unlockedGuides <= 0) continue
 
     const score = unlockedGuides * 2 + totalUsage
-    if (!best || score > best.score) {
-      best = { id: tool.id, name: tool.name, gain: unlockedGuides, score }
-    }
+    results.push({ id: tool.id, name: tool.name, gain: unlockedGuides, totalUsage, score })
   }
 
-  return best ? { id: best.id, name: best.name, gain: best.gain } : null
+  results.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score
+    if (b.gain !== a.gain) return b.gain - a.gain
+    const catA = ALL_TOOLS.find(t => t.id === a.id)?.category ?? ''
+    const catB = ALL_TOOLS.find(t => t.id === b.id)?.category ?? ''
+    if (catA === 'Hand tools' && catB !== 'Hand tools') return -1
+    if (catB === 'Hand tools' && catA !== 'Hand tools') return 1
+    return a.name.localeCompare(b.name)
+  })
+
+  return results.slice(0, limit)
 }
 
 /** Pretty-print a guide slug as a readable title. */
@@ -105,7 +121,9 @@ export default function ToolsOwned() {
   }
 
   const readyCount = countReadyGuides(owned)
-  const nextBest   = findNextBestTool(owned)
+  const topTools   = findTopTools(owned, 3)
+  const nextBest   = topTools[0] ?? null
+  const starterKit = topTools // top 3, includes primary recommendation as #1
 
   return (
     <div>
@@ -135,13 +153,13 @@ export default function ToolsOwned() {
         {readyCount > 0 && (
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <p className="text-sm font-semibold text-green-700">
-              ✓ You&apos;re ready for {readyCount} guide{readyCount !== 1 ? 's' : ''} right now
+              ✓ You&apos;re ready for {readyCount} fix{readyCount !== 1 ? 'es' : ''} right now
             </p>
             <a
               href="/guides?ready=true"
               className="text-xs font-medium text-green-700 bg-green-100 hover:bg-green-200 px-3 py-1 rounded-full transition-colors shrink-0"
             >
-              See your {readyCount} ready guides →
+              Start {readyCount} fix{readyCount !== 1 ? 'es' : ''} right now →
             </a>
           </div>
         )}
@@ -149,8 +167,9 @@ export default function ToolsOwned() {
         {/* Next-best tool recommendation */}
         {nextBest && (
           <div className="pt-2 border-t border-gray-200 space-y-1.5">
+            <p className="text-xs text-gray-400 font-medium">💡 Most useful next tool</p>
             <p className="text-sm font-medium text-gray-800">
-              Unlock {nextBest.gain} more guide{nextBest.gain !== 1 ? 's' : ''} with a{' '}
+              Unlock {nextBest.gain} more fix{nextBest.gain !== 1 ? 'es' : ''} with a{' '}
               <span className="text-gray-900 font-semibold">{nextBest.name}</span>
             </p>
             <div className="flex items-center gap-4 flex-wrap">
@@ -173,13 +192,56 @@ export default function ToolsOwned() {
         )}
       </div>
 
+      {/* ── Starter kit ─────────────────────────────────────────────────── */}
+      {starterKit.length > 0 && (
+        <div className="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-6">
+          <p className="text-sm font-semibold text-gray-900 mb-0.5">Get set up faster</p>
+          <p className="text-xs text-gray-500 mb-3">
+            These {starterKit.length} tool{starterKit.length !== 1 ? 's' : ''} unlock the most fixes
+          </p>
+          <div className="space-y-2.5">
+            {starterKit.map((tool, idx) => (
+              <div key={tool.id} className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-gray-800 truncate">
+                    {idx + 1}. {tool.name}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    Unlocks {tool.gain} fix{tool.gain !== 1 ? 'es' : ''}{' '}
+                    <span className="text-gray-400">· used in {tool.totalUsage} guides</span>
+                  </p>
+                </div>
+                <a
+                  href={screwfixToolUrl(tool.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-orange-600 hover:text-orange-700 hover:underline shrink-0 transition-colors"
+                >
+                  Get this →
+                </a>
+              </div>
+            ))}
+          </div>
+          {starterKit.length >= 2 && (
+            <a
+              href={screwfixToolUrl('home DIY starter kit')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 block text-center text-xs font-medium text-orange-700 bg-orange-100 hover:bg-orange-200 px-3 py-2 rounded-lg transition-colors"
+            >
+              Shop all {starterKit.length} together →
+            </a>
+          )}
+        </div>
+      )}
+
       {/* ── Tool list grouped by category ───────────────────────────────── */}
       <div className="space-y-10">
         {CATEGORIES.map(cat => {
           const tools = ALL_TOOLS.filter(t => t.category === cat)
           return (
             <div key={cat}>
-              <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
+              <h2 className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-3">
                 {cat}
               </h2>
               <div className="space-y-2">
@@ -226,7 +288,7 @@ export default function ToolsOwned() {
                             {/* Ready-for feedback when owned */}
                             {checked && readyN > 0 && (
                               <span className="text-xs text-green-600 mt-0.5">
-                                ✔ Ready for {readyN} guide{readyN !== 1 ? 's' : ''}
+                                ✔ Ready for {readyN} fix{readyN !== 1 ? 'es' : ''}
                               </span>
                             )}
                           </span>
