@@ -226,11 +226,11 @@ export default function DashboardPage() {
 
         {/* ── Recommended next guide ─────────────────────────────────── */}
         {nextGuide && (
-          <div ref={recommendedRef} id="recommended-guide">
+          <div ref={recommendedRef} id="recommended-guide" className="mt-2">
             <p className="text-xs font-semibold text-orange-500 uppercase tracking-wide mb-3">Recommended next</p>
             <a
               href={nextGuide.href}
-              className="block bg-white border-2 border-orange-200 rounded-2xl p-6 hover:border-orange-400 hover:shadow-md transition-all group"
+              className="block bg-white border-2 border-orange-300 rounded-2xl p-6 shadow-sm hover:border-orange-400 hover:shadow-md transition-all group"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
@@ -240,23 +240,17 @@ export default function DashboardPage() {
                   <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-500 transition-colors mb-1">
                     {nextGuide.title}
                   </h3>
-                  <p className="text-sm text-gray-400 mb-3">Quick win to keep your progress going</p>
+                  <p className="text-sm text-gray-400 mb-3">Takes {nextGuide.time} — you can do this now</p>
                   <div className="flex flex-wrap gap-2 text-sm text-gray-500">
-                    <span>⏱ {nextGuide.time}</span>
-                    <span>·</span>
                     <span>💰 {nextGuide.cost}</span>
                     <span>·</span>
                     <span>⭐ {nextGuide.skillPoints} pts</span>
                   </div>
                   <p className="text-sm font-medium text-green-600 mt-2">{nextGuide.saves}</p>
-                  {nextGuideHasAllTools && (
-                    <span className="inline-block mt-3 text-xs bg-green-100 text-green-700 font-medium px-2.5 py-1 rounded-full">
-                      ✓ Uses tools you already have
-                    </span>
-                  )}
+                  <p className="text-xs text-gray-400 mt-2">Uses tools you already have</p>
                 </div>
                 <div className="shrink-0 bg-orange-500 text-white rounded-xl px-4 py-2 text-sm font-semibold group-hover:bg-orange-600 transition-colors whitespace-nowrap">
-                  Start this fix →
+                  Start now →
                 </div>
               </div>
             </a>
@@ -269,7 +263,7 @@ export default function DashboardPage() {
             <span className="text-2xl shrink-0" aria-hidden="true">🔥</span>
             <div>
               <p className="font-semibold text-gray-900 text-sm">{streak} day streak — don&apos;t break it</p>
-              <p className="text-xs text-gray-500 mt-0.5">This next fix keeps it alive</p>
+              <p className="text-xs text-gray-500 mt-0.5">Do this next fix to keep it alive</p>
             </div>
           </div>
         )}
