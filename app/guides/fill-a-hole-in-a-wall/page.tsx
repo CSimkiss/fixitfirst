@@ -57,15 +57,15 @@ export default function FillAHoleInAWall() {
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">This works for small to medium holes and cracks in plaster, plasterboard, or brick walls — caused by rawl plugs, nails, or general wear.</p>
-          <p className="text-sm text-gray-700 mb-2">You will need ready-mixed filler (£3–5 from any DIY shop), a filling knife, fine sandpaper, and a damp cloth.</p>
+          <p className="text-sm text-gray-700 mb-2">You will need ready-mixed filler (from any DIY shop), a filling knife, fine sandpaper, and a damp cloth.</p>
         </div>
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
         <ToolsSection
           tools={[
-    { icon: 'buy', name: 'Ready-mixed filler', hint: 'buy: £3–5 from any DIY or hardware shop', hintOrange: true },
-    { icon: 'buy', name: 'Filling knife / putty knife', hint: 'buy: £3–5, reusable for future repairs', hintOrange: true, toolId: 'filling-knife' },
+    { icon: 'buy', name: 'Ready-mixed filler', hint: 'buy from any DIY or hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Filling knife / putty knife', hint: 'buy — 5, reusable for future repairs', hintOrange: true, toolId: 'filling-knife' },
     { icon: 'check', name: 'Fine sandpaper (120–180 grit)', hint: 'most homes have some' },
     { icon: 'check', name: 'Damp cloth', hint: 'any kitchen cloth will do' },
   ]}

@@ -34,7 +34,7 @@ const steps = [
   { title: 'Test the button directly', description: 'With the button removed, briefly touch the two wires together for a second. If the chime sounds, the button is the fault — replace it.' },
   { title: 'Replace the button if faulty', description: 'Take the old button to a hardware shop to match the style. Connect the two wires to the terminals on the new button (polarity does not matter for doorbells) and screw it back to the wall.' },
   { title: 'Check the wiring', description: 'Trace the wire from the button along the wall to the chime unit. Look for any breaks, sharp kinks, or loose connections at either end. Reconnect any loose terminals.' },
-  { title: 'Consider a wireless upgrade', description: 'If the wiring is old or hidden in the wall and unreliable, a wireless doorbell (£15–25) eliminates the wiring altogether and takes 10 minutes to fit.' },
+  { title: 'Consider a wireless upgrade', description: 'If the wiring is old or hidden in the wall and unreliable, a wireless doorbell eliminates the wiring altogether and takes 10 minutes to fit.' },
 ]
 
 export default function FixADoorbell() {
@@ -64,8 +64,8 @@ export default function FixADoorbell() {
           tools={[
     { icon: 'check', name: 'Cross-head screwdriver', hint: 'to remove the button from the wall', toolId: 'screwdriver-cross' },
     { icon: 'check', name: 'Flat-head screwdriver', hint: 'to open terminal connections', toolId: 'screwdriver-flat' },
-    { icon: 'buy', name: 'Replacement batteries', hint: 'buy: buy: £3–5 — check the chime unit inside; most use AA or a 9V block', hintOrange: true },
-    { icon: 'buy', name: 'Replacement button', hint: 'buy: buy: £5–10 if the button is faulty', hintOrange: true },
+    { icon: 'buy', name: 'Replacement batteries', hint: 'buy — check the chime unit inside; most use AA or a 9V block', hintOrange: true },
+    { icon: 'buy', name: 'Replacement button', hint: 'buy — 10 if the button is faulty', hintOrange: true },
   ]}
           slug="fix-a-doorbell"
           guideName="Fix a doorbell"

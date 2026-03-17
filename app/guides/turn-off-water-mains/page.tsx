@@ -64,7 +64,7 @@ export default function TurnOffWaterMains() {
           tools={[
     { icon: 'check', name: 'No tools usually needed', hint: 'most stop cocks can be turned by hand' },
     { icon: 'buy', name: 'Flat-head screwdriver', hint: 'some older stop cocks require a screwdriver in the slot — already in most homes', hintOrange: true, toolId: 'screwdriver-flat' },
-    { icon: 'buy', name: 'Stop cock key', hint: 'buy: £3–5 from a plumber\'s merchant — useful if the stop cock is stiff or in a pit outside', hintOrange: true },
+    { icon: 'buy', name: 'Stop cock key', hint: 'buy from a plumber\'s merchant — useful if the stop cock is stiff or in a pit outside', hintOrange: true },
   ]}
           slug="turn-off-water-mains"
           guideName="Turn off your water mains"

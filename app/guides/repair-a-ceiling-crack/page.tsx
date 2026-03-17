@@ -65,8 +65,8 @@ export default function RepairACeilingCrack() {
     { icon: 'check', name: 'Step ladder or stable platform', hint: 'to reach the ceiling safely', toolId: 'step-ladder' },
     { icon: 'check', name: 'Filling knife (4-inch)', hint: 'to apply and smooth the filler', toolId: 'filling-knife' },
     { icon: 'check', name: 'Fine sandpaper 240-grit', hint: 'to finish the repair' },
-    { icon: 'buy', name: 'Flexible filler or fine surface filler', hint: 'buy: £4–8 — flexible filler is better for cracks that may move slightly', hintOrange: true },
-    { icon: 'buy', name: 'Ceiling paint', hint: 'buy: £6–12 — white matt is standard for ceilings', hintOrange: true },
+    { icon: 'buy', name: 'Flexible filler or fine surface filler', hint: 'buy — flexible filler is better for cracks that may move slightly', hintOrange: true },
+    { icon: 'buy', name: 'Ceiling paint', hint: 'buy — white matt is standard for ceilings', hintOrange: true },
   ]}
           slug="repair-a-ceiling-crack"
           guideName="Repair a crack in a ceiling"

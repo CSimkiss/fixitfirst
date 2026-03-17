@@ -64,8 +64,8 @@ export default function FixASqueakyFloorboard() {
           tools={[
     { icon: 'check', name: 'Pipe &amp; cable detector', hint: 'essential before screwing into a floor', toolId: 'cable-detector' },
     { icon: 'check', name: 'Drill or screwdriver', hint: 'to drive the screw' },
-    { icon: 'buy', name: '50mm wood screws', hint: 'buy: £1–3 — countersinking screws are ideal', hintOrange: true },
-    { icon: 'buy', name: 'Wood filler', hint: 'buy: £3–5 if the floor is visible and you want a neat finish', hintOrange: true },
+    { icon: 'buy', name: '50mm wood screws', hint: 'buy — countersinking screws are ideal', hintOrange: true },
+    { icon: 'buy', name: 'Wood filler', hint: 'buy — 5 if the floor is visible and you want a neat finish', hintOrange: true },
   ]}
           slug="fix-a-squeaky-floorboard"
           guideName="Fix a squeaky floorboard"

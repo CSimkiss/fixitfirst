@@ -67,7 +67,7 @@ export default function HangAPictureFrame() {
     { icon: 'check', name: 'Pencil', hint: 'to mark the wall' },
     { icon: 'check', name: 'Hammer or drill', hint: 'hammer for picture hooks on solid walls; drill for masonry fixings', toolId: 'hammer' },
     { icon: 'check', name: 'Pipe &amp; cable detector', hint: 'essential before any drilling', toolId: 'cable-detector' },
-    { icon: 'buy', name: 'Wall fixings', hint: 'buy: £2–5 — picture hooks for light frames; wall plugs and screws for heavier ones', hintOrange: true },
+    { icon: 'buy', name: 'Wall fixings', hint: 'buy — picture hooks for light frames; wall plugs and screws for heavier ones', hintOrange: true },
   ]}
           slug="hang-a-picture-frame"
           guideName="Hang a picture frame properly"

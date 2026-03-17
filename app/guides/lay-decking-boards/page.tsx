@@ -66,9 +66,9 @@ export default function LayDeckingBoards() {
     { icon: 'check', name: 'Cordless drill', hint: 'with screwdriver and drill bits' },
     { icon: 'check', name: 'Tape measure, pencil, string line', hint: 'for marking out and keeping straight', toolId: 'tape-measure' },
     { icon: 'check', name: 'Spirit level and square', hint: 'for checking frame level and square', toolId: 'spirit-level' },
-    { icon: 'buy', name: 'Pressure-treated timber joists', hint: 'buy: 50x100mm UC4 treated — priced per length at timber merchants or large DIY stores', hintOrange: true },
-    { icon: 'buy', name: 'Decking boards', hint: 'buy: £3–8 per board — choose pressure-treated softwood or hardwood such as Bangkirai or Ipe', hintOrange: true },
-    { icon: 'buy', name: 'Stainless steel decking screws (65mm)', hint: 'buy: £10–15 per box of 200 — must be stainless or coated for outdoor use', hintOrange: true },
+    { icon: 'buy', name: 'Pressure-treated timber joists', hint: 'buy — 50x100mm UC4 treated — priced per length at timber merchants or large DIY stores', hintOrange: true },
+    { icon: 'buy', name: 'Decking boards', hint: 'buy — 8 per board — choose pressure-treated softwood or hardwood such as Bangkirai or Ipe', hintOrange: true },
+    { icon: 'buy', name: 'Stainless steel decking screws (65mm)', hint: 'buy — 15 per box of 200 — must be stainless or coated for outdoor use', hintOrange: true },
   ]}
           slug="lay-decking-boards"
           guideName="Lay decking boards"

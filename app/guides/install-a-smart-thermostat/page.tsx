@@ -64,7 +64,7 @@ export default function InstallASmartThermostat() {
           tools={[
     { icon: 'check', name: 'Cross-head screwdriver', hint: 'for wall plate and terminals', toolId: 'screwdriver-cross' },
     { icon: 'check', name: 'Phone or camera', hint: 'to photograph existing wiring before disconnecting' },
-    { icon: 'buy', name: 'Smart thermostat kit', hint: 'buy: £60–200 — Nest, Hive, Tado, or Drayton Wiser are popular UK options', hintOrange: true },
+    { icon: 'buy', name: 'Smart thermostat kit', hint: 'buy — Nest, Hive, Tado, or Drayton Wiser are popular UK options', hintOrange: true },
   ]}
           slug="install-a-smart-thermostat"
           guideName="Install a smart thermostat"

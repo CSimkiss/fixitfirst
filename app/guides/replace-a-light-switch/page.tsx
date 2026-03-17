@@ -66,7 +66,7 @@ export default function ReplaceALightSwitch() {
     { icon: 'check', name: 'Cross-head screwdriver', hint: 'to remove the face plate', toolId: 'screwdriver-cross' },
     { icon: 'check', name: 'Phone camera', hint: 'photograph the wiring before disconnecting anything' },
     { icon: 'check', name: 'Pipe & cable detector', hint: 'to confirm no cables in the wall before any drilling', toolId: 'cable-detector' },
-    { icon: 'buy', name: 'Replacement switch', hint: 'buy: buy: £5–15 — standard 1-gang or 2-gang white plate from any hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Replacement switch', hint: 'buy — standard 1-gang or 2-gang white plate from any hardware shop', hintOrange: true },
   ]}
           slug="replace-a-light-switch"
           guideName="Replace a light switch"

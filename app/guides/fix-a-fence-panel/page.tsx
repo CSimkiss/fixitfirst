@@ -65,9 +65,9 @@ export default function FixAFencePanel() {
     { icon: 'check', name: 'Hammer and nail bar / pry bar', hint: 'to remove old nails and panel', toolId: 'hammer' },
     { icon: 'check', name: 'Tape measure', hint: 'to confirm panel size before buying', toolId: 'tape-measure' },
     { icon: 'check', name: 'Drill and screwdriver', hint: 'for galvanised screws' },
-    { icon: 'buy', name: 'Replacement fence panel', hint: 'buy: £20–60 — standard 6ft wide panels from any DIY store', hintOrange: true },
-    { icon: 'buy', name: 'Galvanised screws or nails', hint: 'buy: £3–6 — must be galvanised for outdoor use', hintOrange: true },
-    { icon: 'buy', name: 'Fence preservative', hint: 'buy: £8–15 — apply to all bare wood after fitting', hintOrange: true },
+    { icon: 'buy', name: 'Replacement fence panel', hint: 'buy — standard 6ft wide panels from any DIY store', hintOrange: true },
+    { icon: 'buy', name: 'Galvanised screws or nails', hint: 'buy — must be galvanised for outdoor use', hintOrange: true },
+    { icon: 'buy', name: 'Fence preservative', hint: 'buy — apply to all bare wood after fitting', hintOrange: true },
   ]}
           slug="fix-a-fence-panel"
           guideName="Fix a fence panel"

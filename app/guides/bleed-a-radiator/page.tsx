@@ -57,14 +57,14 @@ export default function BleedARadiator() {
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Do this if your radiator is cold at the top but warm at the bottom — that means trapped air is preventing hot water from circulating.</p>
-          <p className="text-sm text-gray-700 mb-2">You need a radiator bleed key (about £1 from any hardware shop) and a cloth or small container to catch drips.</p>
+          <p className="text-sm text-gray-700 mb-2">You need a radiator bleed key (from any hardware shop) and a cloth or small container to catch drips.</p>
         </div>
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
         <ToolsSection
           tools={[
-    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy: £1–3 from any hardware shop', hintOrange: true, toolId: 'bleed-key' },
+    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy from any hardware shop', hintOrange: true, toolId: 'bleed-key' },
     { icon: 'check', name: 'Old cloth or small container', hint: 'to catch drips, any household rag will do' },
   ]}
           slug="bleed-a-radiator"

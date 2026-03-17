@@ -66,8 +66,8 @@ export default function DrippingTap() {
           tools={[
     { icon: 'check', name: 'Adjustable spanner or spanner set', hint: 'you probably already have one', toolId: 'adjustable-spanner' },
     { icon: 'check', name: 'Flat-head screwdriver', hint: 'standard household tool', toolId: 'screwdriver-flat' },
-    { icon: 'buy', name: 'Replacement rubber washer', hint: 'buy: £1–2 from any hardware shop', hintOrange: true },
-    { icon: 'buy', name: 'PTFE tape', hint: 'buy: £1 from any hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Replacement rubber washer', hint: 'buy from any hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'PTFE tape', hint: 'buy from any hardware shop', hintOrange: true },
   ]}
           slug="fix-a-dripping-tap"
           guideName="Fix a dripping tap"

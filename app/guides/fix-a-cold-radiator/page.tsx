@@ -62,9 +62,9 @@ export default function FixAColdRadiator() {
         </div>
         <ToolsSection
           tools={[
-    { icon: 'check', name: 'Radiator bleed key', hint: 'most homes have one — buy for £1–3 if not', toolId: 'bleed-key' },
+    { icon: 'check', name: 'Radiator bleed key', hint: 'most homes have one — buy if not', toolId: 'bleed-key' },
     { icon: 'check', name: 'Small cloth or old towel', hint: 'to catch the drip when bleeding' },
-    { icon: 'buy', name: 'Flat-head screwdriver or pliers', hint: 'buy: to adjust the lockshield valve cap if needed', hintOrange: true, toolId: 'screwdriver-flat' },
+    { icon: 'buy', name: 'Flat-head screwdriver or pliers', hint: 'buy — to adjust the lockshield valve cap if needed', hintOrange: true, toolId: 'screwdriver-flat' },
   ]}
           slug="fix-a-cold-radiator"
           guideName="Fix a cold radiator"

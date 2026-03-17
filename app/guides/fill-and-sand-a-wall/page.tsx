@@ -64,9 +64,9 @@ export default function FillAndSandAWall() {
           tools={[
     { icon: 'check', name: 'Filling knife', hint: 'a 4-inch flexible blade is ideal — you may already have one', toolId: 'filling-knife' },
     { icon: 'check', name: 'Small bowl of water', hint: 'to wet the filler before applying' },
-    { icon: 'buy', name: 'Ready-mixed filler', hint: 'buy: £3–5 — Polyfilla or own-brand equivalent from any hardware shop', hintOrange: true },
-    { icon: 'buy', name: 'Sandpaper 120-grit and 240-grit', hint: 'buy: £2–4 — coarse to shape, fine to finish', hintOrange: true },
-    { icon: 'buy', name: 'Primer or mist coat', hint: 'buy: £3–8 — needed over bare filler before painting', hintOrange: true },
+    { icon: 'buy', name: 'Ready-mixed filler', hint: 'buy — Polyfilla or own-brand equivalent from any hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Sandpaper 120-grit and 240-grit', hint: 'buy — coarse to shape, fine to finish', hintOrange: true },
+    { icon: 'buy', name: 'Primer or mist coat', hint: 'buy — needed over bare filler before painting', hintOrange: true },
   ]}
           slug="fill-and-sand-a-wall"
           guideName="Fill and sand a wall"

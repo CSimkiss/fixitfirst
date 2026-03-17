@@ -64,10 +64,10 @@ export default function PaintARoom() {
         </div>
         <ToolsSection
           tools={[
-    { icon: 'buy', name: 'Emulsion paint', hint: 'buy: £15–30 per tin, choose the correct finish (matt for walls, silk for high-moisture rooms)', hintOrange: true },
-    { icon: 'buy', name: 'Roller, roller sleeve and tray', hint: 'buy: £8–15 as a set', hintOrange: true, toolId: 'roller-tray' },
-    { icon: 'buy', name: '2-inch angled cutting-in brush', hint: 'buy: £3–6, essential for clean edges', hintOrange: true },
-    { icon: 'buy', name: 'Masking tape', hint: 'buy: £2–5 per roll', hintOrange: true },
+    { icon: 'buy', name: 'Emulsion paint', hint: 'buy — 30 per tin, choose the correct finish (matt for walls, silk for high-moisture rooms)', hintOrange: true },
+    { icon: 'buy', name: 'Roller, roller sleeve and tray', hint: 'buy — 15 as a set', hintOrange: true, toolId: 'roller-tray' },
+    { icon: 'buy', name: '2-inch angled cutting-in brush', hint: 'buy — 6, essential for clean edges', hintOrange: true },
+    { icon: 'buy', name: 'Masking tape', hint: 'buy — 5 per roll', hintOrange: true },
     { icon: 'buy', name: 'Dust sheets', hint: 'buy or borrow: old bedsheets work fine too', hintOrange: true },
     { icon: 'check', name: 'Sandpaper and ready-mixed filler', hint: 'for wall preparation' },
   ]}

@@ -67,11 +67,11 @@ export default function TileASplashback() {
     { icon: 'check', name: 'Notched adhesive spreader', hint: 'usually included with tile adhesive' },
     { icon: 'check', name: 'Grout spreader or old credit card', hint: 'to apply grout' },
     { icon: 'check', name: 'Sponge and bucket', hint: 'for cleaning off excess grout' },
-    { icon: 'buy', name: 'Tiles', hint: 'buy: allow 10% extra for cuts and breakages', hintOrange: true },
-    { icon: 'buy', name: 'Tile adhesive', hint: 'buy: £8–15 — use a waterproof type for kitchen and bathroom', hintOrange: true },
-    { icon: 'buy', name: 'Grout', hint: 'buy: £5–10 — choose a colour to complement your tiles', hintOrange: true },
-    { icon: 'buy', name: 'Tile spacers', hint: 'buy: £2–3 — 2mm or 3mm for standard joints', hintOrange: true },
-    { icon: 'buy', name: 'Tile cutter or score-and-snap tool', hint: 'buy: £10–20 if you need to cut tiles', hintOrange: true },
+    { icon: 'buy', name: 'Tiles', hint: 'buy — allow 10% extra for cuts and breakages', hintOrange: true },
+    { icon: 'buy', name: 'Tile adhesive', hint: 'buy — use a waterproof type for kitchen and bathroom', hintOrange: true },
+    { icon: 'buy', name: 'Grout', hint: 'buy — choose a colour to complement your tiles', hintOrange: true },
+    { icon: 'buy', name: 'Tile spacers', hint: 'buy — 2mm or 3mm for standard joints', hintOrange: true },
+    { icon: 'buy', name: 'Tile cutter or score-and-snap tool', hint: 'buy — 20 if you need to cut tiles', hintOrange: true },
   ]}
           slug="tile-a-splashback"
           guideName="Tile a splashback"

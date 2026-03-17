@@ -64,7 +64,7 @@ export default function FixLowWaterPressure() {
           tools={[
     { icon: 'check', name: 'Adjustable spanner', hint: 'for removing aerators', toolId: 'adjustable-spanner' },
     { icon: 'check', name: 'Small bowl', hint: 'to catch water when removing the aerator' },
-    { icon: 'buy', name: 'Descaling solution or white vinegar', hint: 'buy: buy: £2–4 to soak a blocked aerator', hintOrange: true },
+    { icon: 'buy', name: 'Descaling solution or white vinegar', hint: 'buy — 4 to soak a blocked aerator', hintOrange: true },
   ]}
           slug="fix-low-water-pressure"
           guideName="Fix low water pressure"

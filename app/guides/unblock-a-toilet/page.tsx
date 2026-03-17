@@ -62,7 +62,7 @@ export default function UnblockAToilet() {
         </div>
         <ToolsSection
           tools={[
-    { icon: 'buy', name: 'Toilet plunger (flange plunger)', hint: 'buy: buy: £5–12 — a flange plunger (with a fold-out inner cup) works much better than a flat cup plunger for toilets', hintOrange: true, toolId: 'plunger' },
+    { icon: 'buy', name: 'Toilet plunger (flange plunger)', hint: 'buy — a flange plunger (with a fold-out inner cup) works much better than a flat cup plunger for toilets', hintOrange: true, toolId: 'plunger' },
     { icon: 'check', name: 'Rubber gloves', hint: 'essential — wear them', toolId: 'rubber-gloves' },
     { icon: 'check', name: 'Old towels or newspaper', hint: 'to protect the floor around the toilet' },
   ]}

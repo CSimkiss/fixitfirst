@@ -55,14 +55,14 @@ export default function BleedAllRadiators() {
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Bleeding all radiators is worth doing at the start of every heating season — typically October. Air enters the system over summer and accumulates in the top of radiators, reducing their heat output and making the boiler work harder.</p>
-          <p className="text-sm text-gray-700">You need one tool: a radiator bleed key (costs £1–3). Have a cloth and a bowl for each radiator — some release more water than others, especially if they haven't been bled in years.</p>
+          <p className="text-sm text-gray-700">You need one tool: a radiator bleed key. Have a cloth and a bowl for each radiator — some release more water than others, especially if they haven't been bled in years.</p>
         </div>
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
         <ToolsSection
           tools={[
-    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy: £1–3 from any hardware shop or DIY store', hintOrange: true, toolId: 'bleed-key' },
+    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy from any hardware shop or DIY store', hintOrange: true, toolId: 'bleed-key' },
     { icon: 'check', name: 'Old cloths or towels', hint: 'one per radiator to catch drips' },
     { icon: 'check', name: 'Small bowl or container', hint: 'to catch water if significant air has built up' },
   ]}

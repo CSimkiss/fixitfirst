@@ -65,8 +65,8 @@ export default function UnblockAGutter() {
     { icon: 'check', name: 'Ladder with standoff bracket', hint: 'essential for safe gutter access' },
     { icon: 'check', name: 'Rubber gloves and bucket', hint: 'for debris removal', toolId: 'rubber-gloves' },
     { icon: 'check', name: 'Garden hose', hint: 'to flush and test the gutter flow' },
-    { icon: 'buy', name: 'Drain rods or flexible brush', hint: 'buy: £10–20 — for blocked downpipes', hintOrange: true },
-    { icon: 'buy', name: 'Gutter sealant', hint: 'buy: £4–8 — for cracked joints or small holes', hintOrange: true },
+    { icon: 'buy', name: 'Drain rods or flexible brush', hint: 'buy — for blocked downpipes', hintOrange: true },
+    { icon: 'buy', name: 'Gutter sealant', hint: 'buy — for cracked joints or small holes', hintOrange: true },
   ]}
           slug="unblock-a-gutter"
           guideName="Unblock a gutter"

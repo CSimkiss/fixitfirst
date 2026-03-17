@@ -54,7 +54,7 @@ export default function DraftProofDoorWindow() {
         <DifficultyComparison slug="draft-proof-door-window" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
-          <p className="text-sm text-gray-700 mb-2">Drafts account for up to 25% of heat loss in older UK homes. Draft proofing is one of the highest return-on-investment home improvements you can make — materials cost £5–15 and pay back in weeks.</p>
+          <p className="text-sm text-gray-700 mb-2">Drafts account for up to 25% of heat loss in older UK homes. Draft proofing is one of the highest return-on-investment home improvements you can make and pay back in weeks.</p>
           <p className="text-sm text-gray-700">Feel for cold air around door and window frames on a windy day — that is where to focus first.</p>
         </div>
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
@@ -65,8 +65,8 @@ export default function DraftProofDoorWindow() {
     { icon: 'check', name: 'Scissors or craft knife', hint: 'to cut the strip to length' },
     { icon: 'check', name: 'Tape measure', hint: 'to measure the frame length', toolId: 'tape-measure' },
     { icon: 'check', name: 'Clean cloth', hint: 'to wipe the frame before applying adhesive strips' },
-    { icon: 'buy', name: 'Self-adhesive foam strip', hint: 'buy: £3–6 — use E-profile for large gaps, P-profile for small gaps', hintOrange: true },
-    { icon: 'buy', name: 'Brush strip or door sweep', hint: 'buy: £5–10 — for the gap under an external door', hintOrange: true },
+    { icon: 'buy', name: 'Self-adhesive foam strip', hint: 'buy — use E-profile for large gaps, P-profile for small gaps', hintOrange: true },
+    { icon: 'buy', name: 'Brush strip or door sweep', hint: 'buy — for the gap under an external door', hintOrange: true },
   ]}
           slug="draft-proof-door-window"
           guideName="Draft proof a door or window"

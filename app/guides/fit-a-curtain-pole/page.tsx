@@ -65,7 +65,7 @@ export default function FitACurtainPole() {
         <ToolsSection
           tools={[
     { icon: 'buy', name: 'Power drill with drill bits', hint: 'buy or borrow if you don\'t have one', hintOrange: true, toolId: 'drill' },
-    { icon: 'buy', name: 'Pipe and cable detector', hint: 'buy: £10–15, essential before any drilling', hintOrange: true, toolId: 'cable-detector' },
+    { icon: 'buy', name: 'Pipe and cable detector', hint: 'buy — 15, essential before any drilling', hintOrange: true, toolId: 'cable-detector' },
     { icon: 'check', name: 'Spirit level', hint: 'for level brackets', toolId: 'spirit-level' },
     { icon: 'check', name: 'Tape measure and pencil', hint: 'standard household items', toolId: 'tape-measure' },
     { icon: 'check', name: 'Screwdriver', hint: 'wall plugs and screws come with the pole' },
