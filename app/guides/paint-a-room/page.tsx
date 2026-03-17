@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -109,9 +108,9 @@ export default function PaintARoom() {
             <p className="text-sm text-amber-900">{GUIDE_META['paint-a-room'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="paint-a-room" />
-        <NextGuide currentSlug="paint-a-room" />
+        <GuideActions slug="paint-a-room">
+          <GuideExtras slug="paint-a-room" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="paint-a-room" title="Paint a room" href="/guides/paint-a-room" />
       <MobileNav />

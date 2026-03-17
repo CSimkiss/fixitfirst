@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -104,9 +103,9 @@ export default function BoilerBreakdownWhatToDo() {
             <p className="text-sm text-amber-900">{GUIDE_META['boiler-breakdown-what-to-do'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="boiler-breakdown-what-to-do" />
-        <NextGuide currentSlug="boiler-breakdown-what-to-do" />
+        <GuideActions slug="boiler-breakdown-what-to-do">
+          <GuideExtras slug="boiler-breakdown-what-to-do" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="boiler-breakdown-what-to-do" title="Boiler breakdown: what to do" href="/guides/boiler-breakdown-what-to-do" />
       <MobileNav />

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -105,9 +104,9 @@ export default function InstallASmartThermostat() {
             <p className="text-sm text-amber-900">{GUIDE_META['install-a-smart-thermostat'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="install-a-smart-thermostat" />
-        <NextGuide currentSlug="install-a-smart-thermostat" />
+        <GuideActions slug="install-a-smart-thermostat">
+          <GuideExtras slug="install-a-smart-thermostat" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="install-a-smart-thermostat" title="Install a smart thermostat" href="/guides/install-a-smart-thermostat" />
       <MobileNav />

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -106,9 +105,9 @@ export default function ReplaceALightSwitch() {
             <p className="text-sm text-amber-900">{GUIDE_META['replace-a-light-switch'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="replace-a-light-switch" />
-        <NextGuide currentSlug="replace-a-light-switch" />
+        <GuideActions slug="replace-a-light-switch">
+          <GuideExtras slug="replace-a-light-switch" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="replace-a-light-switch" title="Replace a light switch" href="/guides/replace-a-light-switch" />
       <MobileNav />

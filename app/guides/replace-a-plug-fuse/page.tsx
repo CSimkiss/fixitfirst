@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -103,9 +102,9 @@ export default function ReplaceAPlugFuse() {
             <p className="text-sm text-amber-900">{GUIDE_META['replace-a-plug-fuse'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="replace-a-plug-fuse" />
-        <NextGuide currentSlug="replace-a-plug-fuse" />
+        <GuideActions slug="replace-a-plug-fuse">
+          <GuideExtras slug="replace-a-plug-fuse" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="replace-a-plug-fuse" title="Replace a plug fuse" href="/guides/replace-a-plug-fuse" />
       <MobileNav />

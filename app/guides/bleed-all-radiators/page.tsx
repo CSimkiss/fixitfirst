@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -104,9 +103,9 @@ export default function BleedAllRadiators() {
             <p className="text-sm text-amber-900">{GUIDE_META['bleed-all-radiators'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="bleed-all-radiators" />
-        <NextGuide currentSlug="bleed-all-radiators" />
+        <GuideActions slug="bleed-all-radiators">
+          <GuideExtras slug="bleed-all-radiators" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="bleed-all-radiators" title="Bleed all radiators" href="/guides/bleed-all-radiators" />
       <MobileNav />

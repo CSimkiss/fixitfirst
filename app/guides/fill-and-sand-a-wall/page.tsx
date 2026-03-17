@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -106,9 +105,9 @@ export default function FillAndSandAWall() {
             <p className="text-sm text-amber-900">{GUIDE_META['fill-and-sand-a-wall'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="fill-and-sand-a-wall" />
-        <NextGuide currentSlug="fill-and-sand-a-wall" />
+        <GuideActions slug="fill-and-sand-a-wall">
+          <GuideExtras slug="fill-and-sand-a-wall" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="fill-and-sand-a-wall" title="Fill and sand a wall" href="/guides/fill-and-sand-a-wall" />
       <MobileNav />
