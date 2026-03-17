@@ -14,21 +14,8 @@
 
 import { useState } from 'react'
 import { useCompletions } from '@/lib/useCompletions'
-import { ALL_GUIDES, GUIDE_BY_SLUG } from '@/lib/guides'
+import { ALL_GUIDES, GUIDE_BY_SLUG, getRecommendedNextGuide } from '@/lib/guides'
 import SocialShare from '@/components/SocialShare'
-
-// Recommended learning order used to pick the next guide
-const RECOMMENDED_ORDER = [
-  'change-a-lightbulb',
-  'bleed-a-radiator',
-  'unblock-a-drain',
-  'fill-a-hole-in-a-wall',
-  'fix-a-dripping-tap',
-  'fit-a-curtain-pole',
-  'put-up-shelves',
-  'paint-a-room',
-  'fix-a-running-toilet',
-]
 
 export default function GuideActions({
   slug,
