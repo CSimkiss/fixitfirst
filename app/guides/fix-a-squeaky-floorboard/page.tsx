@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -105,9 +104,9 @@ export default function FixASqueakyFloorboard() {
             <p className="text-sm text-amber-900">{GUIDE_META['fix-a-squeaky-floorboard'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="fix-a-squeaky-floorboard" />
-        <NextGuide currentSlug="fix-a-squeaky-floorboard" />
+        <GuideActions slug="fix-a-squeaky-floorboard">
+          <GuideExtras slug="fix-a-squeaky-floorboard" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="fix-a-squeaky-floorboard" title="Fix a squeaky floorboard" href="/guides/fix-a-squeaky-floorboard" />
       <MobileNav />

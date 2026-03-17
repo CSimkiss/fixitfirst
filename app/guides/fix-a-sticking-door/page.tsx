@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import StepProgress from '@/components/StepProgress'
-import CompleteButton from '@/components/CompleteButton'
+import GuideActions from '@/components/GuideActions'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
@@ -11,7 +11,6 @@ import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
 import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
-import NextGuide from '@/components/NextGuide'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
@@ -105,9 +104,9 @@ export default function FixAStickingDoor() {
             <p className="text-sm text-amber-900">{GUIDE_META['fix-a-sticking-door'].renterWarning}</p>
           </div>
         )}
-        <CompleteButton />
-        <GuideExtras slug="fix-a-sticking-door" />
-        <NextGuide currentSlug="fix-a-sticking-door" />
+        <GuideActions slug="fix-a-sticking-door">
+          <GuideExtras slug="fix-a-sticking-door" />
+        </GuideActions>
       </div>
       <RecentViewTracker slug="fix-a-sticking-door" title="Fix a sticking door" href="/guides/fix-a-sticking-door" />
       <MobileNav />
