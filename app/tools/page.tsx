@@ -16,8 +16,8 @@ export default function ToolsPage() {
         <a href="/" className="text-sm text-orange-500 mb-6 inline-block">← Back to home</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">My tool library</h1>
         <p className="text-gray-500 mb-8">
-          Tick the tools you own. We&apos;ll warn you at the top of any guide if you&apos;re missing something before you start.
-          Your selections are saved automatically.
+          Tick the tools you already own and we&apos;ll show you what fixes you can do right now.
+          We&apos;ll also warn you before any guide if you&apos;re missing something. Saved automatically.
         </p>
         <ToolsOwned />
       </div>
