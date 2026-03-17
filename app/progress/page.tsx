@@ -2,9 +2,10 @@
 
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
-import { TIERS, getTier, getStreak } from '@/lib/progress'
+import { TIERS } from '@/lib/progress'
 import { ALL_GUIDES } from '@/lib/guides'
 import { useCompletions } from '@/lib/useCompletions'
+import { streakCount, tierLevel } from '@/lib/completions'
 
 const CATEGORY_COLOURS: Record<string, string> = {
   Plumbing:   'bg-blue-50 text-blue-700',
@@ -45,8 +46,8 @@ export default function ProgressPage() {
 
   const completedSlugs = Object.keys(completionMap)
   const completedCount = completedSlugs.length
-  const tier = getTier(completedCount)
-  const streak = getStreak(Object.values(completionMap))
+  const tier = tierLevel(completionMap)
+  const streak = streakCount(completionMap)
   const nextTier = TIERS[TIERS.indexOf(tier) + 1]
   const totalPoints = completedSlugs.reduce((sum, slug) => {
     return sum + (ALL_GUIDES.find(g => g.slug === slug)?.skillPoints ?? 0)

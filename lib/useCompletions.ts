@@ -2,55 +2,21 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
-import { COMPLETED_GUIDES_KEY, getLocalDateStr } from '@/lib/progress'
+import {
+  type CompletionMap,
+  getCompletionMap,
+  setCompletionMap,
+  fetchSupabaseCompletions,
+  upsertSupabaseCompletion,
+  mergeLocalIntoSupabase,
+  markComplete as localMarkComplete,
+} from '@/lib/completions'
 import type { User } from '@supabase/supabase-js'
 
-export type CompletionMap = Record<string, string> // slug → 'YYYY-MM-DD'
-
-const SUPABASE_TIMEOUT_MS = 3_000
-
-// Single Supabase query for all completions, wrapped in a 3-second timeout.
-// If the query doesn't respond in time, the timeout wins and the caller
-// falls back to the locally-cached copy.
-async function fetchSupabaseCompletions(userId: string): Promise<CompletionMap> {
-  const queryPromise = supabase
-    .from('completions')
-    .select('guide_slug, completed_at')
-    .eq('user_id', userId)
-    .then(({ data, error }) => {
-      if (error) throw error
-      const map: CompletionMap = {}
-      for (const row of data ?? []) {
-        map[row.guide_slug] = (row.completed_at as string).split('T')[0]
-      }
-      return map
-    })
-
-  const timeoutPromise = new Promise<never>((_, reject) =>
-    setTimeout(() => reject(new Error('timeout')), SUPABASE_TIMEOUT_MS),
-  )
-
-  return Promise.race([queryPromise, timeoutPromise])
-}
-
-function readLocalCompletions(): CompletionMap {
-  if (typeof window === 'undefined') return {}
-  try {
-    const raw = localStorage.getItem(COMPLETED_GUIDES_KEY)
-    return raw ? JSON.parse(raw) : {}
-  } catch {
-    return {}
-  }
-}
-
-function writeLocalCompletions(map: CompletionMap) {
-  try {
-    localStorage.setItem(COMPLETED_GUIDES_KEY, JSON.stringify(map))
-  } catch {}
-}
+export type { CompletionMap }
 
 export function useCompletions() {
-  const [completionMap, setCompletionMap] = useState<CompletionMap>({})
+  const [completionMap, setCompletionMapState] = useState<CompletionMap>({})
   const [user, setUser] = useState<User | null>(null)
   const [authResolved, setAuthResolved] = useState(false)
   const [syncing, setSyncing] = useState(false)
@@ -65,8 +31,8 @@ export function useCompletions() {
       setError(null)
       try {
         const map = await fetchSupabaseCompletions(userId)
-        setCompletionMap(map)
-        writeLocalCompletions(map) // keep cache fresh for next visit
+        setCompletionMapState(map)
+        setCompletionMap(map) // keep cache fresh for next visit
       } catch (err) {
         const isTimeout = err instanceof Error && err.message === 'timeout'
         console.error(
@@ -74,7 +40,29 @@ export function useCompletions() {
           isTimeout ? 'timed out after 3s, using cache' : 'fetch failed, using cache',
           err,
         )
-        // Don't overwrite state — cache is already displayed
+        setError('Could not sync your progress from the server. Showing cached data.')
+      } finally {
+        setSyncing(false)
+      }
+    }
+
+    // On a new login: merge any guest completions into Supabase first so
+    // progress from before sign-up is not lost, then fetch the fresh state.
+    async function syncWithMerge(userId: string) {
+      setSyncing(true)
+      setError(null)
+      try {
+        await mergeLocalIntoSupabase(userId)
+        const map = await fetchSupabaseCompletions(userId)
+        setCompletionMapState(map)
+        setCompletionMap(map)
+      } catch (err) {
+        const isTimeout = err instanceof Error && err.message === 'timeout'
+        console.error(
+          '[useCompletions] merge/sync failed',
+          isTimeout ? '(timeout)' : '',
+          err,
+        )
         setError('Could not sync your progress from the server. Showing cached data.')
       } finally {
         setSyncing(false)
@@ -88,16 +76,21 @@ export function useCompletions() {
     // The `loading` flag (authResolved) only covers the auth step, not the
     // Supabase round-trip, so the skeleton disappears almost instantly.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      (event, session) => {
         const currentUser = session?.user ?? null
         setUser(currentUser)
 
         // Show cache immediately — visible before Supabase responds
-        setCompletionMap(readLocalCompletions())
+        setCompletionMapState(getCompletionMap())
 
         if (currentUser) {
-          // Fire-and-forget: sync runs in background, UI already has cache
-          syncFromSupabase(currentUser.id)
+          if (event === 'SIGNED_IN') {
+            // New login: merge guest completions then fetch fresh server state
+            syncWithMerge(currentUser.id)
+          } else {
+            // Returning session: straight sync
+            syncFromSupabase(currentUser.id)
+          }
         }
 
         // Auth is resolved; skeleton can go away even if Supabase is still loading
@@ -109,25 +102,15 @@ export function useCompletions() {
   }, [])
 
   const markComplete = useCallback(async (slug: string) => {
-    const dateStr = getLocalDateStr()
-
-    // Optimistic update + cache write happen together, synchronously
-    setCompletionMap(prev => {
-      const next = { ...prev, [slug]: dateStr }
-      writeLocalCompletions(next)
-      return next
-    })
+    // Optimistic update + localStorage write happen synchronously
+    const next = localMarkComplete(slug)
+    setCompletionMapState(next)
 
     if (user) {
-      const { error: upsertError } = await supabase
-        .from('completions')
-        .upsert(
-          { user_id: user.id, guide_slug: slug, completed_at: new Date().toISOString() },
-          { onConflict: 'user_id,guide_slug' },
-        )
-
-      if (upsertError) {
-        console.error('[useCompletions] Upsert failed, completion kept in localStorage:', upsertError)
+      try {
+        await upsertSupabaseCompletion(user.id, slug)
+      } catch (err) {
+        console.error('[useCompletions] Upsert failed, completion kept in localStorage:', err)
       }
     }
   }, [user])
