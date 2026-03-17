@@ -33,16 +33,45 @@ export default function FindAProPage() {
       <Nav />
 
       <div className="bg-gray-950 text-white px-6 py-14 text-center">
-        <h1 className="text-3xl md:text-5xl font-bold mb-3">Find a trusted tradesperson</h1>
+        <h1 className="text-3xl md:text-5xl font-bold mb-3">Need a pro? We&apos;ll help you find one</h1>
         <p className="text-gray-300 text-lg max-w-xl mx-auto">
-          When the job needs a pro, we'll help you find one nearby — vetted, reviewed, and fairly priced.
+          Try a quick fix first — if it doesn&apos;t work, we&apos;ve got you covered.
         </p>
       </div>
 
       <div className="max-w-2xl mx-auto px-6 py-12 space-y-10">
 
+        {/* Try a quick fix first */}
+        <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6">
+          <h2 className="font-bold text-gray-900 text-lg mb-1">Try a quick fix first (10–20 mins)</h2>
+          <p className="text-sm text-gray-500 mb-5">Most common issues have a simple DIY fix. These take under 20 minutes.</p>
+          <div className="space-y-3 mb-5">
+            {[
+              { title: 'Unblock a drain', time: '15 mins', cost: 'Free–£5', href: '/guides/unblock-a-drain' },
+              { title: 'Fix a dripping tap', time: '20 mins', cost: '£5–15', href: '/guides/fix-a-dripping-tap' },
+              { title: 'Fix a running toilet', time: '20 mins', cost: '£10–20', href: '/guides/fix-a-running-toilet' },
+            ].map((g) => (
+              <a
+                key={g.href}
+                href={g.href}
+                className="flex items-center justify-between bg-white border border-orange-200 rounded-xl px-4 py-3 hover:border-orange-400 hover:shadow-sm transition-all group"
+              >
+                <span className="font-medium text-sm text-gray-900 group-hover:text-orange-500 transition-colors">{g.title}</span>
+                <span className="text-xs text-gray-400 shrink-0 ml-4">{g.time} · {g.cost}</span>
+              </a>
+            ))}
+          </div>
+          <a
+            href="/guides"
+            className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+          >
+            Try a quick fix first →
+          </a>
+        </div>
+
         {/* Search form */}
         <form onSubmit={handleSearch} className="bg-gray-50 border border-gray-200 rounded-2xl p-6 space-y-4">
+          <p className="text-sm text-gray-500">When it&apos;s beyond a quick fix, find someone nearby</p>
           <h2 className="font-semibold text-gray-900 text-lg">Search for a tradesperson</h2>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Postcode</label>
@@ -92,12 +121,28 @@ export default function FindAProPage() {
 
         {/* Email capture */}
         <div className="bg-gray-950 text-white rounded-2xl p-8 text-center">
-          <p className="text-orange-400 text-sm font-semibold uppercase tracking-wide mb-3">Coming soon</p>
-          <h2 className="text-xl font-bold mb-2">Trades directory launching soon</h2>
+          <h2 className="text-xl font-bold mb-2">Not live yet — join the waitlist</h2>
           <p className="text-gray-300 text-sm mb-6">
-            We&apos;re vetting tradespeople across the UK. Be first to search when it goes live.
+            We&apos;ll let you know when the trades directory launches in your area.
           </p>
           <EmailCapture source="find-a-pro" />
+        </div>
+
+        {/* When to call a pro */}
+        <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+          <h2 className="font-semibold text-gray-900 mb-4">When to call a pro</h2>
+          <ul className="space-y-3">
+            {[
+              'Multiple issues happening at once',
+              'Electrical problems you\'re unsure about',
+              'Structural or safety concerns',
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-gray-600">
+                <span className="text-orange-500 mt-0.5 shrink-0">•</span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Why trust section */}
