@@ -102,7 +102,6 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
   const toolSuggestion  = GUIDE_TOOL_SUGGESTION[slug] ?? null
 
   return (
-    /* Backdrop */
     <div
       className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm px-0 md:px-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
@@ -146,21 +145,28 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
         {/* ── Scrollable body ─────────────────────────────────────────────── */}
         <div className="overflow-y-auto flex-1 px-6 py-5 space-y-5">
 
-          {/* Running totals */}
+          {/* Running totals — supporting context, not the hero */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gray-50 rounded-2xl p-4 text-center">
-              <p className="text-2xl font-black text-orange-500">{completedCount}</p>
+            <div className="bg-gray-50 rounded-xl p-3 text-center">
+              <p className="text-xl font-bold text-orange-500">{completedCount}</p>
               <p className="text-xs text-gray-500 mt-0.5">
                 guide{completedCount !== 1 ? 's' : ''} completed
               </p>
             </div>
-            <div className="bg-gray-50 rounded-2xl p-4 text-center">
-              <p className="text-2xl font-black text-green-600">
+            <div className="bg-gray-50 rounded-xl p-3 text-center">
+              <p className="text-xl font-bold text-green-600">
                 {allSaved > 0 ? `£${allSaved}` : '—'}
               </p>
               <p className="text-xs text-gray-500 mt-0.5">total saved</p>
             </div>
           </div>
+
+          {/* Identity / progress reinforcement */}
+          <p className="text-sm text-gray-500 text-center -mt-1">
+            {completedCount > 1
+              ? `That's ${completedCount} jobs you didn't need to pay someone else for.`
+              : "You're building real DIY confidence."}
+          </p>
 
           {/* Tier progress */}
           <div className={`rounded-2xl p-4 ${tier.bg}`}>
@@ -171,13 +177,14 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
               </div>
               {nextTier ? (
                 <span className={`text-xs font-medium ${tier.colour} opacity-70`}>
-                  {guidesToNextTier} more to {nextTier.name}
+                  {guidesToNextTier === 1
+                    ? `One more fix to reach ${nextTier.name}`
+                    : `${guidesToNextTier} more fixes to reach ${nextTier.name}`}
                 </span>
               ) : (
                 <span className={`text-xs font-bold ${tier.colour}`}>Max tier! 🏆</span>
               )}
             </div>
-            {/* Progress bar */}
             <div className="h-2 bg-black/10 rounded-full overflow-hidden">
               <div
                 className="h-full bg-current rounded-full transition-all duration-700"
@@ -191,18 +198,20 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
             )}
           </div>
 
-          {/* Affiliate tool nudge */}
+          {/* Recommended next guide — primary CTA block */}
+          {nextGuide && <NextGuideCard guide={nextGuide} onClose={onClose} />}
+
+          {/* Affiliate tool nudge — secondary, below the next-guide CTA */}
           {toolSuggestion && (
-            <div className="flex items-center gap-3 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
-              <span className="text-lg shrink-0">🛒</span>
-              <p className="text-sm text-gray-700 leading-snug">
-                Next job?{' '}
-                <span className="text-gray-500">You might need: </span>
+            <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-xl px-4 py-3">
+              <span className="text-base shrink-0">🛒</span>
+              <p className="text-xs text-gray-500 leading-snug">
+                Useful for next time:{' '}
                 <a
                   href={screwfixToolUrl(toolSuggestion.searchTerm)}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="font-semibold text-orange-600 hover:underline"
+                  className="font-medium text-gray-600 hover:underline"
                 >
                   {toolSuggestion.name}
                 </a>
@@ -223,7 +232,7 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
                 href={nextGuide.href}
                 className="flex-1 bg-orange-500 text-white text-center py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
               >
-                Go to next guide →
+                Start next fix →
               </a>
               <button
                 onClick={onClose}
@@ -268,9 +277,9 @@ function NextGuideCard({
     <a
       href={guide.href}
       onClick={onClose}
-      className="block bg-gray-950 text-white rounded-2xl p-4 group"
+      className="block bg-gray-950 text-white rounded-2xl p-5 group"
     >
-      <p className="text-orange-400 text-xs font-semibold uppercase tracking-wide mb-1.5">
+      <p className="text-orange-400 text-xs font-semibold uppercase tracking-wide mb-2">
         Recommended next
       </p>
       {contextLabel && (
@@ -281,12 +290,16 @@ function NextGuideCard({
       <p className="font-bold text-base group-hover:text-orange-400 transition-colors mb-1">
         {guide.title}
       </p>
-      <p className="text-green-400 text-sm font-semibold mb-2">{guide.saves}</p>
-      <div className="flex flex-wrap gap-3 text-xs text-gray-400">
+      <p className="text-green-400 text-sm font-semibold mb-3">{guide.saves}</p>
+      <div className="flex flex-wrap gap-3 text-xs text-gray-400 mb-4">
         <span>⏱ {guide.time}</span>
         <span>💰 {guide.cost}</span>
         <span className="text-orange-400">+{guide.skillPoints} pts</span>
       </div>
+      <p className="text-gray-400 text-xs mb-4">Keep the momentum going with another quick win.</p>
+      <span className="inline-flex items-center gap-1.5 bg-orange-500 group-hover:bg-orange-600 transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-xl">
+        Start next fix →
+      </span>
     </a>
   )
 }

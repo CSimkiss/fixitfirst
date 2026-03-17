@@ -12,7 +12,7 @@
  * running totals, tier status, an affiliate tool nudge, and the next guide.
  */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCompletions } from '@/lib/useCompletions'
 import { ALL_GUIDES, GUIDE_BY_SLUG, getRecommendation } from '@/lib/guides'
 import SocialShare from '@/components/SocialShare'
@@ -32,6 +32,10 @@ export default function GuideActions({
   const completed = !!completionMap[slug]
   const guide = GUIDE_BY_SLUG[slug]
   const savingsMin = guide?.estimatedSavingsMin ?? 0
+  const savingsMax = guide?.estimatedSavingsMax ?? 0
+  const shareAmount = savingsMin > 0
+    ? (savingsMax > savingsMin ? Math.round((savingsMin + savingsMax) / 2) : savingsMin)
+    : null
 
   const handleClick = async () => {
     if (completed) return
@@ -40,6 +44,18 @@ export default function GuideActions({
     setSaving(false)
     setShowModal(true)
   }
+
+  // Allow StepProgress (sibling component) to trigger the full completion flow
+  // via a custom event, so both CTAs share a single handler with no duplicated logic.
+  useEffect(() => {
+    function onEarlyComplete(e: Event) {
+      const detail = (e as CustomEvent<{ slug: string }>).detail
+      if (detail?.slug === slug) handleClick()
+    }
+    window.addEventListener('fixitfirst:mark-complete', onEarlyComplete)
+    return () => window.removeEventListener('fixitfirst:mark-complete', onEarlyComplete)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug, completed])
 
   // Derive next guide reactively — re-computes whenever completionMap changes
   const recommendation = getRecommendation(completionMap, ALL_GUIDES.filter(g => g.slug !== slug))
@@ -77,12 +93,30 @@ export default function GuideActions({
           )}
           {completed && (
             <div className="mt-4 pt-4 border-t border-green-200">
-              <p className="text-sm font-semibold text-gray-700 mb-3">Know someone with this problem? Send them this guide and save them a plumber call.</p>
+              <p className="text-sm font-semibold text-gray-700 mb-3">
+                {shareAmount
+                  ? `Know someone with this problem? This could save them ~£${shareAmount} — send it`
+                  : 'Know someone with this problem? Send them this guide and save them a plumber call.'}
+              </p>
               <div className="flex gap-3 flex-wrap">
                 <SocialShare title={guide?.title ?? slug} />
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Mid-page next fix card — shown once completions are resolved */}
+      {mounted && nextGuide && (
+        <div className="mt-6 border border-gray-200 rounded-xl p-4 bg-gray-50">
+          <p className="text-xs font-semibold text-orange-500 uppercase tracking-wide mb-1">Next quick win</p>
+          <p className="font-semibold text-gray-900 text-sm mb-3">{nextGuide.title}</p>
+          <a
+            href={nextGuide.href}
+            className="inline-flex items-center gap-1 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors"
+          >
+            Start next fix →
+          </a>
         </div>
       )}
 

@@ -8,7 +8,7 @@ type Step = { title: string; description: string }
 export default function StepProgress({ steps, slug }: { steps: Step[]; slug?: string }) {
   const [current, setCurrent] = useState(0)
   const total = steps.length
-  const { completionMap, markComplete, mounted } = useCompletions()
+  const { completionMap, mounted } = useCompletions()
   const [saving, setSaving] = useState(false)
 
   const completed = slug ? !!completionMap[slug] : false
@@ -23,17 +23,17 @@ export default function StepProgress({ steps, slug }: { steps: Step[]; slug?: st
     setCurrent(n)
   }
 
-  async function handleEarlyComplete() {
+  function handleEarlyComplete() {
     if (!slug || completed || saving) return
     setSaving(true)
-    await markComplete(slug)
-    setSaving(false)
+    window.dispatchEvent(new CustomEvent('fixitfirst:mark-complete', { detail: { slug } }))
+    // saving resets when completionMap updates (completed becomes true, button hides)
   }
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm font-semibold text-gray-700">Step {current + 1} of {total}</span>
+        <span className="text-sm font-semibold text-gray-700">Step {current + 1} of {total} — {Math.round(((current + 1) / total) * 100)}% done</span>
         <div className="flex gap-2">
           <button
             onClick={() => go(Math.max(0, current - 1))}
@@ -63,9 +63,12 @@ export default function StepProgress({ steps, slug }: { steps: Step[]; slug?: st
         <div>
           <h3 className="font-semibold mb-1">{steps[current].title}</h3>
           <p className="text-sm text-gray-600">{steps[current].description}</p>
+          {current === 0 && (
+            <p className="text-xs text-gray-400 mt-2">Most people get this done in under 5 minutes.</p>
+          )}
         </div>
       </div>
-      {mounted && slug && current >= 2 && !completed && (
+      {mounted && slug && current >= 1 && !completed && (
         <div className="mt-4 pt-3 border-t border-gray-100">
           <button
             onClick={handleEarlyComplete}
