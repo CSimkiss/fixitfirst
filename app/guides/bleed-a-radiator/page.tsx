@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -16,6 +18,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Bleed a Radiator | FixItFirst',
   description: 'How to bleed a radiator in 15 minutes and fix cold spots at the top. Only tool needed costs £1. Save £50–80 vs a heating engineer.',
+  openGraph: {
+    title: 'How to Bleed a Radiator | FixItFirst',
+    description: 'How to bleed a radiator in 15 minutes and fix cold spots at the top. Only tool needed costs £1. Save £50–80 vs a heating engineer.',
+    url: 'https://fixit-first.co.uk/guides/bleed-a-radiator',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -47,21 +57,19 @@ export default function BleedARadiator() {
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Do this if your radiator is cold at the top but warm at the bottom — that means trapped air is preventing hot water from circulating.</p>
-          <p className="text-sm text-gray-700 mb-2">You need a radiator bleed key (about £1 from any hardware shop) and a cloth or small container to catch drips.</p>
+          <p className="text-sm text-gray-700 mb-2">You need a radiator bleed key (from any hardware shop) and a cloth or small container to catch drips.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Radiator bleed key</span> — <span className="text-orange-600">buy: £1–3 from any hardware shop</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Old cloth or small container</span> — to catch drips, any household rag will do</span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy from any hardware shop', hintOrange: true, toolId: 'bleed-key' },
+    { icon: 'check', name: 'Old cloth or small container', hint: 'to catch drips, any household rag will do' },
+  ]}
+          slug="bleed-a-radiator"
+          guideName="Bleed a radiator"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['bleed-a-radiator']} />
         <StepProgress steps={steps} slug="bleed-a-radiator" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -84,6 +92,8 @@ export default function BleedARadiator() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Heating engineer would charge</span><span className="font-medium text-red-600">£50-80</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how central heating systems circulate water and why air gets trapped. These skills transfer to balancing radiators and maintaining your boiler pressure.</p>

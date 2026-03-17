@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -16,6 +18,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Change a Lightbulb | FixItFirst',
   description: 'How to safely change a lightbulb — bayonet cap, Edison screw, and GU10 fittings explained. Takes 5 minutes. Save £60–100 vs an electrician call-out.',
+  openGraph: {
+    title: 'How to Change a Lightbulb | FixItFirst',
+    description: 'How to safely change a lightbulb — bayonet cap, Edison screw, and GU10 fittings explained. Takes 5 minutes. Save £60–100 vs an electrician call-out.',
+    url: 'https://fixit-first.co.uk/guides/change-a-lightbulb',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -49,23 +59,18 @@ export default function ChangeALightbulb() {
           <p className="text-sm text-gray-700 mb-2">Changing a bulb is safe as long as the light is switched off and the bulb has cooled down. No tools needed.</p>
           <p className="text-sm text-gray-700 mb-2">Check the fitting type before buying a replacement — the most common UK fittings are bayonet cap (BC/B22) and Edison screw (ES/E27).</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">No tools required</span> — just your hands</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Step ladder or stable chair</span> — for ceiling fittings</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement bulb</span> — <span className="text-orange-600">buy: match the existing fitting type (B22, E27, or GU10), £5–15</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'No tools required', hint: 'just your hands' },
+    { icon: 'check', name: 'Step ladder or stable chair', hint: 'for ceiling fittings', toolId: 'step-ladder' },
+    { icon: 'buy', name: 'Replacement bulb', hint: 'buy — match the existing fitting type (B22, E27, or GU10)', hintOrange: true },
+  ]}
+          slug="change-a-lightbulb"
+          guideName="Change a lightbulb"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['change-a-lightbulb']} />
         <StepProgress steps={steps} slug="change-a-lightbulb" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -88,6 +93,8 @@ export default function ChangeALightbulb() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Electrician call-out</span><span className="font-medium text-red-600">£60-100</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand the main bulb fitting types used in UK homes and how to work safely around basic electrics. These skills transfer to fitting lampshades and replacing light fittings.</p>

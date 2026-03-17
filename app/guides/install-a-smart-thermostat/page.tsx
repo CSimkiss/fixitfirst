@@ -1,10 +1,31 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Install a Smart Thermostat | FixItFirst',
+  title: 'How to Install a Smart Thermostat | FixItFirst',
   description: 'Install a smart thermostat yourself in 1–2 hours. Step-by-step guide covering compatibility, wiring, and app setup. Save £150–300 per year on heating bills.',
+  openGraph: {
+    title: 'How to Install a Smart Thermostat | FixItFirst',
+    description: 'Install a smart thermostat yourself in 1–2 hours. Step-by-step guide covering compatibility, wiring, and app setup. Save £150–300 per year on heating bills.',
+    url: 'https://fixit-first.co.uk/guides/install-a-smart-thermostat',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -24,58 +45,44 @@ export default function InstallASmartThermostat() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Install a smart thermostat</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £150–300 per year</p>
-        <p className="text-gray-500 mb-8">1–2 hours · Intermediate · Saves £150–300 per year on heating</p>
-
+        <p className="text-gray-500 mb-6">1–2 hours · Intermediate · Saves £150–300/year on heating bills</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['install-a-smart-thermostat'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Install a smart thermostat" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="install-a-smart-thermostat" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Smart thermostats save money by learning your schedule and adjusting heating automatically. Studies show average savings of £150–300 per year on heating bills compared to a standard thermostat.</p>
           <p className="text-sm text-gray-700">This is a job involving low-voltage heating wiring (not mains electrical wiring). It is legal to do yourself in the UK. The risk is low if you follow the manufacturer wiring diagram carefully.</p>
         </div>
-
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Cross-head screwdriver</span> — for wall plate and terminals</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Phone or camera</span> — to photograph existing wiring before disconnecting</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Smart thermostat kit</span> — <span className="text-orange-600">buy: £60–200 — Nest, Hive, Tado, or Drayton Wiser are popular UK options</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Cross-head screwdriver', hint: 'for wall plate and terminals', toolId: 'screwdriver-cross' },
+    { icon: 'check', name: 'Phone or camera', hint: 'to photograph existing wiring before disconnecting' },
+    { icon: 'buy', name: 'Smart thermostat kit', hint: 'buy — Nest, Hive, Tado, or Drayton Wiser are popular UK options', hintOrange: true },
+  ]}
+          slug="install-a-smart-thermostat"
+          guideName="Install a smart thermostat"
+        />
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['install-a-smart-thermostat']} />
+        <StepProgress steps={steps} slug="install-a-smart-thermostat" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not checking compatibility first — some older boilers or system boilers need a different configuration or a professional install.</p>
           <p className="text-sm text-yellow-900 mb-2">Mixing up Live and Switched Live wires — the boiler will not fire correctly. Always follow the manufacturer's UK wiring diagram, not a generic one.</p>
           <p className="text-sm text-yellow-900">Not configuring the schedule properly — the default settings are rarely optimal. Spend 10 minutes in the app setting your actual heating times.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a heating engineer if...</h2>
           <p className="text-sm text-red-900 mb-1">Your system has more than 3 wires at the thermostat — it may be a more complex system requiring professional configuration</p>
           <p className="text-sm text-red-900 mb-1">The boiler does not fire after installation — do not leave the heating non-functional overnight in cold weather</p>
           <p className="text-sm text-red-900">You have an oil boiler, heat pump, or underfloor heating system — check compatibility requirements carefully</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -86,11 +93,23 @@ export default function InstallASmartThermostat() {
           </div>
         </div>
 
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how heating control wiring works and how to replace a thermostat. This pays for itself in energy savings within the first year and gives you full control over your heating schedule from anywhere.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['install-a-smart-thermostat'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['install-a-smart-thermostat'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['install-a-smart-thermostat'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="install-a-smart-thermostat" />
+        <NextGuide currentSlug="install-a-smart-thermostat" />
       </div>
+      <RecentViewTracker slug="install-a-smart-thermostat" title="Install a smart thermostat" href="/guides/install-a-smart-thermostat" />
       <MobileNav />
     </main>
   )

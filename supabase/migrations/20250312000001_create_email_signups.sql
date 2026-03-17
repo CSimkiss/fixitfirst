@@ -9,11 +9,12 @@ create table if not exists email_signups (
   unique (email)
 );
 
--- Row-level security: no public read, only insert allowed for anon users
+-- Row-level security: no public read, only insert allowed for anon/authenticated users
 alter table email_signups enable row level security;
 
 create policy "Anyone can sign up"
   on email_signups for insert
+  to anon, authenticated
   with check (true);
 
 -- Index for fast email lookups

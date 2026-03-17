@@ -1,10 +1,31 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Lay Decking Boards | FixItFirst',
+  title: 'How to Lay Decking Boards | FixItFirst',
   description: 'Lay decking boards yourself in a full day. Step-by-step guide covering joist frames, board spacing, fixing, and finishing. Save £500–1,500 on labour.',
+  openGraph: {
+    title: 'How to Lay Decking Boards | FixItFirst',
+    description: 'Lay decking boards yourself in a full day. Step-by-step guide covering joist frames, board spacing, fixing, and finishing. Save £500–1,500 on labour.',
+    url: 'https://fixit-first.co.uk/guides/lay-decking-boards',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -24,74 +45,48 @@ export default function LayDeckingBoards() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Lay decking boards</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £500–1,500 on labour</p>
-        <p className="text-gray-500 mb-8">Full day · Intermediate · Saves £500–1,500 vs a landscaper</p>
-
+        <p className="text-gray-500 mb-6">Full day · Intermediate · Saves £500–1,500 on labour costs</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['lay-decking-boards'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Lay decking boards" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="lay-decking-boards" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Ground-level decking (under 600mm high, not attached to the house structure) does not require planning permission in England and Wales in most cases. Raised decks or those attached to the house may need Building Regulations approval — check with your local council if unsure.</p>
           <p className="text-sm text-gray-700">This guide covers ground-level or low-level deck construction with a timber joist frame. Allow one full day for a deck up to 20m². Larger or raised decks need more time and possibly professional structural help.</p>
         </div>
-
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Circular saw or mitre saw</span> — to cut boards and joists to length</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Cordless drill</span> — with screwdriver and drill bits</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Tape measure, pencil, string line</span> — for marking out and keeping straight</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Spirit level and square</span> — for checking frame level and square</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Pressure-treated timber joists</span> — <span className="text-orange-600">buy: 50x100mm UC4 treated — priced per length at timber merchants or large DIY stores</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Decking boards</span> — <span className="text-orange-600">buy: £3–8 per board — choose pressure-treated softwood or hardwood such as Bangkirai or Ipe</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Stainless steel decking screws (65mm)</span> — <span className="text-orange-600">buy: £10–15 per box of 200 — must be stainless or coated for outdoor use</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Circular saw or mitre saw', hint: 'to cut boards and joists to length' },
+    { icon: 'check', name: 'Cordless drill', hint: 'with screwdriver and drill bits' },
+    { icon: 'check', name: 'Tape measure, pencil, string line', hint: 'for marking out and keeping straight', toolId: 'tape-measure' },
+    { icon: 'check', name: 'Spirit level and square', hint: 'for checking frame level and square', toolId: 'spirit-level' },
+    { icon: 'buy', name: 'Pressure-treated timber joists', hint: 'buy — 50x100mm UC4 treated — priced per length at timber merchants or large DIY stores', hintOrange: true },
+    { icon: 'buy', name: 'Decking boards', hint: 'buy — 8 per board — choose pressure-treated softwood or hardwood such as Bangkirai or Ipe', hintOrange: true },
+    { icon: 'buy', name: 'Stainless steel decking screws (65mm)', hint: 'buy — 15 per box of 200 — must be stainless or coated for outdoor use', hintOrange: true },
+  ]}
+          slug="lay-decking-boards"
+          guideName="Lay decking boards"
+        />
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['lay-decking-boards']} />
+        <StepProgress steps={steps} slug="lay-decking-boards" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Using untreated timber for the frame — it will rot within 2–3 years. Always use UC4 pressure-treated timber for any ground-contact applications.</p>
           <p className="text-sm text-yellow-900 mb-2">Not pre-drilling near board ends — screwing close to the end without a pilot hole splits the board.</p>
           <p className="text-sm text-yellow-900">Skipping the board treatment on completion — bare or cut decking absorbs water immediately. Apply decking oil or stain within a week of installation.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a landscaper if...</h2>
           <p className="text-sm text-red-900 mb-1">The deck needs to be over 600mm high — this requires structural calculations and likely Building Regulations approval</p>
           <p className="text-sm text-red-900 mb-1">The ground is significantly uneven or sloped — a level frame on uneven ground requires experience to get right</p>
           <p className="text-sm text-red-900">You need to cut through or near drains, cables, or tree roots underground — always check for underground services first</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -101,11 +96,23 @@ export default function LayDeckingBoards() {
           </div>
         </div>
 
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to build a timber deck frame, lay and fix boards correctly, and finish to a professional standard. The framing and fastening skills transfer directly to raised garden beds, outbuildings, and timber storage structures.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['lay-decking-boards'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['lay-decking-boards'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['lay-decking-boards'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="lay-decking-boards" />
+        <NextGuide currentSlug="lay-decking-boards" />
       </div>
+      <RecentViewTracker slug="lay-decking-boards" title="Lay decking boards" href="/guides/lay-decking-boards" />
       <MobileNav />
     </main>
   )

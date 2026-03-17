@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -16,6 +18,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'What to Do If Your Boiler Breaks Down | FixItFirst',
   description: 'Boiler broken? Work through this checklist before calling an engineer. Covers error codes, pressure, pilot light, and when to call for help.',
+  openGraph: {
+    title: 'What to Do If Your Boiler Breaks Down | FixItFirst',
+    description: 'Boiler broken? Work through this checklist before calling an engineer. Covers error codes, pressure, pilot light, and when to call for help.',
+    url: 'https://fixit-first.co.uk/guides/boiler-breakdown',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -47,19 +57,17 @@ export default function BoilerBreakdown() {
           <p className="text-sm text-gray-700 mb-2">Most boiler faults have simple causes — low pressure, a tripped circuit, or an error code with a known fix. Work through this checklist before paying for an engineer call-out.</p>
           <p className="text-sm text-gray-700 mb-2">If you smell gas at any point: do not touch any switches, leave the house immediately, and call the National Gas Emergency line on 0800 111 999.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Boiler manual</span> — often kept in a kitchen drawer or downloadable from the manufacturer's website using the model number</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Nothing else needed</span> — all the checks are visual</span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Boiler manual', hint: 'often kept in a kitchen drawer or downloadable from the manufacturer\'s website using the model number' },
+    { icon: 'check', name: 'Nothing else needed', hint: 'all the checks are visual' },
+  ]}
+          slug="boiler-breakdown"
+          guideName="What to do if your boiler breaks down"
+        />
         {/* No tracked tools for this guide */}
         <StepProgress steps={steps} slug="boiler-breakdown" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -82,6 +90,8 @@ export default function BoilerBreakdown() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Common repair (e.g. pump, valve)</span><span className="font-medium text-red-600">£150–350</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to diagnose the most common boiler faults, read error codes, and understand when a problem is fixable yourself and when you need a professional.</p>

@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -14,8 +16,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Doorbell | FixItFirst',
+  title: 'How to Fix a Doorbell | FixItFirst',
   description: 'Fix a broken doorbell in 30 minutes. Step-by-step guide covering batteries, button faults, wiring, and wireless replacements. Save £40–80.',
+  openGraph: {
+    title: 'How to Fix a Doorbell | FixItFirst',
+    description: 'Fix a broken doorbell in 30 minutes. Step-by-step guide covering batteries, button faults, wiring, and wireless replacements. Save £40–80.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-doorbell',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -24,7 +34,7 @@ const steps = [
   { title: 'Test the button directly', description: 'With the button removed, briefly touch the two wires together for a second. If the chime sounds, the button is the fault — replace it.' },
   { title: 'Replace the button if faulty', description: 'Take the old button to a hardware shop to match the style. Connect the two wires to the terminals on the new button (polarity does not matter for doorbells) and screw it back to the wall.' },
   { title: 'Check the wiring', description: 'Trace the wire from the button along the wall to the chime unit. Look for any breaks, sharp kinks, or loose connections at either end. Reconnect any loose terminals.' },
-  { title: 'Consider a wireless upgrade', description: 'If the wiring is old or hidden in the wall and unreliable, a wireless doorbell (£15–25) eliminates the wiring altogether and takes 10 minutes to fit.' },
+  { title: 'Consider a wireless upgrade', description: 'If the wiring is old or hidden in the wall and unreliable, a wireless doorbell eliminates the wiring altogether and takes 10 minutes to fit.' },
 ]
 
 export default function FixADoorbell() {
@@ -47,27 +57,19 @@ export default function FixADoorbell() {
           <p className="text-sm text-gray-700 mb-2">Most doorbell faults are simple: dead batteries, a corroded button, or a loose wire. Check in that order — you will fix it in 10 minutes 70% of the time.</p>
           <p className="text-sm text-gray-700 mb-2">This guide covers standard battery-powered and low-voltage wired doorbells. If your doorbell is hardwired to the mains (no battery, no transformer visible), stop and call an electrician.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Cross-head screwdriver</span> — to remove the button from the wall</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Flat-head screwdriver</span> — to open terminal connections</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement batteries</span> — <span className="text-orange-600">buy: buy: £3–5 — check the chime unit inside; most use AA or a 9V block</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement button</span> — <span className="text-orange-600">buy: buy: £5–10 if the button is faulty</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Cross-head screwdriver', hint: 'to remove the button from the wall', toolId: 'screwdriver-cross' },
+    { icon: 'check', name: 'Flat-head screwdriver', hint: 'to open terminal connections', toolId: 'screwdriver-flat' },
+    { icon: 'buy', name: 'Replacement batteries', hint: 'buy — check the chime unit inside; most use AA or a 9V block', hintOrange: true },
+    { icon: 'buy', name: 'Replacement button', hint: 'buy — 10 if the button is faulty', hintOrange: true },
+  ]}
+          slug="fix-a-doorbell"
+          guideName="Fix a doorbell"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-doorbell']} />
         <StepProgress steps={steps} slug="fix-a-doorbell" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -91,6 +93,8 @@ export default function FixADoorbell() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Electrician would charge</span><span className="font-medium text-red-600">£40–80</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You can now diagnose a doorbell fault systematically — batteries, button, then wiring. This logical approach to fault-finding applies to any low-voltage electrical system.</p>

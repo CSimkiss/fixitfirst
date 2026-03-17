@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -16,6 +18,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Unblock a Drain | FixItFirst',
   description: 'How to unblock a sink, bath, or shower drain in 20 minutes — no chemicals needed. Step-by-step guide. Save £60–120 vs calling a plumber.',
+  openGraph: {
+    title: 'How to Unblock a Drain | FixItFirst',
+    description: 'How to unblock a sink, bath, or shower drain in 20 minutes — no chemicals needed. Step-by-step guide. Save £60–120 vs calling a plumber.',
+    url: 'https://fixit-first.co.uk/guides/unblock-a-drain',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -49,31 +59,20 @@ export default function UnblockADrain() {
           <p className="text-sm text-gray-700 mb-2">This works for slow or fully blocked sink, bath, and shower drains.</p>
           <p className="text-sm text-gray-700 mb-2">Legal to DIY. No special skills needed.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Rubber gloves</span> — standard household item</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Kettle</span> — for boiling water flush</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Bicarbonate of soda and white vinegar</span> — most homes have these</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Cup plunger</span> — <span className="text-orange-600">buy: £5–8, worth having in every home</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Drain snake</span> — <span className="text-orange-600">buy: £5–10 if the plunger doesn't work (or use a bent wire coat hanger)</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Rubber gloves', hint: 'standard household item', toolId: 'rubber-gloves' },
+    { icon: 'check', name: 'Kettle', hint: 'for boiling water flush' },
+    { icon: 'check', name: 'Bicarbonate of soda and white vinegar', hint: 'most homes have these' },
+    { icon: 'buy', name: 'Cup plunger', hint: 'buy — 8, worth having in every home', hintOrange: true, toolId: 'plunger' },
+    { icon: 'buy', name: 'Drain snake', hint: 'buy — 10 if the plunger doesn\'t work (or use a bent wire coat hanger)', hintOrange: true, toolId: 'drain-snake' },
+  ]}
+          slug="unblock-a-drain"
+          guideName="Unblock a drain"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['unblock-a-drain']} />
         <StepProgress steps={steps} slug="unblock-a-drain" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -96,6 +95,8 @@ export default function UnblockADrain() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£60-120</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how drain blockages form and how to clear them using multiple techniques. These skills apply to any blocked sink, bath, or shower in your home.</p>

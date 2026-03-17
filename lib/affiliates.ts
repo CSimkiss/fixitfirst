@@ -37,6 +37,32 @@ function withAffid(url: string, param: string, value: string): string {
   return value ? `${url}&${param}=${encodeURIComponent(value)}` : url
 }
 
+// ─── Convenience URL helpers (used by guide pages and components) ─────────────
+
+function retailer(id: string): Retailer {
+  return RETAILERS.find((r) => r.id === id)!
+}
+
+/** Screwfix search URL for a tool or product name */
+export function screwfixToolUrl(name: string): string {
+  return retailer('screwfix').buildUrl(name)
+}
+
+/** Amazon UK search URL for a tool or product name */
+export function amazonToolUrl(name: string): string {
+  return retailer('amazon').buildUrl(name)
+}
+
+/** Screwfix search URL for a guide topic (shop-this-fix) */
+export function screwfixGuideUrl(guideName: string): string {
+  return retailer('screwfix').buildUrl(guideName)
+}
+
+/** Amazon UK search URL for a guide topic (shop-this-fix) */
+export function amazonGuideUrl(guideName: string): string {
+  return retailer('amazon').buildUrl(guideName)
+}
+
 export const RETAILERS: Retailer[] = [
   {
     id: 'bnq',

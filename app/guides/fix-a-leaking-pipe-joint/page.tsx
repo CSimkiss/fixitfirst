@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -14,8 +16,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Leaking Pipe Joint | FixItFirst',
+  title: 'How to Fix a Leaking Pipe Joint | FixItFirst',
   description: 'Stop a leaking pipe joint yourself in 30 minutes. Step-by-step guide covering PTFE tape and compression fittings. Save £60–120 vs a plumber.',
+  openGraph: {
+    title: 'How to Fix a Leaking Pipe Joint | FixItFirst',
+    description: 'Stop a leaking pipe joint yourself in 30 minutes. Step-by-step guide covering PTFE tape and compression fittings. Save £60–120 vs a plumber.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-leaking-pipe-joint',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -47,27 +57,19 @@ export default function FixALeakingPipeJoint() {
           <p className="text-sm text-gray-700 mb-2">This guide covers leaks at threaded or compression pipe joints — the most common kind. If water is spraying from the middle of a pipe rather than at a joint, that is a different problem.</p>
           <p className="text-sm text-gray-700 mb-2">Turn off the water before you start and have towels ready. Most joint leaks are a simple fix.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Adjustable spanner</span> — you almost certainly already have one</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Old towels or cloths</span> — to dry the joint and catch drips</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">PTFE thread seal tape</span> — <span className="text-orange-600">buy: buy: £1–2 from any hardware shop</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement olive if needed</span> — <span className="text-orange-600">buy: buy: 50p–£1 for compression joints — take the old one to match</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Adjustable spanner', hint: 'you almost certainly already have one', toolId: 'adjustable-spanner' },
+    { icon: 'check', name: 'Old towels or cloths', hint: 'to dry the joint and catch drips' },
+    { icon: 'buy', name: 'PTFE thread seal tape', hint: 'buy from any hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Replacement olive if needed', hint: 'buy — take the old one to match', hintOrange: true },
+  ]}
+          slug="fix-a-leaking-pipe-joint"
+          guideName="Fix a leaking pipe joint"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-leaking-pipe-joint']} />
         <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -90,6 +92,8 @@ export default function FixALeakingPipeJoint() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£60–120</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how threaded and compression fittings work. These skills transfer to replacing tap connectors, fitting isolation valves, and understanding your whole water system.</p>

@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -14,8 +16,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Reset a Tripped Circuit Breaker | FixItFirst',
+  title: 'How to Reset a Tripped Circuit Breaker | FixItFirst',
   description: 'Reset a tripped circuit breaker in 10 minutes. Step-by-step guide to your consumer unit — covers overloads, faults, and RCD trips. Save £40–60.',
+  openGraph: {
+    title: 'How to Reset a Tripped Circuit Breaker | FixItFirst',
+    description: 'Reset a tripped circuit breaker in 10 minutes. Step-by-step guide to your consumer unit — covers overloads, faults, and RCD trips. Save £40–60.',
+    url: 'https://fixit-first.co.uk/guides/reset-a-tripped-circuit-breaker',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -47,15 +57,16 @@ export default function ResetATrippedCircuitBreaker() {
           <p className="text-sm text-gray-700 mb-2">A tripped circuit breaker is a safety feature, not a fault. It has cut the power to protect your wiring. Resetting it takes 2 minutes.</p>
           <p className="text-sm text-gray-700 mb-2">Your consumer unit (fuse box) is usually under the stairs, in the hallway, or in the kitchen. Open it and look for any switch that is in a different position to the others.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">No tools needed</span> — just your consumer unit</span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'No tools needed', hint: 'just your consumer unit' },
+  ]}
+          slug="reset-a-tripped-circuit-breaker"
+          guideName="Reset a tripped circuit breaker"
+        />
         {/* No tracked tools for this guide */}
         <StepProgress steps={steps} slug="reset-a-tripped-circuit-breaker" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -78,6 +89,8 @@ export default function ResetATrippedCircuitBreaker() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Electrician emergency call-out</span><span className="font-medium text-red-600">£100–250</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how your consumer unit works, what a trip means, and how to safely reset it. Knowing your circuit labels is one of the most useful things you can do as a homeowner.</p>

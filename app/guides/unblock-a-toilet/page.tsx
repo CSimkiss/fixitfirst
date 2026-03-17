@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -14,8 +16,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Unblock a Toilet | FixItFirst',
+  title: 'How to Unblock a Toilet | FixItFirst',
   description: 'Unblock a toilet yourself in under 20 minutes using a plunger. Step-by-step guide for complete beginners. Save £60–120 vs a plumber.',
+  openGraph: {
+    title: 'How to Unblock a Toilet | FixItFirst',
+    description: 'Unblock a toilet yourself in under 20 minutes using a plunger. Step-by-step guide for complete beginners. Save £60–120 vs a plumber.',
+    url: 'https://fixit-first.co.uk/guides/unblock-a-toilet',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -47,23 +57,18 @@ export default function UnblockAToilet() {
           <p className="text-sm text-gray-700 mb-2">Do not keep flushing a blocked toilet — you risk overflowing the bowl. One flush to confirm it is blocked, then stop.</p>
           <p className="text-sm text-gray-700 mb-2">The vast majority of toilet blockages clear with a plunger in under 10 minutes. You do not need chemicals.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Toilet plunger (flange plunger)</span> — <span className="text-orange-600">buy: buy: £5–12 — a flange plunger (with a fold-out inner cup) works much better than a flat cup plunger for toilets</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Rubber gloves</span> — essential — wear them</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Old towels or newspaper</span> — to protect the floor around the toilet</span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'buy', name: 'Toilet plunger (flange plunger)', hint: 'buy — a flange plunger (with a fold-out inner cup) works much better than a flat cup plunger for toilets', hintOrange: true, toolId: 'plunger' },
+    { icon: 'check', name: 'Rubber gloves', hint: 'essential — wear them', toolId: 'rubber-gloves' },
+    { icon: 'check', name: 'Old towels or newspaper', hint: 'to protect the floor around the toilet' },
+  ]}
+          slug="unblock-a-toilet"
+          guideName="Unblock a toilet"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['unblock-a-toilet']} />
         <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -86,6 +91,8 @@ export default function UnblockAToilet() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£60–120</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to clear a toilet blockage and — crucially — when a blockage indicates a bigger problem in the main drain. The plunger technique transfers to unblocking any drain.</p>

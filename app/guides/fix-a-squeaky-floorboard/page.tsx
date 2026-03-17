@@ -1,10 +1,31 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Squeaky Floorboard | FixItFirst',
+  title: 'How to Fix a Squeaky Floorboard | FixItFirst',
   description: 'Fix a squeaky floorboard in 20 minutes using a screw. Step-by-step beginner guide. Save £40–60 vs calling a carpenter.',
+  openGraph: {
+    title: 'How to Fix a Squeaky Floorboard | FixItFirst',
+    description: 'Fix a squeaky floorboard in 20 minutes using a screw. Step-by-step beginner guide. Save £40–60 vs calling a carpenter.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-squeaky-floorboard',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -24,62 +45,45 @@ export default function FixASqueakyFloorboard() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fix a squeaky floorboard</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £40–60 today</p>
-        <p className="text-gray-500 mb-8">20 mins · Beginner · Saves £40–60 vs a carpenter</p>
-
+        <p className="text-gray-500 mb-6">20 mins · Beginner · Saves £40–60 vs a carpenter</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['fix-a-squeaky-floorboard'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Fix a squeaky floorboard" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="fix-a-squeaky-floorboard" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Squeaky floorboards are caused by the board rubbing against a joist or a neighbouring board. Screwing the board down tight stops the movement and kills the squeak.</p>
           <p className="text-sm text-gray-700">Always use a pipe and cable detector before drilling into a floor. Pipes and cables run under floors — particularly near bathrooms, kitchens, and walls.</p>
         </div>
-
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Pipe &amp; cable detector</span> — essential before screwing into a floor</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Drill or screwdriver</span> — to drive the screw</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">50mm wood screws</span> — <span className="text-orange-600">buy: £1–3 — countersinking screws are ideal</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Wood filler</span> — <span className="text-orange-600">buy: £3–5 if the floor is visible and you want a neat finish</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Pipe &amp; cable detector', hint: 'essential before screwing into a floor', toolId: 'cable-detector' },
+    { icon: 'check', name: 'Drill or screwdriver', hint: 'to drive the screw' },
+    { icon: 'buy', name: '50mm wood screws', hint: 'buy — countersinking screws are ideal', hintOrange: true },
+    { icon: 'buy', name: 'Wood filler', hint: 'buy — 5 if the floor is visible and you want a neat finish', hintOrange: true },
+  ]}
+          slug="fix-a-squeaky-floorboard"
+          guideName="Fix a squeaky floorboard"
+        />
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-squeaky-floorboard']} />
+        <StepProgress steps={steps} slug="fix-a-squeaky-floorboard" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Screwing without checking for cables and pipes first — this is the most dangerous mistake on this job.</p>
           <p className="text-sm text-yellow-900 mb-2">Screwing between joists — the board just flexes and squeaks again. You must hit the joist.</p>
           <p className="text-sm text-yellow-900">Using screws that are too short — they need to go at least 25mm into the joist to hold.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a carpenter if...</h2>
           <p className="text-sm text-red-900 mb-1">The board has significant bounce or flex — this may indicate a damaged joist</p>
           <p className="text-sm text-red-900 mb-1">There is damp, rot, or discolouration visible when you inspect the board</p>
           <p className="text-sm text-red-900">You cannot locate the joist and the squeak is in a bathroom or kitchen</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -89,11 +93,23 @@ export default function FixASqueakyFloorboard() {
           </div>
         </div>
 
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how floorboards and joists relate, how to locate a joist by sound, and how to safely screw into a floor. This transfers to fitting skirting boards and laying new flooring.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fix-a-squeaky-floorboard'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['fix-a-squeaky-floorboard'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['fix-a-squeaky-floorboard'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="fix-a-squeaky-floorboard" />
+        <NextGuide currentSlug="fix-a-squeaky-floorboard" />
       </div>
+      <RecentViewTracker slug="fix-a-squeaky-floorboard" title="Fix a squeaky floorboard" href="/guides/fix-a-squeaky-floorboard" />
       <MobileNav />
     </main>
   )

@@ -1,10 +1,31 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'How to Fill and Sand a Wall | FixItFirst',
   description: 'Fill holes and cracks in a wall and sand smooth in under an hour. Step-by-step beginner guide. Save £50–100 vs a decorator.',
+  openGraph: {
+    title: 'How to Fill and Sand a Wall | FixItFirst',
+    description: 'Fill holes and cracks in a wall and sand smooth in under an hour. Step-by-step beginner guide. Save £50–100 vs a decorator.',
+    url: 'https://fixit-first.co.uk/guides/fill-and-sand-a-wall',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -24,66 +45,46 @@ export default function FillAndSandAWall() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fill and sand a wall</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £50–100 today</p>
-        <p className="text-gray-500 mb-8">45 mins · Beginner · Saves £50–100 vs a decorator</p>
-
+        <p className="text-gray-500 mb-6">45 mins · Beginner · Saves £50–100 vs a decorator</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['fill-and-sand-a-wall'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Fill and sand a wall" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="fill-and-sand-a-wall" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Filling and sanding is the most important prep work before painting. Skipping it shows through even two coats of paint.</p>
           <p className="text-sm text-gray-700">Most holes and cracks in a wall are caused by nails, screws, minor impacts, or normal shrinkage. All of them can be fixed with the same basic technique.</p>
         </div>
-
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Filling knife</span> — a 4-inch flexible blade is ideal — you may already have one</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Small bowl of water</span> — to wet the filler before applying</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Ready-mixed filler</span> — <span className="text-orange-600">buy: £3–5 — Polyfilla or own-brand equivalent from any hardware shop</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Sandpaper 120-grit and 240-grit</span> — <span className="text-orange-600">buy: £2–4 — coarse to shape, fine to finish</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Primer or mist coat</span> — <span className="text-orange-600">buy: £3–8 — needed over bare filler before painting</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Filling knife', hint: 'a 4-inch flexible blade is ideal — you may already have one', toolId: 'filling-knife' },
+    { icon: 'check', name: 'Small bowl of water', hint: 'to wet the filler before applying' },
+    { icon: 'buy', name: 'Ready-mixed filler', hint: 'buy — Polyfilla or own-brand equivalent from any hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Sandpaper 120-grit and 240-grit', hint: 'buy — coarse to shape, fine to finish', hintOrange: true },
+    { icon: 'buy', name: 'Primer or mist coat', hint: 'buy — needed over bare filler before painting', hintOrange: true },
+  ]}
+          slug="fill-and-sand-a-wall"
+          guideName="Fill and sand a wall"
+        />
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['fill-and-sand-a-wall']} />
+        <StepProgress steps={steps} slug="fill-and-sand-a-wall" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Painting straight over filler without priming — filler is porous and shows as a dull patch through paint.</p>
           <p className="text-sm text-yellow-900 mb-2">Not cleaning out the hole first — filler applied over loose material falls out within days.</p>
           <p className="text-sm text-yellow-900">Underfilling and trying to sand it flat — it is better to slightly overfill and sand back.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a decorator if...</h2>
           <p className="text-sm text-red-900 mb-1">Cracks that keep coming back — this indicates structural movement</p>
           <p className="text-sm text-red-900 mb-1">Cracks wider than 5mm or at window and door corners — may need specialist attention</p>
           <p className="text-sm text-red-900">Damp or discolouration around the crack — fix the source of moisture first</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -93,11 +94,23 @@ export default function FillAndSandAWall() {
           </div>
         </div>
 
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to prepare walls to a paint-ready standard. Filling and sanding is the skill that separates a professional-looking paint job from an amateur one.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fill-and-sand-a-wall'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['fill-and-sand-a-wall'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['fill-and-sand-a-wall'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="fill-and-sand-a-wall" />
+        <NextGuide currentSlug="fill-and-sand-a-wall" />
       </div>
+      <RecentViewTracker slug="fill-and-sand-a-wall" title="Fill and sand a wall" href="/guides/fill-and-sand-a-wall" />
       <MobileNav />
     </main>
   )

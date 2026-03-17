@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -16,6 +18,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Fix a Running Toilet | FixItFirst',
   description: 'How to stop a toilet that keeps running after flushing — covers float arm adjustment and flapper valve replacement. Save £80–150 vs a plumber.',
+  openGraph: {
+    title: 'How to Fix a Running Toilet | FixItFirst',
+    description: 'How to stop a toilet that keeps running after flushing — covers float arm adjustment and flapper valve replacement. Save £80–150 vs a plumber.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-running-toilet',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -49,23 +59,18 @@ export default function FixARunningToilet() {
           <p className="text-sm text-gray-700 mb-2">A running toilet constantly trickles water into the bowl after flushing. This is almost always caused by a faulty flapper valve or a misadjusted float arm — both are cheap and easy to fix.</p>
           <p className="text-sm text-gray-700 mb-2">You will need to look inside the cistern (the tank at the back of the toilet). It is just water — nothing unpleasant.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Towel or cloth</span> — to set the cistern lid on and catch any drips</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Screwdriver</span> — needed for some cistern types to adjust the ballvalve</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement flapper valve</span> — <span className="text-orange-600">buy only if needed: £5–15, take the old one to the shop to match the size</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Towel or cloth', hint: 'to set the cistern lid on and catch any drips' },
+    { icon: 'check', name: 'Screwdriver', hint: 'needed for some cistern types to adjust the ballvalve' },
+    { icon: 'buy', name: 'Replacement flapper valve', hint: 'buy only if needed — take the old one to the shop to match the size', hintOrange: true },
+  ]}
+          slug="fix-a-running-toilet"
+          guideName="Fix a running toilet"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-running-toilet']} />
         <StepProgress steps={steps} slug="fix-a-running-toilet" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -88,6 +93,8 @@ export default function FixARunningToilet() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£80-150</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how a toilet cistern works — the float, fill valve, and flapper. These skills transfer to replacing a full ballvalve, fixing a slow-filling cistern, and understanding your home's water system.</p>

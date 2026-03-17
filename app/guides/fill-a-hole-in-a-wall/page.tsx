@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -16,6 +18,14 @@ import { GUIDE_META } from '@/lib/guide-meta'
 export const metadata: Metadata = {
   title: 'How to Fill a Hole in a Wall | FixItFirst',
   description: 'How to fill holes and cracks in plaster or plasterboard walls. 30-minute guide for beginners using £3–5 of materials. Save £50–100 vs a tradesperson.',
+  openGraph: {
+    title: 'How to Fill a Hole in a Wall | FixItFirst',
+    description: 'How to fill holes and cracks in plaster or plasterboard walls. 30-minute guide for beginners using £3–5 of materials. Save £50–100 vs a tradesperson.',
+    url: 'https://fixit-first.co.uk/guides/fill-a-hole-in-a-wall',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -47,29 +57,21 @@ export default function FillAHoleInAWall() {
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">This works for small to medium holes and cracks in plaster, plasterboard, or brick walls — caused by rawl plugs, nails, or general wear.</p>
-          <p className="text-sm text-gray-700 mb-2">You will need ready-mixed filler (£3–5 from any DIY shop), a filling knife, fine sandpaper, and a damp cloth.</p>
+          <p className="text-sm text-gray-700 mb-2">You will need ready-mixed filler (from any DIY shop), a filling knife, fine sandpaper, and a damp cloth.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Ready-mixed filler</span> — <span className="text-orange-600">buy: £3–5 from any DIY or hardware shop</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Filling knife / putty knife</span> — <span className="text-orange-600">buy: £3–5, reusable for future repairs</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Fine sandpaper (120–180 grit)</span> — most homes have some</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Damp cloth</span> — any kitchen cloth will do</span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'buy', name: 'Ready-mixed filler', hint: 'buy from any DIY or hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Filling knife / putty knife', hint: 'buy — 5, reusable for future repairs', hintOrange: true, toolId: 'filling-knife' },
+    { icon: 'check', name: 'Fine sandpaper (120–180 grit)', hint: 'most homes have some' },
+    { icon: 'check', name: 'Damp cloth', hint: 'any kitchen cloth will do' },
+  ]}
+          slug="fill-a-hole-in-a-wall"
+          guideName="Fill a hole in a wall"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fill-a-hole-in-a-wall']} />
         <StepProgress steps={steps} slug="fill-a-hole-in-a-wall" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -92,6 +94,8 @@ export default function FillAHoleInAWall() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Tradesperson would charge</span><span className="font-medium text-red-600">£50-100</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how wall filler works and how to apply it cleanly. These skills transfer to skimming larger areas, repairing cracks in ceilings, and preparing walls for decorating.</p>

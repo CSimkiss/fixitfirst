@@ -1,10 +1,31 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix a Noisy Radiator | FixItFirst',
+  title: 'How to Fix a Noisy Radiator | FixItFirst',
   description: 'Fix a noisy radiator in 30 minutes. Step-by-step guide — diagnose banging, gurgling, ticking, or hissing and fix it yourself. Save £50–80.',
+  openGraph: {
+    title: 'How to Fix a Noisy Radiator | FixItFirst',
+    description: 'Fix a noisy radiator in 30 minutes. Step-by-step guide — diagnose banging, gurgling, ticking, or hissing and fix it yourself. Save £50–80.',
+    url: 'https://fixit-first.co.uk/guides/fix-a-noisy-radiator',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -24,62 +45,45 @@ export default function FixANoisyRadiator() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fix a noisy radiator</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £50–80 today</p>
-        <p className="text-gray-500 mb-8">30 mins · Beginner · Saves £50–80 vs a heating engineer</p>
-
+        <p className="text-gray-500 mb-6">30 mins · Beginner · Saves £50–80 vs a heating engineer</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['fix-a-noisy-radiator'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Fix a noisy radiator" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="fix-a-noisy-radiator" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Most radiator noises are caused by one of four things: trapped air (gurgling), thermal expansion (ticking), water hammer (banging), or a worn valve (hissing). Listen carefully to identify which type of noise you have — the fix is different for each.</p>
           <p className="text-sm text-gray-700">Some ticking when the heating first comes on is completely normal — metal expanding as it heats. The noise should stop once the system reaches temperature.</p>
         </div>
-
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Adjustable spanner</span> — to adjust valve packing nuts</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Old cloth</span> — to catch drips when bleeding</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Radiator bleed key</span> — <span className="text-orange-600">buy: £1–3 — needed for gurgling radiators</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Pipe foam or felt</span> — <span className="text-orange-600">buy: £3–5 — to cushion pipes rattling in brackets</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Adjustable spanner', hint: 'to adjust valve packing nuts', toolId: 'adjustable-spanner' },
+    { icon: 'check', name: 'Old cloth', hint: 'to catch drips when bleeding' },
+    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy — needed for gurgling radiators', hintOrange: true, toolId: 'bleed-key' },
+    { icon: 'buy', name: 'Pipe foam or felt', hint: 'buy — to cushion pipes rattling in brackets', hintOrange: true },
+  ]}
+          slug="fix-a-noisy-radiator"
+          guideName="Fix a noisy radiator"
+        />
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-noisy-radiator']} />
+        <StepProgress steps={steps} slug="fix-a-noisy-radiator" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Immediately bleeding a banging radiator — banging is usually water hammer from pressure, not air. Check the pressure gauge first.</p>
           <p className="text-sm text-yellow-900 mb-2">Over-tightening a hissing valve packing nut — too tight and the valve handle won't turn. Half a turn at a time is enough.</p>
           <p className="text-sm text-yellow-900">Accepting loud noise as normal — sustained banging or gurgling that never stops indicates an ongoing fault that will worsen over time.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a heating engineer if...</h2>
           <p className="text-sm text-red-900 mb-1">The noise is coming from inside the boiler itself (not the radiators or pipes)</p>
           <p className="text-sm text-red-900 mb-1">A valve is leaking water visibly and tightening has not helped</p>
           <p className="text-sm text-red-900">Loud banging persists after adjusting boiler pressure — may indicate pump failure</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -89,11 +93,23 @@ export default function FixANoisyRadiator() {
           </div>
         </div>
 
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You can now diagnose radiator noise by type and apply the correct fix. Understanding what your heating system sounds like when it is working correctly makes future problems easy to identify early.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['fix-a-noisy-radiator'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['fix-a-noisy-radiator'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['fix-a-noisy-radiator'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="fix-a-noisy-radiator" />
+        <NextGuide currentSlug="fix-a-noisy-radiator" />
       </div>
+      <RecentViewTracker slug="fix-a-noisy-radiator" title="Fix a noisy radiator" href="/guides/fix-a-noisy-radiator" />
       <MobileNav />
     </main>
   )

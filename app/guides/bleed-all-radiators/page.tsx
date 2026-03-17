@@ -1,10 +1,31 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Bleed All Radiators in Your Home | FixItFirst',
+  title: 'How to Bleed All Radiators in Your Home | FixItFirst',
   description: 'Bleed all radiators in your home in under an hour. Step-by-step guide — correct order, boiler pressure checks, and when to balance. Save £80–150.',
+  openGraph: {
+    title: 'How to Bleed All Radiators in Your Home | FixItFirst',
+    description: 'Bleed all radiators in your home in under an hour. Step-by-step guide — correct order, boiler pressure checks, and when to balance. Save £80–150.',
+    url: 'https://fixit-first.co.uk/guides/bleed-all-radiators',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -22,60 +43,46 @@ export default function BleedAllRadiators() {
       <Nav />
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Bleed all radiators in your home</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Bleed all radiators</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £80–150 on heating bills</p>
-        <p className="text-gray-500 mb-8">1 hour · Beginner · Improves heating efficiency throughout your home</p>
-
+        <p className="text-gray-500 mb-6">1 hour · Beginner · Saves £80–150 on heating bills</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['bleed-all-radiators'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Bleed all radiators" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="bleed-all-radiators" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Bleeding all radiators is worth doing at the start of every heating season — typically October. Air enters the system over summer and accumulates in the top of radiators, reducing their heat output and making the boiler work harder.</p>
-          <p className="text-sm text-gray-700">You need one tool: a radiator bleed key (costs £1–3). Have a cloth and a bowl for each radiator — some release more water than others, especially if they haven't been bled in years.</p>
+          <p className="text-sm text-gray-700">You need one tool: a radiator bleed key. Have a cloth and a bowl for each radiator — some release more water than others, especially if they haven't been bled in years.</p>
         </div>
-
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Radiator bleed key</span> — <span className="text-orange-600">buy: £1–3 from any hardware shop or DIY store</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Old cloths or towels</span> — one per radiator to catch drips</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Small bowl or container</span> — to catch water if significant air has built up</span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsSection
+          tools={[
+    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy from any hardware shop or DIY store', hintOrange: true, toolId: 'bleed-key' },
+    { icon: 'check', name: 'Old cloths or towels', hint: 'one per radiator to catch drips' },
+    { icon: 'check', name: 'Small bowl or container', hint: 'to catch water if significant air has built up' },
+  ]}
+          slug="bleed-all-radiators"
+          guideName="Bleed all radiators"
+        />
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['bleed-all-radiators']} />
+        <StepProgress steps={steps} slug="bleed-all-radiators" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Bleeding in the wrong order — always ground floor first, furthest from boiler first, then work up and towards the boiler.</p>
           <p className="text-sm text-yellow-900 mb-2">Not checking boiler pressure during the process — pressure can drop significantly when bleeding multiple radiators in sequence.</p>
           <p className="text-sm text-yellow-900">Opening the valve too far — a quarter-turn is all that is needed. Too far and water gushes out, making a mess and dropping pressure fast.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a heating engineer if...</h2>
           <p className="text-sm text-red-900 mb-1">Radiators remain cold at the bottom after bleeding — this is sludge, not air, and requires a power flush</p>
           <p className="text-sm text-red-900 mb-1">Black, oily, or very dirty water comes out when bleeding — indicates severe corrosion in the system</p>
           <p className="text-sm text-red-900">Boiler pressure drops to zero within 24 hours of repressurising — there is a leak</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -85,11 +92,23 @@ export default function BleedAllRadiators() {
           </div>
         </div>
 
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to maintain your whole central heating system annually. Regular bleeding keeps your system efficient, reduces gas consumption, and extends boiler life.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['bleed-all-radiators'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['bleed-all-radiators'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['bleed-all-radiators'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="bleed-all-radiators" />
+        <NextGuide currentSlug="bleed-all-radiators" />
       </div>
+      <RecentViewTracker slug="bleed-all-radiators" title="Bleed all radiators" href="/guides/bleed-all-radiators" />
       <MobileNav />
     </main>
   )

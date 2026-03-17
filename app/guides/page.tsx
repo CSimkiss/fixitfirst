@@ -31,8 +31,10 @@ const CATEGORIES: { label: string; guides: Guide[] }[] = [
       { title: 'Replace a plug fuse',                       time: '5 mins',  cost: '£1–3',   level: 'Beginner', href: '/guides/replace-a-plug-fuse',                   saves: 'Save £30–60 today',          difficulty: 1 },
       { title: 'Reset a tripped circuit breaker',           time: '10 mins', cost: 'Free',   level: 'Beginner', href: '/guides/reset-a-tripped-circuit-breaker',       saves: 'Save £40–60 today',          difficulty: 1 },
       { title: 'Replace a light switch',                    time: '30 mins', cost: '£5–15',  level: 'Beginner', href: '/guides/replace-a-light-switch',                saves: 'Save £60–100 today',         difficulty: 2 },
-      { title: 'Fix a doorbell',                            time: '30 mins', cost: '£3–25',  level: 'Beginner', href: '/guides/fix-a-doorbell',                        saves: 'Save £40–80 today',          difficulty: 1 },
-      { title: 'Turn off your electricity at the fuse box', time: '5 mins',  cost: 'Free',   level: 'Beginner', href: '/guides/turn-off-electricity-fuse-box',         saves: 'Essential safety knowledge', difficulty: 1 },
+      { title: 'Fix a doorbell',                            time: '30 mins',   cost: '£3–25',    level: 'Beginner',     href: '/guides/fix-a-doorbell',                saves: 'Save £40–80 today',          difficulty: 1 },
+      { title: 'Replace a smoke alarm battery',             time: '5 mins',    cost: '£3–5',     level: 'Beginner',     href: '/guides/replace-a-smoke-alarm-battery', saves: 'Keeps your home protected',  difficulty: 1 },
+      { title: 'Install a smart thermostat',                time: '1–2 hours', cost: '£100–250', level: 'Intermediate', href: '/guides/install-a-smart-thermostat',    saves: 'Save £150–300/year',         difficulty: 3 },
+      { title: 'Turn off your electricity at the fuse box', time: '5 mins',    cost: 'Free',     level: 'Beginner',     href: '/guides/turn-off-electricity-fuse-box', saves: 'Essential safety knowledge', difficulty: 1 },
     ],
   },
   {
@@ -64,7 +66,19 @@ const CATEGORIES: { label: string; guides: Guide[] }[] = [
       { title: 'Bleed a radiator',              time: '15 mins', cost: '£1–3',   level: 'Beginner', href: '/guides/bleed-a-radiator',       saves: 'Save £50–80 today',   difficulty: 1 },
       { title: 'Repressurise a boiler',         time: '10 mins', cost: 'Free',   level: 'Beginner', href: '/guides/repressurise-a-boiler',  saves: 'Save £50–80 today',   difficulty: 1 },
       { title: 'Fix a cold radiator',           time: '20 mins', cost: 'Free–£3',level: 'Beginner', href: '/guides/fix-a-cold-radiator',    saves: 'Save £50–80 today',   difficulty: 1 },
-      { title: 'What to do if your boiler breaks down', time: '30 mins', cost: 'Free', level: 'Beginner', href: '/guides/boiler-breakdown', saves: 'Save £100–300 today', difficulty: 1 },
+      { title: 'Bleed all radiators',                  time: '1 hour',  cost: '£1–3',    level: 'Beginner', href: '/guides/bleed-all-radiators',          saves: 'Save £80–150 today',  difficulty: 1 },
+      { title: 'Fix a noisy radiator',                  time: '30 mins', cost: 'Free–£5', level: 'Beginner', href: '/guides/fix-a-noisy-radiator',          saves: 'Save £50–80 today',   difficulty: 1 },
+      { title: 'What to do if your boiler breaks down', time: '30 mins', cost: 'Free',   level: 'Beginner', href: '/guides/boiler-breakdown',              saves: 'Save £100–300 today', difficulty: 1 },
+      { title: 'Boiler breakdown: what to do',          time: '30 mins', cost: 'Free',   level: 'Beginner', href: '/guides/boiler-breakdown-what-to-do',   saves: 'Save £100–300 today', difficulty: 1 },
+    ],
+  },
+  {
+    label: 'Outdoor & Garden',
+    guides: [
+      { title: 'Fix a leaking garden tap', time: '30 mins', cost: '£3–10',    level: 'Beginner',     href: '/guides/fix-a-garden-tap',    saves: 'Save £60–100 today',    difficulty: 1 },
+      { title: 'Unblock a gutter',         time: '1 hour',  cost: '£15–30',   level: 'Beginner',     href: '/guides/unblock-a-gutter',    saves: 'Save £80–150 today',    difficulty: 1 },
+      { title: 'Fix a fence panel',        time: '2 hours', cost: '£30–80',   level: 'Beginner',     href: '/guides/fix-a-fence-panel',   saves: 'Save £100–200 today',   difficulty: 2 },
+      { title: 'Lay decking boards',       time: 'Full day',cost: '£200–600', level: 'Intermediate', href: '/guides/lay-decking-boards',  saves: 'Save £500–1,500 today', difficulty: 3 },
     ],
   },
   {

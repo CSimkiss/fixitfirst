@@ -1,10 +1,31 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
+import StepProgress from '@/components/StepProgress'
+import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
+import Nav from '@/components/Nav'
+import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
+import { GUIDE_TOOLS } from '@/lib/tools'
+import RecentViewTracker from '@/components/RecentViewTracker'
+import SocialShare from '@/components/SocialShare'
+import GuideExtras from '@/components/GuideExtras'
+import PrintButton from '@/components/PrintButton'
+import NextGuide from '@/components/NextGuide'
+import DifficultyComparison from '@/components/DifficultyComparison'
+import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
   title: 'How to Strip Wallpaper | FixItFirst',
   description: 'Strip wallpaper in half a day with the right tools and technique. Step-by-step beginner guide. Save £100–200 vs a decorator.',
+  openGraph: {
+    title: 'How to Strip Wallpaper | FixItFirst',
+    description: 'Strip wallpaper in half a day with the right tools and technique. Step-by-step beginner guide. Save £100–200 vs a decorator.',
+    url: 'https://fixit-first.co.uk/guides/strip-wallpaper',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -24,66 +45,46 @@ export default function StripWallpaper() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Strip wallpaper</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £100–200 today</p>
-        <p className="text-gray-500 mb-8">Half a day · Beginner · Saves £100–200 vs a decorator</p>
-
+        <p className="text-gray-500 mb-6">Half a day · Beginner · Saves £100–200 vs a decorator</p>
+        <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['strip-wallpaper'].lastUpdated}</p>
+        <div className="flex gap-3 flex-wrap mb-6">
+          <SocialShare title="Strip wallpaper" />
+          <PrintButton />
+        </div>
+        <DifficultyComparison slug="strip-wallpaper" />
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Stripping wallpaper is straightforward but hard work. The key is soaking the paper properly — rushing it causes the paper to tear into tiny pieces and takes four times as long.</p>
           <p className="text-sm text-gray-700">Test a small area first. Some wallpaper strips dry in one piece (vinyl-coated paper). Most paper-backed wallpaper needs soaking with water or a stripping solution.</p>
         </div>
-
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Plastic dustsheets or newspaper</span> — to protect the floor and skirting</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Bucket and large sponge</span> — for applying the soaking solution</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Wallpaper scorer</span> — <span className="text-orange-600">buy: £3–5 — scores the surface so water penetrates through vinyl-coated wallpaper</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Stripping solution</span> — <span className="text-orange-600">buy: £4–8 — mix with warm water; warm water alone works for uncoated paper</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Broad scraper (4–6 inch)</span> — <span className="text-orange-600">buy: £5–10 if you do not have one</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-
-        <ol className="space-y-4 mb-6">
-          {steps.map((step, i) => (
-            <li key={i} className="flex gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-500 text-white text-sm font-bold flex items-center justify-center">{i + 1}</span>
-              <div>
-                <p className="font-semibold text-gray-900">{step.title}</p>
-                <p className="text-sm text-gray-600 mt-1">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Plastic dustsheets or newspaper', hint: 'to protect the floor and skirting' },
+    { icon: 'check', name: 'Bucket and large sponge', hint: 'for applying the soaking solution' },
+    { icon: 'buy', name: 'Wallpaper scorer', hint: 'buy — scores the surface so water penetrates through vinyl-coated wallpaper', hintOrange: true },
+    { icon: 'buy', name: 'Stripping solution', hint: 'buy — mix with warm water; warm water alone works for uncoated paper', hintOrange: true },
+    { icon: 'buy', name: 'Broad scraper (4–6 inch)', hint: 'buy — 10 if you do not have one', hintOrange: true },
+  ]}
+          slug="strip-wallpaper"
+          guideName="Strip wallpaper"
+        />
+        <ToolsWarning requiredToolIds={GUIDE_TOOLS['strip-wallpaper']} />
+        <StepProgress steps={steps} slug="strip-wallpaper" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not soaking long enough — this is the single biggest cause of slow, frustrating stripping.</p>
           <p className="text-sm text-yellow-900 mb-2">Skipping the scorer on vinyl paper — water will not penetrate and the paper will not budge.</p>
           <p className="text-sm text-yellow-900">Not protecting the floor — the water and paste make a substantial mess on wooden or laminate floors.</p>
         </div>
-
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a decorator if...</h2>
           <p className="text-sm text-red-900 mb-1">The plaster beneath the paper is crumbling or coming away — stripping has damaged the wall</p>
           <p className="text-sm text-red-900 mb-1">There is mould behind the wallpaper — treat the mould and find the source of damp before redecorating</p>
           <p className="text-sm text-red-900">Multiple layers of very old paper — this can take significantly longer and may need a steam stripper</p>
         </div>
-
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
@@ -93,11 +94,23 @@ export default function StripWallpaper() {
           </div>
         </div>
 
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to remove wallpaper efficiently and prepare walls for redecoration. This is the first step in transforming any room.</p>
         </div>
+        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['strip-wallpaper'].completedCount.toLocaleString()} people</p>
+        {GUIDE_META['strip-wallpaper'].renterWarning && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>
+            <p className="text-sm text-amber-900">{GUIDE_META['strip-wallpaper'].renterWarning}</p>
+          </div>
+        )}
+        <CompleteButton />
+        <GuideExtras slug="strip-wallpaper" />
+        <NextGuide currentSlug="strip-wallpaper" />
       </div>
+      <RecentViewTracker slug="strip-wallpaper" title="Strip wallpaper" href="/guides/strip-wallpaper" />
       <MobileNav />
     </main>
   )

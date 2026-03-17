@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -14,8 +16,16 @@ import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
 
 export const metadata: Metadata = {
-  title: 'Fix Low Water Pressure | FixItFirst',
+  title: 'How to Fix Low Water Pressure | FixItFirst',
   description: 'Diagnose and fix low water pressure at home in under 30 minutes. Covers aerators, stop valves, and when to call the water company. Save £60–100.',
+  openGraph: {
+    title: 'How to Fix Low Water Pressure | FixItFirst',
+    description: 'Diagnose and fix low water pressure at home in under 30 minutes. Covers aerators, stop valves, and when to call the water company. Save £60–100.',
+    url: 'https://fixit-first.co.uk/guides/fix-low-water-pressure',
+    siteName: 'FixItFirst',
+    type: 'article',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'FixItFirst' }],
+  },
 }
 
 const steps = [
@@ -47,23 +57,18 @@ export default function FixLowWaterPressure() {
           <p className="text-sm text-gray-700 mb-2">First establish whether it is one tap, one room, or the whole house. That tells you where to look.</p>
           <p className="text-sm text-gray-700 mb-2">In the UK, the water company is responsible for pressure at the street. Inside your home, it is usually a blocked aerator, a partially closed valve, or a scale build-up.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Adjustable spanner</span> — for removing aerators</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Small bowl</span> — to catch water when removing the aerator</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Descaling solution or white vinegar</span> — <span className="text-orange-600">buy: buy: £2–4 to soak a blocked aerator</span></span>
-            </li>
-          </ul>
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Adjustable spanner', hint: 'for removing aerators', toolId: 'adjustable-spanner' },
+    { icon: 'check', name: 'Small bowl', hint: 'to catch water when removing the aerator' },
+    { icon: 'buy', name: 'Descaling solution or white vinegar', hint: 'buy — 4 to soak a blocked aerator', hintOrange: true },
+  ]}
+          slug="fix-low-water-pressure"
+          guideName="Fix low water pressure"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-low-water-pressure']} />
         <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -86,6 +91,8 @@ export default function FixLowWaterPressure() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£60–100</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how water pressure works through your home — from the street main to each tap. You can diagnose whether a pressure problem is local or whole-house.</p>
