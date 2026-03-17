@@ -8,7 +8,7 @@ import DashboardSkeleton from '@/components/DashboardSkeleton'
 import { useCompletions } from '@/lib/useCompletions'
 import { TIERS } from '@/lib/progress'
 import { totalSavings, tierLevel } from '@/lib/completions'
-import { ALL_GUIDES } from '@/lib/guides'
+import { ALL_GUIDES, getRecommendedNextGuide } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
 import { ALL_TOOLS, GUIDE_TOOLS, TOOLS_STORAGE_KEY, type Tool } from '@/lib/tools'
 import { RETAILERS } from '@/lib/affiliates'
@@ -100,7 +100,8 @@ function ToolCard({
 export default function DashboardPage() {
   const router = useRouter()
   const { completionMap, user, loading, syncing, error } = useCompletions()
-  const [ownedTools, setOwnedTools] = useState<string[]>([])
+  const [ownedTools, setOwnedTools]         = useState<string[]>([])
+  const [showReadyNow, setShowReadyNow]     = useState(false)
 
   useEffect(() => {
     try {
@@ -215,6 +216,93 @@ export default function DashboardPage() {
             <p className="text-3xl font-black text-yellow-500 group-hover:text-yellow-600 transition-colors">{earnedBadges.length}</p>
             <p className="text-sm text-gray-500 mt-1">Badges earned</p>
           </a>
+        </div>
+
+        {/* ── What can I do right now? ───────────────────────────────────── */}
+        <div>
+          <button
+            onClick={() => setShowReadyNow(v => !v)}
+            className="w-full flex items-center justify-between bg-orange-500 hover:bg-orange-600 active:bg-orange-700 transition-colors text-white rounded-2xl px-6 py-4"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xl">⚡</span>
+              <span className="font-semibold text-base">What can I do right now?</span>
+            </div>
+            <span className={`text-lg transition-transform duration-200 ${showReadyNow ? 'rotate-180' : ''}`}>
+              ›
+            </span>
+          </button>
+
+          {showReadyNow && (() => {
+            // Build scored list: incomplete guides, score = (hasAllTools ? 0 : 1) * 100 + difficulty
+            const readyGuides = ALL_GUIDES
+              .filter(g => !completionMap[g.slug])
+              .map(g => {
+                const required = GUIDE_TOOLS[g.slug] ?? []
+                const hasAll   = required.length === 0 || required.every(id => ownedTools.includes(id))
+                return { guide: g, hasAll, required }
+              })
+              .sort((a, b) =>
+                ((a.hasAll ? 0 : 1000) + a.guide.difficulty * 10 + a.guide.timeMinutes) -
+                ((b.hasAll ? 0 : 1000) + b.guide.difficulty * 10 + b.guide.timeMinutes)
+              )
+              .slice(0, 8)
+
+            return (
+              <div className="mt-3 space-y-2">
+                {readyGuides.length === 0 ? (
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
+                    <p className="text-sm">You&apos;ve completed all the guides — amazing work! 🏆</p>
+                  </div>
+                ) : (
+                  readyGuides.map(({ guide, hasAll, required }) => {
+                    const difficultyDots = Array.from({ length: 5 }, (_, i) => i < guide.difficulty)
+                    return (
+                      <a
+                        key={guide.slug}
+                        href={guide.href}
+                        className="flex items-start gap-4 bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-orange-300 hover:shadow-sm transition-all group"
+                      >
+                        <span className="text-2xl shrink-0 mt-0.5">{guide.emoji}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-semibold text-gray-900 group-hover:text-orange-500 transition-colors leading-snug">
+                            {guide.title}
+                          </p>
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
+                            <span className="text-xs text-gray-400">⏱ {guide.time}</span>
+                            <span className="text-xs text-gray-400">💰 {guide.cost}</span>
+                            <span className="flex gap-0.5">
+                              {difficultyDots.map((filled, i) => (
+                                <span key={i} className={`w-1.5 h-1.5 rounded-full ${filled ? 'bg-orange-400' : 'bg-gray-200'}`} />
+                              ))}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="shrink-0 flex flex-col items-end gap-1 mt-0.5">
+                          {hasAll ? (
+                            <span className="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded-full">
+                              Got the tools ✓
+                            </span>
+                          ) : required.length > 0 ? (
+                            <span className="text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded-full">
+                              Need tools
+                            </span>
+                          ) : null}
+                          <span className="text-xs text-green-600 font-medium">{guide.saves.replace('Save ', '')}</span>
+                        </div>
+                      </a>
+                    )
+                  })
+                )}
+                <a
+                  href="/guides"
+                  className="block text-center text-sm text-orange-500 hover:underline pt-1"
+                >
+                  Browse all guides →
+                </a>
+              </div>
+            )
+          })()}
         </div>
 
         {/* Current tier card */}

@@ -67,3 +67,33 @@ export const ALL_GUIDES: Guide[] = [
 export const GUIDE_BY_SLUG: Record<string, Guide> = Object.fromEntries(
   ALL_GUIDES.map(g => [g.slug, g])
 )
+
+/**
+ * Return the single best incomplete guide to do next.
+ *
+ * Priority rules (in order):
+ *  1. Same category as the most recently completed guide, sorted easiest first
+ *  2. Fallback: easiest incomplete guide overall (difficulty → timeMinutes)
+ */
+export function getRecommendedNextGuide(
+  completionMap: Record<string, string>,
+  guides: Guide[] = ALL_GUIDES,
+): Guide | null {
+  const incomplete = guides.filter(g => !completionMap[g.slug])
+  if (incomplete.length === 0) return null
+
+  const byEasiness = (a: Guide, b: Guide) =>
+    a.difficulty - b.difficulty || a.timeMinutes - b.timeMinutes
+
+  // Most-recently-completed guide (latest ISO date string sorts lexicographically)
+  const lastSlug = Object.entries(completionMap)
+    .sort((a, b) => b[1].localeCompare(a[1]))[0]?.[0]
+  const lastCategory = guides.find(g => g.slug === lastSlug)?.category
+
+  if (lastCategory) {
+    const sameCat = incomplete.filter(g => g.category === lastCategory).sort(byEasiness)
+    if (sameCat.length > 0) return sameCat[0]
+  }
+
+  return [...incomplete].sort(byEasiness)[0]
+}
