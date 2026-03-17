@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,19 +60,14 @@ export default function ReplaceASmokeAlarmBattery() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Step ladder or chair</span> — to reach ceiling-mounted alarms safely</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement battery</span> — <span className="text-orange-600">buy: £2–5 — check type first: usually 9V PP3, AA, or AAA</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Step ladder or chair', hint: 'to reach ceiling-mounted alarms safely', toolId: 'step-ladder' },
+    { icon: 'buy', name: 'Replacement battery', hint: 'buy: £2–5 — check type first: usually 9V PP3, AA, or AAA', hintOrange: true },
+  ]}
+          slug="replace-a-smoke-alarm-battery"
+          guideName="Replace a smoke alarm battery"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['replace-a-smoke-alarm-battery']} />
         <StepProgress steps={steps} slug="replace-a-smoke-alarm-battery" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -93,6 +90,8 @@ export default function ReplaceASmokeAlarmBattery() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Interconnected alarm system</span><span className="font-medium">£40–100</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to maintain, test, and replace smoke alarms — and when the unit itself needs replacing. Working smoke alarms double your chances of escaping a house fire.</p>

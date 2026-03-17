@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,31 +60,17 @@ export default function FillAndSandAWall() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Filling knife</span> — a 4-inch flexible blade is ideal — you may already have one</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Small bowl of water</span> — to wet the filler before applying</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Ready-mixed filler</span> — <span className="text-orange-600">buy: £3–5 — Polyfilla or own-brand equivalent from any hardware shop</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Sandpaper 120-grit and 240-grit</span> — <span className="text-orange-600">buy: £2–4 — coarse to shape, fine to finish</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Primer or mist coat</span> — <span className="text-orange-600">buy: £3–8 — needed over bare filler before painting</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Filling knife', hint: 'a 4-inch flexible blade is ideal — you may already have one', toolId: 'filling-knife' },
+    { icon: 'check', name: 'Small bowl of water', hint: 'to wet the filler before applying' },
+    { icon: 'buy', name: 'Ready-mixed filler', hint: 'buy: £3–5 — Polyfilla or own-brand equivalent from any hardware shop', hintOrange: true },
+    { icon: 'buy', name: 'Sandpaper 120-grit and 240-grit', hint: 'buy: £2–4 — coarse to shape, fine to finish', hintOrange: true },
+    { icon: 'buy', name: 'Primer or mist coat', hint: 'buy: £3–8 — needed over bare filler before painting', hintOrange: true },
+  ]}
+          slug="fill-and-sand-a-wall"
+          guideName="Fill and sand a wall"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fill-and-sand-a-wall']} />
         <StepProgress steps={steps} slug="fill-and-sand-a-wall" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -105,6 +93,8 @@ export default function FillAndSandAWall() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Decorator would charge</span><span className="font-medium text-red-600">£50–100</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to prepare walls to a paint-ready standard. Filling and sanding is the skill that separates a professional-looking paint job from an amateur one.</p>

@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,27 +60,16 @@ export default function FixAStickingDoor() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Flat-head screwdriver</span> — to tighten hinge screws</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Cross-head screwdriver</span> — some hinges use cross-head fixings</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">80-grit sandpaper</span> — <span className="text-orange-600">buy: £2–4 if sanding is needed</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Candle or bar of soap</span> — <span className="text-orange-600">free lubricant — rub on the door edge before sanding</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Flat-head screwdriver', hint: 'to tighten hinge screws', toolId: 'screwdriver-flat' },
+    { icon: 'check', name: 'Cross-head screwdriver', hint: 'some hinges use cross-head fixings', toolId: 'screwdriver-cross' },
+    { icon: 'buy', name: '80-grit sandpaper', hint: 'buy: £2–4 if sanding is needed', hintOrange: true },
+    { icon: 'buy', name: 'Candle or bar of soap', hint: 'free lubricant — rub on the door edge before sanding', hintOrange: true },
+  ]}
+          slug="fix-a-sticking-door"
+          guideName="Fix a sticking door"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-sticking-door']} />
         <StepProgress steps={steps} slug="fix-a-sticking-door" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -101,6 +92,8 @@ export default function FixAStickingDoor() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Carpenter would charge</span><span className="font-medium text-red-600">£50–80</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand why doors stick and how to work through the causes systematically. This transfers to adjusting door frames, fitting new hinges, and hanging new internal doors.</p>

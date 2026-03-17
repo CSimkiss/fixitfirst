@@ -26,12 +26,17 @@ export default function ToolsWarning({ requiredToolIds }: { requiredToolIds: str
       <span className="text-amber-500 text-lg shrink-0">⚠</span>
       <div className="text-sm">
         <p className="font-semibold text-amber-900 mb-1">
-          You&apos;re missing {missingTools.length} tool{missingTools.length > 1 ? 's' : ''} for this guide
+          You&apos;re missing {missingTools.length} tool{missingTools.length > 1 ? 's' : ''} for this fix. Get them before you start:
         </p>
         <p className="text-amber-800 mb-2">{missingNames.join(', ')}</p>
-        <a href="/tools" className="text-amber-700 underline font-medium hover:text-amber-900">
-          Update your tool library →
-        </a>
+        <div className="flex flex-wrap gap-4">
+          <a href="#tools-section" className="text-amber-700 underline text-xs hover:text-amber-900">
+            ↑ See buy links above
+          </a>
+          <a href="/tools" className="text-amber-700 underline font-medium hover:text-amber-900">
+            Update your tool library →
+          </a>
+        </div>
       </div>
     </div>
   )

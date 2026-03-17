@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,23 +60,15 @@ export default function ReplaceAToiletSeat() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Screwdriver (cross-head)</span> — most hinge bolts use cross-head fixings</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Adjustable spanner or pliers</span> — to grip the nut under the pan if needed</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Replacement toilet seat</span> — <span className="text-orange-600">buy: buy: £15–40 — measure your pan first</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Screwdriver (cross-head)', hint: 'most hinge bolts use cross-head fixings' },
+    { icon: 'check', name: 'Adjustable spanner or pliers', hint: 'to grip the nut under the pan if needed', toolId: 'adjustable-spanner' },
+    { icon: 'buy', name: 'Replacement toilet seat', hint: 'buy: buy: £15–40 — measure your pan first', hintOrange: true },
+  ]}
+          slug="replace-a-toilet-seat"
+          guideName="Replace a toilet seat"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['replace-a-toilet-seat']} />
         <StepProgress steps={steps} />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -96,6 +90,8 @@ export default function ReplaceAToiletSeat() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£40–80 (plus seat cost)</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You can now fit any standard toilet seat and understand pan sizing. This transfers to replacing the cistern lid, fitting a bidet seat, and other bathroom fitting work.</p>

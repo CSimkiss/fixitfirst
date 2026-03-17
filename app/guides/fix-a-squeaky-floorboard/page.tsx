@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,27 +60,16 @@ export default function FixASqueakyFloorboard() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Pipe &amp; cable detector</span> — essential before screwing into a floor</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Drill or screwdriver</span> — to drive the screw</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">50mm wood screws</span> — <span className="text-orange-600">buy: £1–3 — countersinking screws are ideal</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Wood filler</span> — <span className="text-orange-600">buy: £3–5 if the floor is visible and you want a neat finish</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Pipe &amp; cable detector', hint: 'essential before screwing into a floor', toolId: 'cable-detector' },
+    { icon: 'check', name: 'Drill or screwdriver', hint: 'to drive the screw' },
+    { icon: 'buy', name: '50mm wood screws', hint: 'buy: £1–3 — countersinking screws are ideal', hintOrange: true },
+    { icon: 'buy', name: 'Wood filler', hint: 'buy: £3–5 if the floor is visible and you want a neat finish', hintOrange: true },
+  ]}
+          slug="fix-a-squeaky-floorboard"
+          guideName="Fix a squeaky floorboard"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-squeaky-floorboard']} />
         <StepProgress steps={steps} slug="fix-a-squeaky-floorboard" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -101,6 +92,8 @@ export default function FixASqueakyFloorboard() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Carpenter would charge</span><span className="font-medium text-red-600">£40–60</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how floorboards and joists relate, how to locate a joist by sound, and how to safely screw into a floor. This transfers to fitting skirting boards and laying new flooring.</p>

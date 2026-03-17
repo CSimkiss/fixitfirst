@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,23 +60,15 @@ export default function FixAColdRadiator() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Radiator bleed key</span> — most homes have one — buy for £1–3 if not</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Small cloth or old towel</span> — to catch the drip when bleeding</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Flat-head screwdriver or pliers</span> — <span className="text-orange-600">buy: to adjust the lockshield valve cap if needed</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Radiator bleed key', hint: 'most homes have one — buy for £1–3 if not', toolId: 'bleed-key' },
+    { icon: 'check', name: 'Small cloth or old towel', hint: 'to catch the drip when bleeding' },
+    { icon: 'buy', name: 'Flat-head screwdriver or pliers', hint: 'buy: to adjust the lockshield valve cap if needed', hintOrange: true, toolId: 'screwdriver-flat' },
+  ]}
+          slug="fix-a-cold-radiator"
+          guideName="Fix a cold radiator"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-cold-radiator']} />
         <StepProgress steps={steps} slug="fix-a-cold-radiator" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -97,6 +91,8 @@ export default function FixAColdRadiator() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Heating engineer call-out</span><span className="font-medium text-red-600">£50–80</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how air and circulation affect radiator performance. You know how to bleed radiators, read TRV settings, and identify when a problem is beyond a simple fix.</p>

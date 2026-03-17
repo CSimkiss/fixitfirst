@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,31 +60,17 @@ export default function StripWallpaper() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Plastic dustsheets or newspaper</span> — to protect the floor and skirting</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Bucket and large sponge</span> — for applying the soaking solution</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Wallpaper scorer</span> — <span className="text-orange-600">buy: £3–5 — scores the surface so water penetrates through vinyl-coated wallpaper</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Stripping solution</span> — <span className="text-orange-600">buy: £4–8 — mix with warm water; warm water alone works for uncoated paper</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Broad scraper (4–6 inch)</span> — <span className="text-orange-600">buy: £5–10 if you do not have one</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Plastic dustsheets or newspaper', hint: 'to protect the floor and skirting' },
+    { icon: 'check', name: 'Bucket and large sponge', hint: 'for applying the soaking solution' },
+    { icon: 'buy', name: 'Wallpaper scorer', hint: 'buy: £3–5 — scores the surface so water penetrates through vinyl-coated wallpaper', hintOrange: true },
+    { icon: 'buy', name: 'Stripping solution', hint: 'buy: £4–8 — mix with warm water; warm water alone works for uncoated paper', hintOrange: true },
+    { icon: 'buy', name: 'Broad scraper (4–6 inch)', hint: 'buy: £5–10 if you do not have one', hintOrange: true },
+  ]}
+          slug="strip-wallpaper"
+          guideName="Strip wallpaper"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['strip-wallpaper']} />
         <StepProgress steps={steps} slug="strip-wallpaper" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -105,6 +93,8 @@ export default function StripWallpaper() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Decorator would charge</span><span className="font-medium text-red-600">£100–200</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to remove wallpaper efficiently and prepare walls for redecoration. This is the first step in transforming any room.</p>

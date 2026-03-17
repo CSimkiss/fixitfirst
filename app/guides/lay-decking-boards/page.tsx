@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,39 +60,19 @@ export default function LayDeckingBoards() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Circular saw or mitre saw</span> — to cut boards and joists to length</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Cordless drill</span> — with screwdriver and drill bits</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Tape measure, pencil, string line</span> — for marking out and keeping straight</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Spirit level and square</span> — for checking frame level and square</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Pressure-treated timber joists</span> — <span className="text-orange-600">buy: 50x100mm UC4 treated — priced per length at timber merchants or large DIY stores</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Decking boards</span> — <span className="text-orange-600">buy: £3–8 per board — choose pressure-treated softwood or hardwood such as Bangkirai or Ipe</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Stainless steel decking screws (65mm)</span> — <span className="text-orange-600">buy: £10–15 per box of 200 — must be stainless or coated for outdoor use</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Circular saw or mitre saw', hint: 'to cut boards and joists to length' },
+    { icon: 'check', name: 'Cordless drill', hint: 'with screwdriver and drill bits' },
+    { icon: 'check', name: 'Tape measure, pencil, string line', hint: 'for marking out and keeping straight', toolId: 'tape-measure' },
+    { icon: 'check', name: 'Spirit level and square', hint: 'for checking frame level and square', toolId: 'spirit-level' },
+    { icon: 'buy', name: 'Pressure-treated timber joists', hint: 'buy: 50x100mm UC4 treated — priced per length at timber merchants or large DIY stores', hintOrange: true },
+    { icon: 'buy', name: 'Decking boards', hint: 'buy: £3–8 per board — choose pressure-treated softwood or hardwood such as Bangkirai or Ipe', hintOrange: true },
+    { icon: 'buy', name: 'Stainless steel decking screws (65mm)', hint: 'buy: £10–15 per box of 200 — must be stainless or coated for outdoor use', hintOrange: true },
+  ]}
+          slug="lay-decking-boards"
+          guideName="Lay decking boards"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['lay-decking-boards']} />
         <StepProgress steps={steps} slug="lay-decking-boards" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -113,6 +95,8 @@ export default function LayDeckingBoards() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Landscaper for same job (labour + materials)</span><span className="font-medium text-red-600">£900–2,200</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to build a timber deck frame, lay and fix boards correctly, and finish to a professional standard. The framing and fastening skills transfer directly to raised garden beds, outbuildings, and timber storage structures.</p>

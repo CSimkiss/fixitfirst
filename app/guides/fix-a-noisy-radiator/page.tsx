@@ -4,6 +4,8 @@ import CompleteButton from '@/components/CompleteButton'
 import MobileNav from '@/components/MobileNav'
 import Nav from '@/components/Nav'
 import ToolsWarning from '@/components/ToolsWarning'
+import ToolsSection from '@/components/ToolsSection'
+import StarterKit from '@/components/StarterKit'
 import { GUIDE_TOOLS } from '@/lib/tools'
 import RecentViewTracker from '@/components/RecentViewTracker'
 import SocialShare from '@/components/SocialShare'
@@ -58,27 +60,16 @@ export default function FixANoisyRadiator() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
           <p className="text-xs text-blue-700">Some links on this page are affiliate links. If you buy through them we may earn a small commission at no extra cost to you.</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Adjustable spanner</span> — to adjust valve packing nuts</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-green-500 font-bold mt-0.5 shrink-0">✓</span>
-              <span><span className="font-medium">Old cloth</span> — to catch drips when bleeding</span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Radiator bleed key</span> — <span className="text-orange-600">buy: £1–3 — needed for gurgling radiators</span></span>
-            </li>
-            <li className="flex items-start gap-3 text-sm">
-              <span className="text-orange-500 font-bold mt-0.5 shrink-0">!</span>
-              <span><span className="font-medium">Pipe foam or felt</span> — <span className="text-orange-600">buy: £3–5 — to cushion pipes rattling in brackets</span></span>
-            </li>
-          </ul>
-        </div>
+        <ToolsSection
+          tools={[
+    { icon: 'check', name: 'Adjustable spanner', hint: 'to adjust valve packing nuts', toolId: 'adjustable-spanner' },
+    { icon: 'check', name: 'Old cloth', hint: 'to catch drips when bleeding' },
+    { icon: 'buy', name: 'Radiator bleed key', hint: 'buy: £1–3 — needed for gurgling radiators', hintOrange: true, toolId: 'bleed-key' },
+    { icon: 'buy', name: 'Pipe foam or felt', hint: 'buy: £3–5 — to cushion pipes rattling in brackets', hintOrange: true },
+  ]}
+          slug="fix-a-noisy-radiator"
+          guideName="Fix a noisy radiator"
+        />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fix-a-noisy-radiator']} />
         <StepProgress steps={steps} slug="fix-a-noisy-radiator" />
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
@@ -101,6 +92,8 @@ export default function FixANoisyRadiator() {
             <div className="flex justify-between py-2"><span className="text-gray-600">Heating engineer call-out</span><span className="font-medium text-red-600">£50–80</span></div>
           </div>
         </div>
+
+        <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You can now diagnose radiator noise by type and apply the correct fix. Understanding what your heating system sounds like when it is working correctly makes future problems easy to identify early.</p>
