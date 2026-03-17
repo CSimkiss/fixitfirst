@@ -3,33 +3,48 @@
 import { useState } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
+import { GUIDE_BY_SLUG } from '@/lib/guides'
 
-type Job = {
-  slug: string
-  title: string
-  emoji: string
-  diyCost: string
+// Extra data not stored in lib/guides.ts: pro costs, callout fee, diy cost breakdown
+type JobExtras = {
+  guideSlug: string
   diyCostNote: string
   proMin: number
   proMax: number
   callout: number
   diyCostMin: number
   diyCostMax: number
-  timeLabel: string
-  guideHref: string
 }
 
-const JOBS: Job[] = [
-  { slug: 'dripping-tap',  title: 'Fix a dripping tap',    emoji: '🚰', diyCost: '£2–5',   diyCostNote: 'rubber washer + PTFE tape', proMin: 80,  proMax: 150, callout: 60, diyCostMin: 2,  diyCostMax: 5,  timeLabel: '45 mins', guideHref: '/guides/fix-a-dripping-tap'    },
-  { slug: 'running-toilet',title: 'Fix a running toilet',  emoji: '🚽', diyCost: '£10–25', diyCostNote: 'replacement fill valve/flap',proMin: 80,  proMax: 150, callout: 60, diyCostMin: 10, diyCostMax: 25, timeLabel: '1 hour',  guideHref: '/guides/fix-a-running-toilet'  },
-  { slug: 'blocked-drain', title: 'Unblock a drain',       emoji: '🪣', diyCost: 'Free',   diyCostNote: 'or £3 for a drain snake',  proMin: 60,  proMax: 120, callout: 60, diyCostMin: 0,  diyCostMax: 3,  timeLabel: '20 mins', guideHref: '/guides/unblock-a-drain'       },
-  { slug: 'radiator',      title: 'Bleed a radiator',      emoji: '♨️', diyCost: '£1–3',   diyCostNote: 'bleed key + cloth',        proMin: 50,  proMax: 80,  callout: 50, diyCostMin: 1,  diyCostMax: 3,  timeLabel: '15 mins', guideHref: '/guides/bleed-a-radiator'      },
-  { slug: 'paint-room',    title: 'Paint a room',          emoji: '🎨', diyCost: '£30–60', diyCostNote: 'paint, brushes, roller',   proMin: 200, proMax: 500, callout: 0,  diyCostMin: 30, diyCostMax: 60, timeLabel: '1 day',   guideHref: '/guides/paint-a-room'          },
-  { slug: 'shelves',       title: 'Put up shelves',        emoji: '📚', diyCost: '£10–20', diyCostNote: 'wall plugs, screws',       proMin: 50,  proMax: 120, callout: 40, diyCostMin: 10, diyCostMax: 20, timeLabel: '1 hour',  guideHref: '/guides/put-up-shelves'        },
-  { slug: 'wall-hole',     title: 'Fill a hole in a wall', emoji: '🧱', diyCost: '£3–5',   diyCostNote: 'filler + sandpaper',       proMin: 50,  proMax: 100, callout: 40, diyCostMin: 3,  diyCostMax: 5,  timeLabel: '30 mins', guideHref: '/guides/fill-a-hole-in-a-wall' },
-  { slug: 'curtain-pole',  title: 'Fit a curtain pole',    emoji: '🪟', diyCost: '£0–15',  diyCostNote: 'fixings (pole not included)',proMin: 50, proMax: 80,  callout: 40, diyCostMin: 0,  diyCostMax: 15, timeLabel: '45 mins', guideHref: '/guides/fit-a-curtain-pole'    },
-  { slug: 'lightbulb',     title: 'Change a lightbulb',    emoji: '💡', diyCost: '£5–15',  diyCostNote: 'replacement bulb',         proMin: 60,  proMax: 100, callout: 60, diyCostMin: 5,  diyCostMax: 15, timeLabel: '5 mins',  guideHref: '/guides/change-a-lightbulb'    },
+const JOB_EXTRAS: JobExtras[] = [
+  { guideSlug: 'fix-a-dripping-tap',    diyCostNote: 'rubber washer + PTFE tape',          proMin: 80,  proMax: 150, callout: 60, diyCostMin: 2,  diyCostMax: 5  },
+  { guideSlug: 'fix-a-running-toilet',  diyCostNote: 'replacement fill valve/flap',         proMin: 80,  proMax: 150, callout: 60, diyCostMin: 10, diyCostMax: 25 },
+  { guideSlug: 'unblock-a-drain',       diyCostNote: 'or £3 for a drain snake',             proMin: 60,  proMax: 120, callout: 60, diyCostMin: 0,  diyCostMax: 3  },
+  { guideSlug: 'bleed-a-radiator',      diyCostNote: 'bleed key + cloth',                   proMin: 50,  proMax: 80,  callout: 50, diyCostMin: 1,  diyCostMax: 3  },
+  { guideSlug: 'paint-a-room',          diyCostNote: 'paint, brushes, roller',              proMin: 200, proMax: 500, callout: 0,  diyCostMin: 30, diyCostMax: 60 },
+  { guideSlug: 'put-up-shelves',        diyCostNote: 'wall plugs, screws',                  proMin: 50,  proMax: 120, callout: 40, diyCostMin: 10, diyCostMax: 20 },
+  { guideSlug: 'fill-a-hole-in-a-wall', diyCostNote: 'filler + sandpaper',                  proMin: 50,  proMax: 100, callout: 40, diyCostMin: 3,  diyCostMax: 5  },
+  { guideSlug: 'fit-a-curtain-pole',    diyCostNote: 'fixings (pole not included)',          proMin: 50,  proMax: 80,  callout: 40, diyCostMin: 0,  diyCostMax: 15 },
+  { guideSlug: 'change-a-lightbulb',    diyCostNote: 'replacement bulb',                    proMin: 60,  proMax: 100, callout: 60, diyCostMin: 5,  diyCostMax: 15 },
 ]
+
+const JOBS = JOB_EXTRAS.map(extras => {
+  const guide = GUIDE_BY_SLUG[extras.guideSlug]
+  return {
+    slug: extras.guideSlug,
+    title: guide.title,
+    emoji: guide.emoji,
+    diyCost: guide.cost,
+    diyCostNote: extras.diyCostNote,
+    proMin: extras.proMin,
+    proMax: extras.proMax,
+    callout: extras.callout,
+    diyCostMin: extras.diyCostMin,
+    diyCostMax: extras.diyCostMax,
+    timeLabel: guide.time,
+    guideHref: guide.href,
+  }
+})
 
 export default function CostCalculator() {
   const [selected, setSelected] = useState<string>('')

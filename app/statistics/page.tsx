@@ -9,17 +9,9 @@ export const metadata: Metadata = {
   description: 'FixItFirst by the numbers — guides available, money saved, most popular fixes and more.',
 }
 
-// Savings midpoints per guide
-const SAVINGS_MIDPOINTS: Record<string, number> = {
-  'fix-a-dripping-tap':    115,
-  'put-up-shelves':        65,
-  'paint-a-room':          350,
-  'unblock-a-drain':       90,
-  'bleed-a-radiator':      65,
-  'fill-a-hole-in-a-wall': 75,
-  'fit-a-curtain-pole':    65,
-  'change-a-lightbulb':    80,
-  'fix-a-running-toilet':  115,
+function savingsMidpoint(g: (typeof ALL_GUIDES)[0]): number {
+  if (g.estimatedSavingsMin === 0 && g.estimatedSavingsMax === 0) return 0
+  return Math.round((g.estimatedSavingsMin + g.estimatedSavingsMax) / 2)
 }
 
 export default function StatisticsPage() {
@@ -35,10 +27,10 @@ export default function StatisticsPage() {
     return count < (GUIDE_META[worst.slug]?.completedCount ?? Infinity) ? g : worst
   }, ALL_GUIDES[0])
 
-  const totalPotentialSavings = ALL_GUIDES.reduce((sum, g) => sum + (SAVINGS_MIDPOINTS[g.slug] ?? 0), 0)
+  const totalPotentialSavings = ALL_GUIDES.reduce((sum, g) => sum + savingsMidpoint(g), 0)
   const avgSaving = Math.round(totalPotentialSavings / totalGuides)
   const biggestSaving = ALL_GUIDES.reduce((best, g) => {
-    return (SAVINGS_MIDPOINTS[g.slug] ?? 0) > (SAVINGS_MIDPOINTS[best.slug] ?? 0) ? g : best
+    return savingsMidpoint(g) > savingsMidpoint(best) ? g : best
   }, ALL_GUIDES[0])
 
   const quickWinCount = ALL_GUIDES.filter(g => g.quickWin).length
@@ -89,7 +81,7 @@ export default function StatisticsPage() {
                 const count = GUIDE_META[guide.slug]?.completedCount ?? 0
                 const max = GUIDE_META[mostCompleted.slug]?.completedCount ?? 1
                 const pct = Math.round((count / max) * 100)
-                const savings = SAVINGS_MIDPOINTS[guide.slug] ?? 0
+                const savings = savingsMidpoint(guide)
                 return (
                   <a
                     key={guide.slug}
@@ -140,7 +132,7 @@ export default function StatisticsPage() {
               {
                 icon: '💰',
                 title: `Most valuable: ${biggestSaving.title}`,
-                desc: `Save around £${SAVINGS_MIDPOINTS[biggestSaving.slug]} vs calling a tradesperson.`,
+                desc: `Save around £${savingsMidpoint(biggestSaving)} vs calling a tradesperson.`,
               },
               {
                 icon: '🏆',
@@ -175,7 +167,7 @@ export default function StatisticsPage() {
               .sort((a, b) => b[1] - a[1])
               .map(([cat, count]) => {
                 const guides = ALL_GUIDES.filter(g => g.category === cat)
-                const catSavings = guides.reduce((sum, g) => sum + (SAVINGS_MIDPOINTS[g.slug] ?? 0), 0)
+                const catSavings = guides.reduce((sum, g) => sum + savingsMidpoint(g), 0)
                 return (
                   <div key={cat} className="flex items-center gap-4 border border-gray-200 rounded-xl p-4">
                     <div className="w-24 shrink-0">

@@ -6,30 +6,6 @@ import MobileNav from '@/components/MobileNav'
 import { ALL_GUIDES } from '@/lib/guides'
 import { useCompletions } from '@/lib/useCompletions'
 
-// Midpoint savings per guide (from saves range)
-const GUIDE_SAVINGS: Record<string, { min: number; max: number; label: string }> = {
-  'fix-a-dripping-tap':    { min: 80,  max: 150, label: '£80–150' },
-  'put-up-shelves':        { min: 50,  max: 80,  label: '£50–80' },
-  'paint-a-room':          { min: 200, max: 500, label: '£200–500' },
-  'unblock-a-drain':       { min: 60,  max: 120, label: '£60–120' },
-  'bleed-a-radiator':      { min: 50,  max: 80,  label: '£50–80' },
-  'fill-a-hole-in-a-wall': { min: 50,  max: 100, label: '£50–100' },
-  'fit-a-curtain-pole':    { min: 50,  max: 80,  label: '£50–80' },
-  'change-a-lightbulb':    { min: 60,  max: 100, label: '£60–100' },
-  'fix-a-running-toilet':  { min: 80,  max: 150, label: '£80–150' },
-}
-
-const GUIDE_EMOJIS: Record<string, string> = {
-  'fix-a-dripping-tap':    '💧',
-  'put-up-shelves':        '📦',
-  'paint-a-room':          '🎨',
-  'unblock-a-drain':       '🚿',
-  'bleed-a-radiator':      '🔧',
-  'fill-a-hole-in-a-wall': '🪣',
-  'fit-a-curtain-pole':    '🪟',
-  'change-a-lightbulb':    '💡',
-  'fix-a-running-toilet':  '🚽',
-}
 
 export default function SavingsTracker() {
   const { completionMap, user, mounted } = useCompletions()
@@ -39,10 +15,14 @@ export default function SavingsTracker() {
 
   const completedSlugs = Object.keys(completionMap)
   const guideRows = ALL_GUIDES.map(g => {
-    const savings = GUIDE_SAVINGS[g.slug]
-    const midpoint = savings ? Math.round((savings.min + savings.max) / 2) : 0
+    const midpoint = g.estimatedSavingsMin > 0
+      ? Math.round((g.estimatedSavingsMin + g.estimatedSavingsMax) / 2)
+      : 0
+    const savingsLabel = g.estimatedSavingsMin > 0
+      ? `£${g.estimatedSavingsMin}–${g.estimatedSavingsMax}`
+      : ''
     const done = completedSlugs.includes(g.slug)
-    return { ...g, savings, midpoint, done }
+    return { ...g, midpoint, savingsLabel, done }
   })
 
   const totalSaved = guideRows.filter(r => r.done).reduce((sum, r) => sum + r.midpoint, 0)
@@ -132,7 +112,7 @@ export default function SavingsTracker() {
                 className={`rounded-xl border p-4 transition-all ${guide.done ? 'border-green-200 bg-green-50' : 'border-gray-200'}`}
               >
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-xl shrink-0">{GUIDE_EMOJIS[guide.slug] ?? '🔧'}</span>
+                  <span className="text-xl shrink-0">{guide.emoji}</span>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-center gap-2 flex-wrap">
                       <a
@@ -142,7 +122,7 @@ export default function SavingsTracker() {
                         {guide.title}
                       </a>
                       <span className={`text-sm font-bold shrink-0 ${guide.done ? 'text-green-700' : 'text-gray-400'}`}>
-                        {guide.done ? `+£${guide.midpoint}` : guide.savings?.label ?? ''}
+                        {guide.done ? `+£${guide.midpoint}` : guide.savingsLabel}
                       </span>
                     </div>
                     {/* Bar */}
@@ -154,9 +134,9 @@ export default function SavingsTracker() {
                     </div>
                   </div>
                 </div>
-                {!guide.done && (
+                {!guide.done && guide.savingsLabel && (
                   <a href={guide.href} className="text-xs text-orange-500 hover:underline">
-                    Do this guide → save {guide.savings?.label}
+                    Do this guide → save {guide.savingsLabel}
                   </a>
                 )}
               </div>
