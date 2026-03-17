@@ -43,9 +43,9 @@ export default function BleedARadiator() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Bleed a radiator</h1>
-        <p className="text-4xl font-black text-green-600 mb-1">Save £50–80 today</p>
+        <p className="text-4xl font-black text-green-600 mb-1">Save £50–80 in 15 mins — no heating engineer needed</p>
         
-<p className="text-gray-500 mb-6">15 mins · Beginner · Saves £50-80 vs a heating engineer</p>
+<p className="text-gray-600 mb-6">Most people call a heating engineer for this. You probably don't need to.</p>
         <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['bleed-a-radiator'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Bleed a radiator" />
@@ -97,7 +97,7 @@ export default function BleedARadiator() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now understand how central heating systems circulate water and why air gets trapped. These skills transfer to balancing radiators and maintaining your boiler pressure.</p>
         </div>
-        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['bleed-a-radiator'].completedCount.toLocaleString()} people</p>
+        <p className="text-sm text-gray-500 text-center mb-3">Most people would pay a tradesperson for this.</p>
         {GUIDE_META['bleed-a-radiator'].renterWarning && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
             <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>

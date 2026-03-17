@@ -1,12 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useCompletions } from '@/lib/useCompletions'
 
 type Step = { title: string; description: string }
 
 export default function StepProgress({ steps, slug }: { steps: Step[]; slug?: string }) {
   const [current, setCurrent] = useState(0)
   const total = steps.length
+  const { completionMap, markComplete, mounted } = useCompletions()
+  const [saving, setSaving] = useState(false)
+
+  const completed = slug ? !!completionMap[slug] : false
 
   useEffect(() => {
     if (slug) {
@@ -16,6 +21,13 @@ export default function StepProgress({ steps, slug }: { steps: Step[]; slug?: st
 
   function go(n: number) {
     setCurrent(n)
+  }
+
+  async function handleEarlyComplete() {
+    if (!slug || completed || saving) return
+    setSaving(true)
+    await markComplete(slug)
+    setSaving(false)
   }
 
   return (
@@ -53,6 +65,17 @@ export default function StepProgress({ steps, slug }: { steps: Step[]; slug?: st
           <p className="text-sm text-gray-600">{steps[current].description}</p>
         </div>
       </div>
+      {mounted && slug && current >= 2 && !completed && (
+        <div className="mt-4 pt-3 border-t border-gray-100">
+          <button
+            onClick={handleEarlyComplete}
+            disabled={saving}
+            className="w-full py-2.5 rounded-lg text-sm font-medium text-green-700 bg-green-50 border border-green-200 hover:bg-green-100 transition-colors disabled:opacity-60"
+          >
+            {saving ? 'Saving…' : 'Fixed it already? Mark as complete'}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

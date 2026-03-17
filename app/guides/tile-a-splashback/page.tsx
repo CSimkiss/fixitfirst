@@ -43,8 +43,8 @@ export default function TileASplashback() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Tile a splashback</h1>
-        <p className="text-4xl font-black text-green-600 mb-1">Save £150–300 today</p>
-        <p className="text-gray-500 mb-6">Half a day · Intermediate · Saves £150–300 vs a tiler</p>
+        <p className="text-4xl font-black text-green-600 mb-1">Save £150–300 in half a day — no decorator needed</p>
+        <p className="text-gray-600 mb-6">Most people hire a decorator for this. You probably don't need to.</p>
         <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['tile-a-splashback'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Tile a splashback" />
@@ -103,7 +103,7 @@ export default function TileASplashback() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900">You now know how to plan a tile layout, apply adhesive correctly, and grout neatly. These skills transfer to tiling a bathroom floor, wall, or shower enclosure.</p>
         </div>
-        <p className="text-sm text-gray-400 text-center mb-3">✅ Completed by {GUIDE_META['tile-a-splashback'].completedCount.toLocaleString()} people</p>
+        <p className="text-sm text-gray-500 text-center mb-3">Most people would pay a tradesperson for this.</p>
         {GUIDE_META['tile-a-splashback'].renterWarning && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
             <h2 className="font-semibold text-amber-800 mb-3">⚠️ Watch out if you rent</h2>

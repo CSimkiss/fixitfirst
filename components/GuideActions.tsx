@@ -11,7 +11,8 @@
 
 import { useState } from 'react'
 import { useCompletions } from '@/lib/useCompletions'
-import { ALL_GUIDES } from '@/lib/guides'
+import { ALL_GUIDES, GUIDE_BY_SLUG } from '@/lib/guides'
+import SocialShare from '@/components/SocialShare'
 
 // Recommended learning order used to pick the next guide
 const RECOMMENDED_ORDER = [
@@ -37,6 +38,8 @@ export default function GuideActions({
   const [saving, setSaving] = useState(false)
 
   const completed = !!completionMap[slug]
+  const guide = GUIDE_BY_SLUG[slug]
+  const savingsMin = guide?.estimatedSavingsMin ?? 0
 
   const handleClick = async () => {
     if (completed) return
@@ -59,17 +62,32 @@ export default function GuideActions({
       {!mounted ? (
         <div className="w-full py-4 rounded-xl bg-gray-100 animate-pulse h-14" />
       ) : (
-        <button
-          onClick={handleClick}
-          disabled={completed || saving}
-          className={`w-full py-4 rounded-xl text-lg font-semibold transition-all ${
-            completed
-              ? 'bg-green-500 text-white cursor-default'
-              : 'bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-70'
-          }`}
-        >
-          {completed ? '✓ Completed!' : saving ? 'Saving…' : 'Mark as Complete'}
-        </button>
+        <div className={`rounded-xl transition-all ${completed ? 'bg-green-50 border border-green-200 p-5' : ''}`}>
+          <button
+            onClick={handleClick}
+            disabled={completed || saving}
+            className={`w-full py-4 rounded-xl text-lg font-semibold transition-all ${
+              completed
+                ? 'bg-green-500 text-white cursor-default'
+                : 'bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-70'
+            }`}
+          >
+            {completed ? '✓ Completed!' : saving ? 'Saving…' : 'Mark as Complete'}
+          </button>
+          {completed && savingsMin > 0 && (
+            <p className="text-green-700 text-sm font-medium mt-3 text-center">
+              You just saved ~£{savingsMin} — that&apos;s one less job you needed to pay for.
+            </p>
+          )}
+          {completed && (
+            <div className="mt-4 pt-4 border-t border-green-200">
+              <p className="text-sm font-semibold text-gray-700 mb-3">Know someone with this problem? Send them this guide and save them a plumber call.</p>
+              <div className="flex gap-3 flex-wrap">
+                <SocialShare title={guide?.title ?? slug} />
+              </div>
+            </div>
+          )}
+        </div>
       )}
 
       {/* GuideExtras / any other content between button and next-guide panel */}
@@ -78,7 +96,7 @@ export default function GuideActions({
       {/* Next guide — only shown once auth + completions are resolved */}
       {mounted && nextGuide && (
         <div className="mt-8 bg-gray-950 text-white rounded-2xl p-6">
-          <p className="text-orange-400 text-xs font-semibold uppercase tracking-wide mb-2">Next recommended guide</p>
+          <p className="text-orange-400 text-xs font-semibold uppercase tracking-wide mb-2">Don&apos;t stop now — next fix</p>
           <a href={nextGuide.href} className="group block">
             <h3 className="text-xl font-bold mb-1 group-hover:text-orange-400 transition-colors">{nextGuide.title}</h3>
             <p className="text-green-400 font-bold mb-3">{nextGuide.saves}</p>
@@ -88,7 +106,7 @@ export default function GuideActions({
               <span className="text-orange-400 font-medium">+{nextGuide.skillPoints} skill points</span>
             </div>
             <span className="inline-flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-xl font-medium group-hover:bg-orange-600 transition-colors text-sm">
-              Go to next guide <span>→</span>
+              Start next fix <span>→</span>
             </span>
           </a>
         </div>
