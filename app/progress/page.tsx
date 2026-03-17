@@ -10,6 +10,7 @@ import { streakCount, tierLevel, totalSavings } from '@/lib/completions'
 import { ALL_BADGES } from '@/lib/badges'
 import { ALL_TOOLS, GUIDE_TOOLS as GUIDE_TOOL_MAP, TOOLS_STORAGE_KEY } from '@/lib/tools'
 import { screwfixToolUrl } from '@/lib/affiliates'
+import StatCard from '@/components/StatCard'
 
 const CATEGORY_COLOURS: Record<string, string> = {
   Plumbing:   'bg-blue-50 text-blue-700',
@@ -28,14 +29,6 @@ const MILESTONES = [
   { at: 20, label: 'Full DIY Independence' },
 ]
 
-// Lock icon used on muted stat cards for guests
-function LockIcon() {
-  return (
-    <svg className="w-3.5 h-3.5 text-gray-400 shrink-0" viewBox="0 0 20 20" fill="currentColor">
-      <path fillRule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clipRule="evenodd" />
-    </svg>
-  )
-}
 
 interface GuideCardProps {
   guide: typeof ALL_GUIDES[0]
@@ -165,7 +158,12 @@ export default function ProgressPage() {
   }, 0)
   const maxPoints = ALL_GUIDES.reduce((sum, g) => sum + g.skillPoints, 0)
   const totalSaved = totalSavings(completionMap)
-  const earnedBadgesCount = ALL_BADGES.filter(b => b.check(completedSlugs, [])).length
+  const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, []))
+  const earnedBadgesCount = earnedBadges.length
+
+  function scrollTo(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   // Level system
   const levelNumber = TIERS.indexOf(tier) + 1
@@ -268,62 +266,47 @@ export default function ProgressPage() {
 
         {/* Summary stats — Skill Points always shown; other 3 muted with lock for guests */}
         <div className="grid grid-cols-2 gap-4">
-          {/* Skill Points — always shown normally */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
-            <p className="text-3xl font-black text-purple-600">⭐ {totalPoints}</p>
-            <p className="text-sm text-gray-500 mt-1">Skill points</p>
-          </div>
+          {/* Skill Points — always shown, scrolls to tier section */}
+          <StatCard
+            value={<>⭐ {totalPoints}</>}
+            valueClass="text-purple-600 group-hover:text-purple-700 transition-colors"
+            label="Skill points"
+            onClick={() => scrollTo('skill-tiers')}
+            hoverBorderClass="hover:border-purple-300"
+          />
 
           {/* Guides Completed */}
-          {user ? (
-            <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
-              <p className="text-3xl font-black text-orange-500">{completedCount}</p>
-              <p className="text-sm text-gray-500 mt-1">Guides completed</p>
-            </div>
-          ) : (
-            <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 text-center">
-              <p className="text-3xl font-black text-gray-300">{completedCount}</p>
-              <div className="flex items-center justify-center gap-1 mt-1">
-                <LockIcon />
-                <p className="text-sm text-gray-400">Guides completed</p>
-              </div>
-              <p className="text-xs text-gray-400 mt-1">Sign in to save progress across devices</p>
-            </div>
-          )}
+          <StatCard
+            value={completedCount}
+            valueClass="text-orange-500 group-hover:text-orange-600 transition-colors"
+            label="Guides completed"
+            onClick={user ? () => scrollTo('your-guides') : undefined}
+            hoverBorderClass="hover:border-orange-300"
+            locked={!user}
+            lockedHint="Sign in to save progress across devices"
+          />
 
           {/* Money Saved */}
-          {user ? (
-            <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
-              <p className="text-3xl font-black text-green-600">£{totalSaved}</p>
-              <p className="text-sm text-gray-500 mt-1">Money saved</p>
-            </div>
-          ) : (
-            <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 text-center">
-              <p className="text-3xl font-black text-gray-300">£{totalSaved}</p>
-              <div className="flex items-center justify-center gap-1 mt-1">
-                <LockIcon />
-                <p className="text-sm text-gray-400">Money saved</p>
-              </div>
-              <p className="text-xs text-gray-400 mt-1">Sign in to save progress across devices</p>
-            </div>
-          )}
+          <StatCard
+            value={`£${totalSaved}`}
+            valueClass="text-green-600 group-hover:text-green-700 transition-colors"
+            label="Money saved"
+            href={user ? '/savings-tracker' : undefined}
+            hoverBorderClass="hover:border-green-300"
+            locked={!user}
+            lockedHint="Sign in to save progress across devices"
+          />
 
           {/* Badges Earned */}
-          {user ? (
-            <div className="bg-white rounded-2xl border border-gray-200 p-5 text-center">
-              <p className="text-3xl font-black text-yellow-500">{earnedBadgesCount}</p>
-              <p className="text-sm text-gray-500 mt-1">Badges earned</p>
-            </div>
-          ) : (
-            <div className="bg-gray-50 rounded-2xl border border-gray-100 p-5 text-center">
-              <p className="text-3xl font-black text-gray-300">{earnedBadgesCount}</p>
-              <div className="flex items-center justify-center gap-1 mt-1">
-                <LockIcon />
-                <p className="text-sm text-gray-400">Badges earned</p>
-              </div>
-              <p className="text-xs text-gray-400 mt-1">Sign in to save progress across devices</p>
-            </div>
-          )}
+          <StatCard
+            value={earnedBadgesCount}
+            valueClass="text-yellow-500 group-hover:text-yellow-600 transition-colors"
+            label="Badges earned"
+            onClick={user ? () => scrollTo('badges') : undefined}
+            hoverBorderClass="hover:border-yellow-300"
+            locked={!user}
+            lockedHint="Sign in to save progress across devices"
+          />
         </div>
 
         {/* Error banner — Supabase fetch failed, fell back to localStorage */}
@@ -354,7 +337,7 @@ export default function ProgressPage() {
         )}
 
         {/* Tier roadmap */}
-        <div>
+        <div id="skill-tiers">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Skill tiers</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {TIERS.map((t) => {
@@ -387,7 +370,7 @@ export default function ProgressPage() {
         </div>
 
         {/* Guide grid — split into sections */}
-        <div className="space-y-8">
+        <div id="your-guides" className="space-y-8">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">Your guides</h2>
             {completedCount === 0 && (
@@ -468,6 +451,30 @@ export default function ProgressPage() {
                   />
                 ))}
               </div>
+            </div>
+          )}
+        </div>
+
+        {/* Badges */}
+        <div id="badges">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">Badges earned</h2>
+            <a href="/badges" className="text-sm text-orange-500 hover:underline">View all →</a>
+          </div>
+          {earnedBadges.length === 0 ? (
+            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
+              <p className="text-3xl mb-2">🔒</p>
+              <p className="text-sm">Complete your first guide to earn a badge.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {earnedBadges.map(badge => (
+                <div key={badge.id} className="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                  <div className="text-3xl mb-2">{badge.emoji}</div>
+                  <p className="text-sm font-semibold text-gray-800">{badge.name}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{badge.description}</p>
+                </div>
+              ))}
             </div>
           )}
         </div>
