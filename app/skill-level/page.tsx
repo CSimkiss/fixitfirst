@@ -1,11 +1,13 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { useCompletions } from '@/lib/useCompletions'
 import { tierLevel } from '@/lib/completions'
-import { ALL_GUIDES, GUIDE_TOOLS } from '@/lib/guides'
+import { ALL_GUIDES, GUIDE_TOOLS, type Guide } from '@/lib/guides'
 import { TIERS } from '@/lib/progress'
+import { TOOLS_STORAGE_KEY } from '@/lib/tools'
 
 // ─── Per-category labels for the "Building confidence with" section ──────────
 const CATEGORY_LABEL: Record<string, string> = {
@@ -18,6 +20,83 @@ const CATEGORY_LABEL: Record<string, string> = {
   Fitting:    'fitting and installation',
   Outdoor:    'outdoor and garden repairs',
   General:    'essential home knowledge',
+}
+
+// ─── Label badge styles ───────────────────────────────────────────────────────
+const LABEL_STYLE: Record<string, string> = {
+  'Easy win':      'text-green-700 bg-green-50 border-green-200',
+  'Next step':     'text-orange-700 bg-orange-50 border-orange-200',
+  'Push yourself': 'text-purple-700 bg-purple-50 border-purple-200',
+}
+
+// ─── Three-guide recommendation system ───────────────────────────────────────
+type NextFix = { guide: Guide; label: 'Easy win' | 'Next step' | 'Push yourself' }
+
+/**
+ * Select exactly 3 guides representing a progression arc:
+ *
+ *   1. Easy win      — difficulty=1, time ≤15 min, tool-ready preferred
+ *   2. Next step     — at current target difficulty, ≤1 tool missing preferred
+ *   3. Push yourself — one difficulty band above current, any tools
+ *
+ * Selection pools are sorted difficulty ASC → timeMinutes ASC.
+ * No duplicates. Falls back gracefully if pool is small.
+ */
+function buildNextFixes(
+  incomplete: Guide[],
+  ownedTools: string[],
+  targetDiff: number,
+): NextFix[] {
+  const toolsMissing = (g: Guide) =>
+    (GUIDE_TOOLS[g.slug] ?? []).filter(id => !ownedTools.includes(id)).length
+
+  const byDiff = [...incomplete].sort(
+    (a, b) => a.difficulty - b.difficulty || a.timeMinutes - b.timeMinutes,
+  )
+
+  // ── 1. Easy Win ──────────────────────────────────────────────────────────
+  // Ideal: difficulty=1, ≤15 min, all tools owned
+  // Falls back through progressively looser criteria
+  const easyWin =
+    byDiff.find(g => g.difficulty === 1 && g.timeMinutes <= 15 && toolsMissing(g) === 0) ??
+    byDiff.find(g => g.difficulty === 1 && g.timeMinutes <= 20 && toolsMissing(g) <= 1) ??
+    byDiff.find(g => g.difficulty === 1) ??
+    byDiff[0] ??
+    null
+
+  const used = new Set<string>([easyWin?.slug ?? ''].filter(Boolean))
+
+  // ── 2. Next Step ─────────────────────────────────────────────────────────
+  // Difficulty in [targetDiff, targetDiff+1], prefer ≤1 tool missing
+  const lo2 = targetDiff
+  const hi2 = Math.min(5, targetDiff + 1)
+  const pool2 = byDiff.filter(g => !used.has(g.slug) && g.difficulty >= lo2 && g.difficulty <= hi2)
+
+  const meaningful =
+    pool2.find(g => toolsMissing(g) <= 1) ??
+    pool2[0] ??
+    byDiff.find(g => !used.has(g.slug) && g.difficulty >= targetDiff) ??
+    byDiff.find(g => !used.has(g.slug)) ??
+    null
+
+  used.add(meaningful?.slug ?? '')
+
+  // ── 3. Push Yourself ─────────────────────────────────────────────────────
+  // At least one band above meaningful guide's difficulty
+  const lo3 = Math.min(5, Math.max((meaningful?.difficulty ?? targetDiff) + 1, targetDiff + 1))
+  const pool3 = byDiff.filter(g => !used.has(g.slug) && g.difficulty >= lo3)
+
+  const stretch =
+    pool3[0] ??
+    byDiff.find(g => !used.has(g.slug) && g.difficulty > (easyWin?.difficulty ?? 0)) ??
+    byDiff.find(g => !used.has(g.slug)) ??
+    null
+
+  const picks: NextFix[] = []
+  if (easyWin)   picks.push({ guide: easyWin,   label: 'Easy win' })
+  if (meaningful) picks.push({ guide: meaningful, label: 'Next step' })
+  if (stretch)    picks.push({ guide: stretch,    label: 'Push yourself' })
+  return picks
 }
 
 // ─── Loading skeleton ─────────────────────────────────────────────────────────
@@ -47,6 +126,14 @@ function Skeleton() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function SkillLevelPage() {
   const { completionMap, loading } = useCompletions()
+  const [ownedTools, setOwnedTools] = useState<string[]>([])
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(TOOLS_STORAGE_KEY)
+      if (raw) setOwnedTools(JSON.parse(raw))
+    } catch {}
+  }, [])
 
   if (loading) return <Skeleton />
 
@@ -68,11 +155,10 @@ export default function SkillLevelPage() {
       (GUIDE_TOOLS[a.slug]?.length ?? 0) - (GUIDE_TOOLS[b.slug]?.length ?? 0)
     )
 
-  // Target difficulty: rises with experience (mirrors recommendation engine)
+  // Target difficulty: rises with experience
   const targetDiff = Math.min(5, 1 + Math.floor(completedCount / 3))
 
   // ── Capability A: "You can now do" ────────────────────────────────────────
-  // Completed guides + accessible incomplete (at or below target difficulty)
   const canDoNow = [
     ...completedGuides,
     ...incompleteGuides.filter(g => g.difficulty <= targetDiff),
@@ -81,9 +167,8 @@ export default function SkillLevelPage() {
     .slice(0, 5)
 
   // ── Capability B: "Building confidence with" ─────────────────────────────
-  // Derived from categories of completed guides; fallback for new users
-  const completedCats    = [...new Set(completedGuides.map(g => g.category))]
-  const confidenceLines  = completedCats.length > 0
+  const completedCats   = [...new Set(completedGuides.map(g => g.category))]
+  const confidenceLines = completedCats.length > 0
     ? completedCats.slice(0, 3).map(c => CATEGORY_LABEL[c] ?? c.toLowerCase())
     : [
         'tackling simple repairs at home',
@@ -91,16 +176,14 @@ export default function SkillLevelPage() {
         'building your DIY independence',
       ]
 
-  // ── Capability C: "This is preparing you for" ────────────────────────────
-  // Incomplete guides at the NEXT difficulty band — the horizon ahead
+  // ── Capability C: "Next, you'll be able to take on" ──────────────────────
   const nextDiff     = Math.min(5, targetDiff + 1)
   const preparingFor = incompleteGuides
     .filter(g => g.difficulty >= nextDiff)
     .slice(0, 4)
 
-  // ── Section 3: "What to do next" ─────────────────────────────────────────
-  // 3 easiest incomplete guides: difficulty → time → tools required
-  const nextFixes = incompleteGuides.slice(0, 3)
+  // ── Section 3: Three-guide arc ────────────────────────────────────────────
+  const nextFixes = buildNextFixes(incompleteGuides, ownedTools, targetDiff)
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
@@ -136,6 +219,7 @@ export default function SkillLevelPage() {
           >
             Start next fix →
           </a>
+          <p className="text-xs text-gray-500 mt-2">Takes 5–15 minutes to get started</p>
         </div>
       </div>
 
@@ -161,7 +245,9 @@ export default function SkillLevelPage() {
                       <span className="text-gray-300 group-hover:text-orange-400 shrink-0">→</span>
                       <span className="flex-1 leading-snug">{g.title}</span>
                       {completionMap[g.slug] && (
-                        <span className="text-xs text-green-600 font-medium shrink-0">Done ✓</span>
+                        <span className="text-xs text-green-600 font-medium shrink-0">
+                          Done ✓ Nice work
+                        </span>
                       )}
                     </a>
                   </li>
@@ -189,11 +275,11 @@ export default function SkillLevelPage() {
               </ul>
             </div>
 
-            {/* C: This is preparing you for */}
+            {/* C: Next, you'll be able to take on */}
             {preparingFor.length > 0 && (
               <div className="rounded-2xl border border-gray-200 p-5">
                 <p className="text-xs font-semibold uppercase tracking-wide text-orange-500 mb-3">
-                  This is preparing you for
+                  Next, you&apos;ll be able to take on
                 </p>
                 <ul className="space-y-2.5">
                   {preparingFor.map(g => (
@@ -215,18 +301,22 @@ export default function SkillLevelPage() {
           </div>
         </section>
 
-        {/* ── What to do next ───────────────────────────────────────────── */}
+        {/* ── What to do next (pick one) ────────────────────────────────── */}
         {nextFixes.length > 0 && (
           <section>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">What to do next</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">What to do next (pick one)</h2>
             <div className="space-y-3">
-              {nextFixes.map(guide => (
+              {nextFixes.map(({ guide, label }) => (
                 <a
                   key={guide.slug}
                   href={guide.href}
                   className="flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-4 hover:border-orange-300 hover:shadow-sm transition-all group"
                 >
                   <div className="min-w-0">
+                    {/* Role label */}
+                    <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full border mb-1.5 ${LABEL_STYLE[label]}`}>
+                      {label}
+                    </span>
                     <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-500 transition-colors leading-snug">
                       {guide.title}
                     </p>
@@ -245,7 +335,7 @@ export default function SkillLevelPage() {
               href="/guides?recommended=true"
               className="mt-4 block text-sm text-orange-500 hover:underline"
             >
-              See all recommended guides →
+              See all fixes you can do right now →
             </a>
           </section>
         )}
