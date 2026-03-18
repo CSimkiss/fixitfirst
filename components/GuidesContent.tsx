@@ -142,11 +142,34 @@ function guideUsesTool(slug: string, toolId: string): boolean {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
+/**
+ * Sort guides for the ?recommended=true view.
+ *
+ * Priority:
+ *   1. Guides user can do right now (all tools owned) — surfaced first
+ *   2. Difficulty ASC (easiest first — fastest path to levelling up)
+ *   3. Tools required ASC (fewer tools = simpler, less blocking)
+ */
+function sortRecommended(guides: Guide[], owned: string[]): Guide[] {
+  return [...guides].sort((a, b) => {
+    const slugA  = slugFromHref(a.href)
+    const slugB  = slugFromHref(b.href)
+    const readyA = guideIsReady(slugA, owned) ? 0 : 1
+    const readyB = guideIsReady(slugB, owned) ? 0 : 1
+    if (readyA !== readyB) return readyA - readyB
+    if (a.difficulty !== b.difficulty) return a.difficulty - b.difficulty
+    const toolsA = (GUIDE_TOOLS[slugA] ?? []).length
+    const toolsB = (GUIDE_TOOLS[slugB] ?? []).length
+    return toolsA - toolsB
+  })
+}
+
 export default function GuidesContent() {
   const searchParams   = useSearchParams()
   const readyOnly      = searchParams.get('ready') === 'true'
   const unlockToolId   = searchParams.get('unlockTool') ?? null
-  const isFiltered     = readyOnly || !!unlockToolId
+  const isRecommended  = searchParams.get('recommended') === 'true'
+  const isFiltered     = readyOnly || !!unlockToolId || isRecommended
 
   const [owned, setOwned]   = useState<string[]>([])
   const [mounted, setMounted] = useState(false)
@@ -164,17 +187,24 @@ export default function GuidesContent() {
     ? (ALL_TOOLS.find(t => t.id === unlockToolId)?.name ?? unlockToolId)
     : null
 
-  // Apply filter to categories
-  const filteredCategories = CATEGORIES.map(cat => ({
-    ...cat,
-    guides: cat.guides.filter(guide => {
+  // Apply filter + sort to categories
+  const filteredCategories = CATEGORIES.map(cat => {
+    const filtered = cat.guides.filter(guide => {
       if (!mounted || !isFiltered) return true
       const slug = slugFromHref(guide.href)
-      if (readyOnly)     return guideIsReady(slug, owned)
-      if (unlockToolId)  return guideUsesTool(slug, unlockToolId)
+      if (readyOnly)      return guideIsReady(slug, owned)
+      if (unlockToolId)   return guideUsesTool(slug, unlockToolId)
+      if (isRecommended)  return true // show all, but sorted below
       return true
-    }),
-  })).filter(cat => !isFiltered || cat.guides.length > 0)
+    })
+
+    // For recommended view, sort within each category by priority
+    const sorted = (mounted && isRecommended)
+      ? sortRecommended(filtered, owned)
+      : filtered
+
+    return { ...cat, guides: sorted }
+  }).filter(cat => !isFiltered || cat.guides.length > 0)
 
   const totalFiltered = filteredCategories.reduce((n, cat) => n + cat.guides.length, 0)
   const noResults     = mounted && isFiltered && totalFiltered === 0
@@ -206,6 +236,22 @@ export default function GuidesContent() {
               </div>
               <a href="/guides" className="text-xs text-green-600 hover:underline shrink-0 mt-0.5">
                 Clear filter ×
+              </a>
+            </div>
+          </div>
+        )}
+
+        {mounted && isRecommended && (
+          <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 -mb-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-semibold text-orange-900">Recommended for you</p>
+                <p className="text-sm text-orange-700 mt-0.5">
+                  Sorted by what you can start today — easiest fixes first.
+                </p>
+              </div>
+              <a href="/guides" className="text-xs text-orange-600 hover:underline shrink-0 mt-0.5">
+                Show all ×
               </a>
             </div>
           </div>
