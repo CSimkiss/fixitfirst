@@ -5,156 +5,35 @@ import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { ALL_BADGES } from '@/lib/badges'
 import { getCompletionMap } from '@/lib/completions'
+import { getStreak } from '@/lib/progress'
 import { TOOLS_STORAGE_KEY } from '@/lib/tools'
-
-// ─── Progress helpers ─────────────────────────────────────────────────────────
-
-const PLUMBING_SLUGS = ['fix-a-dripping-tap', 'unblock-a-drain', 'fix-a-running-toilet']
-const QUICK_SLUGS    = ['change-a-lightbulb', 'bleed-a-radiator', 'unblock-a-drain']
-
-type Progress = {
-  current: number
-  total: number
-  pct: number
-  remaining: number
-  label: string        // e.g. "3 / 5 guides completed"
-  ctaHref: string
-  ctaLabel: string
-  nextHref: string     // deepest next-step link for "Start next fix →"
-  unlockContext: string // shown on earned badges
-}
-
-function getBadgeProgress(
-  id: string,
-  completedSlugs: string[],
-  ownedTools: string[],
-): Progress {
-  const n = completedSlugs.length
-  const t = ownedTools.length
-
-  switch (id) {
-    case 'first-fix': {
-      const current = Math.min(n, 1)
-      return {
-        current, total: 1, pct: current * 100,
-        remaining: Math.max(0, 1 - n),
-        label: `${current} / 1 guide completed`,
-        ctaHref: '/guides', ctaLabel: 'View guides →',
-        nextHref: '/guides',
-        unlockContext: 'Completed your first guide',
-      }
-    }
-    case 'triple-threat': {
-      const current = Math.min(n, 3)
-      return {
-        current, total: 3, pct: (current / 3) * 100,
-        remaining: Math.max(0, 3 - n),
-        label: `${current} / 3 guides completed`,
-        ctaHref: '/guides', ctaLabel: 'View guides →',
-        nextHref: '/guides',
-        unlockContext: 'Completed 3 or more guides',
-      }
-    }
-    case 'halfway': {
-      const current = Math.min(n, 5)
-      return {
-        current, total: 5, pct: (current / 5) * 100,
-        remaining: Math.max(0, 5 - n),
-        label: `${current} / 5 guides completed`,
-        ctaHref: '/guides', ctaLabel: 'View guides →',
-        nextHref: '/guides',
-        unlockContext: 'Completed 5+ guides',
-      }
-    }
-    case 'full-house': {
-      const current = Math.min(n, 9)
-      return {
-        current, total: 9, pct: (current / 9) * 100,
-        remaining: Math.max(0, 9 - n),
-        label: `${current} / 9 guides completed`,
-        ctaHref: '/guides', ctaLabel: 'View guides →',
-        nextHref: '/guides',
-        unlockContext: 'Completed 9+ guides',
-      }
-    }
-    case 'plumber-training': {
-      const current = PLUMBING_SLUGS.filter(s => completedSlugs.includes(s)).length
-      const nextPlumbing = PLUMBING_SLUGS.find(s => !completedSlugs.includes(s))
-      return {
-        current, total: 3, pct: (current / 3) * 100,
-        remaining: Math.max(0, 3 - current),
-        label: `${current} / 3 plumbing guides done`,
-        ctaHref: '/guides', ctaLabel: 'View plumbing guides →',
-        nextHref: nextPlumbing ? `/guides/${nextPlumbing}` : '/guides',
-        unlockContext: 'Completed all 3 plumbing guides',
-      }
-    }
-    case 'tool-up': {
-      const current = Math.min(t, 5)
-      return {
-        current, total: 5, pct: (current / 5) * 100,
-        remaining: Math.max(0, 5 - t),
-        label: `${current} / 5 tools added`,
-        ctaHref: '/tools', ctaLabel: 'Add tools →',
-        nextHref: '/tools',
-        unlockContext: 'Added 5+ tools to your library',
-      }
-    }
-    case 'quick-fix': {
-      const current = QUICK_SLUGS.some(s => completedSlugs.includes(s)) ? 1 : 0
-      const nextQuick = QUICK_SLUGS.find(s => !completedSlugs.includes(s))
-      return {
-        current, total: 1, pct: current * 100,
-        remaining: current === 0 ? 1 : 0,
-        label: current === 0 ? '0 / 1 quick guide done' : '1 / 1 — done',
-        ctaHref: '/guides', ctaLabel: 'View quick guides →',
-        nextHref: nextQuick ? `/guides/${nextQuick}` : '/guides',
-        unlockContext: 'Completed a sub-20-minute guide',
-      }
-    }
-    case 'decorator': {
-      const current = completedSlugs.includes('paint-a-room') ? 1 : 0
-      return {
-        current, total: 1, pct: current * 100,
-        remaining: current === 0 ? 1 : 0,
-        label: current === 0 ? 'Paint a room — not done yet' : 'Done',
-        ctaHref: '/guides/paint-a-room', ctaLabel: 'View guide →',
-        nextHref: '/guides/paint-a-room',
-        unlockContext: 'Completed the Paint a room guide',
-      }
-    }
-    default:
-      return {
-        current: 0, total: 1, pct: 0, remaining: 1, label: '',
-        ctaHref: '/guides', ctaLabel: 'View guides →', nextHref: '/guides',
-        unlockContext: '',
-      }
-  }
-}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function BadgesPage() {
   const [completedSlugs, setCompletedSlugs] = useState<string[]>([])
-  const [ownedTools, setOwnedTools] = useState<string[]>([])
-  const [loaded, setLoaded] = useState(false)
+  const [ownedTools, setOwnedTools]         = useState<string[]>([])
+  const [streak, setStreak]                 = useState(0)
+  const [loaded, setLoaded]                 = useState(false)
 
   useEffect(() => {
     try {
-      setCompletedSlugs(Object.keys(getCompletionMap()))
+      const map = getCompletionMap()
+      setCompletedSlugs(Object.keys(map))
+      setStreak(getStreak(Object.values(map)))
       const tools = localStorage.getItem(TOOLS_STORAGE_KEY)
       if (tools) setOwnedTools(JSON.parse(tools))
     } catch {}
     setLoaded(true)
   }, [])
 
-  const earned = ALL_BADGES.filter(b =>  b.check(completedSlugs, ownedTools))
-  const locked = ALL_BADGES.filter(b => !b.check(completedSlugs, ownedTools))
+  const earned = ALL_BADGES.filter(b =>  b.check(completedSlugs, ownedTools, streak))
+  const locked = ALL_BADGES.filter(b => !b.check(completedSlugs, ownedTools, streak))
 
   // Closest-to-unlock: locked badge with smallest remaining, tie-break by highest pct
   const lockedWithProgress = locked.map(b => ({
     badge: b,
-    progress: getBadgeProgress(b.id, completedSlugs, ownedTools),
+    progress: b.progress(completedSlugs, ownedTools, streak),
   }))
 
   const closest = lockedWithProgress
@@ -168,7 +47,7 @@ export default function BadgesPage() {
     <main className="min-h-screen bg-white pb-20 md:pb-0">
       <Nav />
 
-      {/* ── Hero (unchanged) ────────────────────────────────────────────── */}
+      {/* ── Hero ────────────────────────────────────────────────────────── */}
       <section className="bg-gray-950 text-white px-6 py-16 text-center">
         <div className="max-w-2xl mx-auto">
           <div className="text-5xl mb-4">🏅</div>
@@ -207,7 +86,7 @@ export default function BadgesPage() {
                   </div>
                 </div>
 
-                {/* Progress */}
+                {/* Progress bar */}
                 <div className="space-y-1.5 mb-4">
                   <div className="flex items-center justify-between text-xs text-gray-500">
                     <span>{closest.progress.label}</span>
@@ -243,7 +122,7 @@ export default function BadgesPage() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {earned.map(badge => {
-                    const { unlockContext } = getBadgeProgress(badge.id, completedSlugs, ownedTools)
+                    const { unlockContext } = badge.progress(completedSlugs, ownedTools, streak)
                     return (
                       <div
                         key={badge.id}
@@ -282,7 +161,7 @@ export default function BadgesPage() {
                       key={badge.id}
                       className="border border-gray-200 bg-gray-50 rounded-xl p-5"
                     >
-                      {/* Faded header — unchanged visual */}
+                      {/* Faded header */}
                       <div className="flex items-start gap-4 opacity-60 mb-3">
                         <div className="text-4xl shrink-0 grayscale">{badge.emoji}</div>
                         <div>
@@ -323,7 +202,7 @@ export default function BadgesPage() {
               </div>
             )}
 
-            {/* Empty state (unchanged) */}
+            {/* Empty state */}
             {earned.length === 0 && locked.length > 0 && (
               <div className="text-center py-8 border border-dashed border-gray-200 rounded-xl mb-8">
                 <p className="text-gray-400 mb-2">No badges yet</p>
