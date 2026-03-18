@@ -135,7 +135,7 @@ export default function DashboardPage() {
 
   const totalSaved = totalSavings(completionMap)
 
-  const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, ownedTools))
+  const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, ownedTools, streak))
   const nextGuide = ALL_GUIDES.find(g => !completionMap[g.slug])
   const totalPoints = completedSlugs.reduce(
     (sum, slug) => sum + (ALL_GUIDES.find(g => g.slug === slug)?.skillPoints ?? 0),
