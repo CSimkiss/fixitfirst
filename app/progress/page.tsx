@@ -116,6 +116,7 @@ function GuideCard({ guide, done, date, ownedSet, toolById }: GuideCardProps) {
 export default function ProgressPage() {
   const { completionMap, user, loading, syncing, error } = useCompletions()
   const [ownedTools, setOwnedTools] = useState<string[]>([])
+  const [trackOpen, setTrackOpen] = useState(false)
 
   useEffect(() => {
     try {
@@ -161,11 +162,15 @@ export default function ProgressPage() {
   const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, []))
   const earnedBadgesCount = earnedBadges.length
 
-  function scrollTo(id: string) {
-    const el = document.getElementById(id)
-    if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 80
-    window.scrollTo({ top, behavior: 'smooth' })
+  // Opens the collapsible (if needed) then scrolls to target id
+  function scrollTo(id: string, needsCollapsible = false) {
+    if (needsCollapsible) setTrackOpen(true)
+    setTimeout(() => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const top = el.getBoundingClientRect().top + window.scrollY - 80
+      window.scrollTo({ top, behavior: 'smooth' })
+    }, needsCollapsible ? 350 : 0)
   }
 
   // Level system
@@ -195,7 +200,7 @@ export default function ProgressPage() {
     <main className="min-h-screen bg-white pb-20 md:pb-0">
       <Nav />
 
-      {/* Hero — entire card links to recommended guides */}
+      {/* ── 1. Skill level hero ─────────────────────────────────────────────── */}
       {(() => {
         const fixesLeft      = nextTier ? nextTier.min - completedCount : 0
         const isNearNextTier = nextTier && fixesLeft <= 2
@@ -261,117 +266,9 @@ export default function ProgressPage() {
           </span>
         </div>
 
-        {/* Next fix card */}
-        {recommendation && (
-          <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6">
-            <p className="text-xs font-semibold uppercase tracking-wide text-orange-500 mb-2">Your next fix</p>
-            <h2 className="text-xl font-bold text-gray-900 mb-1">{recommendation.guide.title}</h2>
-            <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-              <span>⏱ {recommendation.guide.time}</span>
-              {recommendation.guide.estimatedSavingsMax > 0 && (
-                <span>💰 Save £{recommendation.guide.estimatedSavingsMin}–{recommendation.guide.estimatedSavingsMax}</span>
-              )}
-            </div>
-            <a
-              href={recommendation.guide.href}
-              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
-            >
-              Start next fix →
-            </a>
-          </div>
-        )}
-
-        {/* Streak */}
-        <div className="flex items-center gap-4 bg-orange-50 border border-orange-200 rounded-2xl px-6 py-5">
-          <span className="text-4xl">{streak > 0 ? '🔥' : '💤'}</span>
-          <div>
-            <p className="text-2xl font-bold text-gray-900">
-              {streak > 0 ? `${streak} day streak — don't break it` : 'No active streak'}
-            </p>
-            <p className="text-sm text-gray-500">
-              {streak > 0
-                ? 'Complete one fix today to keep it alive'
-                : 'Complete a guide to start your streak'}
-            </p>
-          </div>
-        </div>
-
-        {/* Summary stats — Skill Points always shown; other 3 muted with lock for guests */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Skill Points — always shown, scrolls to tier section */}
-          <StatCard
-            value={<>⭐ {totalPoints}</>}
-            valueClass="text-purple-600 group-hover:text-purple-700 transition-colors"
-            label="Skill points"
-            onClick={() => scrollTo('skill-tiers-anchor')}
-            hoverBorderClass="hover:border-purple-300"
-          />
-
-          {/* Guides Completed */}
-          <StatCard
-            value={completedCount}
-            valueClass="text-orange-500 group-hover:text-orange-600 transition-colors"
-            label="Guides completed"
-            onClick={user ? () => scrollTo('your-guides-anchor') : undefined}
-            hoverBorderClass="hover:border-orange-300"
-            locked={!user}
-            lockedHint="Sign in to save progress across devices"
-          />
-
-          {/* Money Saved */}
-          <StatCard
-            value={`£${totalSaved}`}
-            valueClass="text-green-600 group-hover:text-green-700 transition-colors"
-            label="Money saved"
-            href={user ? '/savings-tracker' : undefined}
-            hoverBorderClass="hover:border-green-300"
-            locked={!user}
-            lockedHint="Sign in to save progress across devices"
-          />
-
-          {/* Badges Earned */}
-          <StatCard
-            value={earnedBadgesCount}
-            valueClass="text-yellow-500 group-hover:text-yellow-600 transition-colors"
-            label="Badges earned"
-            onClick={user ? () => scrollTo('badges-anchor') : undefined}
-            hoverBorderClass="hover:border-yellow-300"
-            locked={!user}
-            lockedHint="Sign in to save progress across devices"
-          />
-        </div>
-
-        {/* Error banner — Supabase fetch failed, fell back to localStorage */}
-        {error && (
-          <div className="flex items-start gap-3 bg-amber-50 border border-amber-300 rounded-xl px-5 py-4 text-sm text-amber-800">
-            <span className="shrink-0 text-lg">⚠️</span>
-            <span>{error}</span>
-          </div>
-        )}
-
-        {/* Sign-in prompt for guests */}
-        {!user && (
-          <div className="flex items-start gap-4 bg-blue-50 border border-blue-200 rounded-2xl px-6 py-5">
-            <span className="text-2xl shrink-0">☁️</span>
-            <div className="flex-1 min-w-0">
-              <p className="font-semibold text-blue-900 mb-1">Sign in to save your progress across devices</p>
-              <p className="text-sm text-blue-700 mb-3">Your completions are currently saved to this browser only. Create a free account to sync them everywhere.</p>
-              <div className="flex gap-3 flex-wrap">
-                <a href="/sign-up" className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                  Create free account
-                </a>
-                <a href="/login" className="text-sm font-medium text-blue-600 hover:underline self-center">
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tier roadmap */}
-        <div id="skill-tiers-anchor" className="scroll-mt-20" />
-        <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Skill tiers</h2>
+        {/* ── 2. What this level means — tier roadmap ──────────────────────── */}
+        <div id="skill-tiers-anchor" className="scroll-mt-20">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">What this level means</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {TIERS.map((t) => {
               const isActive = tier.name === t.name
@@ -402,116 +299,266 @@ export default function ProgressPage() {
           </div>
         </div>
 
-        {/* Guide grid — split into sections */}
-        <div id="your-guides-anchor" className="scroll-mt-20" />
-        <div className="space-y-8">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Your guides</h2>
-            {completedCount === 0 && (
-              <p className="text-sm text-gray-400">
-                Complete a guide and hit &ldquo;Mark as Complete&rdquo; to track progress
-              </p>
-            )}
+        {/* ── 3. What to do next — recommendation card ─────────────────────── */}
+        {recommendation && (
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">What to do next</h2>
+            <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6">
+              <p className="text-xs font-semibold uppercase tracking-wide text-orange-500 mb-2">Your next fix</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-1">{recommendation.guide.title}</h3>
+              <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                <span>⏱ {recommendation.guide.time}</span>
+                {recommendation.guide.estimatedSavingsMax > 0 && (
+                  <span>💰 Save £{recommendation.guide.estimatedSavingsMin}–{recommendation.guide.estimatedSavingsMax}</span>
+                )}
+              </div>
+              <a
+                href={recommendation.guide.href}
+                className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+              >
+                Start next fix →
+              </a>
+            </div>
           </div>
+        )}
 
-          {/* Milestone block */}
-          {nextMilestone && (
-            <div className="flex items-center gap-3 bg-purple-50 border border-purple-200 rounded-xl px-5 py-4 text-sm">
-              <span className="text-lg">🏆</span>
-              <p className="text-purple-800">
-                <span className="font-semibold">
-                  Complete {nextMilestone.at - completedCount} more fix{nextMilestone.at - completedCount !== 1 ? 'es' : ''} to unlock:
-                </span>{' '}
-                {nextMilestone.label}
-              </p>
-            </div>
-          )}
-
-          {/* Completed guides */}
-          {completedGuides.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-3">
-                ✓ Completed ({completedGuides.length})
-              </h3>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {completedGuides.map((guide) => (
-                  <GuideCard
-                    key={guide.slug}
-                    guide={guide}
-                    done
-                    date={completionMap[guide.slug]}
-                    ownedSet={ownedSet}
-                    toolById={toolById}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Recommended next */}
-          {recommendedNext.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-orange-600 uppercase tracking-wide mb-3">
-                Recommended next
-              </h3>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {recommendedNext.map((guide) => (
-                  <GuideCard
-                    key={guide.slug}
-                    guide={guide}
-                    done={false}
-                    ownedSet={ownedSet}
-                    toolById={toolById}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Remaining guides */}
-          {remainingGuides.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
-                Remaining ({remainingGuides.length})
-              </h3>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {remainingGuides.map((guide) => (
-                  <GuideCard
-                    key={guide.slug}
-                    guide={guide}
-                    done={false}
-                    ownedSet={ownedSet}
-                    toolById={toolById}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Badges */}
-        <div id="badges-anchor" className="scroll-mt-20" />
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Badges earned</h2>
-            <a href="/badges" className="text-sm text-orange-500 hover:underline">View all →</a>
+        {/* Error banner — Supabase fetch failed, fell back to localStorage */}
+        {error && (
+          <div className="flex items-start gap-3 bg-amber-50 border border-amber-300 rounded-xl px-5 py-4 text-sm text-amber-800">
+            <span className="shrink-0 text-lg">⚠️</span>
+            <span>{error}</span>
           </div>
-          {earnedBadges.length === 0 ? (
-            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
-              <p className="text-3xl mb-2">🔒</p>
-              <p className="text-sm">Complete your first guide to earn a badge.</p>
+        )}
+
+        {/* Sign-in prompt for guests */}
+        {!user && (
+          <div className="flex items-start gap-4 bg-blue-50 border border-blue-200 rounded-2xl px-6 py-5">
+            <span className="text-2xl shrink-0">☁️</span>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-blue-900 mb-1">Sign in to save your progress across devices</p>
+              <p className="text-sm text-blue-700 mb-3">Your completions are currently saved to this browser only. Create a free account to sync them everywhere.</p>
+              <div className="flex gap-3 flex-wrap">
+                <a href="/sign-up" className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                  Create free account
+                </a>
+                <a href="/login" className="text-sm font-medium text-blue-600 hover:underline self-center">
+                  Log in
+                </a>
+              </div>
             </div>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {earnedBadges.map(badge => (
-                <div key={badge.id} className="bg-white border border-gray-200 rounded-xl p-4 text-center">
-                  <div className="text-3xl mb-2">{badge.emoji}</div>
-                  <p className="text-sm font-semibold text-gray-800">{badge.name}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{badge.description}</p>
+          </div>
+        )}
+
+        {/* ── "Track everything" collapsible ───────────────────────────────── */}
+        <div className="border border-gray-200 rounded-2xl overflow-hidden">
+
+          {/* Collapsible header */}
+          <button
+            onClick={() => setTrackOpen(o => !o)}
+            className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-gray-50 transition-colors"
+            aria-expanded={trackOpen}
+          >
+            <div>
+              <p className="text-lg font-semibold text-gray-900">Track everything</p>
+              <p className="text-sm text-gray-400 mt-0.5">Your stats, streak, badges and full history</p>
+            </div>
+            {/* Chevron */}
+            <svg
+              className={`w-5 h-5 text-gray-400 shrink-0 transition-transform duration-300 ${trackOpen ? 'rotate-180' : ''}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {/* Animated content wrapper */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateRows: trackOpen ? '1fr' : '0fr',
+              transition: 'grid-template-rows 300ms ease',
+            }}
+          >
+            <div style={{ overflow: 'hidden' }}>
+              <div className="px-6 pb-8 pt-2 space-y-10 border-t border-gray-100">
+
+                {/* Streak */}
+                <div className="flex items-center gap-4 bg-orange-50 border border-orange-200 rounded-2xl px-6 py-5">
+                  <span className="text-4xl">{streak > 0 ? '🔥' : '💤'}</span>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {streak > 0 ? `${streak} day streak — don't break it` : 'No active streak'}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {streak > 0
+                        ? 'Complete one fix today to keep it alive'
+                        : 'Complete a guide to start your streak'}
+                    </p>
+                  </div>
                 </div>
-              ))}
+
+                {/* Summary stats */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Skill Points */}
+                  <StatCard
+                    value={<>⭐ {totalPoints}</>}
+                    valueClass="text-purple-600 group-hover:text-purple-700 transition-colors"
+                    label="Skill points"
+                    onClick={() => scrollTo('skill-tiers-anchor')}
+                    hoverBorderClass="hover:border-purple-300"
+                  />
+
+                  {/* Guides Completed */}
+                  <StatCard
+                    value={completedCount}
+                    valueClass="text-orange-500 group-hover:text-orange-600 transition-colors"
+                    label="Guides completed"
+                    onClick={user ? () => scrollTo('your-guides-anchor', true) : undefined}
+                    hoverBorderClass="hover:border-orange-300"
+                    locked={!user}
+                    lockedHint="Sign in to save progress across devices"
+                  />
+
+                  {/* Money Saved */}
+                  <StatCard
+                    value={`£${totalSaved}`}
+                    valueClass="text-green-600 group-hover:text-green-700 transition-colors"
+                    label="Money saved"
+                    href={user ? '/savings-tracker' : undefined}
+                    hoverBorderClass="hover:border-green-300"
+                    locked={!user}
+                    lockedHint="Sign in to save progress across devices"
+                  />
+
+                  {/* Badges Earned */}
+                  <StatCard
+                    value={earnedBadgesCount}
+                    valueClass="text-yellow-500 group-hover:text-yellow-600 transition-colors"
+                    label="Badges earned"
+                    onClick={user ? () => scrollTo('badges-anchor', true) : undefined}
+                    hoverBorderClass="hover:border-yellow-300"
+                    locked={!user}
+                    lockedHint="Sign in to save progress across devices"
+                  />
+                </div>
+
+                {/* Guide grid — split into sections */}
+                <div id="your-guides-anchor" className="scroll-mt-20 space-y-8">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg font-semibold text-gray-900">Your guides</h2>
+                    {completedCount === 0 && (
+                      <p className="text-sm text-gray-400">
+                        Complete a guide and hit &ldquo;Mark as Complete&rdquo; to track progress
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Milestone block */}
+                  {nextMilestone && (
+                    <div className="flex items-center gap-3 bg-purple-50 border border-purple-200 rounded-xl px-5 py-4 text-sm">
+                      <span className="text-lg">🏆</span>
+                      <p className="text-purple-800">
+                        <span className="font-semibold">
+                          Complete {nextMilestone.at - completedCount} more fix{nextMilestone.at - completedCount !== 1 ? 'es' : ''} to unlock:
+                        </span>{' '}
+                        {nextMilestone.label}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Completed guides */}
+                  {completedGuides.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-3">
+                        ✓ Completed ({completedGuides.length})
+                      </h3>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {completedGuides.map((guide) => (
+                          <GuideCard
+                            key={guide.slug}
+                            guide={guide}
+                            done
+                            date={completionMap[guide.slug]}
+                            ownedSet={ownedSet}
+                            toolById={toolById}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Recommended next */}
+                  {recommendedNext.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-semibold text-orange-600 uppercase tracking-wide mb-3">
+                        Recommended next
+                      </h3>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {recommendedNext.map((guide) => (
+                          <GuideCard
+                            key={guide.slug}
+                            guide={guide}
+                            done={false}
+                            ownedSet={ownedSet}
+                            toolById={toolById}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Remaining guides */}
+                  {remainingGuides.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                        Remaining ({remainingGuides.length})
+                      </h3>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {remainingGuides.map((guide) => (
+                          <GuideCard
+                            key={guide.slug}
+                            guide={guide}
+                            done={false}
+                            ownedSet={ownedSet}
+                            toolById={toolById}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Badges */}
+                <div id="badges-anchor" className="scroll-mt-20">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-semibold text-gray-900">Badges earned</h2>
+                    <a href="/badges" className="text-sm text-orange-500 hover:underline">View all →</a>
+                  </div>
+                  {earnedBadges.length === 0 ? (
+                    <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
+                      <p className="text-3xl mb-2">🔒</p>
+                      <p className="text-sm">Complete your first guide to earn a badge.</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {earnedBadges.map(badge => (
+                        <div key={badge.id} className="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                          <div className="text-3xl mb-2">{badge.emoji}</div>
+                          <p className="text-sm font-semibold text-gray-800">{badge.name}</p>
+                          <p className="text-xs text-gray-400 mt-0.5">{badge.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+              </div>
             </div>
-          )}
+          </div>
+
         </div>
 
       </div>
