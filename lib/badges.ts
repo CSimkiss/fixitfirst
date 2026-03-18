@@ -18,9 +18,13 @@ export type Badge = {
   name: string
   description: string
   hint: string
+  /** Static action for this badge — used in nudges and earned-badge CTAs */
+  actionLabel: string
+  actionHref: string
   /** streak is optional; defaults to 0 on call sites that don't have it */
-  check: (completedSlugs: string[], ownedToolIds: string[], streak?: number) => boolean
-  progress: (completedSlugs: string[], ownedToolIds: string[], streak?: number) => BadgeProgress
+  /** dates is the raw completion date values (slug → date); optional */
+  check: (completedSlugs: string[], ownedToolIds: string[], streak?: number, dates?: string[]) => boolean
+  progress: (completedSlugs: string[], ownedToolIds: string[], streak?: number, dates?: string[]) => BadgeProgress
 }
 
 // ── Dynamic slug sets (update automatically when guides are added) ─────────────
@@ -73,6 +77,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'First Fix',
     description: 'Complete your first guide',
     hint: 'Complete any guide to unlock',
+    actionLabel: 'Browse guides',
+    actionHref: '/guides',
     check: (c) => c.length >= 1,
     progress: (c) => countProgress(
       c.length, 1,
@@ -88,6 +94,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Triple Threat',
     description: 'Complete 3 guides',
     hint: 'Complete 3 guides to unlock',
+    actionLabel: 'Browse guides',
+    actionHref: '/guides',
     check: (c) => c.length >= 3,
     progress: (c) => countProgress(
       c.length, 3,
@@ -103,6 +111,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Getting There',
     description: 'Complete 5 guides',
     hint: 'Complete 5 guides to unlock',
+    actionLabel: 'Browse guides',
+    actionHref: '/guides',
     check: (c) => c.length >= 5,
     progress: (c) => countProgress(
       c.length, 5,
@@ -118,6 +128,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Ten Down',
     description: 'Complete 10 guides',
     hint: 'Complete 10 guides to unlock',
+    actionLabel: 'Browse guides',
+    actionHref: '/guides',
     check: (c) => c.length >= 10,
     progress: (c) => countProgress(
       c.length, 10,
@@ -133,6 +145,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Halfway There',
     description: `Complete half of all available guides`,
     hint: `Complete ${Math.ceil(ALL_GUIDES.length / 2)} guides to unlock`,
+    actionLabel: 'Browse guides',
+    actionHref: '/guides',
     check: (c) => c.length >= Math.ceil(ALL_GUIDES.length / 2),
     progress: (c) => {
       const total = Math.ceil(ALL_GUIDES.length / 2)
@@ -151,6 +165,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Full House',
     description: 'Complete all available guides',
     hint: `Complete all ${ALL_GUIDES.length} guides to unlock`,
+    actionLabel: 'Browse all guides',
+    actionHref: '/guides',
     check: (c) => c.length >= ALL_GUIDES.length,
     progress: (c) => {
       const total = ALL_GUIDES.length
@@ -171,6 +187,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Category Focus',
     description: 'Complete 3 guides in a single category',
     hint: 'Complete 3 guides from any one category to unlock',
+    actionLabel: 'Browse by category',
+    actionHref: '/guides',
     check: (c) => {
       const cats: Record<string, number> = {}
       for (const slug of c) {
@@ -201,6 +219,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Category Collector',
     description: 'Complete guides in 3 different categories',
     hint: 'Complete at least one guide in 3 different categories',
+    actionLabel: 'Browse categories',
+    actionHref: '/guides',
     check: (c) => {
       const cats = new Set(
         c.map(slug => ALL_GUIDES.find(g => g.slug === slug)?.category)
@@ -228,6 +248,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Plumber in Training',
     description: 'Complete the 3 core plumbing guides',
     hint: 'Complete Fix a dripping tap, Unblock a drain, and Fix a running toilet',
+    actionLabel: 'View plumbing guides',
+    actionHref: '/guides',
     check: (c) => CORE_PLUMBING_SLUGS.every(s => c.includes(s)),
     progress: (c) => {
       const current = countIn(c, CORE_PLUMBING_SLUGS)
@@ -248,6 +270,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Plumbing Pro',
     description: 'Complete 5 plumbing guides',
     hint: 'Complete 5 guides in the Plumbing category',
+    actionLabel: 'View plumbing guides',
+    actionHref: '/guides',
     check: (c) => countIn(c, PLUMBING_SLUGS) >= 5,
     progress: (c) => {
       const current = countIn(c, PLUMBING_SLUGS)
@@ -268,6 +292,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Decorator',
     description: 'Complete the Paint a room guide',
     hint: 'Complete the Paint a room guide',
+    actionLabel: 'View guide',
+    actionHref: '/guides/paint-a-room',
     check: (c) => c.includes('paint-a-room'),
     progress: (c) => {
       const done = c.includes('paint-a-room')
@@ -286,6 +312,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Decorating Pro',
     description: 'Complete 3 decorating guides',
     hint: 'Complete 3 guides in the Decorating category',
+    actionLabel: 'View decorating guides',
+    actionHref: '/guides',
     check: (c) => countIn(c, DECORATING_SLUGS) >= 3,
     progress: (c) => {
       const current = countIn(c, DECORATING_SLUGS)
@@ -308,6 +336,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Quick Fix',
     description: 'Complete a guide in 20 minutes or less',
     hint: 'Complete any guide that takes 20 minutes or less',
+    actionLabel: 'View quick guides',
+    actionHref: '/guides',
     check: (c) => QUICK_SLUGS.some(s => c.includes(s)),
     progress: (c) => {
       const done = QUICK_SLUGS.some(s => c.includes(s))
@@ -323,11 +353,33 @@ export const ALL_BADGES: Badge[] = [
   },
 
   {
+    id: 'streak-starter',
+    emoji: '📅',
+    name: 'Streak Starter',
+    description: 'Complete fixes on 2 different days',
+    hint: 'Come back on a second day to fix something',
+    actionLabel: 'Browse guides',
+    actionHref: '/guides',
+    check: (_c, _t, _s, dates = []) => new Set(dates).size >= 2,
+    progress: (_c, _t, _s, dates = []) => {
+      const unique = new Set(dates).size
+      return countProgress(
+        Math.min(unique, 2), 2,
+        `${Math.min(unique, 2)} / 2 days with a completed fix`,
+        '/guides', 'Browse guides →', '/guides',
+        'Completed fixes on 2 different days',
+      )
+    },
+  },
+
+  {
     id: 'two-day-streak',
     emoji: '🔥',
     name: 'On a Roll',
     description: 'Keep a 2-day fixing streak',
     hint: 'Complete guides on 2 consecutive days',
+    actionLabel: 'Keep your streak',
+    actionHref: '/guides',
     check: (_c, _t, streak = 0) => streak >= 2,
     progress: (_c, _t, streak = 0) => countProgress(
       streak, 2,
@@ -343,6 +395,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Unstoppable',
     description: 'Keep a 5-day fixing streak',
     hint: 'Complete guides on 5 consecutive days',
+    actionLabel: 'Keep your streak',
+    actionHref: '/guides',
     check: (_c, _t, streak = 0) => streak >= 5,
     progress: (_c, _t, streak = 0) => countProgress(
       streak, 5,
@@ -358,6 +412,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Tool Up',
     description: 'Add 5 or more tools to your library',
     hint: 'Visit My Tools and tick at least 5 tools',
+    actionLabel: 'Manage tools',
+    actionHref: '/tools',
     check: (_c, t) => t.length >= 5,
     progress: (_c, t) => countProgress(
       t.length, 5,
@@ -373,6 +429,8 @@ export const ALL_BADGES: Badge[] = [
     name: 'Well Equipped',
     description: 'Add 10 or more tools to your library',
     hint: 'Visit My Tools and tick at least 10 tools',
+    actionLabel: 'Manage tools',
+    actionHref: '/tools',
     check: (_c, t) => t.length >= 10,
     progress: (_c, t) => countProgress(
       t.length, 10,

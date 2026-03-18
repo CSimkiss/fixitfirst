@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
 import { ALL_BADGES } from '@/lib/badges'
@@ -12,28 +12,49 @@ import { TOOLS_STORAGE_KEY } from '@/lib/tools'
 
 export default function BadgesPage() {
   const [completedSlugs, setCompletedSlugs] = useState<string[]>([])
-  const [ownedTools, setOwnedTools]         = useState<string[]>([])
-  const [streak, setStreak]                 = useState(0)
-  const [loaded, setLoaded]                 = useState(false)
+  const [completionDates, setCompletionDates] = useState<string[]>([])
+  const [ownedTools, setOwnedTools]           = useState<string[]>([])
+  const [streak, setStreak]                   = useState(0)
+  const [loaded, setLoaded]                   = useState(false)
+  // Track which badge ids were previously earned (from sessionStorage) so we
+  // can animate newly unlocked ones this session.
+  const prevEarnedRef = useRef<Set<string>>(new Set())
 
   useEffect(() => {
     try {
       const map = getCompletionMap()
-      setCompletedSlugs(Object.keys(map))
-      setStreak(getStreak(Object.values(map)))
+      const slugs = Object.keys(map)
+      const dates = Object.values(map)
+      setCompletedSlugs(slugs)
+      setCompletionDates(dates)
+      setStreak(getStreak(dates))
       const tools = localStorage.getItem(TOOLS_STORAGE_KEY)
       if (tools) setOwnedTools(JSON.parse(tools))
+
+      // Load previously known earned badge ids from sessionStorage
+      try {
+        const raw = sessionStorage.getItem('fif-earned-badges')
+        prevEarnedRef.current = new Set(raw ? JSON.parse(raw) : [])
+      } catch {}
     } catch {}
     setLoaded(true)
   }, [])
 
-  const earned = ALL_BADGES.filter(b =>  b.check(completedSlugs, ownedTools, streak))
-  const locked = ALL_BADGES.filter(b => !b.check(completedSlugs, ownedTools, streak))
+  const earned = ALL_BADGES.filter(b =>  b.check(completedSlugs, ownedTools, streak, completionDates))
+  const locked = ALL_BADGES.filter(b => !b.check(completedSlugs, ownedTools, streak, completionDates))
+
+  // Persist current earned set to sessionStorage after render
+  useEffect(() => {
+    if (!loaded) return
+    try {
+      sessionStorage.setItem('fif-earned-badges', JSON.stringify(earned.map(b => b.id)))
+    } catch {}
+  }, [loaded, earned])
 
   // Closest-to-unlock: locked badge with smallest remaining, tie-break by highest pct
   const lockedWithProgress = locked.map(b => ({
     badge: b,
-    progress: b.progress(completedSlugs, ownedTools, streak),
+    progress: b.progress(completedSlugs, ownedTools, streak, completionDates),
   }))
 
   const closest = lockedWithProgress
@@ -42,6 +63,9 @@ export default function BadgesPage() {
       a.progress.remaining - b.progress.remaining ||
       b.progress.pct - a.progress.pct,
     )[0] ?? null
+
+  const isNewlyEarned = (id: string) =>
+    loaded && !prevEarnedRef.current.has(id) && earned.some(b => b.id === id)
 
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -72,6 +96,21 @@ export default function BadgesPage() {
           <p className="text-gray-400 text-center py-16">Loading your badges…</p>
         ) : (
           <>
+            {/* ── No badges at all yet — first-time empty state ────────── */}
+            {earned.length === 0 && locked.length === 0 && (
+              <div className="text-center py-16">
+                <p className="text-4xl mb-3">🔒</p>
+                <p className="text-gray-500 font-medium mb-1">No badges yet</p>
+                <p className="text-sm text-gray-400 mb-5">Complete your first guide to earn one.</p>
+                <a
+                  href="/guides"
+                  className="inline-block bg-orange-500 text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-600 transition-colors"
+                >
+                  Browse guides →
+                </a>
+              </div>
+            )}
+
             {/* ── Closest to unlock ──────────────────────────────────────── */}
             {closest && (
               <div className="mb-10 bg-orange-50 border border-orange-200 rounded-2xl p-6">
@@ -83,6 +122,12 @@ export default function BadgesPage() {
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-gray-900">{closest.badge.name}</p>
                     <p className="text-sm text-gray-600 mt-0.5">{closest.badge.description}</p>
+                    {/* 1-step-away nudge */}
+                    {closest.progress.remaining === 1 && (
+                      <p className="mt-1.5 text-xs font-semibold text-orange-600 bg-orange-100 inline-block px-2 py-0.5 rounded-full">
+                        You&apos;re 1 step away from unlocking this!
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -106,7 +151,7 @@ export default function BadgesPage() {
                   href={closest.progress.nextHref}
                   className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors"
                 >
-                  Start next fix →
+                  {closest.badge.actionLabel} →
                 </a>
               </div>
             )}
@@ -122,27 +167,54 @@ export default function BadgesPage() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {earned.map(badge => {
-                    const { unlockContext } = badge.progress(completedSlugs, ownedTools, streak)
+                    const { unlockContext } = badge.progress(completedSlugs, ownedTools, streak, completionDates)
+                    const isNew = isNewlyEarned(badge.id)
                     return (
-                      <div
+                      <a
                         key={badge.id}
-                        className="border-2 border-orange-200 bg-orange-50 rounded-xl p-5 flex items-start gap-4"
+                        href={badge.actionHref}
+                        className={[
+                          'border-2 border-orange-200 bg-orange-50 rounded-xl p-5 flex items-start gap-4',
+                          'hover:border-orange-400 hover:shadow-sm transition-all',
+                          isNew ? 'animate-badge-pop' : '',
+                        ].join(' ')}
                       >
-                        <div className="text-4xl shrink-0">{badge.emoji}</div>
-                        <div>
+                        <div className={`text-4xl shrink-0 ${isNew ? 'animate-badge-pop' : ''}`}>
+                          {badge.emoji}
+                        </div>
+                        <div className="flex-1 min-w-0">
                           <p className="font-bold text-gray-900">{badge.name}</p>
                           <p className="text-sm text-gray-600 mt-0.5">{badge.description}</p>
-                          <span className="inline-block mt-2 text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full">
-                            Earned ✓
-                          </span>
+                          <div className="flex items-center gap-2 flex-wrap mt-2">
+                            <span className="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full">
+                              {isNew ? '🎉 Just unlocked!' : 'Earned ✓'}
+                            </span>
+                            <span className="text-xs text-orange-500 hover:underline">
+                              {badge.actionLabel} →
+                            </span>
+                          </div>
                           {unlockContext && (
                             <p className="text-xs text-gray-400 mt-1.5">{unlockContext}</p>
                           )}
                         </div>
-                      </div>
+                      </a>
                     )
                   })}
                 </div>
+              </div>
+            )}
+
+            {/* ── Zero-earned state (with locked badges present) ─────────── */}
+            {earned.length === 0 && locked.length > 0 && (
+              <div className="text-center py-8 border border-dashed border-gray-200 rounded-xl mb-8">
+                <p className="text-gray-400 mb-2">No badges yet</p>
+                <p className="text-sm text-gray-400">Complete your first guide to earn your first badge.</p>
+                <a
+                  href="/guides"
+                  className="inline-block mt-4 bg-orange-500 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors"
+                >
+                  Browse guides
+                </a>
               </div>
             )}
 
@@ -191,28 +263,14 @@ export default function BadgesPage() {
 
                       {/* Contextual CTA */}
                       <a
-                        href={progress.ctaHref}
+                        href={badge.actionHref}
                         className="text-xs text-orange-500 hover:text-orange-600 hover:underline transition-colors"
                       >
-                        {progress.ctaLabel}
+                        {badge.actionLabel} →
                       </a>
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
-
-            {/* Empty state */}
-            {earned.length === 0 && locked.length > 0 && (
-              <div className="text-center py-8 border border-dashed border-gray-200 rounded-xl mb-8">
-                <p className="text-gray-400 mb-2">No badges yet</p>
-                <p className="text-sm text-gray-400">Complete your first guide to earn your first badge.</p>
-                <a
-                  href="/guides"
-                  className="inline-block mt-4 bg-orange-500 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors"
-                >
-                  Browse guides
-                </a>
               </div>
             )}
           </>
