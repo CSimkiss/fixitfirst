@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Nav from '@/components/Nav'
 import MobileNav from '@/components/MobileNav'
@@ -8,7 +8,7 @@ import DashboardSkeleton from '@/components/DashboardSkeleton'
 import { useCompletions } from '@/lib/useCompletions'
 import { TIERS, getStreak } from '@/lib/progress'
 import { totalSavings, tierLevel } from '@/lib/completions'
-import { ALL_GUIDES, getRecommendedNextGuide } from '@/lib/guides'
+import { ALL_GUIDES } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
 import { ALL_TOOLS, GUIDE_TOOLS, TOOLS_STORAGE_KEY, type Tool } from '@/lib/tools'
 import { RETAILERS } from '@/lib/affiliates'
@@ -102,8 +102,6 @@ export default function DashboardPage() {
   const router = useRouter()
   const { completionMap, user, loading, syncing, error } = useCompletions()
   const [ownedTools, setOwnedTools] = useState<string[]>([])
-  const recommendedRef = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
     try {
       const raw = localStorage.getItem(TOOLS_STORAGE_KEY)
@@ -149,13 +147,6 @@ export default function DashboardPage() {
     ? (GUIDE_TOOLS[nextGuide.slug] ?? []).length > 0 &&
       (GUIDE_TOOLS[nextGuide.slug] ?? []).every(id => ownedTools.includes(id))
     : false
-
-  function scrollTo(id: string) {
-    const el = document.getElementById(id)
-    if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 80
-    window.scrollTo({ top, behavior: 'smooth' })
-  }
 
   // Invert GUIDE_TOOLS: toolId → guide titles that need it
   const toolToGuides: Record<string, string[]> = {}
@@ -218,7 +209,7 @@ export default function DashboardPage() {
             value={completedCount}
             valueClass="text-orange-500 group-hover:text-orange-600 transition-colors"
             label="Guides completed"
-            href="/progress#your-guides-anchor"
+            href="/progress"
             hoverBorderClass="hover:border-orange-300"
           />
           <StatCard
@@ -232,21 +223,21 @@ export default function DashboardPage() {
             value={<>⭐ {totalPoints}</>}
             valueClass="text-purple-600 group-hover:text-purple-700 transition-colors"
             label="Skill points"
-            onClick={() => scrollTo('skill-tiers-anchor')}
+            href="/skill-level"
             hoverBorderClass="hover:border-purple-300"
           />
           <StatCard
             value={earnedBadges.length}
             valueClass="text-yellow-500 group-hover:text-yellow-600 transition-colors"
             label="Badges earned"
-            onClick={() => scrollTo('badges-anchor')}
+            href="/badges"
             hoverBorderClass="hover:border-yellow-300"
           />
         </div>
 
         {/* ── Recommended next guide ─────────────────────────────────── */}
         {nextGuide && (
-          <div ref={recommendedRef} id="recommended-guide" className="mt-2">
+          <div className="mt-2">
             <p className="text-xs font-semibold text-orange-500 uppercase tracking-wide mb-3">Recommended next</p>
             <a
               href={nextGuide.href}
@@ -289,7 +280,6 @@ export default function DashboardPage() {
         )}
 
         {/* Current tier card — links to full skill-level breakdown */}
-        <div id="skill-tiers-anchor" className="scroll-mt-20" />
         <a
           href="/skill-level"
           className={`block rounded-2xl border-2 p-6 flex items-center gap-5 hover:opacity-90 transition-opacity ${tier.bg} border-current ${tier.colour}`}
@@ -315,7 +305,6 @@ export default function DashboardPage() {
         </a>
 
         {/* Badges */}
-        <div id="badges-anchor" className="scroll-mt-20" />
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Badges earned</h2>
