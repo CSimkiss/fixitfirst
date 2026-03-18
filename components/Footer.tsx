@@ -25,7 +25,7 @@ export default function Footer() {
             FixItFirst is a participant in affiliate programmes including Amazon Associates and Awin. We earn from qualifying purchases.
           </p>
         </div>
-        <p className="text-gray-400 text-xs mt-4 md:text-center">© 2024 FixItFirst. All rights reserved.</p>
+        <p className="text-gray-400 text-xs mt-4 md:text-center">© {new Date().getFullYear()} FixItFirst. All rights reserved.</p>
       </div>
     </footer>
   )
