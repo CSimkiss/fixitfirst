@@ -202,7 +202,7 @@ export default function ProgressPage() {
 
         return (
           <a
-            href="/guides?recommended=true"
+            href="/skill-level"
             className="block bg-gray-950 text-white px-6 py-14 text-center hover:bg-gray-900 transition-colors"
           >
             <p className="text-gray-400 text-sm mb-2">Your skill level</p>
@@ -232,10 +232,10 @@ export default function ProgressPage() {
             {/* Primary CTA */}
             <div className="mt-5">
               <span className="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold text-sm">
-                Continue your progress →
+                Explore your skill level →
               </span>
               <p className="text-xs text-gray-500 mt-2">
-                Start with the easiest fixes to level up fastest
+                See what you can do — and what&apos;s coming next
               </p>
             </div>
 

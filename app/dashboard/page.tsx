@@ -288,11 +288,14 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Current tier card */}
+        {/* Current tier card — links to full skill-level breakdown */}
         <div id="skill-tiers-anchor" className="scroll-mt-20" />
-        <div className={`rounded-2xl border-2 p-6 flex items-center gap-5 ${tier.bg} border-current ${tier.colour}`}>
+        <a
+          href="/skill-level"
+          className={`block rounded-2xl border-2 p-6 flex items-center gap-5 hover:opacity-90 transition-opacity ${tier.bg} border-current ${tier.colour}`}
+        >
           <span className="text-5xl shrink-0">{tier.emoji}</span>
-          <div>
+          <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold uppercase tracking-widest opacity-60 mb-1">Your skill level</p>
             <h2 className="text-2xl font-bold">{tier.name}</h2>
             <p className="opacity-70 text-sm mt-0.5">{tier.description}</p>
@@ -305,8 +308,11 @@ export default function DashboardPage() {
             {!nextTier && (
               <p className="text-sm mt-2 opacity-60 font-semibold">🏆 Maximum tier reached!</p>
             )}
+            <p className="text-xs mt-3 font-semibold opacity-70">
+              Explore your level →
+            </p>
           </div>
-        </div>
+        </a>
 
         {/* Badges */}
         <div id="badges-anchor" className="scroll-mt-20" />
