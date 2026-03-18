@@ -159,7 +159,8 @@ export default function ProgressPage() {
   }, 0)
   const maxPoints = ALL_GUIDES.reduce((sum, g) => sum + g.skillPoints, 0)
   const totalSaved = totalSavings(completionMap)
-  const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, [], streak))
+  const completionDates = Object.values(completionMap)
+  const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, [], streak, completionDates))
   const earnedBadgesCount = earnedBadges.length
 
   // Opens the collapsible (if needed) then scrolls to target id

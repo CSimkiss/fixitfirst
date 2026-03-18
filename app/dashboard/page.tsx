@@ -136,7 +136,17 @@ export default function DashboardPage() {
   const totalSaved = totalSavings(completionMap)
   const streak = getStreak(Object.values(completionMap))
 
-  const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, ownedTools, streak))
+  const completionDates = Object.values(completionMap)
+  const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, ownedTools, streak, completionDates))
+
+  // Closest-to-unlock badge — drives nudge + smart routing
+  const lockedBadges = ALL_BADGES.filter(b => !b.check(completedSlugs, ownedTools, streak, completionDates))
+  const closestBadge = lockedBadges
+    .map(b => ({ badge: b, progress: b.progress(completedSlugs, ownedTools, streak, completionDates) }))
+    .filter(({ progress }) => progress.remaining > 0)
+    .sort((a, b) => a.progress.remaining - b.progress.remaining || b.progress.pct - a.progress.pct)[0] ?? null
+  const oneStepAway = closestBadge?.progress.remaining === 1 ? closestBadge : null
+
   const nextGuide = ALL_GUIDES.find(g => !completionMap[g.slug])
   const totalPoints = completedSlugs.reduce(
     (sum, slug) => sum + (ALL_GUIDES.find(g => g.slug === slug)?.skillPoints ?? 0),
@@ -247,6 +257,12 @@ export default function DashboardPage() {
                   {streak > 0 && (
                     <p className="text-sm text-orange-500 font-medium mb-1">🔥 Keep your streak going</p>
                   )}
+                  {/* Badge context: nudge toward closest unlockable badge */}
+                  {closestBadge && !streak && (
+                    <p className="text-xs text-gray-400 font-medium mb-1">
+                      {closestBadge.badge.emoji} Unlocks <strong>{closestBadge.badge.name}</strong> in {closestBadge.progress.remaining} more {closestBadge.progress.remaining === 1 ? 'fix' : 'fixes'}
+                    </p>
+                  )}
                   <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-500 transition-colors mb-1">
                     {nextGuide.title}
                   </h3>
@@ -257,13 +273,22 @@ export default function DashboardPage() {
                     <span>⭐ {nextGuide.skillPoints} pts</span>
                   </div>
                   <p className="text-sm font-medium text-green-600 mt-2">{nextGuide.saves}</p>
-                  <p className="text-xs text-gray-400 mt-2">Uses tools you already have</p>
                 </div>
                 <div className="shrink-0 bg-orange-500 text-white rounded-xl px-4 py-2 text-sm font-semibold group-hover:bg-orange-600 transition-colors whitespace-nowrap">
                   Start now →
                 </div>
               </div>
             </a>
+            {/* Smart secondary CTA: if closest badge needs a different action (e.g. tools) */}
+            {closestBadge && closestBadge.badge.actionHref !== '/guides' && (
+              <a
+                href={closestBadge.badge.actionHref}
+                className="mt-2 flex items-center gap-2 text-sm text-gray-500 hover:text-orange-500 transition-colors"
+              >
+                <span>{closestBadge.badge.emoji}</span>
+                <span>Or: {closestBadge.badge.actionLabel} to unlock <strong>{closestBadge.badge.name}</strong> →</span>
+              </a>
+            )}
           </div>
         )}
 
@@ -309,6 +334,25 @@ export default function DashboardPage() {
             <h2 className="text-lg font-semibold text-gray-900">Badges earned</h2>
             <a href="/badges" className="text-sm text-orange-500 hover:underline">View all →</a>
           </div>
+
+          {/* 1-step-away nudge */}
+          {oneStepAway && (
+            <div className="mb-4 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 flex items-center gap-3">
+              <span className="text-2xl shrink-0">{oneStepAway.badge.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-amber-900">
+                  You&apos;re 1 step away from unlocking <strong>{oneStepAway.badge.name}</strong>
+                </p>
+                <a
+                  href={oneStepAway.badge.actionHref}
+                  className="text-xs text-amber-600 hover:underline"
+                >
+                  {oneStepAway.badge.actionLabel} →
+                </a>
+              </div>
+            </div>
+          )}
+
           {earnedBadges.length === 0 ? (
             <div className="bg-white border border-gray-200 rounded-2xl p-6 text-center text-gray-400">
               <p className="text-3xl mb-2">🔒</p>
@@ -317,11 +361,15 @@ export default function DashboardPage() {
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {earnedBadges.map(badge => (
-                <div key={badge.id} className="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                <a
+                  key={badge.id}
+                  href={badge.actionHref}
+                  className="bg-white border border-gray-200 rounded-xl p-4 text-center hover:border-orange-300 transition-colors"
+                >
                   <div className="text-3xl mb-2">{badge.emoji}</div>
                   <p className="text-sm font-semibold text-gray-800">{badge.name}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{badge.description}</p>
-                </div>
+                </a>
               ))}
             </div>
           )}

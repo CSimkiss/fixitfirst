@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { TIERS } from '@/lib/progress'
 import { totalSavings, tierLevel } from '@/lib/completions'
 import { ALL_GUIDES, getRecommendation, type Guide, type RecommendationReason } from '@/lib/guides'
+import { ALL_BADGES } from '@/lib/badges'
 import { screwfixToolUrl } from '@/lib/affiliates'
 import type { CompletionMap } from '@/lib/completions'
 
@@ -100,6 +101,14 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
   const nextGuide       = recommendation?.guide ?? null
   const nextReason      = recommendation?.reason ?? 'easiest'
   const toolSuggestion  = GUIDE_TOOL_SUGGESTION[slug] ?? null
+
+  // ── Detect newly unlocked badges (guide-based only; streak/tool badges need
+  //    extra context we don't carry here and are handled on the badges page) ──
+  const slugsAfter  = Object.keys(completionMap)
+  const slugsBefore = slugsAfter.filter(s => s !== slug)
+  const newlyUnlockedBadges = ALL_BADGES.filter(
+    b => !b.check(slugsBefore, [], 0) && b.check(slugsAfter, [], 0),
+  )
 
   return (
     <div
@@ -198,8 +207,25 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
             )}
           </div>
 
-          {/* Recommended next guide — primary CTA block */}
-          {nextGuide && <NextGuideCard guide={nextGuide} onClose={onClose} />}
+          {/* ── Badge unlock celebration ─────────────────────────────── */}
+          {newlyUnlockedBadges.length > 0 && (
+            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-amber-600 mb-3">
+                🏅 Badge{newlyUnlockedBadges.length > 1 ? 's' : ''} unlocked!
+              </p>
+              <div className="flex flex-col gap-2">
+                {newlyUnlockedBadges.map(badge => (
+                  <div key={badge.id} className="flex items-center gap-3">
+                    <span className="text-2xl shrink-0">{badge.emoji}</span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-gray-900">{badge.name}</p>
+                      <p className="text-xs text-gray-500">{badge.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Affiliate tool nudge — secondary, below the next-guide CTA */}
           {toolSuggestion && (
