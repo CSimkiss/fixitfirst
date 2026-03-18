@@ -195,33 +195,62 @@ export default function ProgressPage() {
     <main className="min-h-screen bg-white pb-20 md:pb-0">
       <Nav />
 
-      {/* Hero */}
-      <div className="bg-gray-950 text-white px-6 py-14 text-center">
-        <p className="text-gray-400 text-sm mb-2">Your skill level</p>
-        <div className="inline-flex items-center gap-3 mb-2">
-          <span className="text-4xl">{tier.emoji}</span>
-          <h1 className="text-4xl md:text-5xl font-bold">{tier.name}</h1>
-        </div>
-        <p className="text-gray-300 text-lg mb-1">{tier.description}</p>
-        <p className="text-gray-400 text-sm">
-          {completedCount} of {ALL_GUIDES.length} guides completed
-          {nextTier && ` · ${nextTier.min - completedCount} more to reach ${nextTier.name}`}
-          {!nextTier && ' · All guides complete!'}
-        </p>
-        <div className="mt-4 inline-flex items-center gap-2 bg-orange-500/20 border border-orange-500/30 rounded-full px-5 py-2">
-          <span className="text-orange-400 text-lg font-bold">⭐ {totalPoints}</span>
-          <span className="text-gray-400 text-sm">/ {maxPoints} skill points</span>
-        </div>
-        {syncing && (
-          <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-gray-500">
-            <svg className="w-3 h-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-            </svg>
-            Syncing with server…
-          </div>
-        )}
-      </div>
+      {/* Hero — entire card links to recommended guides */}
+      {(() => {
+        const fixesLeft      = nextTier ? nextTier.min - completedCount : 0
+        const isNearNextTier = nextTier && fixesLeft <= 2
+
+        return (
+          <a
+            href="/guides?recommended=true"
+            className="block bg-gray-950 text-white px-6 py-14 text-center hover:bg-gray-900 transition-colors"
+          >
+            <p className="text-gray-400 text-sm mb-2">Your skill level</p>
+            <div className="inline-flex items-center gap-3 mb-2">
+              <span className="text-4xl">{tier.emoji}</span>
+              <h1 className="text-4xl md:text-5xl font-bold">{tier.name}</h1>
+            </div>
+            <p className="text-gray-300 text-lg mb-1">{tier.description}</p>
+            <p className="text-gray-400 text-sm">
+              {completedCount} of {ALL_GUIDES.length} guides completed
+              {nextTier && ` · ${fixesLeft} more to reach ${nextTier.name}`}
+              {!nextTier && ' · All guides complete!'}
+            </p>
+
+            {/* Close-to-next-tier highlight */}
+            {isNearNextTier && (
+              <p className="mt-2 text-sm font-medium text-orange-300">
+                You&apos;re close to {nextTier.name} — finish these next
+              </p>
+            )}
+
+            <div className="mt-4 inline-flex items-center gap-2 bg-orange-500/20 border border-orange-500/30 rounded-full px-5 py-2">
+              <span className="text-orange-400 text-lg font-bold">⭐ {totalPoints}</span>
+              <span className="text-gray-400 text-sm">/ {maxPoints} skill points</span>
+            </div>
+
+            {/* Primary CTA */}
+            <div className="mt-5">
+              <span className="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold text-sm">
+                Continue your progress →
+              </span>
+              <p className="text-xs text-gray-500 mt-2">
+                Start with the easiest fixes to level up fastest
+              </p>
+            </div>
+
+            {syncing && (
+              <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-gray-500">
+                <svg className="w-3 h-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                </svg>
+                Syncing with server…
+              </div>
+            )}
+          </a>
+        )
+      })()}
 
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-10">
 
