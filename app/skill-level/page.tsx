@@ -140,6 +140,7 @@ export default function SkillLevelPage() {
   // ── Derived state ────────────────────────────────────────────────────────────
   const completedSlugs   = Object.keys(completionMap)
   const completedCount   = completedSlugs.length
+  const pctCompleted     = ALL_GUIDES.length > 0 ? Math.round((completedCount / ALL_GUIDES.length) * 100) : 0
   const tier             = tierLevel(completionMap)
   const tierIdx          = TIERS.indexOf(tier)
   const levelNumber      = tierIdx + 1
@@ -201,7 +202,7 @@ export default function SkillLevelPage() {
         </div>
         <p className="text-gray-300 text-lg mb-1">{tier.description}</p>
         <p className="text-gray-400 text-sm">
-          {completedCount} of {ALL_GUIDES.length} guides completed
+          {completedCount} of {ALL_GUIDES.length} guides completed · You&apos;ve done {pctCompleted}% of all fixes
           {nextTier && ` · ${fixesLeft} more fix${fixesLeft !== 1 ? 'es' : ''} to reach ${nextTier.name}`}
           {!nextTier && ' · All guides complete!'}
         </p>
