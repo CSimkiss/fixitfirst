@@ -10,7 +10,7 @@ import RecentlyViewed from '@/components/RecentlyViewed'
 import DifficultyMeter from '@/components/DifficultyMeter'
 import CompletedTicker from '@/components/CompletedTicker'
 import { GUIDE_TOOLS, TOOLS_STORAGE_KEY } from '@/lib/tools'
-import { ALL_GUIDES } from '@/lib/guides'
+import { ALL_GUIDES, MOST_COMMON_GUIDE, searchGuides } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
 import { getCompletionMap } from '@/lib/completions'
 import { getStreak } from '@/lib/progress'
@@ -34,16 +34,11 @@ const guides = [
 
 const categories = ["All", "⚡ Quick wins", "Plumbing", "Electrics", "Carpentry", "Decorating", "Masonry", "Heating", "Fitting"]
 
+// Derived dynamically from the guide with the highest popularityScore
 const FEATURED_GUIDE = {
-  title: 'Fix a dripping tap',
-  saves: 'Save £80–150 today',
-  time: '45 mins',
-  cost: '£2–5',
-  level: 'Beginner',
-  category: 'Plumbing',
-  href: '/guides/fix-a-dripping-tap',
-  difficulty: 2,
-  description: 'A dripping tap wastes 5,500 litres of water a year. One £2 rubber washer fixes it. This is the perfect first plumbing job.',
+  ...MOST_COMMON_GUIDE,
+  description: MOST_COMMON_GUIDE.description ??
+    `Save £${MOST_COMMON_GUIDE.estimatedSavingsMin}–${MOST_COMMON_GUIDE.estimatedSavingsMax} by doing this yourself instead of calling a pro.`,
 }
 
 export default function Home() {
@@ -109,7 +104,7 @@ export default function Home() {
 
   // Determine label + destination
   let ctaLabel = 'Start your first fix'
-  let ctaHref  = '/guides/fix-a-dripping-tap'
+  let ctaHref  = MOST_COMMON_GUIDE.href
   if (loaded && oneStepBadge) {
     ctaLabel = `Finish your ${oneStepBadge.badge.name} ⚡`
     ctaHref  = oneStepBadge.badge.actionHref
@@ -118,10 +113,11 @@ export default function Home() {
     ctaHref  = '/progress'
   }
 
-  // ── Autosuggest ────────────────────────────────────────────────────────────
-  const suggestions = query.length >= 2 && showSuggestions
-    ? ALL_GUIDES.filter(g => g.title.toLowerCase().includes(query.toLowerCase())).slice(0, 5)
-    : []
+  // ── Autosuggest — uses searchGuides() to match synonyms + searchTerms ─────
+  const { guides: suggestionGuides } = query.length >= 2 && showSuggestions
+    ? searchGuides(query)
+    : { guides: [] }
+  const suggestions = suggestionGuides.slice(0, 5)
 
   const filteredGuides = activeCategory === 'All'
     ? guides
@@ -131,7 +127,14 @@ export default function Home() {
 
   function handleSearch() {
     const q = query.trim()
-    if (q) router.push(`/search?q=${encodeURIComponent(q)}`)
+    if (!q) return
+    const { guides: hits, fuzzy } = searchGuides(q)
+    // Single unambiguous non-fuzzy match → go straight to the guide
+    if (!fuzzy && hits.length === 1) {
+      router.push(hits[0].href)
+      return
+    }
+    router.push(`/search?q=${encodeURIComponent(q)}`)
   }
 
   return (
@@ -194,10 +197,10 @@ export default function Home() {
           {/* Quick chips */}
           <div className="flex gap-2 mt-5 flex-wrap justify-center">
             <a
-              href="/guides/fix-a-dripping-tap"
+              href={MOST_COMMON_GUIDE.href}
               className="bg-orange-500 hover:bg-orange-400 text-white px-3 py-1 rounded-full text-sm font-semibold border border-orange-400"
             >
-              ★ Start here: Fix a dripping tap
+              ★ Start here: {MOST_COMMON_GUIDE.title}
             </a>
             {["Blocked drain", "No hot water", "Leaking toilet", "Paint a room"].map((q) => (
               <span
@@ -266,7 +269,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex-shrink-0 hidden sm:block">
-              <div className="w-20 h-20 bg-orange-500 rounded-2xl flex items-center justify-center text-4xl">🔧</div>
+              <div className="w-20 h-20 bg-orange-500 rounded-2xl flex items-center justify-center text-4xl">{FEATURED_GUIDE.emoji}</div>
             </div>
           </div>
           <div className="mt-5 inline-flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm group-hover:bg-orange-600 transition-colors">
