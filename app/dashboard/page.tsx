@@ -134,6 +134,7 @@ export default function DashboardPage() {
   const nextTier = TIERS[TIERS.indexOf(tier) + 1]
 
   const totalSaved = totalSavings(completionMap)
+  const streak = getStreak(Object.values(completionMap))
 
   const earnedBadges = ALL_BADGES.filter(b => b.check(completedSlugs, ownedTools, streak))
   const nextGuide = ALL_GUIDES.find(g => !completionMap[g.slug])
@@ -141,8 +142,6 @@ export default function DashboardPage() {
     (sum, slug) => sum + (ALL_GUIDES.find(g => g.slug === slug)?.skillPoints ?? 0),
     0,
   )
-
-  const streak = getStreak(Object.values(completionMap))
   const nextGuideHasAllTools = nextGuide
     ? (GUIDE_TOOLS[nextGuide.slug] ?? []).length > 0 &&
       (GUIDE_TOOLS[nextGuide.slug] ?? []).every(id => ownedTools.includes(id))
