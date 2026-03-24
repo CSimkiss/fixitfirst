@@ -22,6 +22,15 @@ export type Guide = {
 
 export const ALL_GUIDES: Guide[] = [
   {
+    slug: 'strip-out-bathroom', title: 'Strip out a bathroom',
+    time: '1–3 hours', timeMinutes: 120, cost: '£0–20', level: 'Intermediate', category: 'Plumbing',
+    href: '/guides/strip-out-bathroom', difficulty: 3,
+    saves: 'Save £150–400 today', estimatedSavingsMin: 150, estimatedSavingsMax: 400,
+    emoji: '🪣', ukSpecific: true, skillPoints: 30, popularityScore: 72,
+    searchTerms: ['strip out bathroom', 'bathroom strip out', 'remove bathroom fixtures', 'remove tiles bathroom', 'prep bathroom renovation', 'bathroom prep', 'bathroom demolition', 'rip out bathroom'],
+    description: 'The essential first phase of any bathroom renovation. Learn to safely isolate water, remove old fixtures, and prepare surfaces — the right way.',
+  },
+  {
     slug: 'fix-a-dripping-tap', title: 'Fix a dripping tap',
     time: '45 mins', timeMinutes: 45, cost: '£2–5', level: 'Beginner', category: 'Plumbing',
     href: '/guides/fix-a-dripping-tap', difficulty: 2,
