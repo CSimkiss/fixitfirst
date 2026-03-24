@@ -55,6 +55,7 @@ export const ALL_TOOLS: Tool[] = [
 export const GUIDE_TOOLS: Record<string, string[]> = {
   // Plumbing
   'strip-out-bathroom':        ['utility-knife', 'adjustable-spanner', 'screwdriver-flat', 'screwdriver-cross', 'rubber-gloves', 'bucket'],
+  'prep-bathroom-plumbing':    ['adjustable-spanner', 'bucket', 'rubber-gloves', 'sponge-cloths', 'ptfe-tape'],
   'fix-a-dripping-tap':        ['adjustable-spanner', 'screwdriver-flat', 'ptfe-tape'],
   'fix-a-leaking-pipe-joint':  ['adjustable-spanner', 'ptfe-tape'],
   'replace-a-toilet-seat':     ['screwdriver-cross', 'pliers'],
