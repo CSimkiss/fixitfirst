@@ -258,4 +258,10 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 567,
     renterWarning: 'Never lay decking in a rented property without written permission from your landlord. It is a permanent change and may require planning permission.',
   },
+  'strip-out-bathroom': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'More involved than a single fix — this is the start of a bigger project',
+    completedCount: 0,
+    renterWarning: 'Never strip out a bathroom in a rented property without written permission from your landlord. Removing fixtures or tiles is a major change. Get everything agreed in writing before you start.',
+  },
 }
