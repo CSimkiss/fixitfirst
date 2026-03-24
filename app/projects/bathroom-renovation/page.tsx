@@ -54,6 +54,12 @@ type Phase = {
   description: string
   time: string
   guides: PhaseGuide[]
+  /**
+   * The slug of the guide that serves as the primary entry point for this phase.
+   * Undefined means no dedicated guide exists yet — show a "coming soon" fallback
+   * rather than routing users to an unrelated guide.
+   */
+  entrySlug?: string
 }
 
 const PHASES: Phase[] = [
@@ -63,6 +69,8 @@ const PHASES: Phase[] = [
     title: 'Strip Out',
     description: 'Remove old fittings, sealant, and accessories before anything else',
     time: 'Half a day',
+    // entrySlug intentionally absent — no dedicated strip-out guide exists yet.
+    // The header CTA shows a "coming soon" state rather than linking to an unrelated guide.
     guides: [
       { slug: 'fix-a-dripping-tap',    title: 'Isolate and remove old taps',  note: 'Turn off water supply first' },
       { slug: 'replace-a-toilet-seat', title: 'Remove old toilet seat',        note: 'Ready for the new one' },
@@ -75,6 +83,7 @@ const PHASES: Phase[] = [
     title: 'Plumbing Prep',
     description: 'Sort all pipework before anything goes on the walls',
     time: '1–3 hours',
+    entrySlug: 'fix-a-dripping-tap',
     guides: [
       { slug: 'fix-a-dripping-tap',          title: 'Replace taps or basin taps' },
       { slug: 'fix-a-leaking-pipe-joint',    title: 'Check and repair pipe joints' },
@@ -87,6 +96,7 @@ const PHASES: Phase[] = [
     title: 'Wall Prep',
     description: 'Smooth, fill, and prime all surfaces before any tiling or painting',
     time: '45 mins – 2 hours',
+    entrySlug: 'fill-a-hole-in-a-wall',
     guides: [
       { slug: 'fill-a-hole-in-a-wall',  title: 'Fill holes and cracks' },
       { slug: 'fill-and-sand-a-wall',   title: 'Fill and sand walls smooth' },
@@ -98,6 +108,7 @@ const PHASES: Phase[] = [
     title: 'Tiling',
     description: 'Tile the shower area, splashback, or feature wall',
     time: 'Half a day – full day',
+    entrySlug: 'tile-a-splashback',
     guides: [
       { slug: 'tile-a-splashback', title: 'Tile splashback or shower wall', note: 'Use waterproof adhesive throughout' },
       { title: 'Grout the tiles', note: 'Leave adhesive 24hrs to cure before grouting', placeholder: true },
@@ -109,6 +120,7 @@ const PHASES: Phase[] = [
     title: 'Fitting',
     description: 'Install new fixtures — shower head, toilet seat, towel rail, and accessories',
     time: '1–3 hours',
+    entrySlug: 'replace-a-shower-head',
     guides: [
       { slug: 'replace-a-shower-head',  title: 'Fit new shower head' },
       { slug: 'replace-a-toilet-seat',  title: 'Fit new toilet seat' },
@@ -121,6 +133,7 @@ const PHASES: Phase[] = [
     title: 'Finishing',
     description: 'Seal, paint, and do final checks — the satisfying part',
     time: '2–4 hours',
+    entrySlug: 'paint-a-room',
     guides: [
       { slug: 'paint-a-room', title: 'Paint walls and ceiling', note: 'Use moisture-resistant paint for bathrooms' },
       { title: 'Apply fresh silicone sealant', note: 'Around bath, basin, and shower tray', placeholder: true },
@@ -239,9 +252,10 @@ export default function BathroomRenovation() {
     try { localStorage.setItem('saved-project-bathroom', String(next)) } catch {}
   }
 
-  // Start link → first linked guide in Phase 1
-  const startGuide = PHASES[0].guides.find(g => g.slug)
-  const startHref  = startGuide?.slug ? (GUIDE_BY_SLUG[startGuide.slug]?.href ?? '/guides') : '/guides'
+  // Phase 1 entry: only navigate if a dedicated strip-out guide exists.
+  // Never route users to an unrelated guide just because it appears in Phase 1.
+  const phase1EntryGuide = PHASES[0].entrySlug ? GUIDE_BY_SLUG[PHASES[0].entrySlug] : null
+  const phase1HasEntry   = !!phase1EntryGuide
 
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -250,7 +264,7 @@ export default function BathroomRenovation() {
       {/* ── 1. HEADER ──────────────────────────────────────────────────────── */}
       <section className="bg-gray-950 text-white px-6 py-14">
         <div className="max-w-3xl mx-auto">
-          <a href="/" className="text-orange-400 text-sm mb-5 inline-block hover:underline">← Back to home</a>
+          <a href="/projects" className="text-orange-400 text-sm mb-5 inline-block hover:underline">← All projects</a>
 
           <div className="flex items-center gap-2 mb-4 flex-wrap">
             <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
@@ -297,13 +311,31 @@ export default function BathroomRenovation() {
           )}
 
           {/* CTAs */}
-          <div className="flex gap-3 flex-wrap">
-            <a
-              href={startHref}
-              className="bg-orange-500 hover:bg-orange-400 text-white px-7 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-orange-500/20"
-            >
-              Start with Phase 1 →
-            </a>
+          <div className="flex gap-3 flex-wrap items-start">
+            {phase1HasEntry ? (
+              <a
+                href={phase1EntryGuide!.href}
+                className="bg-orange-500 hover:bg-orange-400 text-white px-7 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-orange-500/20"
+              >
+                Start with Phase 1 →
+              </a>
+            ) : (
+              <div>
+                <div className="inline-flex items-center gap-2 bg-gray-700 text-gray-400 px-7 py-3 rounded-xl font-semibold cursor-default select-none">
+                  📋 Phase 1 guide coming soon
+                </div>
+                <p className="text-gray-500 text-xs mt-2 max-w-xs">
+                  We haven't written the dedicated strip-out guide yet.
+                  Use the phase checklist below to understand the process.
+                </p>
+                <a
+                  href="/search?q=bathroom"
+                  className="inline-block mt-2 text-orange-400 text-sm hover:underline"
+                >
+                  Browse related bathroom guides →
+                </a>
+              </div>
+            )}
             <button
               onClick={toggleSave}
               className={`px-7 py-3 rounded-xl font-semibold border transition-colors ${
@@ -669,23 +701,47 @@ export default function BathroomRenovation() {
         <div className="max-w-2xl mx-auto">
           <p className="text-orange-400 font-semibold text-sm uppercase tracking-wide mb-3">Ready to start?</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Begin with Phase 1 — Strip Out</h2>
-          <p className="text-gray-400 text-sm mb-7 max-w-md mx-auto">
-            The hardest part is starting. Phase 1 takes half a day, uses existing guides, and costs nothing beyond a Stanley knife.
-          </p>
-          <div className="flex gap-3 justify-center flex-wrap">
-            <a
-              href={startHref}
-              className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-3.5 rounded-xl font-bold transition-colors shadow-lg shadow-orange-500/25"
-            >
-              Start Phase 1 →
-            </a>
-            <a
-              href="/guides"
-              className="border border-white/20 text-gray-300 hover:bg-white/10 px-8 py-3.5 rounded-xl font-semibold transition-colors"
-            >
-              Browse all guides
-            </a>
-          </div>
+          {phase1HasEntry ? (
+            <>
+              <p className="text-gray-400 text-sm mb-7 max-w-md mx-auto">
+                The hardest part is starting. Phase 1 takes half a day, uses existing guides, and costs nothing beyond a Stanley knife.
+              </p>
+              <div className="flex gap-3 justify-center flex-wrap">
+                <a
+                  href={phase1EntryGuide!.href}
+                  className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-3.5 rounded-xl font-bold transition-colors shadow-lg shadow-orange-500/25"
+                >
+                  Start Phase 1 →
+                </a>
+                <a
+                  href="/guides"
+                  className="border border-white/20 text-gray-300 hover:bg-white/10 px-8 py-3.5 rounded-xl font-semibold transition-colors"
+                >
+                  Browse all guides
+                </a>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-gray-400 text-sm mb-3 max-w-md mx-auto">
+                The dedicated strip-out guide is coming soon. In the meantime, use the Phase 1 checklist above — or build your skills with related bathroom guides first.
+              </p>
+              <div className="flex gap-3 justify-center flex-wrap">
+                <a
+                  href="/search?q=bathroom"
+                  className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-3.5 rounded-xl font-bold transition-colors"
+                >
+                  Browse bathroom guides →
+                </a>
+                <a
+                  href="/guides"
+                  className="border border-white/20 text-gray-300 hover:bg-white/10 px-8 py-3.5 rounded-xl font-semibold transition-colors"
+                >
+                  All guides
+                </a>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

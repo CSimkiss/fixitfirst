@@ -340,6 +340,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Ready for something bigger? ───────────────────────────────────── */}
+      <section className="px-6 py-10 max-w-5xl mx-auto border-t border-gray-100">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-2xl font-bold text-gray-900">Ready for something bigger?</h2>
+          <a href="/projects" className="text-orange-500 text-sm font-medium hover:underline hidden sm:block">See all projects →</a>
+        </div>
+        <p className="text-gray-500 text-sm mb-6">Take on a full project step by step — not just a quick fix.</p>
+        <a
+          href="/projects/bathroom-renovation"
+          className="flex gap-4 md:gap-6 items-start border-2 border-gray-200 rounded-2xl p-5 hover:border-orange-300 hover:shadow-md transition-all group"
+        >
+          <div className="text-4xl shrink-0 mt-0.5">🚿</div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-medium">Project hub</span>
+              <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">🏗️ Tier 5 · Builder</span>
+            </div>
+            <h3 className="font-bold text-gray-900 group-hover:text-orange-500 transition-colors text-lg mb-1">
+              Renovate Your Bathroom
+            </h3>
+            <p className="text-sm text-gray-500 mb-3">
+              Break a full bathroom renovation into 6 manageable phases. Real guides, clear order, honest advice on when to call a pro.
+            </p>
+            <div className="flex gap-3 text-xs text-gray-400 flex-wrap">
+              <span>2–5 weekends</span>
+              <span>·</span>
+              <span>£300–£2,000+</span>
+              <span>·</span>
+              <span>6 phases</span>
+            </div>
+          </div>
+          <span className="shrink-0 hidden sm:flex items-center text-orange-500 text-sm font-semibold group-hover:translate-x-1 transition-transform mt-1">
+            View project →
+          </span>
+        </a>
+        <a href="/projects" className="block text-center text-orange-500 text-sm font-medium mt-4 sm:hidden hover:underline">
+          See all projects →
+        </a>
+      </section>
+
       {/* ── How it works ──────────────────────────────────────────────────── */}
       <section className="bg-gray-50 px-6 py-10 border-t border-gray-100">
         <div className="max-w-4xl mx-auto text-center">
