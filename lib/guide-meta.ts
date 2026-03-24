@@ -270,4 +270,10 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Bathroom plumbing work in a rented property requires your landlord\'s written permission. Only disconnect existing fittings if you have confirmed written agreement that the bathroom is being renovated. Keep a record of every change you make.',
   },
+  'prepare-walls-for-tiling': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'Similar to filling a hole in a wall — more thorough, but the same core skills',
+    completedCount: 0,
+    renterWarning: 'Wall prep for tiling is a permanent change. Always get written permission from your landlord before tiling in a rented property. The prep work itself (filling, sanding, priming) is fine — but it implies tiling is coming, which requires explicit agreement.',
+  },
 }

@@ -99,10 +99,11 @@ const PHASES: Phase[] = [
     description: 'Smooth, fill, and prime all surfaces before any tiling or painting',
     time: '45 mins – 2 hours',
     weekendLabel: 'Weekend 2–3',
-    entrySlug: 'fill-a-hole-in-a-wall',
+    entrySlug: 'prepare-walls-for-tiling',
     guides: [
-      { slug: 'fill-a-hole-in-a-wall',  title: 'Fill holes and cracks' },
-      { slug: 'fill-and-sand-a-wall',   title: 'Fill and sand walls smooth' },
+      { slug: 'prepare-walls-for-tiling', title: 'Prepare walls for tiling',    note: 'Clean, fill, sand, and prime before any tiles go on' },
+      { slug: 'fill-a-hole-in-a-wall',    title: 'Fill holes and cracks',       note: 'For deeper repairs before the prep coat' },
+      { slug: 'fill-and-sand-a-wall',     title: 'Fill and sand walls smooth',  note: 'Full-wall smoothing if needed' },
     ],
   },
   {
