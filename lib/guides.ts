@@ -31,6 +31,15 @@ export const ALL_GUIDES: Guide[] = [
     description: 'The essential first phase of any bathroom renovation. Learn to safely isolate water, remove old fixtures, and prepare surfaces — the right way.',
   },
   {
+    slug: 'prep-bathroom-plumbing', title: 'Prep bathroom plumbing (before renovation)',
+    time: '30–90 mins', timeMinutes: 60, cost: '£0–10', level: 'Intermediate', category: 'Plumbing',
+    href: '/guides/prep-bathroom-plumbing', difficulty: 3,
+    saves: 'Save £100–300 today', estimatedSavingsMin: 100, estimatedSavingsMax: 300,
+    emoji: '🔧', ukSpecific: true, skillPoints: 25, popularityScore: 65,
+    searchTerms: ['bathroom plumbing prep', 'prep bathroom plumbing', 'disconnect bathroom pipes', 'isolate bathroom water', 'cap pipes bathroom', 'bathroom renovation plumbing', 'plumbing before renovation', 'disconnect basin', 'remove basin plumbing'],
+    description: 'Safely isolate your water supply, disconnect existing fittings, and cap pipe ends before new fixtures go in. The plumbing prep every bathroom renovation needs.',
+  },
+  {
     slug: 'fix-a-dripping-tap', title: 'Fix a dripping tap',
     time: '45 mins', timeMinutes: 45, cost: '£2–5', level: 'Beginner', category: 'Plumbing',
     href: '/guides/fix-a-dripping-tap', difficulty: 2,

@@ -145,7 +145,7 @@ export default function StripOutBathroom() {
               Back to your renovation →
             </a>
             <a
-              href="/guides/fix-a-dripping-tap"
+              href="/guides/prep-bathroom-plumbing"
               className="border border-white/20 text-gray-300 hover:bg-white/10 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
             >
               Start Phase 2 →

@@ -264,4 +264,10 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Never strip out a bathroom in a rented property without written permission from your landlord. Removing fixtures or tiles is a major change. Get everything agreed in writing before you start.',
   },
+  'prep-bathroom-plumbing': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'Similar to fixing a dripping tap — mostly disconnecting rather than fitting',
+    completedCount: 0,
+    renterWarning: 'Bathroom plumbing work in a rented property requires your landlord\'s written permission. Only disconnect existing fittings if you have confirmed written agreement that the bathroom is being renovated. Keep a record of every change you make.',
+  },
 }
