@@ -40,6 +40,15 @@ export const ALL_GUIDES: Guide[] = [
     description: 'The step most people skip — and why tiles fail. Learn to properly clean, fill, sand, and prime bathroom walls so your tiles actually stay up.',
   },
   {
+    slug: 'fit-bathroom-fixtures', title: 'Fit bathroom fixtures (sink, accessories & finishing)',
+    time: '1–3 hours', timeMinutes: 120, cost: '£20–100', level: 'Intermediate', category: 'Plumbing',
+    href: '/guides/fit-bathroom-fixtures', difficulty: 3,
+    saves: 'Save £150–400 today', estimatedSavingsMin: 150, estimatedSavingsMax: 400,
+    emoji: '🪣', ukSpecific: true, skillPoints: 30, popularityScore: 65,
+    searchTerms: ['fit bathroom fixtures', 'install bathroom basin', 'fit towel rail', 'bathroom accessories fitting', 'mount bathroom fixtures', 'fit sink bathroom', 'install bathroom accessories', 'bathroom fitting phase'],
+    description: 'Install a basin, towel rail, and accessories after tiling. The fitting phase that makes a tiled room into a working bathroom — no specialist plumbing required.',
+  },
+  {
     slug: 'prep-bathroom-plumbing', title: 'Prep bathroom plumbing (before renovation)',
     time: '30–90 mins', timeMinutes: 60, cost: '£0–10', level: 'Intermediate', category: 'Plumbing',
     href: '/guides/prep-bathroom-plumbing', difficulty: 3,

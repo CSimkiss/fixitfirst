@@ -126,11 +126,11 @@ const PHASES: Phase[] = [
     description: 'Install new fixtures — shower head, toilet seat, towel rail, and accessories',
     time: '1–3 hours',
     weekendLabel: 'Weekend 4',
-    entrySlug: 'replace-a-shower-head',
+    entrySlug: 'fit-bathroom-fixtures',
     guides: [
+      { slug: 'fit-bathroom-fixtures',  title: 'Fit basin, accessories & finishing elements', note: 'Mark level, drill tiles carefully, seal all edges' },
       { slug: 'replace-a-shower-head',  title: 'Fit new shower head' },
       { slug: 'replace-a-toilet-seat',  title: 'Fit new toilet seat' },
-      { title: 'Fit towel rail and accessories', note: 'Mark, drill, rawl plug, screw level', placeholder: true },
     ],
   },
   {

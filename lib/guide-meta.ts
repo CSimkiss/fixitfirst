@@ -276,4 +276,10 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Wall prep for tiling is a permanent change. Always get written permission from your landlord before tiling in a rented property. The prep work itself (filling, sanding, priming) is fine — but it implies tiling is coming, which requires explicit agreement.',
   },
+  'fit-bathroom-fixtures': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'Similar to putting up shelves — same drill-level-fix process, but in a wet room',
+    completedCount: 0,
+    renterWarning: 'Fitting a replacement basin or accessories in a rented property requires your landlord\'s written permission. Connecting to existing pipework (flexible tails to isolation valves) is generally low risk, but always get written agreement before any permanent fixture changes. Keep a record of original fittings so they can be reinstated.',
+  },
 }
