@@ -122,13 +122,37 @@ export default function StripOutBathroom() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900 mb-2">You can now safely isolate a water supply, disconnect bathroom fixtures, remove old sealant cleanly, and identify problem areas before they become expensive surprises.</p>
           <p className="text-sm text-orange-900 mb-3">These skills unlock the rest of the renovation — tiling, new fixtures, and finishing are all easier when the room is properly prepped.</p>
-          <p className="text-sm font-semibold text-orange-800 mb-2">This unlocks:</p>
-          <div className="flex flex-wrap gap-2">
-            <a href="/guides/tile-a-splashback" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Tile a splashback →</a>
-            <a href="/guides/fix-a-dripping-tap" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Fit new taps →</a>
-            <a href="/projects/bathroom-renovation" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Full renovation hub →</a>
+        </div>
+
+        {/* ── Continue your renovation ─────────────────────────────────────── */}
+        <div className="bg-gray-950 text-white rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-white mb-4">Continue your renovation</h2>
+          <div className="space-y-2 mb-5">
+            <div className="flex items-center gap-2">
+              <span className="text-green-400 text-base">✅</span>
+              <span className="text-green-300 text-sm font-medium">Phase 1: Strip Out — Completed</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-orange-400 text-base">👉</span>
+              <span className="text-white text-sm font-medium">Phase 2: Plumbing Prep — next up</span>
+            </div>
+          </div>
+          <div className="flex gap-3 flex-wrap">
+            <a
+              href="/projects/bathroom-renovation"
+              className="bg-orange-500 hover:bg-orange-400 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-colors"
+            >
+              Back to your renovation →
+            </a>
+            <a
+              href="/guides/fix-a-dripping-tap"
+              className="border border-white/20 text-gray-300 hover:bg-white/10 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            >
+              Start Phase 2 →
+            </a>
           </div>
         </div>
+
         <p className="text-sm text-gray-500 text-center mb-3">Most people would pay a tradesperson to do this prep work.</p>
         {GUIDE_META['strip-out-bathroom'].renterWarning && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
