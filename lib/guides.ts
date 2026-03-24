@@ -31,6 +31,15 @@ export const ALL_GUIDES: Guide[] = [
     description: 'The essential first phase of any bathroom renovation. Learn to safely isolate water, remove old fixtures, and prepare surfaces — the right way.',
   },
   {
+    slug: 'prepare-walls-for-tiling', title: 'Prepare walls for tiling',
+    time: '1–2 hours', timeMinutes: 90, cost: '£10–40', level: 'Intermediate', category: 'Tiling',
+    href: '/guides/prepare-walls-for-tiling', difficulty: 3,
+    saves: 'Save £150–400 today', estimatedSavingsMin: 150, estimatedSavingsMax: 400,
+    emoji: '🧱', ukSpecific: true, skillPoints: 25, popularityScore: 70,
+    searchTerms: ['prepare walls for tiling', 'wall prep for tiling', 'prep wall before tiles', 'tile wall preparation', 'fill walls before tiling', 'prime wall before tiling', 'bathroom wall prep tiling'],
+    description: 'The step most people skip — and why tiles fail. Learn to properly clean, fill, sand, and prime bathroom walls so your tiles actually stay up.',
+  },
+  {
     slug: 'prep-bathroom-plumbing', title: 'Prep bathroom plumbing (before renovation)',
     time: '30–90 mins', timeMinutes: 60, cost: '£0–10', level: 'Intermediate', category: 'Plumbing',
     href: '/guides/prep-bathroom-plumbing', difficulty: 3,

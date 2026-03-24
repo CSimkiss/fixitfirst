@@ -161,7 +161,7 @@ export default function PrepBathroomPlumbing() {
               Back to your renovation →
             </a>
             <a
-              href="/guides/fill-a-hole-in-a-wall"
+              href="/guides/prepare-walls-for-tiling"
               className="border border-white/20 text-gray-300 hover:bg-white/10 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
             >
               Start Phase 3 →
