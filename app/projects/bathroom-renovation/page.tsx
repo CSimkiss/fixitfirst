@@ -69,7 +69,8 @@ const PHASES: Phase[] = [
     title: 'Strip Out',
     description: 'Remove old fittings, sealant, and accessories before anything else',
     time: 'Half a day',
-    entrySlug: 'strip-out-bathroom',
+    // entrySlug intentionally absent — no dedicated strip-out guide exists yet.
+    // The header CTA shows a "coming soon" state rather than linking to an unrelated guide.
     guides: [
       { slug: 'fix-a-dripping-tap',    title: 'Isolate and remove old taps',  note: 'Turn off water supply first' },
       { slug: 'replace-a-toilet-seat', title: 'Remove old toilet seat',        note: 'Ready for the new one' },
