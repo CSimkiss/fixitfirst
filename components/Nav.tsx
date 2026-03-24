@@ -27,6 +27,7 @@ export default function Nav() {
       <a href="/" className="text-2xl font-bold text-orange-500 mr-8">FixItFirst</a>
       <div className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
         <a href="/guides" className="hover:text-orange-500">Guides</a>
+        <a href="/projects" className="hover:text-orange-500">Projects</a>
         <a href="/tools" className="hover:text-orange-500">My Tools</a>
         {user && (
           <a href="/dashboard" className="hover:text-orange-500">My Dashboard</a>
