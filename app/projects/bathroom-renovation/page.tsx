@@ -70,8 +70,8 @@ const PHASES: Phase[] = [
     title: 'Strip Out',
     description: 'Remove old fittings, sealant, and accessories before anything else',
     time: 'Half a day',
-    weekendLabel: 'Weekend 1',
-    entrySlug: 'strip-out-bathroom',
+    // entrySlug intentionally absent — no dedicated strip-out guide exists yet.
+    // The header CTA shows a "coming soon" state rather than linking to an unrelated guide.
     guides: [
       { slug: 'strip-out-bathroom', title: 'Strip out your bathroom', note: 'Isolate water, remove fixtures, prep surfaces' },
       { title: 'Remove remaining fixtures and accessories', note: 'Towel rails, mirrors, shelves', placeholder: true },
