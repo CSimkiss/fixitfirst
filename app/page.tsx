@@ -50,11 +50,12 @@ export default function Home() {
   const searchRef = useRef<HTMLDivElement>(null)
 
   // Personalisation — read from localStorage after mount
-  const [completedSlugs, setCompletedSlugs] = useState<string[]>([])
+  const [completedSlugs, setCompletedSlugs]   = useState<string[]>([])
   const [ownedTools, setOwnedTools]           = useState<string[]>([])
   const [streak, setStreak]                   = useState(0)
   const [completionDates, setCompletionDates] = useState<string[]>([])
   const [loaded, setLoaded]                   = useState(false)
+  const [savedBathroomProject, setSavedBathroomProject] = useState(false)
 
   useEffect(() => {
     try {
@@ -66,6 +67,7 @@ export default function Home() {
       setStreak(getStreak(dates))
       const raw = localStorage.getItem(TOOLS_STORAGE_KEY)
       if (raw) setOwnedTools(JSON.parse(raw))
+      setSavedBathroomProject(localStorage.getItem('saved-project-bathroom') === 'true')
     } catch {}
     setLoaded(true)
   }, [])
@@ -228,6 +230,36 @@ export default function Home() {
 
       {/* ── Recently viewed — only rendered when user has history ──────────── */}
       <RecentlyViewed />
+
+      {/* ── Your projects — shown when user has saved or started bathroom reno */}
+      {loaded && (savedBathroomProject || completedSlugs.includes('strip-out-bathroom')) && (
+        <section className="px-6 py-6 max-w-5xl mx-auto">
+          <h2 className="text-lg font-bold text-gray-900 mb-3">Your projects</h2>
+          <a
+            href="/projects/bathroom-renovation"
+            className="flex items-center gap-4 bg-gray-950 text-white rounded-2xl p-5 hover:opacity-90 transition-opacity group"
+          >
+            <div className="text-3xl shrink-0">🏗️</div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <p className="font-semibold text-white">Bathroom Renovation</p>
+                {completedSlugs.includes('strip-out-bathroom') ? (
+                  <span className="text-xs bg-orange-500 text-white px-2 py-0.5 rounded-full font-medium">In progress</span>
+                ) : (
+                  <span className="text-xs bg-gray-700 text-gray-300 px-2 py-0.5 rounded-full">Saved</span>
+                )}
+              </div>
+              <p className="text-gray-400 text-sm">6 phases · 2–5 weekends</p>
+              {completedSlugs.includes('strip-out-bathroom') && (
+                <p className="text-orange-400 text-xs mt-1 font-medium">Phase 1 complete — Phase 2 next up</p>
+              )}
+            </div>
+            <div className="text-orange-400 font-semibold text-sm shrink-0 group-hover:text-orange-300">
+              Continue →
+            </div>
+          </a>
+        </section>
+      )}
 
       {/* ── Stats bar ─────────────────────────────────────────────────────── */}
       <section className="bg-orange-500 text-white py-6 px-6">

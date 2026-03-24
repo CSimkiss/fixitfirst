@@ -53,6 +53,7 @@ type Phase = {
   title: string
   description: string
   time: string
+  weekendLabel?: string
   guides: PhaseGuide[]
   /**
    * The slug of the guide that serves as the primary entry point for this phase.
@@ -72,22 +73,22 @@ const PHASES: Phase[] = [
     // entrySlug intentionally absent — no dedicated strip-out guide exists yet.
     // The header CTA shows a "coming soon" state rather than linking to an unrelated guide.
     guides: [
-      { slug: 'fix-a-dripping-tap',    title: 'Isolate and remove old taps',  note: 'Turn off water supply first' },
-      { slug: 'replace-a-toilet-seat', title: 'Remove old toilet seat',        note: 'Ready for the new one' },
-      { title: 'Remove old sealant and grout', note: 'Score carefully with a Stanley knife', placeholder: true },
+      { slug: 'strip-out-bathroom', title: 'Strip out your bathroom', note: 'Isolate water, remove fixtures, prep surfaces' },
+      { title: 'Remove remaining fixtures and accessories', note: 'Towel rails, mirrors, shelves', placeholder: true },
     ],
   },
   {
     number: 2,
     icon: '🔧',
     title: 'Plumbing Prep',
-    description: 'Sort all pipework before anything goes on the walls',
+    description: 'This is where your bathroom starts to take shape — sort all pipework before anything goes on the walls',
     time: '1–3 hours',
+    weekendLabel: 'Weekend 2',
     entrySlug: 'fix-a-dripping-tap',
     guides: [
-      { slug: 'fix-a-dripping-tap',          title: 'Replace taps or basin taps' },
-      { slug: 'fix-a-leaking-pipe-joint',    title: 'Check and repair pipe joints' },
-      { slug: 'fix-low-water-pressure',      title: 'Check water pressure is correct' },
+      { slug: 'fix-a-dripping-tap',          title: 'Fit new taps or basin taps',   note: 'Replace like-for-like or upgrade' },
+      { slug: 'fix-a-leaking-pipe-joint',    title: 'Check and repair pipe joints', note: 'Do this before any tiling' },
+      { slug: 'fix-low-water-pressure',      title: 'Check water pressure',          note: 'Confirm pressure before fitting new fixtures' },
     ],
   },
   {
@@ -96,6 +97,7 @@ const PHASES: Phase[] = [
     title: 'Wall Prep',
     description: 'Smooth, fill, and prime all surfaces before any tiling or painting',
     time: '45 mins – 2 hours',
+    weekendLabel: 'Weekend 2–3',
     entrySlug: 'fill-a-hole-in-a-wall',
     guides: [
       { slug: 'fill-a-hole-in-a-wall',  title: 'Fill holes and cracks' },
@@ -108,6 +110,7 @@ const PHASES: Phase[] = [
     title: 'Tiling',
     description: 'Tile the shower area, splashback, or feature wall',
     time: 'Half a day – full day',
+    weekendLabel: 'Weekend 3–4',
     entrySlug: 'tile-a-splashback',
     guides: [
       { slug: 'tile-a-splashback', title: 'Tile splashback or shower wall', note: 'Use waterproof adhesive throughout' },
@@ -120,6 +123,7 @@ const PHASES: Phase[] = [
     title: 'Fitting',
     description: 'Install new fixtures — shower head, toilet seat, towel rail, and accessories',
     time: '1–3 hours',
+    weekendLabel: 'Weekend 4',
     entrySlug: 'replace-a-shower-head',
     guides: [
       { slug: 'replace-a-shower-head',  title: 'Fit new shower head' },
@@ -133,6 +137,7 @@ const PHASES: Phase[] = [
     title: 'Finishing',
     description: 'Seal, paint, and do final checks — the satisfying part',
     time: '2–4 hours',
+    weekendLabel: 'Weekend 5',
     entrySlug: 'paint-a-room',
     guides: [
       { slug: 'paint-a-room', title: 'Paint walls and ceiling', note: 'Use moisture-resistant paint for bathrooms' },
@@ -140,6 +145,10 @@ const PHASES: Phase[] = [
     ],
   },
 ]
+
+// ─── Phase 1 tools (for the "Before you start" bundle) ───────────────────────
+
+const PHASE1_TOOL_IDS = ['utility-knife', 'adjustable-spanner', 'screwdriver-flat', 'screwdriver-cross', 'rubber-gloves', 'bucket']
 
 // ─── Phase status logic ───────────────────────────────────────────────────────
 
@@ -245,6 +254,28 @@ export default function BathroomRenovation() {
   const readinessPct     = Math.round((completedPrereqs.length / PREREQ_SLUGS.length) * 100)
   const hasStarted       = loaded && completedSlugs.length > 0
 
+  // ── Renovation progress ────────────────────────────────────────────────────
+  const allPhaseGuideSlugs = [...new Set(
+    PHASES.flatMap(p => p.guides.filter(g => g.slug && !g.placeholder).map(g => g.slug!))
+  )]
+  const completedPhaseGuideCount = loaded
+    ? allPhaseGuideSlugs.filter(s => completedSlugs.includes(s)).length
+    : 0
+  const renovationPct = allPhaseGuideSlugs.length > 0
+    ? Math.round((completedPhaseGuideCount / allPhaseGuideSlugs.length) * 100)
+    : 0
+  const hasStartedRenovation = loaded && completedPhaseGuideCount > 0
+
+  // "Next up" phase: first phase that is 'available' after a completed one
+  const phase1Status = loaded ? getPhaseStatus(PHASES[0], completedSlugs, 0, PHASES, loaded) : 'available'
+  const showPhase2NextUp = loaded && phase1Status === 'completed'
+
+  // Phase 1 tool bundle — tools and which ones the user is missing
+  const phase1Tools = PHASE1_TOOL_IDS
+    .map(id => ALL_TOOLS.find(t => t.id === id))
+    .filter(Boolean) as (typeof ALL_TOOLS[number])[]
+  const missingPhase1Tools = phase1Tools.filter(t => !ownedTools.includes(t.id))
+
   // ── Save project ───────────────────────────────────────────────────────────
   function toggleSave() {
     const next = !savedProject
@@ -296,6 +327,29 @@ export default function BathroomRenovation() {
               </div>
             ))}
           </div>
+
+          {/* Renovation progress bar — shown once user has started */}
+          {loaded && renovationPct > 0 && (
+            <div className="mb-5">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-sm text-gray-300">Renovation progress</span>
+                <span className="text-sm font-bold text-orange-400">{renovationPct}% complete</span>
+              </div>
+              <div className="w-full bg-white/10 rounded-full h-2">
+                <div
+                  className="bg-orange-500 h-2 rounded-full transition-all duration-700"
+                  style={{ width: `${renovationPct}%` }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* "Started" message */}
+          {loaded && hasStartedRenovation && (
+            <div className="bg-green-900/30 border border-green-700/30 rounded-lg px-4 py-2 mb-5 text-sm text-green-300 font-medium">
+              Nice — you've started your renovation 🪣
+            </div>
+          )}
 
           {/* Tool status chip — only shown once localStorage is read */}
           {loaded && (
@@ -432,9 +486,61 @@ export default function BathroomRenovation() {
       {/* ── 3. PHASES ──────────────────────────────────────────────────────── */}
       <section className="px-6 pb-6 max-w-3xl mx-auto">
         <h2 className="text-2xl font-bold text-gray-900 mb-1">The 6 phases</h2>
-        <p className="text-gray-500 text-sm mb-7">
+        <p className="text-gray-500 text-sm mb-1">
           Work through each phase in order. The sequence matters — plumbing before walls, walls before tiles.
         </p>
+        <p className="text-gray-400 text-xs mb-6">You can complete this over 2–5 weekends</p>
+
+        {/* Before you start Phase 1 — tool bundle */}
+        {loaded && phase1Status === 'available' && (
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-5 mb-6">
+            <h3 className="font-semibold text-gray-900 mb-1">Before you start Phase 1</h3>
+            <p className="text-sm text-gray-500 mb-4">
+              You'll need these tools for the strip-out.
+              {missingPhase1Tools.length > 0
+                ? ` You're missing ${missingPhase1Tools.length} — grab them before you start.`
+                : " You have everything you need — you're ready to go."}
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
+              {phase1Tools.map(tool => {
+                const owned = ownedTools.includes(tool.id)
+                return (
+                  <div
+                    key={tool.id}
+                    className={`flex items-center gap-2 p-2.5 rounded-lg border text-xs ${
+                      owned ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-white'
+                    }`}
+                  >
+                    <span className="shrink-0">{owned ? '✅' : '⚠️'}</span>
+                    <span className={`flex-1 font-medium min-w-0 truncate ${owned ? 'text-green-800' : 'text-gray-700'}`}>
+                      {tool.name}
+                    </span>
+                    {!owned && (
+                      <a
+                        href={screwfixToolUrl(tool.name)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-red-600 font-semibold hover:underline shrink-0"
+                      >
+                        Get
+                      </a>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+            {missingPhase1Tools.length > 0 && (
+              <a
+                href={screwfixToolUrl('bathroom strip out tools kit')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-red-600 font-semibold hover:underline"
+              >
+                Get everything for this step →
+              </a>
+            )}
+          </div>
+        )}
 
         <div className="space-y-4">
           {PHASES.map((phase, idx) => {
@@ -442,6 +548,7 @@ export default function BathroomRenovation() {
             const isLocked    = status === 'locked'
             const isCompleted = status === 'completed'
             const isInProg    = status === 'in-progress'
+            const isNextUp    = phase.number === 2 && showPhase2NextUp
 
             const statusCfg = {
               locked:       { label: '🔒 Locked',       cls: 'bg-gray-100 text-gray-400' },
@@ -454,9 +561,10 @@ export default function BathroomRenovation() {
               <div
                 key={phase.number}
                 className={`border rounded-2xl overflow-hidden transition-all ${
-                  isLocked    ? 'border-gray-100 bg-gray-50/60 opacity-70' :
-                  isCompleted ? 'border-green-200 bg-green-50'             :
-                  isInProg    ? 'border-orange-200 bg-orange-50'           :
+                  isLocked    ? 'border-gray-100 bg-gray-50/60 opacity-70'    :
+                  isCompleted ? 'border-green-200 bg-green-50'                :
+                  isInProg    ? 'border-orange-200 bg-orange-50'              :
+                  isNextUp    ? 'border-orange-300 bg-white ring-1 ring-orange-200' :
                                 'border-gray-200 bg-white'
                 }`}
               >
@@ -477,9 +585,19 @@ export default function BathroomRenovation() {
                       <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusCfg.cls}`}>
                         {statusCfg.label}
                       </span>
+                      {isNextUp && (
+                        <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-orange-500 text-white">
+                          Next up
+                        </span>
+                      )}
                     </div>
                     <p className="text-sm text-gray-500 mb-1">{phase.description}</p>
-                    <span className="text-xs text-gray-400">⏱ {phase.time}</span>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="text-xs text-gray-400">⏱ {phase.time}</span>
+                      {phase.weekendLabel && (
+                        <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{phase.weekendLabel}</span>
+                      )}
+                    </div>
                   </div>
 
                   <span className="text-2xl hidden sm:block shrink-0">{phase.icon}</span>
