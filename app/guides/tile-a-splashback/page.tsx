@@ -44,7 +44,8 @@ export default function TileASplashback() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Tile a splashback</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £150–300 in half a day — no decorator needed</p>
-        <p className="text-gray-600 mb-6">Most people hire a decorator for this. You probably don't need to.</p>
+        <p className="text-gray-600 mb-4">Most people hire a decorator for this. You probably don't need to.</p>
+        <p className="text-gray-600 mb-6">This is one of the key steps in a full bathroom renovation.</p>
         <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['tile-a-splashback'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Tile a splashback" />
@@ -101,7 +102,41 @@ export default function TileASplashback() {
         <StarterKit />
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
-          <p className="text-sm text-orange-900">You now know how to plan a tile layout, apply adhesive correctly, and grout neatly. These skills transfer to tiling a bathroom floor, wall, or shower enclosure.</p>
+          <p className="text-sm text-orange-900 mb-3">You now know how to plan a tile layout, apply adhesive correctly, and grout neatly. These skills transfer to tiling a bathroom floor, wall, or shower enclosure.</p>
+          <p className="text-sm font-semibold text-orange-800 mb-2">This unlocks:</p>
+          <div className="flex flex-wrap gap-2">
+            <a href="/projects/bathroom-renovation" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Bathroom renovation Phase 4 →</a>
+            <a href="/guides/replace-a-shower-head" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Fitting fixtures →</a>
+          </div>
+        </div>
+
+        {/* ── Continue your renovation ─────────────────────────────────────── */}
+        <div className="bg-gray-950 text-white rounded-xl p-6 mb-6">
+          <h2 className="font-semibold text-white mb-4">Continue your renovation</h2>
+          <div className="space-y-2 mb-5">
+            <div className="flex items-center gap-2">
+              <span className="text-green-400 text-base">✅</span>
+              <span className="text-green-300 text-sm font-medium">Phase 3: Wall Prep — Completed</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-orange-400 text-base">👉</span>
+              <span className="text-white text-sm font-medium">Next: Fitting fixtures</span>
+            </div>
+          </div>
+          <div className="flex gap-3 flex-wrap">
+            <a
+              href="/projects/bathroom-renovation"
+              className="bg-orange-500 hover:bg-orange-400 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-colors"
+            >
+              Back to your renovation →
+            </a>
+            <a
+              href="/guides/replace-a-shower-head"
+              className="border border-white/20 text-gray-300 hover:bg-white/10 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            >
+              Fitting fixtures →
+            </a>
+          </div>
         </div>
         <p className="text-sm text-gray-500 text-center mb-3">Most people would pay a tradesperson for this.</p>
         {GUIDE_META['tile-a-splashback'].renterWarning && (
