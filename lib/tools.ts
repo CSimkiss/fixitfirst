@@ -71,10 +71,13 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   'unblock-a-drain':           ['plunger', 'rubber-gloves', 'bucket'],
   'unblock-a-toilet':          ['plunger', 'rubber-gloves', 'bucket'],
   'replace-a-shower-head':     ['adjustable-spanner', 'ptfe-tape'],
-  'fix-a-running-toilet':      ['screwdriver-flat'],
-  'turn-off-water-mains':      [],
-  'fix-a-garden-tap':          ['adjustable-spanner', 'screwdriver-flat', 'ptfe-tape'],
-  'unblock-a-gutter':          ['step-ladder', 'rubber-gloves', 'bucket'],
+  'fix-a-running-toilet':              ['screwdriver-flat'],
+  'fix-a-leaking-pipe-under-sink':     ['bucket', 'sponge-cloths', 'adjustable-grips'],
+  'unblock-a-sink':                    ['plunger', 'rubber-gloves', 'bucket'],
+  'fix-a-loose-door-handle':           ['allen-keys', 'screwdriver-cross', 'screwdriver-flat'],
+  'turn-off-water-mains':              [],
+  'fix-a-garden-tap':                  ['adjustable-spanner', 'screwdriver-flat', 'ptfe-tape'],
+  'unblock-a-gutter':                  ['step-ladder', 'rubber-gloves', 'bucket'],
 
   // Heating
   'bleed-a-radiator':          ['bleed-key'],
