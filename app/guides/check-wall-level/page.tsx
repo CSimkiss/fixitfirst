@@ -64,6 +64,14 @@ export default function CheckWallLevel() {
         </div>
         <DifficultyComparison slug="check-wall-level" />
 
+        <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6">
+          <p className="text-xs font-semibold text-orange-600 uppercase tracking-wide mb-1">Part of the Bathroom Renovation project</p>
+          <p className="text-sm text-gray-700 mb-2">This is a <strong>Phase 3: Wall Prep</strong> skill in the full bathroom renovation walkthrough.</p>
+          <a href="/projects/bathroom-renovation" className="text-sm font-semibold text-orange-600 hover:underline">
+            If you&apos;re renovating your bathroom, start here →
+          </a>
+        </div>
+
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
           <p className="text-sm text-gray-700 mb-2">Do this check after filling and sanding, but before priming or applying tile adhesive. Filling changes the wall surface and any deviations should be assessed on the finished plaster or filler, not the bare wall.</p>
