@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Use PTFE Tape on Plumbing Fittings | FixItFirst',
@@ -121,6 +122,10 @@ export default function UsePtfeTape() {
             <p className="text-sm text-amber-900">{GUIDE_META['use-ptfe-tape'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="use-ptfe-tape"
+          relatedSlugs={['prep-bathroom-plumbing', 'fix-a-leaking-pipe-joint']}
+        />
         <GuideActions slug="use-ptfe-tape">
           <GuideExtras slug="use-ptfe-tape" />
         </GuideActions>

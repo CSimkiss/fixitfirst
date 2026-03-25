@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Drill Into Tiles Without Cracking Them | FixItFirst',
@@ -124,6 +125,10 @@ export default function DrillIntoTiles() {
             <p className="text-sm text-amber-900">{GUIDE_META['drill-into-tiles'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="drill-into-tiles"
+          relatedSlugs={['tile-a-splashback', 'fit-bathroom-fixtures']}
+        />
         <GuideActions slug="drill-into-tiles">
           <GuideExtras slug="drill-into-tiles" />
         </GuideActions>
