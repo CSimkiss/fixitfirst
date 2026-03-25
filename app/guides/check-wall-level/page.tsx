@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Check If a Wall Is Level and Flat Before Tiling | FixItFirst',
@@ -116,6 +117,10 @@ export default function CheckWallLevel() {
             <p className="text-sm text-amber-900">{GUIDE_META['check-wall-level'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="check-wall-level"
+          relatedSlugs={['prepare-walls-for-tiling', 'fill-a-hole-in-a-wall']}
+        />
         <GuideActions slug="check-wall-level">
           <GuideExtras slug="check-wall-level" />
         </GuideActions>

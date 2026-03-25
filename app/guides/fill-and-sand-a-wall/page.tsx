@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Fill and Sand a Wall | FixItFirst',
@@ -105,6 +106,10 @@ export default function FillAndSandAWall() {
             <p className="text-sm text-amber-900">{GUIDE_META['fill-and-sand-a-wall'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="fill-and-sand-a-wall"
+          relatedSlugs={['fill-a-hole-in-a-wall', 'prepare-walls-for-tiling', 'tile-a-splashback']}
+        />
         <GuideActions slug="fill-and-sand-a-wall">
           <GuideExtras slug="fill-and-sand-a-wall" />
         </GuideActions>

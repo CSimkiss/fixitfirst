@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Remove Old Silicone Sealant | FixItFirst',
@@ -118,6 +119,10 @@ export default function RemoveSiliconeSealant() {
             <p className="text-sm text-amber-900">{GUIDE_META['remove-silicone-sealant'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="remove-silicone-sealant"
+          relatedSlugs={['strip-out-bathroom', 'prep-bathroom-plumbing']}
+        />
         <GuideActions slug="remove-silicone-sealant">
           <GuideExtras slug="remove-silicone-sealant" />
         </GuideActions>

@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Cap Off a Pipe Temporarily | FixItFirst',
@@ -124,6 +125,10 @@ export default function CapPipe() {
             <p className="text-sm text-amber-900">{GUIDE_META['cap-pipe'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="cap-pipe"
+          relatedSlugs={['prep-bathroom-plumbing', 'fix-a-leaking-pipe-joint']}
+        />
         <GuideActions slug="cap-pipe">
           <GuideExtras slug="cap-pipe" />
         </GuideActions>

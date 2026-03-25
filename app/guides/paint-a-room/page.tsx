@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Paint a Room | FixItFirst',
@@ -108,6 +109,10 @@ export default function PaintARoom() {
             <p className="text-sm text-amber-900">{GUIDE_META['paint-a-room'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="paint-a-room"
+          relatedSlugs={['finish-bathroom-renovation', 'strip-wallpaper']}
+        />
         <GuideActions slug="paint-a-room">
           <GuideExtras slug="paint-a-room" />
         </GuideActions>
