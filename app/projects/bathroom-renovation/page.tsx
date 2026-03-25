@@ -8,6 +8,33 @@ import { TOOLS_STORAGE_KEY, ALL_TOOLS } from '@/lib/tools'
 import { getCompletionMap } from '@/lib/completions'
 import { screwfixToolUrl, amazonToolUrl } from '@/lib/affiliates'
 
+// ─── Share button ─────────────────────────────────────────────────────────────
+
+function ShareButton() {
+  const [copied, setCopied] = useState(false)
+
+  function handleShare() {
+    const text = 'I just renovated my bathroom with FixItFirst — stripped it, tiled it, fitted it, and finished it myself. https://fixit-first.co.uk/projects/bathroom-renovation'
+    if (navigator.share) {
+      navigator.share({ title: 'I renovated my bathroom', text }).catch(() => {})
+    } else {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2500)
+      }).catch(() => {})
+    }
+  }
+
+  return (
+    <button
+      onClick={handleShare}
+      className="w-full border border-white/20 text-gray-300 hover:bg-white/10 px-5 py-3 rounded-xl text-sm font-semibold transition-colors text-center"
+    >
+      {copied ? '✅ Copied to clipboard' : '↗ Share your renovation'}
+    </button>
+  )
+}
+
 // ─── Tool IDs aggregated across all 6 phases ─────────────────────────────────
 
 const BATHROOM_TOOL_IDS = [
@@ -267,6 +294,7 @@ export default function BathroomRenovation() {
     ? Math.round((completedPhaseGuideCount / allPhaseGuideSlugs.length) * 100)
     : 0
   const hasStartedRenovation = loaded && completedPhaseGuideCount > 0
+  const renovationComplete   = loaded && renovationPct === 100
 
   // "Next up" phase: first phase that is 'available' after a completed one
   const phase1Status = loaded ? getPhaseStatus(PHASES[0], completedSlugs, 0, PHASES, loaded) : 'available'
@@ -346,8 +374,13 @@ export default function BathroomRenovation() {
             </div>
           )}
 
-          {/* "Started" message */}
-          {loaded && hasStartedRenovation && (
+          {/* "Started / complete" message */}
+          {loaded && renovationComplete && (
+            <div className="bg-green-900/40 border border-green-600/40 rounded-lg px-4 py-2 mb-5 text-sm text-green-300 font-bold">
+              🏆 Renovation complete — you did it
+            </div>
+          )}
+          {loaded && hasStartedRenovation && !renovationComplete && (
             <div className="bg-green-900/30 border border-green-700/30 rounded-lg px-4 py-2 mb-5 text-sm text-green-300 font-medium">
               Nice — you've started your renovation 🪣
             </div>
@@ -680,6 +713,94 @@ export default function BathroomRenovation() {
           })}
         </div>
       </section>
+
+      {/* ── 3b. COMPLETION CARD ────────────────────────────────────────────── */}
+      {renovationComplete && (
+        <section className="px-6 pb-8 max-w-3xl mx-auto">
+          <div className="bg-gray-950 text-white rounded-2xl overflow-hidden">
+
+            {/* Top celebration band */}
+            <div className="bg-gradient-to-r from-orange-500 to-orange-400 px-6 py-5 flex items-center gap-4">
+              <span className="text-4xl shrink-0">🏆</span>
+              <div>
+                <p className="font-black text-white text-xl leading-tight">You renovated your bathroom</p>
+                <p className="text-orange-100 text-sm mt-0.5">All 6 phases complete</p>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-6">
+
+              {/* Stats row */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-white/10 rounded-xl p-4 text-center">
+                  <p className="text-2xl font-black text-orange-400">2–5</p>
+                  <p className="text-gray-300 text-xs mt-1">weekends invested</p>
+                </div>
+                <div className="bg-white/10 rounded-xl p-4 text-center">
+                  <p className="text-2xl font-black text-green-400">£800–£2k</p>
+                  <p className="text-gray-300 text-xs mt-1">saved vs a professional</p>
+                </div>
+              </div>
+
+              {/* Savings detail */}
+              <div className="bg-green-900/30 border border-green-700/30 rounded-xl p-4">
+                <p className="text-green-300 text-sm font-semibold mb-1">What you saved</p>
+                <p className="text-gray-300 text-sm">
+                  You saved approximately <span className="text-white font-bold">£800–£2,000</span> compared
+                  to hiring a contractor for the full renovation — stripping, plumbing prep,
+                  wall prep, tiling, fitting, and finishing.
+                </p>
+              </div>
+
+              {/* Skills gained */}
+              <div>
+                <p className="text-sm font-semibold text-gray-300 mb-3">Skills you built</p>
+                <div className="space-y-2">
+                  {[
+                    'Isolating water and safely removing fixtures',
+                    'Wall prep, filling, and priming to tile-ready standard',
+                    'Setting out and tiling a bathroom wall',
+                    'Drilling into tiles and fitting functional fixtures',
+                    'Applying silicone sealant and doing a professional final inspection',
+                  ].map(skill => (
+                    <div key={skill} className="flex items-start gap-2 text-sm text-gray-300">
+                      <span className="text-green-400 shrink-0 mt-0.5">✓</span>
+                      <span>{skill}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Next project */}
+              <div>
+                <p className="text-sm font-semibold text-gray-300 mb-3">Take on your next project</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <a
+                    href="/projects"
+                    className="bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl p-4 transition-colors group"
+                  >
+                    <p className="text-2xl mb-2">🍳</p>
+                    <p className="font-semibold text-white text-sm group-hover:text-orange-300 transition-colors">Kitchen renovation</p>
+                    <p className="text-gray-400 text-xs mt-1">The skills transfer directly</p>
+                  </a>
+                  <a
+                    href="/projects"
+                    className="bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl p-4 transition-colors group"
+                  >
+                    <p className="text-2xl mb-2">🌿</p>
+                    <p className="font-semibold text-white text-sm group-hover:text-orange-300 transition-colors">Garden project</p>
+                    <p className="text-gray-400 text-xs mt-1">Decking, fencing, and paving</p>
+                  </a>
+                </div>
+              </div>
+
+              {/* Share */}
+              <ShareButton />
+
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── 4. WHAT YOU'LL NEED ────────────────────────────────────────────── */}
       <section className="px-6 py-10 max-w-3xl mx-auto border-t border-gray-100">
