@@ -317,4 +317,22 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Capping a pipe temporarily during a bathroom renovation requires your landlord\'s written permission if you are doing the wider renovation yourself. If a landlord-authorised plumber is doing the work, they will handle this. Do not cap pipes without the landlord knowing — they need to be aware the supply is modified.',
   },
+  'fix-a-leaking-pipe-under-sink': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Easier than fixing a supply pipe joint — waste pipes are not under pressure and connect by hand',
+    completedCount: 0,
+    renterWarning: 'Landlords are legally responsible for fixing leaking pipes. Report it in writing. If there is a risk of water damage and they do not respond within 24 hours, contact your council\'s Environmental Health department. Hand-tightening a loose waste pipe connection is generally considered acceptable emergency action for a tenant.',
+  },
+  'unblock-a-sink': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'One of the easiest jobs on the site — no technical knowledge needed',
+    completedCount: 0,
+    renterWarning: 'You are generally allowed to unblock your own sink — it is maintenance rather than a modification. If the blockage is in the main drain (multiple sinks affected), report it to your landlord in writing as it is their responsibility to arrange clearance.',
+  },
+  'fix-a-loose-door-handle': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Easier than putting up shelves — no drilling, just tightening',
+    completedCount: 0,
+    renterWarning: 'Tightening a loose door handle is routine maintenance and does not require landlord permission. If you need to replace the handle entirely, get written permission first — even though it is a minor change, some landlords want to approve fittings.',
+  },
 }
