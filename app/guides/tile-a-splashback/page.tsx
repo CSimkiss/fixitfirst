@@ -78,6 +78,12 @@ export default function TileASplashback() {
         />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['tile-a-splashback']} />
         <StepProgress steps={steps} slug="tile-a-splashback" />
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Quick guides for this phase</p>
+          <a href="/guides/drill-into-tiles" className="text-sm text-orange-600 font-medium hover:underline">
+            How to drill into tiles without cracking them — for accessories fitted after tiling →
+          </a>
+        </div>
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not turning off the power to sockets in the splash area — this is a safety essential.</p>

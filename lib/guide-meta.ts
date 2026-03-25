@@ -288,4 +288,33 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Finishing work (silicone sealing, touch-up paint) is generally acceptable in a rented property. If you are resealing around a bath or basin that was already siliconed, keep a record of what you changed. Avoid permanently altering tile colours or grout colour without your landlord\'s agreement.',
   },
+  'remove-silicone-sealant': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'One of the easiest jobs on the site — methodical rather than technical',
+    completedCount: 0,
+    renterWarning: 'Removing and replacing silicone sealant is routine maintenance. You can do this in a rented property without landlord permission — it is the same as replacing a bath sealant that has gone mouldy. Keep the old sealant if asked to prove you replaced like-for-like.',
+  },
+  'use-ptfe-tape': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'One of the easiest plumbing tasks — the technique takes 5 minutes to learn',
+    completedCount: 0,
+    renterWarning: 'Using PTFE tape on a threaded fitting (e.g. re-connecting a tap) is minor plumbing maintenance. In a rented property, keep the water isolated and the scope small — if in doubt, ask your landlord or letting agent first.',
+  },
+  'drill-into-tiles': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'Similar difficulty to putting up shelves — the only difference is the bit type and no hammer action',
+    completedCount: 0,
+    renterWarning: 'Drilling into tiles in a rented property is a permanent change that could damage the tiles. Always get written permission from your landlord first. If a tile cracks, you may be responsible for replacement costs — which can be significant for discontinued tile ranges.',
+  },
+  'check-wall-level': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'The easiest guide on this topic — checking is simpler than fixing',
+    completedCount: 0,
+  },
+  'cap-pipe': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'Similar to fixing a leaking pipe joint — the technique is the same, just applied to an open end',
+    completedCount: 0,
+    renterWarning: 'Capping a pipe temporarily during a bathroom renovation requires your landlord\'s written permission if you are doing the wider renovation yourself. If a landlord-authorised plumber is doing the work, they will handle this. Do not cap pipes without the landlord knowing — they need to be aware the supply is modified.',
+  },
 }

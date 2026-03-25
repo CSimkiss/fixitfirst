@@ -97,7 +97,17 @@ export default function PrepBathroomPlumbing() {
         />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['prep-bathroom-plumbing']} />
         <StepProgress steps={steps} slug="prep-bathroom-plumbing" />
-
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Quick guides for this phase</p>
+          <div className="space-y-1.5">
+            <a href="/guides/use-ptfe-tape" className="block text-sm text-orange-600 font-medium hover:underline">
+              How to apply PTFE tape correctly — the right direction and number of turns →
+            </a>
+            <a href="/guides/cap-pipe" className="block text-sm text-orange-600 font-medium hover:underline">
+              How to cap off an exposed pipe safely →
+            </a>
+          </div>
+        </div>
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2"><strong>Not fully isolating the water.</strong> Turning an isolation valve halfway is not off. The slot must sit across the pipe — at 90 degrees to the pipe run. Always confirm by opening the tap and waiting for the flow to stop completely.</p>
@@ -130,9 +140,10 @@ export default function PrepBathroomPlumbing() {
           <p className="text-sm text-orange-900 mb-3">More importantly, you know how to check your work — confirming the isolation holds and the caps are seated — before moving on. That is the habit that separates a successful DIY renovation from an expensive callback.</p>
           <p className="text-sm font-semibold text-orange-800 mb-2">This unlocks:</p>
           <div className="flex flex-wrap gap-2">
-            <a href="/guides/fix-a-dripping-tap" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Fit new taps →</a>
-            <a href="/guides/fix-a-leaking-pipe-joint" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Fix pipe joints →</a>
-            <a href="/projects/bathroom-renovation" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Bathroom renovation Phase 2 →</a>
+            <a href="/guides/cap-pipe" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Cap off a pipe →</a>
+            <a href="/guides/use-ptfe-tape" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Use PTFE tape →</a>
+            <a href="/guides/prepare-walls-for-tiling" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Wall prep (Phase 3) →</a>
+            <a href="/projects/bathroom-renovation" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Bathroom renovation hub →</a>
           </div>
         </div>
 
