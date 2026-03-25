@@ -207,23 +207,20 @@ function getPhaseStatus(
 ): PhaseStatus {
   if (!loaded) return 'available'
 
+  // Strict sequential: a phase is locked unless the previous phase is completed.
+  // This check runs first so that prior completions in this phase can never
+  // show it as in-progress / completed if it should still be locked.
+  if (phaseIdx > 0) {
+    const prevStatus = getPhaseStatus(phases[phaseIdx - 1], completionMap, journeyStart, phaseIdx - 1, phases, loaded)
+    if (prevStatus !== 'completed') return 'locked'
+  }
+
   const real = phase.guides.filter(g => g.slug && !g.placeholder)
   if (real.length === 0) return 'available'
 
   const done = real.filter(g => g.slug && isRenovationCompletion(g.slug, completionMap, journeyStart)).length
   if (done === real.length) return 'completed'
   if (done > 0) return 'in-progress'
-
-  // Lock if the previous phase's non-placeholder guides aren't finished
-  if (phaseIdx > 0) {
-    const prev = phases[phaseIdx - 1]
-    const prevReal = prev.guides.filter(g => g.slug && !g.placeholder)
-    if (prevReal.length > 0) {
-      const prevDone = prevReal.filter(g => g.slug && isRenovationCompletion(g.slug, completionMap, journeyStart)).length
-      if (prevDone < prevReal.length) return 'locked'
-    }
-  }
-
   return 'available'
 }
 
@@ -362,10 +359,8 @@ export default function BathroomRenovation() {
     try { localStorage.setItem('saved-project-bathroom', String(next)) } catch {}
   }
 
-  // Phase 1 entry: only navigate if a dedicated strip-out guide exists.
-  // Never route users to an unrelated guide just because it appears in Phase 1.
-  const phase1EntryGuide = PHASES[0].entrySlug ? GUIDE_BY_SLUG[PHASES[0].entrySlug] : null
-  const phase1HasEntry   = !!phase1EntryGuide
+  // Phase 1 always links to the strip-out guide — it exists and is published.
+  const PHASE1_HREF = '/guides/strip-out-bathroom'
 
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -450,30 +445,12 @@ export default function BathroomRenovation() {
 
           {/* CTAs */}
           <div className="flex gap-3 flex-wrap items-start">
-            {phase1HasEntry ? (
-              <a
-                href={phase1EntryGuide!.href}
-                className="bg-orange-500 hover:bg-orange-400 text-white px-7 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-orange-500/20"
-              >
-                Start with Phase 1 →
-              </a>
-            ) : (
-              <div>
-                <div className="inline-flex items-center gap-2 bg-gray-700 text-gray-400 px-7 py-3 rounded-xl font-semibold cursor-default select-none">
-                  📋 Phase 1 guide coming soon
-                </div>
-                <p className="text-gray-500 text-xs mt-2 max-w-xs">
-                  We haven't written the dedicated strip-out guide yet.
-                  Use the phase checklist below to understand the process.
-                </p>
-                <a
-                  href="/search?q=bathroom"
-                  className="inline-block mt-2 text-orange-400 text-sm hover:underline"
-                >
-                  Browse related bathroom guides →
-                </a>
-              </div>
-            )}
+            <a
+              href={PHASE1_HREF}
+              className="bg-orange-500 hover:bg-orange-400 text-white px-7 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-orange-500/20"
+            >
+              Start Phase 1 (30–60 mins, low risk) →
+            </a>
             <div className="flex flex-col gap-1">
               <button
                 onClick={toggleSave}
@@ -1051,47 +1028,23 @@ export default function BathroomRenovation() {
         <div className="max-w-2xl mx-auto">
           <p className="text-orange-400 font-semibold text-sm uppercase tracking-wide mb-3">Ready to start?</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Begin with Phase 1 — Strip Out</h2>
-          {phase1HasEntry ? (
-            <>
-              <p className="text-gray-400 text-sm mb-7 max-w-md mx-auto">
-                The hardest part is starting. Phase 1 takes half a day, uses existing guides, and costs nothing beyond a Stanley knife.
-              </p>
-              <div className="flex gap-3 justify-center flex-wrap">
-                <a
-                  href={phase1EntryGuide!.href}
-                  className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-3.5 rounded-xl font-bold transition-colors shadow-lg shadow-orange-500/25"
-                >
-                  Start Phase 1 →
-                </a>
-                <a
-                  href="/guides"
-                  className="border border-white/20 text-gray-300 hover:bg-white/10 px-8 py-3.5 rounded-xl font-semibold transition-colors"
-                >
-                  Browse all guides
-                </a>
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="text-gray-400 text-sm mb-3 max-w-md mx-auto">
-                The dedicated strip-out guide is coming soon. In the meantime, use the Phase 1 checklist above — or build your skills with related bathroom guides first.
-              </p>
-              <div className="flex gap-3 justify-center flex-wrap">
-                <a
-                  href="/search?q=bathroom"
-                  className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-3.5 rounded-xl font-bold transition-colors"
-                >
-                  Browse bathroom guides →
-                </a>
-                <a
-                  href="/guides"
-                  className="border border-white/20 text-gray-300 hover:bg-white/10 px-8 py-3.5 rounded-xl font-semibold transition-colors"
-                >
-                  All guides
-                </a>
-              </div>
-            </>
-          )}
+          <p className="text-gray-400 text-sm mb-7 max-w-md mx-auto">
+            The hardest part is starting. Phase 1 takes half a day, uses basic tools, and costs nothing beyond a Stanley knife.
+          </p>
+          <div className="flex gap-3 justify-center flex-wrap">
+            <a
+              href={PHASE1_HREF}
+              className="bg-orange-500 hover:bg-orange-400 text-white px-8 py-3.5 rounded-xl font-bold transition-colors shadow-lg shadow-orange-500/25"
+            >
+              Start Phase 1 →
+            </a>
+            <a
+              href="/guides"
+              className="border border-white/20 text-gray-300 hover:bg-white/10 px-8 py-3.5 rounded-xl font-semibold transition-colors"
+            >
+              Browse all guides
+            </a>
+          </div>
         </div>
       </section>
 
