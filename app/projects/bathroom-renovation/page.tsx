@@ -296,6 +296,25 @@ export default function BathroomRenovation() {
   const hasStartedRenovation = loaded && completedPhaseGuideCount > 0
   const renovationComplete   = loaded && renovationPct === 100
 
+  // ── "Your next step" — first incomplete real guide in the earliest open phase ─
+  const nextStep = (loaded && !renovationComplete)
+    ? (() => {
+        for (let i = 0; i < PHASES.length; i++) {
+          const phase  = PHASES[i]
+          const status = getPhaseStatus(phase, completedSlugs, i, PHASES, loaded)
+          if (status === 'locked' || status === 'completed') continue
+          for (const pg of phase.guides) {
+            if (pg.placeholder || !pg.slug) continue
+            if (completedSlugs.includes(pg.slug)) continue
+            const guide = GUIDE_BY_SLUG[pg.slug]
+            if (!guide) continue
+            return { guide, phase }
+          }
+        }
+        return null
+      })()
+    : null
+
   // "Next up" phase: first phase that is 'available' after a completed one
   const phase1Status = loaded ? getPhaseStatus(PHASES[0], completedSlugs, 0, PHASES, loaded) : 'available'
   const showPhase2NextUp = loaded && phase1Status === 'completed'
@@ -425,16 +444,23 @@ export default function BathroomRenovation() {
                 </a>
               </div>
             )}
-            <button
-              onClick={toggleSave}
-              className={`px-7 py-3 rounded-xl font-semibold border transition-colors ${
-                savedProject
-                  ? 'bg-white/20 border-white/30 text-white'
-                  : 'border-white/20 text-gray-300 hover:bg-white/10'
-              }`}
-            >
-              {savedProject ? '✅ Project saved' : '🔖 Save project'}
-            </button>
+            <div className="flex flex-col gap-1">
+              <button
+                onClick={toggleSave}
+                className={`px-7 py-3 rounded-xl font-semibold border transition-colors ${
+                  savedProject
+                    ? 'bg-white/20 border-white/30 text-white'
+                    : 'border-white/20 text-gray-300 hover:bg-white/10'
+                }`}
+              >
+                {savedProject ? '✅ Project saved' : '🔖 Save project'}
+              </button>
+              <p className="text-xs text-center text-gray-500">
+                {savedProject
+                  ? 'Saved — we\'ll track your progress'
+                  : 'Save this project — we\'ll guide you through each step'}
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -455,6 +481,12 @@ export default function BathroomRenovation() {
                   style={{ width: `${readinessPct}%` }}
                 />
               </div>
+
+              {readinessPct > 0 && readinessPct < 100 && (
+                <p className="text-xs text-orange-600 font-medium mb-4">
+                  You&apos;re already {readinessPct}% ready — most people never get this far
+                </p>
+              )}
 
               <p className="text-sm text-gray-600 mb-4">
                 Complete these foundational guides to build the skills this project needs:
@@ -518,13 +550,42 @@ export default function BathroomRenovation() {
         </div>
       </section>
 
+      {/* ── 2b. YOUR NEXT STEP ─────────────────────────────────────────────── */}
+      {nextStep && (
+        <section className="px-6 pb-2 max-w-3xl mx-auto">
+          <a
+            href={nextStep.guide.href}
+            className="flex items-center gap-4 bg-gray-950 text-white rounded-2xl px-5 py-4 hover:bg-gray-900 transition-colors group"
+          >
+            <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold shrink-0 text-lg group-hover:bg-orange-400 transition-colors">
+              →
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-gray-400 mb-0.5 uppercase tracking-wide font-medium">
+                Your next step · Phase {nextStep.phase.number}: {nextStep.phase.title}
+              </p>
+              <p className="font-semibold text-white text-sm leading-snug">{nextStep.guide.title}</p>
+              <p className="text-xs text-gray-400 mt-0.5">{nextStep.guide.time}</p>
+            </div>
+            <span className="text-orange-400 font-bold text-sm shrink-0">Continue →</span>
+          </a>
+        </section>
+      )}
+
       {/* ── 3. PHASES ──────────────────────────────────────────────────────── */}
       <section className="px-6 pb-6 max-w-3xl mx-auto">
         <h2 className="text-2xl font-bold text-gray-900 mb-1">The 6 phases</h2>
         <p className="text-gray-500 text-sm mb-1">
           Work through each phase in order. The sequence matters — plumbing before walls, walls before tiles.
         </p>
-        <p className="text-gray-400 text-xs mb-6">You can complete this over 2–5 weekends</p>
+        <div className="flex items-center gap-3 mb-6 flex-wrap">
+          <p className="text-gray-400 text-xs">2–5 weekends total</p>
+          {loaded && phase1Status !== 'completed' && (
+            <span className="text-xs font-semibold text-orange-600 bg-orange-50 border border-orange-200 px-2.5 py-1 rounded-full">
+              You could complete Phase 1 today
+            </span>
+          )}
+        </div>
 
         {/* Before you start Phase 1 — tool bundle */}
         {loaded && phase1Status === 'available' && (
@@ -641,6 +702,11 @@ export default function BathroomRenovation() {
                 {/* Guide list — hidden when locked */}
                 {!isLocked && (
                   <div className="px-5 pb-5 space-y-2 border-t border-gray-100 pt-4">
+                    {isCompleted && (
+                      <p className="text-xs text-green-700 font-semibold bg-green-100 border border-green-200 rounded-lg px-3 py-2">
+                        ✓ Phase {phase.number} complete — keep going
+                      </p>
+                    )}
                     {phase.guides.map((pg, gi) => {
                       const guide    = pg.slug ? GUIDE_BY_SLUG[pg.slug] : null
                       const isDone   = pg.slug ? completedSlugs.includes(pg.slug) : false
