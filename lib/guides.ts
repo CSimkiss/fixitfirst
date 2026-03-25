@@ -40,6 +40,15 @@ export const ALL_GUIDES: Guide[] = [
     description: 'The step most people skip — and why tiles fail. Learn to properly clean, fill, sand, and prime bathroom walls so your tiles actually stay up.',
   },
   {
+    slug: 'finish-bathroom-renovation', title: 'Finish a bathroom (seal, paint & final checks)',
+    time: '1–2 hours', timeMinutes: 90, cost: '£10–50', level: 'Beginner', category: 'Decorating',
+    href: '/guides/finish-bathroom-renovation', difficulty: 2,
+    saves: 'Save £80–200 today', estimatedSavingsMin: 80, estimatedSavingsMax: 200,
+    emoji: '✨', ukSpecific: true, skillPoints: 20, popularityScore: 60,
+    searchTerms: ['finish bathroom renovation', 'bathroom sealant', 'apply silicone bathroom', 'bathroom final checks', 'bathroom touch up paint', 'bathroom finishing phase', 'seal bath edge', 'bathroom completion'],
+    description: 'Apply silicone sealant, touch up paintwork, and do a final inspection. The finishing phase that makes a refurbished bathroom look complete and professional.',
+  },
+  {
     slug: 'fit-bathroom-fixtures', title: 'Fit bathroom fixtures (sink, accessories & finishing)',
     time: '1–3 hours', timeMinutes: 120, cost: '£20–100', level: 'Intermediate', category: 'Plumbing',
     href: '/guides/fit-bathroom-fixtures', difficulty: 3,

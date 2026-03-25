@@ -282,4 +282,10 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Fitting a replacement basin or accessories in a rented property requires your landlord\'s written permission. Connecting to existing pipework (flexible tails to isolation valves) is generally low risk, but always get written agreement before any permanent fixture changes. Keep a record of original fittings so they can be reinstated.',
   },
+  'finish-bathroom-renovation': {
+    lastUpdated: 'June 2025',
+    difficultyComparison: 'Similar to painting a room — the same careful prep and finishing eye applies',
+    completedCount: 0,
+    renterWarning: 'Finishing work (silicone sealing, touch-up paint) is generally acceptable in a rented property. If you are resealing around a bath or basin that was already siliconed, keep a record of what you changed. Avoid permanently altering tile colours or grout colour without your landlord\'s agreement.',
+  },
 }
