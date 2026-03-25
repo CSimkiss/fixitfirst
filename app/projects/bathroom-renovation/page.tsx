@@ -182,9 +182,25 @@ const PHASE1_TOOL_IDS = ['utility-knife', 'adjustable-spanner', 'screwdriver-fla
 
 type PhaseStatus = 'locked' | 'available' | 'in-progress' | 'completed'
 
+/**
+ * Returns true if a guide was completed within the renovation journey context.
+ * If journeyStart is null (no tracking yet), all completions count.
+ */
+function isRenovationCompletion(
+  slug: string,
+  completionMap: Record<string, string>,
+  journeyStart: string | null,
+): boolean {
+  const date = completionMap[slug]
+  if (!date) return false
+  if (!journeyStart) return true
+  return date >= journeyStart
+}
+
 function getPhaseStatus(
   phase: Phase,
-  completedSlugs: string[],
+  completionMap: Record<string, string>,
+  journeyStart: string | null,
   phaseIdx: number,
   phases: Phase[],
   loaded: boolean,
@@ -194,7 +210,7 @@ function getPhaseStatus(
   const real = phase.guides.filter(g => g.slug && !g.placeholder)
   if (real.length === 0) return 'available'
 
-  const done = real.filter(g => g.slug && completedSlugs.includes(g.slug)).length
+  const done = real.filter(g => g.slug && isRenovationCompletion(g.slug, completionMap, journeyStart)).length
   if (done === real.length) return 'completed'
   if (done > 0) return 'in-progress'
 
@@ -203,7 +219,7 @@ function getPhaseStatus(
     const prev = phases[phaseIdx - 1]
     const prevReal = prev.guides.filter(g => g.slug && !g.placeholder)
     if (prevReal.length > 0) {
-      const prevDone = prevReal.filter(g => g.slug && completedSlugs.includes(g.slug)).length
+      const prevDone = prevReal.filter(g => g.slug && isRenovationCompletion(g.slug, completionMap, journeyStart)).length
       if (prevDone < prevReal.length) return 'locked'
     }
   }
@@ -252,18 +268,32 @@ const MATERIALS = [
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function BathroomRenovation() {
-  const [completedSlugs, setCompletedSlugs] = useState<string[]>([])
-  const [ownedTools, setOwnedTools]         = useState<string[]>([])
-  const [savedProject, setSavedProject]     = useState(false)
-  const [loaded, setLoaded]                 = useState(false)
+  const [completedSlugs, setCompletedSlugs]       = useState<string[]>([])
+  const [completionMap, setCompletionMap]         = useState<Record<string, string>>({})
+  const [renovationJourneyStart, setRenovationJourneyStart] = useState<string | null>(null)
+  const [ownedTools, setOwnedTools]               = useState<string[]>([])
+  const [savedProject, setSavedProject]           = useState(false)
+  const [loaded, setLoaded]                       = useState(false)
 
   useEffect(() => {
     try {
       const map = getCompletionMap()
       setCompletedSlugs(Object.keys(map))
+      setCompletionMap(map)
       const raw = localStorage.getItem(TOOLS_STORAGE_KEY)
       if (raw) setOwnedTools(JSON.parse(raw))
       setSavedProject(localStorage.getItem('saved-project-bathroom') === 'true')
+
+      // Record journey start on first visit so we can distinguish
+      // guides completed before vs during this renovation
+      const existing = localStorage.getItem('renovation-journey-start')
+      if (existing) {
+        setRenovationJourneyStart(existing)
+      } else {
+        const now = new Date().toISOString().slice(0, 10) // 'YYYY-MM-DD'
+        localStorage.setItem('renovation-journey-start', now)
+        setRenovationJourneyStart(now)
+      }
     } catch {}
     setLoaded(true)
   }, [])
@@ -287,12 +317,13 @@ export default function BathroomRenovation() {
     PHASES.flatMap(p => p.guides.filter(g => g.slug && !g.placeholder).map(g => g.slug!))
   )]
   const completedPhaseGuideCount = loaded
-    ? allPhaseGuideSlugs.filter(s => completedSlugs.includes(s)).length
+    ? allPhaseGuideSlugs.filter(s => isRenovationCompletion(s, completionMap, renovationJourneyStart)).length
     : 0
   const renovationPct = allPhaseGuideSlugs.length > 0
     ? Math.round((completedPhaseGuideCount / allPhaseGuideSlugs.length) * 100)
     : 0
   const hasStartedRenovation = loaded && completedPhaseGuideCount > 0
+  // completedPhaseGuideCount already uses isRenovationCompletion, so this is renovation-aware
   const renovationComplete   = loaded && renovationPct === 100
 
   // ── "Your next step" — first incomplete real guide in the earliest open phase ─
@@ -300,11 +331,11 @@ export default function BathroomRenovation() {
     ? (() => {
         for (let i = 0; i < PHASES.length; i++) {
           const phase  = PHASES[i]
-          const status = getPhaseStatus(phase, completedSlugs, i, PHASES, loaded)
+          const status = getPhaseStatus(phase, completionMap, renovationJourneyStart, i, PHASES, loaded)
           if (status === 'locked' || status === 'completed') continue
           for (const pg of phase.guides) {
             if (pg.placeholder || !pg.slug) continue
-            if (completedSlugs.includes(pg.slug)) continue
+            if (isRenovationCompletion(pg.slug, completionMap, renovationJourneyStart)) continue
             const guide = GUIDE_BY_SLUG[pg.slug]
             if (!guide) continue
             return { guide, phase }
@@ -315,7 +346,7 @@ export default function BathroomRenovation() {
     : null
 
   // "Next up" phase: first phase that is 'available' after a completed one
-  const phase1Status = loaded ? getPhaseStatus(PHASES[0], completedSlugs, 0, PHASES, loaded) : 'available'
+  const phase1Status = loaded ? getPhaseStatus(PHASES[0], completionMap, renovationJourneyStart, 0, PHASES, loaded) : 'available'
   const showPhase2NextUp = loaded && phase1Status === 'completed'
 
   // Phase 1 tool bundle — tools and which ones the user is missing
@@ -639,7 +670,7 @@ export default function BathroomRenovation() {
 
         <div className="space-y-4">
           {PHASES.map((phase, idx) => {
-            const status = getPhaseStatus(phase, completedSlugs, idx, PHASES, loaded)
+            const status = getPhaseStatus(phase, completionMap, renovationJourneyStart, idx, PHASES, loaded)
             const isLocked    = status === 'locked'
             const isCompleted = status === 'completed'
             const isInProg    = status === 'in-progress'
@@ -707,9 +738,11 @@ export default function BathroomRenovation() {
                       </p>
                     )}
                     {phase.guides.map((pg, gi) => {
-                      const guide    = pg.slug ? GUIDE_BY_SLUG[pg.slug] : null
-                      const isDone   = pg.slug ? completedSlugs.includes(pg.slug) : false
-                      const isHolder = pg.placeholder
+                      const guide         = pg.slug ? GUIDE_BY_SLUG[pg.slug] : null
+                      const isDoneInReno  = pg.slug ? isRenovationCompletion(pg.slug, completionMap, renovationJourneyStart) : false
+                      const isDoneEarlier = pg.slug && !isDoneInReno ? completedSlugs.includes(pg.slug) : false
+                      const isDone        = isDoneInReno
+                      const isHolder      = pg.placeholder
 
                       if (isHolder) {
                         return (
@@ -738,26 +771,37 @@ export default function BathroomRenovation() {
                           className={`flex items-center gap-3 p-3 rounded-xl border transition-all group ${
                             isDone
                               ? 'bg-green-50 border-green-200'
+                              : isDoneEarlier
+                              ? 'bg-gray-50 border-gray-200 hover:border-gray-300'
                               : 'bg-white border-gray-200 hover:border-orange-300 hover:shadow-sm'
                           }`}
                         >
-                          <span className="text-xl shrink-0">{isDone ? '✅' : guide.emoji}</span>
+                          <span className="text-xl shrink-0">
+                            {isDone ? '✅' : isDoneEarlier ? '☑️' : guide.emoji}
+                          </span>
                           <div className="flex-1 min-w-0">
                             <p className={`text-sm font-medium ${
-                              isDone ? 'text-gray-400 line-through' : 'text-gray-800 group-hover:text-orange-600'
+                              isDone
+                                ? 'text-gray-400 line-through'
+                                : isDoneEarlier
+                                ? 'text-gray-400'
+                                : 'text-gray-800 group-hover:text-orange-600'
                             }`}>
                               {pg.title}
                             </p>
-                            {pg.note && (
+                            {isDoneEarlier && !isDone && (
+                              <p className="text-xs text-gray-400 mt-0.5">Already done — will count when completed again</p>
+                            )}
+                            {!isDone && !isDoneEarlier && pg.note && (
                               <p className="text-xs text-gray-400 mt-0.5">{pg.note}</p>
                             )}
-                            {!isDone && guide.estimatedSavingsMax > 0 && (
+                            {!isDone && !isDoneEarlier && guide.estimatedSavingsMax > 0 && (
                               <p className="text-xs text-green-600 font-medium mt-0.5">{guide.saves}</p>
                             )}
                           </div>
                           <div className="text-right shrink-0 text-xs text-gray-400 space-y-0.5">
                             <div>{guide.time}</div>
-                            <div>{guide.cost}</div>
+                            {!isDoneEarlier && <div>{guide.cost}</div>}
                           </div>
                         </a>
                       )
