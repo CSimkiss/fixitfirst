@@ -58,6 +58,7 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   'prep-bathroom-plumbing':    ['adjustable-spanner', 'bucket', 'rubber-gloves', 'sponge-cloths', 'ptfe-tape'],
   'prepare-walls-for-tiling':  ['filling-knife', 'sandpaper', 'spirit-level'],
   'fit-bathroom-fixtures':     ['drill', 'drill-bits', 'spirit-level', 'adjustable-spanner', 'screwdriver-flat', 'screwdriver-cross', 'ptfe-tape'],
+  'finish-bathroom-renovation': ['sealant-gun', 'masking-tape', 'paintbrush', 'sponge-cloths'],
   'fix-a-dripping-tap':        ['adjustable-spanner', 'screwdriver-flat', 'ptfe-tape'],
   'fix-a-leaking-pipe-joint':  ['adjustable-spanner', 'ptfe-tape'],
   'replace-a-toilet-seat':     ['screwdriver-cross', 'pliers'],

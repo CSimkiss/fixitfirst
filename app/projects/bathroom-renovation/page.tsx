@@ -140,10 +140,10 @@ const PHASES: Phase[] = [
     description: 'Seal, paint, and do final checks — the satisfying part',
     time: '2–4 hours',
     weekendLabel: 'Weekend 5',
-    entrySlug: 'paint-a-room',
+    entrySlug: 'finish-bathroom-renovation',
     guides: [
+      { slug: 'finish-bathroom-renovation', title: 'Seal, paint & final checks', note: 'Use sanitary silicone and inspect every joint before use' },
       { slug: 'paint-a-room', title: 'Paint walls and ceiling', note: 'Use moisture-resistant paint for bathrooms' },
-      { title: 'Apply fresh silicone sealant', note: 'Around bath, basin, and shower tray', placeholder: true },
     ],
   },
 ]
