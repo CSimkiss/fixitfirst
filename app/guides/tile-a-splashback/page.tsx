@@ -106,7 +106,7 @@ export default function TileASplashback() {
           <p className="text-sm font-semibold text-orange-800 mb-2">This unlocks:</p>
           <div className="flex flex-wrap gap-2">
             <a href="/projects/bathroom-renovation" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Bathroom renovation Phase 4 →</a>
-            <a href="/guides/replace-a-shower-head" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Fitting fixtures →</a>
+            <a href="/guides/fit-bathroom-fixtures" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Fitting fixtures →</a>
           </div>
         </div>
 
@@ -131,7 +131,7 @@ export default function TileASplashback() {
               Back to your renovation →
             </a>
             <a
-              href="/guides/replace-a-shower-head"
+              href="/guides/fit-bathroom-fixtures"
               className="border border-white/20 text-gray-300 hover:bg-white/10 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
             >
               Fitting fixtures →
