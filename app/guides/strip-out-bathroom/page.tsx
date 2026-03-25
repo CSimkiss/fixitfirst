@@ -95,6 +95,12 @@ export default function StripOutBathroom() {
         />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['strip-out-bathroom']} />
         <StepProgress steps={steps} slug="strip-out-bathroom" />
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Quick guides for this phase</p>
+          <a href="/guides/remove-silicone-sealant" className="text-sm text-orange-600 font-medium hover:underline">
+            How to remove old silicone sealant without damaging tiles →
+          </a>
+        </div>
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2">Not fully isolating the water before disconnecting pipes — a small amount of water is always left in the pipes after isolation, so have a bucket ready.</p>
@@ -122,6 +128,12 @@ export default function StripOutBathroom() {
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
           <p className="text-sm text-orange-900 mb-2">You can now safely isolate a water supply, disconnect bathroom fixtures, remove old sealant cleanly, and identify problem areas before they become expensive surprises.</p>
           <p className="text-sm text-orange-900 mb-3">These skills unlock the rest of the renovation — tiling, new fixtures, and finishing are all easier when the room is properly prepped.</p>
+          <p className="text-sm font-semibold text-orange-800 mb-2">This unlocks:</p>
+          <div className="flex flex-wrap gap-2">
+            <a href="/guides/remove-silicone-sealant" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Remove silicone sealant →</a>
+            <a href="/guides/prep-bathroom-plumbing" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Plumbing prep (Phase 2) →</a>
+            <a href="/projects/bathroom-renovation" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Bathroom renovation hub →</a>
+          </div>
         </div>
 
         {/* ── Continue your renovation ─────────────────────────────────────── */}

@@ -54,6 +54,11 @@ export const ALL_TOOLS: Tool[] = [
 
 export const GUIDE_TOOLS: Record<string, string[]> = {
   // Plumbing
+  'remove-silicone-sealant':   ['utility-knife', 'filling-knife', 'sponge-cloths'],
+  'use-ptfe-tape':             ['ptfe-tape', 'adjustable-spanner'],
+  'drill-into-tiles':          ['drill', 'drill-bits', 'masking-tape', 'spirit-level'],
+  'check-wall-level':          ['spirit-level', 'tape-measure'],
+  'cap-pipe':                  ['adjustable-spanner', 'ptfe-tape', 'bucket', 'sponge-cloths'],
   'strip-out-bathroom':        ['utility-knife', 'adjustable-spanner', 'screwdriver-flat', 'screwdriver-cross', 'rubber-gloves', 'bucket'],
   'prep-bathroom-plumbing':    ['adjustable-spanner', 'bucket', 'rubber-gloves', 'sponge-cloths', 'ptfe-tape'],
   'prepare-walls-for-tiling':  ['filling-knife', 'sandpaper', 'spirit-level'],

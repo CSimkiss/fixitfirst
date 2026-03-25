@@ -100,23 +100,22 @@ const PHASES: Phase[] = [
     // entrySlug intentionally absent — no dedicated strip-out guide exists yet.
     // The header CTA shows a "coming soon" state rather than linking to an unrelated guide.
     guides: [
-      { slug: 'strip-out-bathroom', title: 'Strip out your bathroom', note: 'Isolate water, remove fixtures, prep surfaces' },
-      { title: 'Remove remaining fixtures and accessories', note: 'Towel rails, mirrors, shelves', placeholder: true },
+      { slug: 'strip-out-bathroom',        title: 'Strip out your bathroom',         note: 'Isolate water, remove fixtures, prep surfaces' },
+      { slug: 'remove-silicone-sealant',   title: 'Remove old silicone sealant',     note: '15 mins — do this before anything else is removed' },
     ],
   },
   {
     number: 2,
     icon: '🔧',
     title: 'Plumbing Prep',
-    description: 'This is where your bathroom starts to take shape — sort all pipework before anything goes on the walls',
+    description: 'Cap exposed pipes and sort all pipework before anything goes on the walls',
     time: '1–3 hours',
     weekendLabel: 'Weekend 2',
     entrySlug: 'prep-bathroom-plumbing',
     guides: [
-      { slug: 'prep-bathroom-plumbing',      title: 'Prep bathroom plumbing',        note: 'Isolate, disconnect, cap — before anything goes in' },
-      { slug: 'fix-a-dripping-tap',          title: 'Fit new taps or basin taps',    note: 'Replace like-for-like or upgrade' },
-      { slug: 'fix-a-leaking-pipe-joint',    title: 'Check and repair pipe joints',  note: 'Do this before any tiling' },
-      { slug: 'fix-low-water-pressure',      title: 'Check water pressure',          note: 'Confirm pressure before fitting new fixtures' },
+      { slug: 'prep-bathroom-plumbing',    title: 'Prep bathroom plumbing',           note: 'Isolate, disconnect, cap — before anything goes in' },
+      { slug: 'cap-pipe',                  title: 'Cap off exposed pipes',            note: 'Restore water supply while tiling continues' },
+      { slug: 'use-ptfe-tape',             title: 'Use PTFE tape on connections',     note: '10 mins — the right way to seal threaded fittings' },
     ],
   },
   {
@@ -128,9 +127,9 @@ const PHASES: Phase[] = [
     weekendLabel: 'Weekend 2–3',
     entrySlug: 'prepare-walls-for-tiling',
     guides: [
-      { slug: 'prepare-walls-for-tiling', title: 'Prepare walls for tiling',    note: 'Clean, fill, sand, and prime before any tiles go on' },
-      { slug: 'fill-a-hole-in-a-wall',    title: 'Fill holes and cracks',       note: 'For deeper repairs before the prep coat' },
-      { slug: 'fill-and-sand-a-wall',     title: 'Fill and sand walls smooth',  note: 'Full-wall smoothing if needed' },
+      { slug: 'prepare-walls-for-tiling',  title: 'Prepare walls for tiling',        note: 'Clean, fill, sand, and prime before any tiles go on' },
+      { slug: 'check-wall-level',          title: 'Check wall is level and flat',     note: '10 mins — do this before priming' },
+      { slug: 'fill-a-hole-in-a-wall',     title: 'Fill holes and cracks',            note: 'For deeper repairs before the prep coat' },
     ],
   },
   {
@@ -142,8 +141,8 @@ const PHASES: Phase[] = [
     weekendLabel: 'Weekend 3–4',
     entrySlug: 'tile-a-splashback',
     guides: [
-      { slug: 'tile-a-splashback', title: 'Tile splashback or shower wall', note: 'Use waterproof adhesive throughout' },
-      { title: 'Grout the tiles', note: 'Leave adhesive 24hrs to cure before grouting', placeholder: true },
+      { slug: 'tile-a-splashback',         title: 'Tile splashback or shower wall',  note: 'Use waterproof adhesive throughout' },
+      { slug: 'drill-into-tiles',          title: 'Drill into tiles safely',          note: 'For accessories fitted after tiling' },
     ],
   },
   {

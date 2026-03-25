@@ -95,7 +95,12 @@ export default function PrepareWallsForTiling() {
         />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['prepare-walls-for-tiling']} />
         <StepProgress steps={steps} slug="prepare-walls-for-tiling" />
-
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Quick guides for this phase</p>
+          <a href="/guides/check-wall-level" className="text-sm text-orange-600 font-medium hover:underline">
+            How to check if a wall is level and flat before tiling →
+          </a>
+        </div>
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2"><strong>Skipping prep entirely.</strong> &ldquo;The wall looks fine&rdquo; is not good enough. Old adhesive, paint, or dust all reduce the grip area for new tile adhesive. Run your hand across the wall — if it comes away chalky or gritty, the surface needs priming first.</p>

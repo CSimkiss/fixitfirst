@@ -100,7 +100,12 @@ export default function FitBathroomFixtures() {
         />
         <ToolsWarning requiredToolIds={GUIDE_TOOLS['fit-bathroom-fixtures']} />
         <StepProgress steps={steps} slug="fit-bathroom-fixtures" />
-
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Quick guides for this phase</p>
+          <a href="/guides/drill-into-tiles" className="text-sm text-orange-600 font-medium hover:underline">
+            How to drill into tiles without cracking them — the right bit, no hammer action →
+          </a>
+        </div>
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
           <p className="text-sm text-yellow-900 mb-2"><strong>Drilling without checking level.</strong> The most common result of skipping the spirit level is a towel rail that is visually crooked. The eye is surprisingly good at detecting a 2° slope — mark, check, then drill.</p>
