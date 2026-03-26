@@ -5,7 +5,7 @@ import { TIERS } from '@/lib/progress'
 import { totalSavings, tierLevel } from '@/lib/completions'
 import { ALL_GUIDES, getRecommendation, type Guide, type RecommendationReason } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
-import { screwfixToolUrl } from '@/lib/affiliates'
+import { amazonToolUrl } from '@/lib/affiliates'
 import type { CompletionMap } from '@/lib/completions'
 
 // ─── Per-guide tool suggestion ────────────────────────────────────────────────
@@ -234,7 +234,7 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
               <p className="text-xs text-gray-500 leading-snug">
                 Useful for next time:{' '}
                 <a
-                  href={screwfixToolUrl(toolSuggestion.searchTerm)}
+                  href={amazonToolUrl(toolSuggestion.searchTerm)}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   className="font-medium text-gray-600 hover:underline"

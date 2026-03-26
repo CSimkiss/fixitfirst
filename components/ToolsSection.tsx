@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { TOOLS_STORAGE_KEY } from '@/lib/tools'
-import { screwfixToolUrl, amazonToolUrl, screwfixGuideUrl, amazonGuideUrl } from '@/lib/affiliates'
+import { amazonToolUrl, amazonGuideUrl } from '@/lib/affiliates'
 
 export type ToolItem = {
   /** Default icon shown before localStorage is read */
@@ -58,24 +58,14 @@ export default function ToolsSection({ tools, slug: _slug, guideName }: Props) {
                 {showBuy && tool.name && (
                   <span className="flex flex-col gap-0.5 text-xs mt-0.5 w-full">
                     <span className="text-gray-400 italic">Worth having — you will use it for other fixes too.</span>
-                    <span className="flex items-center gap-1 flex-wrap">
-                      <span className="text-gray-400">· Get it:</span>
-                      <a
-                        href={screwfixToolUrl(tool.name)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        Screwfix
-                      </a>
-                      <span className="text-gray-300">|</span>
+                    <span className="flex items-center gap-1">
                       <a
                         href={amazonToolUrl(tool.name)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:underline"
                       >
-                        Amazon
+                        Find it on Amazon
                       </a>
                     </span>
                   </span>
@@ -89,21 +79,12 @@ export default function ToolsSection({ tools, slug: _slug, guideName }: Props) {
         <p className="text-xs text-gray-500 mt-4 pt-3 border-t border-gray-100">
           Want to get everything in one go?{' '}
           <a
-            href={screwfixGuideUrl(guideName)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:underline"
-          >
-            Shop this fix on Screwfix
-          </a>
-          {' '}or{' '}
-          <a
             href={amazonGuideUrl(guideName)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline"
           >
-            Amazon
+            Shop this fix on Amazon
           </a>
         </p>
       )}

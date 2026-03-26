@@ -7,7 +7,7 @@ import { ALL_GUIDES } from '@/lib/guides'
 import { useCompletions } from '@/lib/useCompletions'
 import { totalSavings } from '@/lib/completions'
 import { ALL_TOOLS, GUIDE_TOOLS as GUIDE_TOOL_MAP, TOOLS_STORAGE_KEY } from '@/lib/tools'
-import { screwfixToolUrl } from '@/lib/affiliates'
+import { amazonToolUrl } from '@/lib/affiliates'
 
 const MILESTONES = [100, 250, 500, 1000, 2000, 5000]
 
@@ -274,7 +274,7 @@ export default function SavingsTracker() {
                         <span key={id}>
                           {toolById[id].name}{' '}
                           <a
-                            href={screwfixToolUrl(toolById[id].name)}
+                            href={amazonToolUrl(toolById[id].name)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-orange-500 hover:underline"

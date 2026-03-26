@@ -6,7 +6,7 @@ import MobileNav from '@/components/MobileNav'
 import { GUIDE_BY_SLUG } from '@/lib/guides'
 import { TOOLS_STORAGE_KEY, ALL_TOOLS } from '@/lib/tools'
 import { getCompletionMap } from '@/lib/completions'
-import { screwfixToolUrl, amazonToolUrl } from '@/lib/affiliates'
+import { amazonToolUrl } from '@/lib/affiliates'
 
 // ─── Share button ─────────────────────────────────────────────────────────────
 
@@ -620,12 +620,12 @@ export default function BathroomRenovation() {
                     </span>
                     {!owned && (
                       <a
-                        href={screwfixToolUrl(tool.name)}
+                        href={amazonToolUrl(tool.name)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-red-600 font-semibold hover:underline shrink-0"
+                        className="text-orange-600 font-semibold hover:underline shrink-0"
                       >
-                        Get
+                        Find it
                       </a>
                     )}
                   </div>
@@ -634,12 +634,12 @@ export default function BathroomRenovation() {
             </div>
             {missingPhase1Tools.length > 0 && (
               <a
-                href={screwfixToolUrl('bathroom strip out tools kit')}
+                href={amazonToolUrl('bathroom strip out tools kit')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-red-600 font-semibold hover:underline"
+                className="text-sm text-orange-600 font-semibold hover:underline"
               >
-                Get everything for this step →
+                Shop this kit on Amazon →
               </a>
             )}
           </div>
@@ -912,24 +912,14 @@ export default function BathroomRenovation() {
                   {tool.name}
                 </span>
                 {!owned && (
-                  <div className="flex gap-1.5 shrink-0">
-                    <a
-                      href={screwfixToolUrl(tool.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs bg-red-600 text-white px-2 py-0.5 rounded font-medium hover:bg-red-700 transition-colors"
-                    >
-                      Screwfix
-                    </a>
-                    <a
-                      href={amazonToolUrl(tool.name)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs bg-orange-500 text-white px-2 py-0.5 rounded font-medium hover:bg-orange-600 transition-colors"
-                    >
-                      Amazon
-                    </a>
-                  </div>
+                  <a
+                    href={amazonToolUrl(tool.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-orange-600 font-semibold hover:underline shrink-0 transition-colors"
+                  >
+                    Find it
+                  </a>
                 )}
               </div>
             )
@@ -953,26 +943,16 @@ export default function BathroomRenovation() {
         <div className="bg-orange-50 border border-orange-200 rounded-2xl p-5 text-center">
           <p className="font-bold text-gray-900 mb-1">Get everything in one go</p>
           <p className="text-sm text-gray-500 mb-4">
-            Shop bathroom renovation tools and materials at Screwfix or Amazon
+            Shop bathroom renovation tools and materials on Amazon
           </p>
-          <div className="flex gap-3 justify-center flex-wrap">
-            <a
-              href={screwfixToolUrl('bathroom renovation tools')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-red-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-red-700 transition-colors"
-            >
-              Shop Screwfix →
-            </a>
-            <a
-              href={amazonToolUrl('bathroom renovation kit')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-orange-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-600 transition-colors"
-            >
-              Shop Amazon →
-            </a>
-          </div>
+          <a
+            href={amazonToolUrl('bathroom renovation kit')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-orange-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-600 transition-colors"
+          >
+            Shop this fix on Amazon →
+          </a>
         </div>
       </section>
 

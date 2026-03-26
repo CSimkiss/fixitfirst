@@ -22,7 +22,7 @@ export default function Footer() {
             <a href="/cookies" className="hover:text-orange-500 transition-colors">Cookies</a>
           </nav>
           <p className="text-xs text-gray-400">
-            FixItFirst is a participant in affiliate programmes including Amazon Associates and Awin. We earn from qualifying purchases.
+            As an Amazon Associate, we earn from qualifying purchases.
           </p>
         </div>
         <p className="text-gray-400 text-xs mt-4 md:text-center">© {new Date().getFullYear()} FixItFirst. All rights reserved.</p>
