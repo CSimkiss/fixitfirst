@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Drill Into Tiles Without Cracking Them | FixItFirst',
@@ -66,6 +67,14 @@ export default function DrillIntoTiles() {
           <PrintButton />
         </div>
         <DifficultyComparison slug="drill-into-tiles" />
+
+        <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6">
+          <p className="text-xs font-semibold text-orange-600 uppercase tracking-wide mb-1">Part of the Bathroom Renovation project</p>
+          <p className="text-sm text-gray-700 mb-2">This is a <strong>Phase 4: Tiling</strong> skill in the full bathroom renovation walkthrough.</p>
+          <a href="/projects/bathroom-renovation" className="text-sm font-semibold text-orange-600 hover:underline">
+            If you&apos;re renovating your bathroom, start here →
+          </a>
+        </div>
 
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
@@ -124,6 +133,10 @@ export default function DrillIntoTiles() {
             <p className="text-sm text-amber-900">{GUIDE_META['drill-into-tiles'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="drill-into-tiles"
+          relatedSlugs={['tile-a-splashback', 'fit-bathroom-fixtures']}
+        />
         <GuideActions slug="drill-into-tiles">
           <GuideExtras slug="drill-into-tiles" />
         </GuideActions>

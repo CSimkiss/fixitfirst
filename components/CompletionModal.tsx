@@ -8,6 +8,15 @@ import { ALL_BADGES } from '@/lib/badges'
 import { screwfixToolUrl } from '@/lib/affiliates'
 import type { CompletionMap } from '@/lib/completions'
 
+// ─── Renovation prereqs — mirror of PREREQ_SLUGS in the hub ───────────────────
+const RENOVATION_PREREQ_SLUGS = [
+  'fix-a-dripping-tap',
+  'tile-a-splashback',
+  'fill-and-sand-a-wall',
+  'replace-a-toilet-seat',
+  'paint-a-room',
+]
+
 // ─── Per-guide tool suggestion ────────────────────────────────────────────────
 // One curated tool per guide slug shown as an affiliate nudge in the modal.
 
@@ -49,6 +58,18 @@ const GUIDE_TOOL_SUGGESTION: Record<string, { name: string; searchTerm: string }
   'fix-a-fence-panel':              { name: 'Fence Panel Clips',         searchTerm: 'fence panel bracket clips' },
   'lay-decking-boards':             { name: 'Stainless Decking Screws',  searchTerm: 'stainless steel decking screws' },
   'fix-a-garden-tap':               { name: 'Outdoor Tap Repair Kit',    searchTerm: 'outdoor tap repair kit' },
+  // Micro guides (Phase 1–2 renovation helpers)
+  'remove-silicone-sealant':        { name: 'Silicone Remover Tool',     searchTerm: 'silicone sealant remover tool' },
+  'use-ptfe-tape':                  { name: 'PTFE Tape',                 searchTerm: 'PTFE tape plumbers' },
+  'cap-pipe':                       { name: 'Pipe Stop-End Caps Pack',   searchTerm: 'push fit pipe stop end cap 15mm' },
+  'check-wall-level':               { name: 'Spirit Level',              searchTerm: 'spirit level 600mm' },
+  'drill-into-tiles':               { name: 'Tile Drill Bit Set',        searchTerm: 'tile drill bit set ceramic porcelain' },
+  // Renovation phase guides
+  'strip-out-bathroom':             { name: 'Tile Removal Chisel Set',   searchTerm: 'tile chisel removal bolster set' },
+  'prep-bathroom-plumbing':         { name: 'Pipe Cutter',               searchTerm: 'pipe cutter 15mm copper' },
+  'prepare-walls-for-tiling':       { name: 'Tiling Primer',             searchTerm: 'tiling primer PVA adhesion' },
+  'fit-bathroom-fixtures':          { name: 'Silicone Sealant Gun',      searchTerm: 'silicone sealant gun mastic' },
+  'finish-bathroom-renovation':     { name: 'Grout Spreader',            searchTerm: 'grout spreader float tile' },
 }
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -101,6 +122,11 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
   const nextGuide       = recommendation?.guide ?? null
   const nextReason      = recommendation?.reason ?? 'easiest'
   const toolSuggestion  = GUIDE_TOOL_SUGGESTION[slug] ?? null
+
+  // Renovation readiness funnel
+  const prereqCompleted    = RENOVATION_PREREQ_SLUGS.filter(s => completionMap[s]).length
+  const prereqPct          = Math.round((prereqCompleted / RENOVATION_PREREQ_SLUGS.length) * 100)
+  const showRenovationFunnel = prereqCompleted > 0 && prereqCompleted < RENOVATION_PREREQ_SLUGS.length
 
   // ── Detect newly unlocked badges (guide-based only; streak/tool badges need
   //    extra context we don't carry here and are handled on the badges page) ──
@@ -206,6 +232,27 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
               </p>
             )}
           </div>
+
+          {/* Renovation readiness funnel */}
+          {showRenovationFunnel && (
+            <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-orange-600 mb-2">
+                Ready for something bigger?
+              </p>
+              <p className="text-sm font-bold text-gray-900 mb-1">
+                You&apos;re {prereqPct}% ready to renovate your bathroom
+              </p>
+              <div className="h-1.5 bg-orange-100 rounded-full mb-3">
+                <div className="h-1.5 bg-orange-500 rounded-full" style={{ width: `${prereqPct}%` }} />
+              </div>
+              <a
+                href="/projects/bathroom-renovation"
+                className="text-sm font-semibold text-orange-600 hover:underline"
+              >
+                See what you could build →
+              </a>
+            </div>
+          )}
 
           {/* ── Badge unlock celebration ─────────────────────────────── */}
           {newlyUnlockedBadges.length > 0 && (

@@ -35,6 +35,33 @@ function ShareButton() {
   )
 }
 
+// ─── Phase share button ───────────────────────────────────────────────────────
+
+function PhaseShareButton({ phaseNumber, phaseTitle }: { phaseNumber: number; phaseTitle: string }) {
+  const [copied, setCopied] = useState(false)
+
+  function handleShare() {
+    const text = `I just completed Phase ${phaseNumber}: ${phaseTitle} in my bathroom renovation — doing it myself with FixItFirst. https://fixit-first.co.uk/projects/bathroom-renovation`
+    if (navigator.share) {
+      navigator.share({ title: `Completed Phase ${phaseNumber}`, text }).catch(() => {})
+    } else {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2500)
+      }).catch(() => {})
+    }
+  }
+
+  return (
+    <button
+      onClick={handleShare}
+      className="text-xs text-green-700 font-semibold hover:underline"
+    >
+      {copied ? '✅ Copied!' : '↗ Share this win'}
+    </button>
+  )
+}
+
 // ─── Tool IDs aggregated across all 6 phases ─────────────────────────────────
 
 const BATHROOM_TOOL_IDS = [
@@ -97,8 +124,8 @@ const PHASES: Phase[] = [
     title: 'Strip Out',
     description: 'Remove old fittings, sealant, and accessories before anything else',
     time: 'Half a day',
-    weekendLabel: 'Weekend 1',
-    entrySlug: 'strip-out-bathroom',
+    // entrySlug intentionally absent — no dedicated strip-out guide exists yet.
+    // The header CTA shows a "coming soon" state rather than linking to an unrelated guide.
     guides: [
       { slug: 'strip-out-bathroom',        title: 'Strip out your bathroom',         note: 'Isolate water, remove fixtures, prep surfaces' },
       { slug: 'remove-silicone-sealant',   title: 'Remove old silicone sealant',     note: '15 mins — do this before anything else is removed' },
@@ -174,9 +201,18 @@ const PHASES: Phase[] = [
   },
 ]
 
-// ─── Phase 1 tools (for the "Before you start" bundle) ───────────────────────
+// ─── Tool IDs per phase (for "Before you start" bundles) ─────────────────────
 
 const PHASE1_TOOL_IDS = ['utility-knife', 'adjustable-spanner', 'screwdriver-flat', 'screwdriver-cross', 'rubber-gloves', 'bucket']
+
+const PHASE_TOOL_IDS: Record<number, string[]> = {
+  1: PHASE1_TOOL_IDS,
+  2: ['adjustable-spanner', 'ptfe-tape', 'bucket', 'sponge-cloths'],
+  3: ['filling-knife', 'sandpaper', 'spirit-level', 'tape-measure'],
+  4: ['drill', 'drill-bits', 'masking-tape', 'spirit-level'],
+  5: ['drill', 'drill-bits', 'spirit-level', 'adjustable-spanner', 'screwdriver-flat'],
+  6: ['sealant-gun', 'masking-tape', 'paintbrush', 'sponge-cloths'],
+}
 
 // ─── Phase status logic ───────────────────────────────────────────────────────
 
@@ -491,7 +527,12 @@ export default function BathroomRenovation() {
 
               {readinessPct > 0 && readinessPct < 100 && (
                 <p className="text-xs text-orange-600 font-medium mb-4">
-                  You&apos;re already {readinessPct}% ready — most people never get this far
+                  You&apos;re already {readinessPct}% ready — most people never get this far before starting
+                </p>
+              )}
+              {readinessPct === 100 && renovationPct > 0 && renovationPct < 100 && (
+                <p className="text-xs text-green-700 font-medium mb-4">
+                  You&apos;re {renovationPct}% through your renovation — keep the momentum going
                 </p>
               )}
 
@@ -710,10 +751,66 @@ export default function BathroomRenovation() {
                 {!isLocked && (
                   <div className="px-5 pb-5 space-y-2 border-t border-gray-100 pt-4">
                     {isCompleted && (
-                      <p className="text-xs text-green-700 font-semibold bg-green-100 border border-green-200 rounded-lg px-3 py-2">
-                        ✓ Phase {phase.number} complete — keep going
-                      </p>
+                      <div className="bg-green-100 border border-green-200 rounded-lg px-3 py-2 flex items-center justify-between gap-3">
+                        <p className="text-xs text-green-700 font-semibold">
+                          ✓ Phase {phase.number} complete — keep going
+                        </p>
+                        <PhaseShareButton phaseNumber={phase.number} phaseTitle={phase.title} />
+                      </div>
                     )}
+
+                    {/* "Before you start" tool bundle — shown for available phases 2-6 */}
+                    {status === 'available' && phase.number > 1 && (() => {
+                      const phaseToolIds = PHASE_TOOL_IDS[phase.number] ?? []
+                      if (phaseToolIds.length === 0) return null
+                      const phaseTools = phaseToolIds
+                        .map(id => ALL_TOOLS.find(t => t.id === id))
+                        .filter(Boolean) as (typeof ALL_TOOLS[number])[]
+                      const missingPhaseTools = phaseTools.filter(t => !ownedTools.includes(t.id))
+                      return (
+                        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-2">
+                          <p className="text-xs font-semibold text-gray-700 mb-2">Before you start this phase</p>
+                          <div className="grid grid-cols-2 gap-1.5 mb-3">
+                            {phaseTools.map(tool => {
+                              const owned = ownedTools.includes(tool.id)
+                              return (
+                                <div
+                                  key={tool.id}
+                                  className={`flex items-center gap-2 p-2 rounded-lg border text-xs ${
+                                    owned ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-white'
+                                  }`}
+                                >
+                                  <span className="shrink-0">{owned ? '✅' : '⚠️'}</span>
+                                  <span className={`flex-1 font-medium min-w-0 truncate ${owned ? 'text-green-800' : 'text-gray-700'}`}>
+                                    {tool.name}
+                                  </span>
+                                  {!owned && (
+                                    <a
+                                      href={screwfixToolUrl(tool.name)}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-red-600 font-semibold hover:underline shrink-0"
+                                    >
+                                      Get
+                                    </a>
+                                  )}
+                                </div>
+                              )
+                            })}
+                          </div>
+                          {missingPhaseTools.length > 0 && (
+                            <a
+                              href={screwfixToolUrl(`phase ${phase.number} ${phase.title.toLowerCase()} tools`)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-red-600 font-semibold hover:underline"
+                            >
+                              Get everything for this phase →
+                            </a>
+                          )}
+                        </div>
+                      )
+                    })()}
                     {phase.guides.map((pg, gi) => {
                       const guide         = pg.slug ? GUIDE_BY_SLUG[pg.slug] : null
                       const isDoneInReno  = pg.slug ? isRenovationCompletion(pg.slug, completionMap, renovationJourneyStart) : false

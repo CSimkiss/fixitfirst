@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Fix a Dripping Tap | FixItFirst',
@@ -106,6 +107,10 @@ export default function DrippingTap() {
             <p className="text-sm text-amber-900">{GUIDE_META['fix-a-dripping-tap'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="fix-a-dripping-tap"
+          relatedSlugs={['fix-a-running-toilet', 'prep-bathroom-plumbing', 'tile-a-splashback']}
+        />
         <GuideActions slug="fix-a-dripping-tap">
           <GuideExtras slug="fix-a-dripping-tap" />
         </GuideActions>

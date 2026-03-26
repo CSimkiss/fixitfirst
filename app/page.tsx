@@ -43,6 +43,16 @@ const BATHROOM_PREREQ_SLUGS = [
   'paint-a-room',
 ]
 
+// All renovation phase guide slugs — used to compute rough progress % on homepage
+const RENOVATION_PHASE_SLUGS = [
+  'strip-out-bathroom', 'remove-silicone-sealant',
+  'prep-bathroom-plumbing', 'cap-pipe', 'use-ptfe-tape',
+  'prepare-walls-for-tiling', 'check-wall-level', 'fill-a-hole-in-a-wall',
+  'tile-a-splashback', 'drill-into-tiles',
+  'fit-bathroom-fixtures', 'replace-a-shower-head', 'replace-a-toilet-seat',
+  'finish-bathroom-renovation', 'paint-a-room',
+]
+
 // Derived dynamically from the guide with the highest popularityScore
 const FEATURED_GUIDE = {
   ...MOST_COMMON_GUIDE,
@@ -123,6 +133,24 @@ export default function Home() {
     ctaLabel = 'Continue your progress'
     ctaHref  = '/progress'
   }
+
+  // ── Renovation state ───────────────────────────────────────────────────────
+  const isInRenovation = loaded && (savedBathroomProject || completedSlugs.includes('strip-out-bathroom'))
+  const renovationPct  = loaded
+    ? Math.round(RENOVATION_PHASE_SLUGS.filter(s => completedSlugs.includes(s)).length / RENOVATION_PHASE_SLUGS.length * 100)
+    : 0
+
+  // Which phase are we on? (rough approximation for homepage copy)
+  const currentPhaseLabel = (() => {
+    if (!loaded) return null
+    if (completedSlugs.includes('finish-bathroom-renovation')) return null // done
+    if (completedSlugs.includes('fit-bathroom-fixtures')) return 'Phase 6: Finishing'
+    if (completedSlugs.includes('tile-a-splashback')) return 'Phase 5: Fitting'
+    if (completedSlugs.includes('prepare-walls-for-tiling')) return 'Phase 4: Tiling'
+    if (completedSlugs.includes('prep-bathroom-plumbing')) return 'Phase 3: Wall Prep'
+    if (completedSlugs.includes('strip-out-bathroom')) return 'Phase 2: Plumbing Prep'
+    return 'Phase 1: Strip Out'
+  })()
 
   // ── Autosuggest — uses searchGuides() to match synonyms + searchTerms ─────
   const { guides: suggestionGuides } = query.length >= 2 && showSuggestions
@@ -241,7 +269,7 @@ export default function Home() {
       <RecentlyViewed />
 
       {/* ── Your projects — shown when user has saved or started bathroom reno */}
-      {loaded && (savedBathroomProject || completedSlugs.includes('strip-out-bathroom')) && (
+      {loaded && isInRenovation && (
         <section className="px-6 py-6 max-w-5xl mx-auto">
           <h2 className="text-lg font-bold text-gray-900 mb-3">Your projects</h2>
           <a
@@ -258,9 +286,20 @@ export default function Home() {
                   <span className="text-xs bg-gray-700 text-gray-300 px-2 py-0.5 rounded-full">Saved</span>
                 )}
               </div>
-              <p className="text-gray-400 text-sm">6 phases · 2–5 weekends</p>
-              {completedSlugs.includes('strip-out-bathroom') && (
-                <p className="text-orange-400 text-xs mt-1 font-medium">Phase 1 complete — Phase 2 next up</p>
+              {renovationPct > 0 ? (
+                <>
+                  <div className="flex items-center gap-2 mt-1 mb-1">
+                    <div className="flex-1 bg-white/10 rounded-full h-1.5">
+                      <div className="bg-orange-500 h-1.5 rounded-full" style={{ width: `${renovationPct}%` }} />
+                    </div>
+                    <span className="text-orange-400 text-xs font-bold shrink-0">{renovationPct}%</span>
+                  </div>
+                  {currentPhaseLabel && (
+                    <p className="text-gray-400 text-xs">Next up: {currentPhaseLabel}</p>
+                  )}
+                </>
+              ) : (
+                <p className="text-gray-400 text-sm mt-1">6 phases · 2–5 weekends</p>
               )}
             </div>
             <div className="text-orange-400 font-semibold text-sm shrink-0 group-hover:text-orange-300">
@@ -319,37 +358,67 @@ export default function Home() {
         </a>
       </section>
 
-      {/* ── Ready for something bigger? — shown after 2+ completions, not in reno yet */}
-      {loaded && completedSlugs.length >= 2 && !savedBathroomProject && !completedSlugs.includes('strip-out-bathroom') && (() => {
-        const prereqCount = BATHROOM_PREREQ_SLUGS.filter(s => completedSlugs.includes(s)).length
-        const prereqPct   = Math.round((prereqCount / BATHROOM_PREREQ_SLUGS.length) * 100)
-        return (
-          <section className="px-6 pb-8 max-w-5xl mx-auto">
-            <a
-              href="/projects/bathroom-renovation"
-              className="block bg-gray-950 text-white rounded-2xl p-6 hover:opacity-90 transition-opacity group"
-            >
-              <p className="text-xs font-bold uppercase tracking-wide text-orange-400 mb-2">Ready for something bigger?</p>
-              <h2 className="text-xl font-bold text-white mb-1">Renovate your bathroom yourself</h2>
-              <p className="text-gray-400 text-sm mb-4">
-                {prereqPct > 0
-                  ? `You're already ${prereqPct}% ready — ${prereqCount} of the 5 prerequisite skills done`
-                  : 'A guided 6-phase project — strip out, tile, fit, and finish without a contractor'}
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="flex-1 bg-white/10 rounded-full h-1.5">
-                  <div
-                    className="bg-orange-500 h-1.5 rounded-full transition-all"
-                    style={{ width: `${prereqPct}%` }}
-                  />
+      {/* ── Project hook — personalised based on renovation state ─────────── */}
+      {loaded && (() => {
+        // Active renovation users: "Continue your renovation"
+        if (isInRenovation && renovationPct < 100) {
+          return (
+            <section className="px-6 pb-8 max-w-5xl mx-auto">
+              <a
+                href="/projects/bathroom-renovation"
+                className="block bg-gray-950 text-white rounded-2xl p-6 hover:opacity-90 transition-opacity group"
+              >
+                <p className="text-xs font-bold uppercase tracking-wide text-orange-400 mb-2">Pick up where you left off</p>
+                <h2 className="text-xl font-bold text-white mb-1">Continue your bathroom renovation</h2>
+                <p className="text-gray-400 text-sm mb-4">
+                  {renovationPct > 0
+                    ? `You're ${renovationPct}% through — most people never get this far`
+                    : 'Your project is saved and waiting — Phase 1 is ready to start'}
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 bg-white/10 rounded-full h-1.5">
+                    <div className="bg-orange-500 h-1.5 rounded-full transition-all" style={{ width: `${renovationPct}%` }} />
+                  </div>
+                  <span className="text-orange-400 font-bold text-sm shrink-0 group-hover:text-orange-300">
+                    Continue →
+                  </span>
                 </div>
-                <span className="text-orange-400 font-bold text-sm shrink-0 group-hover:text-orange-300">
-                  View project →
-                </span>
-              </div>
-            </a>
-          </section>
-        )
+              </a>
+            </section>
+          )
+        }
+
+        // 2+ completions, not yet in renovation: "Ready for something bigger?"
+        if (!isInRenovation && completedSlugs.length >= 2) {
+          const prereqCount = BATHROOM_PREREQ_SLUGS.filter(s => completedSlugs.includes(s)).length
+          const prereqPct   = Math.round((prereqCount / BATHROOM_PREREQ_SLUGS.length) * 100)
+          return (
+            <section className="px-6 pb-8 max-w-5xl mx-auto">
+              <a
+                href="/projects/bathroom-renovation"
+                className="block bg-gray-950 text-white rounded-2xl p-6 hover:opacity-90 transition-opacity group"
+              >
+                <p className="text-xs font-bold uppercase tracking-wide text-orange-400 mb-2">Ready for something bigger?</p>
+                <h2 className="text-xl font-bold text-white mb-1">Renovate your bathroom yourself</h2>
+                <p className="text-gray-400 text-sm mb-4">
+                  {prereqPct > 0
+                    ? `You're already ${prereqPct}% ready — most people never get this far`
+                    : 'A guided 6-phase project — strip out, tile, fit, and finish without a contractor'}
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 bg-white/10 rounded-full h-1.5">
+                    <div className="bg-orange-500 h-1.5 rounded-full transition-all" style={{ width: `${prereqPct}%` }} />
+                  </div>
+                  <span className="text-orange-400 font-bold text-sm shrink-0 group-hover:text-orange-300">
+                    View project →
+                  </span>
+                </div>
+              </a>
+            </section>
+          )
+        }
+
+        return null
       })()}
 
       {/* ── Popular guides ────────────────────────────────────────────────── */}
@@ -412,6 +481,46 @@ export default function Home() {
               : <div key={guide.title} className={cardClass}>{cardContent}</div>
           })}
         </div>
+      </section>
+
+      {/* ── Ready for something bigger? ───────────────────────────────────── */}
+      <section className="px-6 py-10 max-w-5xl mx-auto border-t border-gray-100">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-2xl font-bold text-gray-900">Ready for something bigger?</h2>
+          <a href="/projects" className="text-orange-500 text-sm font-medium hover:underline hidden sm:block">See all projects →</a>
+        </div>
+        <p className="text-gray-500 text-sm mb-6">Take on a full project step by step — not just a quick fix.</p>
+        <a
+          href="/projects/bathroom-renovation"
+          className="flex gap-4 md:gap-6 items-start border-2 border-gray-200 rounded-2xl p-5 hover:border-orange-300 hover:shadow-md transition-all group"
+        >
+          <div className="text-4xl shrink-0 mt-0.5">🚿</div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-medium">Project hub</span>
+              <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">🏗️ Tier 5 · Builder</span>
+            </div>
+            <h3 className="font-bold text-gray-900 group-hover:text-orange-500 transition-colors text-lg mb-1">
+              Renovate Your Bathroom
+            </h3>
+            <p className="text-sm text-gray-500 mb-3">
+              Break a full bathroom renovation into 6 manageable phases. Real guides, clear order, honest advice on when to call a pro.
+            </p>
+            <div className="flex gap-3 text-xs text-gray-400 flex-wrap">
+              <span>2–5 weekends</span>
+              <span>·</span>
+              <span>£300–£2,000+</span>
+              <span>·</span>
+              <span>6 phases</span>
+            </div>
+          </div>
+          <span className="shrink-0 hidden sm:flex items-center text-orange-500 text-sm font-semibold group-hover:translate-x-1 transition-transform mt-1">
+            View project →
+          </span>
+        </a>
+        <a href="/projects" className="block text-center text-orange-500 text-sm font-medium mt-4 sm:hidden hover:underline">
+          See all projects →
+        </a>
       </section>
 
       {/* ── How it works ──────────────────────────────────────────────────── */}

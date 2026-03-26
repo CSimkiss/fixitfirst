@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Fill a Hole in a Wall | FixItFirst',
@@ -106,6 +107,10 @@ export default function FillAHoleInAWall() {
             <p className="text-sm text-amber-900">{GUIDE_META['fill-a-hole-in-a-wall'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="fill-a-hole-in-a-wall"
+          relatedSlugs={['prepare-walls-for-tiling', 'tile-a-splashback']}
+        />
         <GuideActions slug="fill-a-hole-in-a-wall">
           <GuideExtras slug="fill-a-hole-in-a-wall" />
         </GuideActions>

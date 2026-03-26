@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Remove Old Silicone Sealant | FixItFirst',
@@ -62,6 +63,14 @@ export default function RemoveSiliconeSealant() {
           <PrintButton />
         </div>
         <DifficultyComparison slug="remove-silicone-sealant" />
+
+        <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6">
+          <p className="text-xs font-semibold text-orange-600 uppercase tracking-wide mb-1">Part of the Bathroom Renovation project</p>
+          <p className="text-sm text-gray-700 mb-2">This is a <strong>Phase 1: Strip Out</strong> skill in the full bathroom renovation walkthrough.</p>
+          <a href="/projects/bathroom-renovation" className="text-sm font-semibold text-orange-600 hover:underline">
+            If you&apos;re renovating your bathroom, start here →
+          </a>
+        </div>
 
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
@@ -118,6 +127,10 @@ export default function RemoveSiliconeSealant() {
             <p className="text-sm text-amber-900">{GUIDE_META['remove-silicone-sealant'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="remove-silicone-sealant"
+          relatedSlugs={['strip-out-bathroom', 'prep-bathroom-plumbing']}
+        />
         <GuideActions slug="remove-silicone-sealant">
           <GuideExtras slug="remove-silicone-sealant" />
         </GuideActions>

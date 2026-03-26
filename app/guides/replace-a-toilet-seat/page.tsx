@@ -13,6 +13,7 @@ import GuideExtras from '@/components/GuideExtras'
 import PrintButton from '@/components/PrintButton'
 import DifficultyComparison from '@/components/DifficultyComparison'
 import { GUIDE_META } from '@/lib/guide-meta'
+import RenovationContinue from '@/components/RenovationContinue'
 
 export const metadata: Metadata = {
   title: 'How to Replace a Toilet Seat | FixItFirst',
@@ -106,6 +107,10 @@ export default function ReplaceAToiletSeat() {
             <p className="text-sm text-amber-900">{GUIDE_META['replace-a-toilet-seat'].renterWarning}</p>
           </div>
         )}
+        <RenovationContinue
+          currentSlug="replace-a-toilet-seat"
+          relatedSlugs={['fit-bathroom-fixtures', 'finish-bathroom-renovation']}
+        />
         <GuideActions slug="replace-a-toilet-seat">
           <GuideExtras slug="replace-a-toilet-seat" />
         </GuideActions>
