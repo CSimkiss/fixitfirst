@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { ALL_TOOLS, GUIDE_TOOLS, TOOL_GUIDE_COUNTS, TOOLS_STORAGE_KEY } from '@/lib/tools'
-import { screwfixToolUrl } from '@/lib/affiliates'
+import { amazonToolUrl } from '@/lib/affiliates'
 
 // ─── Category order derived from ALL_TOOLS insertion — stays in sync ─────────
 const CATEGORIES = [...new Set(ALL_TOOLS.map(t => t.category))]
@@ -292,12 +292,12 @@ export default function ToolsOwned() {
                 View those guides →
               </a>
               <a
-                href={screwfixToolUrl(nextBest.name)}
+                href={amazonToolUrl(nextBest.name)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs text-gray-400 hover:text-gray-600 hover:underline transition-colors"
               >
-                Get this tool →
+                Find it on Amazon →
               </a>
             </div>
           </div>
@@ -324,24 +324,24 @@ export default function ToolsOwned() {
                   </p>
                 </div>
                 <a
-                  href={screwfixToolUrl(tool.name)}
+                  href={amazonToolUrl(tool.name)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-orange-600 hover:text-orange-700 hover:underline shrink-0 transition-colors"
                 >
-                  Get this tool →
+                  Find it on Amazon →
                 </a>
               </div>
             ))}
           </div>
           {starterKit.length >= 2 && (
             <a
-              href={screwfixToolUrl('home DIY starter kit')}
+              href={amazonToolUrl('home DIY starter kit')}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-3 block text-center text-xs font-medium text-orange-700 bg-orange-100 hover:bg-orange-200 px-3 py-2 rounded-lg transition-colors"
             >
-              Get everything you need →
+              Shop this kit on Amazon →
             </a>
           )}
         </div>

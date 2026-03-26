@@ -9,7 +9,7 @@ import { useCompletions } from '@/lib/useCompletions'
 import { streakCount, tierLevel, totalSavings } from '@/lib/completions'
 import { ALL_BADGES } from '@/lib/badges'
 import { ALL_TOOLS, GUIDE_TOOLS as GUIDE_TOOL_MAP, TOOLS_STORAGE_KEY } from '@/lib/tools'
-import { screwfixToolUrl } from '@/lib/affiliates'
+import { amazonToolUrl } from '@/lib/affiliates'
 import StatCard from '@/components/StatCard'
 
 const CATEGORY_COLOURS: Record<string, string> = {
@@ -85,7 +85,7 @@ function GuideCard({ guide, done, date, ownedSet, toolById }: GuideCardProps) {
               {toolById[id].name}
               {' '}
               <a
-                href={screwfixToolUrl(toolById[id].name)}
+                href={amazonToolUrl(toolById[id].name)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-orange-500 hover:underline"

@@ -1,4 +1,4 @@
-import { screwfixToolUrl, amazonToolUrl } from '@/lib/affiliates'
+import { amazonToolUrl } from '@/lib/affiliates'
 
 const STARTER_TOOLS = [
   { name: 'Adjustable spanner' },
@@ -19,25 +19,14 @@ export default function StarterKit() {
             <span className="text-gray-400 shrink-0">→</span>
             <span className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 min-w-0">
               <span className="font-medium text-gray-800">{tool.name}</span>
-              <span className="flex items-center gap-1 text-xs">
-                <a
-                  href={screwfixToolUrl(tool.name)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
-                >
-                  Screwfix
-                </a>
-                <span className="text-gray-300">|</span>
-                <a
-                  href={amazonToolUrl(tool.name)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
-                >
-                  Amazon
-                </a>
-              </span>
+              <a
+                href={amazonToolUrl(tool.name)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-blue-600 hover:underline"
+              >
+                Find it on Amazon
+              </a>
             </span>
           </li>
         ))}
