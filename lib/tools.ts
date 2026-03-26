@@ -77,6 +77,14 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   'fix-a-loose-door-handle':           ['allen-keys', 'screwdriver-cross', 'screwdriver-flat'],
   'fix-a-light-that-wont-turn-on':     ['torch', 'step-ladder', 'screwdriver-flat'],
   'fix-peeling-paint':                 ['filling-knife', 'sandpaper', 'paintbrush', 'roller-tray'],
+
+  // Micro skill guides
+  'remove-old-grout':                  [],
+  'apply-silicone-sealant':            ['masking-tape', 'sealant-gun', 'utility-knife'],
+  'use-a-spirit-level':                ['spirit-level'],
+  'drill-into-wall-types':             ['drill', 'drill-bits'],
+  'find-pipes-and-wires':              ['cable-detector', 'tape-measure'],
+
   'turn-off-water-mains':              [],
   'fix-a-garden-tap':                  ['adjustable-spanner', 'screwdriver-flat', 'ptfe-tape'],
   'unblock-a-gutter':                  ['step-ladder', 'rubber-gloves', 'bucket'],

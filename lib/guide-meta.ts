@@ -347,4 +347,36 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Tightening a loose door handle is routine maintenance and does not require landlord permission. If you need to replace the handle entirely, get written permission first — even though it is a minor change, some landlords want to approve fittings.',
   },
+
+  // Micro skill guides
+  'remove-old-grout': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Methodical rather than skilled — takes patience, not expertise',
+    completedCount: 0,
+    renterWarning: 'You can regrout tiles in a rented property without landlord permission, as it is a maintenance repair. If the grout is failing because of underlying damp or movement, report this to your landlord — they are responsible for fixing the structural cause.',
+  },
+  'apply-silicone-sealant': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'A 10-minute skill once you have done it once — most people overthink it',
+    completedCount: 0,
+    renterWarning: 'Resealing a bath, basin, or shower in a rented property is generally considered maintenance and does not require landlord permission. If the sealant has failed due to a structural crack or movement in the floor, that is a landlord responsibility — report it in writing.',
+  },
+  'use-a-spirit-level': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'One of the simplest skills in DIY — just takes a minute to understand the bubble',
+    completedCount: 0,
+    renterWarning: undefined,
+  },
+  'drill-into-wall-types': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'The technique is simple once you know the settings — wall type identification is the main skill',
+    completedCount: 0,
+    renterWarning: 'Always check your tenancy agreement before drilling. Most allow small fixings for pictures and shelves, but some require landlord permission for drilling. Use no-drill adhesive hooks as an alternative for lighter items.',
+  },
+  'find-pipes-and-wires': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Takes two minutes and a £20 detector — one of the most important habits in DIY',
+    completedCount: 0,
+    renterWarning: 'The same scan applies whether you rent or own. In a rental, if you drill through a cable or pipe, you are liable for the repair cost. Check your tenancy agreement before drilling — many require landlord permission for any wall fixings.',
+  },
 }

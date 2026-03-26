@@ -506,6 +506,53 @@ export const ALL_GUIDES: Guide[] = [
     emoji: '🏗️', skillPoints: 30, popularityScore: 10,
     searchTerms: ['lay decking', 'garden decking', 'build decking', 'decking installation', 'decking boards'],
   },
+
+  // Micro skill guides
+  {
+    slug: 'remove-old-grout', title: 'Remove old grout from tiles',
+    time: '30–60 mins', timeMinutes: 45, cost: '£0–20', level: 'Beginner', category: 'DIY Skills',
+    href: '/guides/remove-old-grout', difficulty: 2,
+    saves: 'Essential skill — saves ruining tiles', estimatedSavingsMin: 0, estimatedSavingsMax: 0,
+    emoji: '🪣', ukSpecific: false, quickWin: false, skillPoints: 15, popularityScore: 55,
+    searchTerms: ['remove grout', 'how to remove grout', 'grout removal', 'remove old grout tiles', 'regrout tiles', 'grout rake', 'oscillating tool grout'],
+    description: 'The correct technique for removing grout cleanly without cracking tiles — essential before regrouting a bathroom or kitchen.',
+  },
+  {
+    slug: 'apply-silicone-sealant', title: 'Apply silicone sealant cleanly',
+    time: '20–30 mins', timeMinutes: 25, cost: '£5–15', level: 'Beginner', category: 'DIY Skills',
+    href: '/guides/apply-silicone-sealant', difficulty: 1,
+    saves: 'Saves £50–100 vs a tradesperson', estimatedSavingsMin: 50, estimatedSavingsMax: 100,
+    emoji: '🔫', ukSpecific: false, quickWin: true, skillPoints: 10, popularityScore: 75,
+    searchTerms: ['apply silicone sealant', 'how to silicone', 'silicone sealant bath', 'silicone sealant shower', 'clean silicone finish', 'masking tape silicone', 'bathroom sealant how to'],
+    description: 'Apply a clean professional silicone bead every time — tape, consistent bead, one tooling pass, tape off while wet.',
+  },
+  {
+    slug: 'use-a-spirit-level', title: 'Use a spirit level properly',
+    time: '10 mins', timeMinutes: 10, cost: '£0', level: 'Beginner', category: 'DIY Skills',
+    href: '/guides/use-a-spirit-level', difficulty: 1,
+    saves: 'Prevents visible errors in every future job', estimatedSavingsMin: 0, estimatedSavingsMax: 0,
+    emoji: '📏', ukSpecific: false, quickWin: true, skillPoints: 5, popularityScore: 62,
+    searchTerms: ['how to use spirit level', 'spirit level bubble', 'spirit level tips', 'check level wall', 'how to level shelf', 'spirit level technique', 'check plumb wall'],
+    description: 'Read the bubble correctly, verify the level is accurate, and mark horizontal and vertical reference lines for shelves, tiles, and fixtures.',
+  },
+  {
+    slug: 'drill-into-wall-types', title: 'Drill into different wall types',
+    time: '15 mins', timeMinutes: 15, cost: '£0–15', level: 'Beginner', category: 'DIY Skills',
+    href: '/guides/drill-into-wall-types', difficulty: 2,
+    saves: 'Prevents cracked tiles and blown plasterboard', estimatedSavingsMin: 0, estimatedSavingsMax: 0,
+    emoji: '🔩', ukSpecific: false, quickWin: true, skillPoints: 15, popularityScore: 80,
+    searchTerms: ['how to drill into wall', 'drill masonry', 'drill plasterboard', 'drill into tiles', 'wall plug type', 'hammer drill setting', 'drill bit type wall'],
+    description: 'Masonry, plasterboard, and tiles each need different settings and bits. Get one wrong and you crack tiles, blow out plasterboard, or end up with a fixing that will not hold.',
+  },
+  {
+    slug: 'find-pipes-and-wires', title: 'Find pipes and wires in walls before drilling',
+    time: '10 mins', timeMinutes: 10, cost: '£0', level: 'Beginner', category: 'DIY Skills',
+    href: '/guides/find-pipes-and-wires', difficulty: 1,
+    saves: 'Prevents a £500–2,000 repair bill', estimatedSavingsMin: 500, estimatedSavingsMax: 2000,
+    emoji: '🔍', ukSpecific: true, quickWin: true, skillPoints: 10, popularityScore: 78,
+    searchTerms: ['find pipes in wall', 'find cables in wall', 'cable detector', 'pipe detector', 'scan wall before drilling', 'how to detect wires wall', 'avoid drilling cables'],
+    description: 'Two minutes with a detector before drilling prevents the most expensive DIY mistake. Covers where cables and pipes typically run in UK homes.',
+  },
 ]
 
 /** Lookup map for fast slug → guide access */
