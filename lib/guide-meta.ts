@@ -317,4 +317,34 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Capping a pipe temporarily during a bathroom renovation requires your landlord\'s written permission if you are doing the wider renovation yourself. If a landlord-authorised plumber is doing the work, they will handle this. Do not cap pipes without the landlord knowing — they need to be aware the supply is modified.',
   },
+  'replace-a-bathroom-sink': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Similar difficulty to fitting bathroom fixtures — more involved than a tap repair, but not a full plumbing job',
+    completedCount: 0,
+    renterWarning: 'Replacing a bathroom sink in a rented property requires your landlord\'s written permission — it is a permanent change to a fixture they own. Only proceed with a written agreement for a like-for-like replacement. Keep the old basin in case the landlord wants it reinstated.',
+  },
+  'fit-a-towel-rail': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Similar to fitting a curtain pole — the main skill is scanning the wall and drilling accurately',
+    completedCount: 0,
+    renterWarning: 'Fitting a towel rail requires drilling, which needs your landlord\'s written permission. Most landlords are agreeable for a standard towel rail — but ask before drilling. For a plug-in heated rail, also confirm they are happy with the electrical connection to the fused spur.',
+  },
+  'paint-a-bathroom': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Same effort as painting a standard room — slightly more demanding because of the surface prep and product choice',
+    completedCount: 0,
+    renterWarning: 'You need your landlord\'s written permission before repainting a bathroom. Some landlords allow it; many require you to return it to the original colour before leaving. Get the agreed colour in writing before buying any paint.',
+  },
+  'tile-a-bathroom-floor': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'More involved than tiling a splashback — floor tiles must be level under load, which adds a critical extra dimension',
+    completedCount: 0,
+    renterWarning: 'Tiling a floor in a rented property is a permanent, irreversible change. Never proceed without explicit written permission from your landlord. They may also want to approve your tile choice — get this in writing before purchasing materials.',
+  },
+  'reseal-a-shower-or-bath': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'One of the easier finishing jobs on the site — the technique takes a little practice but the materials are forgiving',
+    completedCount: 0,
+    renterWarning: 'Resealing a bath or shower in a rented property is considered routine maintenance — you can generally do this without landlord permission. If the sealant has failed due to a structural issue (cracked tiles, movement), report this to your landlord in writing before resealing.',
+  },
 }

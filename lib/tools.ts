@@ -119,6 +119,13 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   // Outdoor
   'fix-a-fence-panel':         ['hammer', 'drill', 'tape-measure'],
   'lay-decking-boards':        ['drill', 'drill-bits', 'tape-measure', 'spirit-level', 'hammer', 'jigsaw'],
+
+  // Bathroom renovation guides
+  'replace-a-bathroom-sink':   ['adjustable-spanner', 'screwdriver-flat', 'adjustable-grips', 'bucket', 'sponge-cloths', 'ptfe-tape', 'sealant-gun', 'drill', 'cable-detector'],
+  'fit-a-towel-rail':          ['drill', 'drill-bits', 'spirit-level', 'tape-measure', 'cable-detector', 'screwdriver-cross'],
+  'paint-a-bathroom':          ['filling-knife', 'paintbrush', 'roller-tray', 'masking-tape', 'sandpaper'],
+  'tile-a-bathroom-floor':     ['spirit-level', 'tape-measure', 'utility-knife', 'rubber-gloves'],
+  'reseal-a-shower-or-bath':   ['utility-knife', 'masking-tape', 'sealant-gun', 'sponge-cloths'],
 }
 
 // ─── Derived: how many guides each tool appears in ───────────────────────────
