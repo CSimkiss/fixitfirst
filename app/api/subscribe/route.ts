@@ -26,11 +26,13 @@ function siteOrigin(): string {
 export async function POST(req: NextRequest) {
   let email: string
   let source: string
+  let tags: string[]
 
   try {
     const body = await req.json()
     email = body?.email
     source = body?.source ?? 'unknown'
+    tags = Array.isArray(body?.tags) ? body.tags : []
   } catch (err) {
     console.error('subscribe: failed to parse request body:', err)
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
@@ -70,7 +72,7 @@ export async function POST(req: NextRequest) {
   fetch(`${siteOrigin()}/api/send-welcome`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({ email, tags }),
   }).catch((err) => console.error('subscribe: welcome email failed:', err))
 
   return NextResponse.json({ ok: true }, { status: 201 })

@@ -4,9 +4,10 @@ import { useState } from 'react'
 
 interface EmailCaptureProps {
   source?: string
+  tags?: string[]
 }
 
-export default function EmailCapture({ source = 'unknown' }: EmailCaptureProps) {
+export default function EmailCapture({ source = 'unknown', tags }: EmailCaptureProps) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'duplicate' | 'error'>('idle')
 
@@ -17,7 +18,7 @@ export default function EmailCapture({ source = 'unknown' }: EmailCaptureProps) 
     const res = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, source }),
+      body: JSON.stringify({ email, source, tags }),
     })
 
     const data = await res.json()
@@ -34,7 +35,7 @@ export default function EmailCapture({ source = 'unknown' }: EmailCaptureProps) 
   if (status === 'success') {
     return (
       <p className="text-green-400 font-semibold text-lg">
-        ✓ You&apos;re in! First fix lands in your inbox soon.
+        ✓ You&apos;re in. Check your email — your first fix is waiting.
       </p>
     )
   }
@@ -62,7 +63,7 @@ export default function EmailCapture({ source = 'unknown' }: EmailCaptureProps) 
         disabled={status === 'loading'}
         className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors whitespace-nowrap disabled:opacity-70"
       >
-        {status === 'loading' ? 'Saving…' : 'Notify me'}
+        {status === 'loading' ? 'Saving…' : 'Send it to me →'}
       </button>
       {status === 'error' && (
         <p className="text-red-400 text-sm mt-1 w-full">Something went wrong. Please try again.</p>
