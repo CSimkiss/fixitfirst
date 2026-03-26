@@ -75,6 +75,8 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   'fix-a-leaking-pipe-under-sink':     ['bucket', 'sponge-cloths', 'adjustable-grips'],
   'unblock-a-sink':                    ['plunger', 'rubber-gloves', 'bucket'],
   'fix-a-loose-door-handle':           ['allen-keys', 'screwdriver-cross', 'screwdriver-flat'],
+  'fix-a-light-that-wont-turn-on':     ['torch', 'step-ladder', 'screwdriver-flat'],
+  'fix-peeling-paint':                 ['filling-knife', 'sandpaper', 'paintbrush', 'roller-tray'],
   'turn-off-water-mains':              [],
   'fix-a-garden-tap':                  ['adjustable-spanner', 'screwdriver-flat', 'ptfe-tape'],
   'unblock-a-gutter':                  ['step-ladder', 'rubber-gloves', 'bucket'],

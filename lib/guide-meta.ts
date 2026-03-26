@@ -317,6 +317,18 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Capping a pipe temporarily during a bathroom renovation requires your landlord\'s written permission if you are doing the wider renovation yourself. If a landlord-authorised plumber is doing the work, they will handle this. Do not cap pipes without the landlord knowing — they need to be aware the supply is modified.',
   },
+  'fix-a-light-that-wont-turn-on': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Easier than replacing a light switch — no wiring needed for the first three steps',
+    completedCount: 0,
+    renterWarning: 'You can change bulbs and reset circuit breakers in a rented property without permission. Any work inside ceiling roses or light fittings that involves touching wiring should be reported to the landlord first — they are responsible for the electrical installation.',
+  },
+  'fix-peeling-paint': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Similar difficulty to filling and sanding — preparation takes longer than the painting',
+    completedCount: 0,
+    renterWarning: 'You need your landlord\'s written permission before repainting or making good in a rented property. If peeling paint is a pre-existing condition, report it in writing and ask the landlord to arrange repair — it is their responsibility to maintain the property in good condition.',
+  },
   'fix-a-leaking-pipe-under-sink': {
     lastUpdated: 'March 2026',
     difficultyComparison: 'Easier than fixing a supply pipe joint — waste pipes are not under pressure and connect by hand',
