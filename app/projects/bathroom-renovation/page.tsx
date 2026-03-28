@@ -6,7 +6,7 @@ import MobileNav from '@/components/MobileNav'
 import { GUIDE_BY_SLUG } from '@/lib/guides'
 import { TOOLS_STORAGE_KEY, ALL_TOOLS } from '@/lib/tools'
 import { getCompletionMap } from '@/lib/completions'
-import { amazonToolUrl } from '@/lib/affiliates'
+import { amazonToolUrl, screwfixToolUrl } from '@/lib/affiliates'
 
 // ─── Share button ─────────────────────────────────────────────────────────────
 

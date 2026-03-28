@@ -161,6 +161,8 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
   const prereqPct          = Math.round((prereqCompleted / RENOVATION_PREREQ_SLUGS.length) * 100)
   const showRenovationFunnel = prereqCompleted > 0 && prereqCompleted < RENOVATION_PREREQ_SLUGS.length
 
+  const learnedSkills = GUIDE_LEARNINGS[slug] ?? CATEGORY_LEARNINGS[guide.category] ?? []
+
   // ── Detect newly unlocked badges (guide-based only; streak/tool badges need
   //    extra context we don't carry here and are handled on the badges page) ──
   const slugsAfter  = Object.keys(completionMap)
