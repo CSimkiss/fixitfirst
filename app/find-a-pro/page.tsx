@@ -104,14 +104,20 @@ export default function FindAProPage() {
           </button>
         </form>
 
-        {/* Result / coming soon */}
+        {/* Search result */}
         {searched ? (
-          <div className="text-center py-4">
-            <p className="text-2xl mb-3">🚧</p>
-            <p className="font-semibold text-gray-900 mb-1">No results yet</p>
-            <p className="text-sm text-gray-500">
-              The trades directory is coming soon. Leave your email and we&apos;ll notify you when it launches.
+          <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6 text-center">
+            <p className="text-2xl mb-3">🔧</p>
+            <p className="font-semibold text-gray-900 mb-2">While we build our directory&hellip;</p>
+            <p className="text-sm text-gray-600 mb-4">
+              Most issues have a quick DIY fix first. Try one before booking a tradesperson.
             </p>
+            <a
+              href="/guides"
+              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            >
+              Browse all guides →
+            </a>
           </div>
         ) : (
           <div className="text-center text-gray-400 text-sm">
@@ -121,11 +127,11 @@ export default function FindAProPage() {
 
         {/* Email capture */}
         <div className="bg-gray-950 text-white rounded-2xl p-8 text-center">
-          <h2 className="text-xl font-bold mb-2">Not live yet — join the waitlist</h2>
+          <h2 className="text-xl font-bold mb-2">Get weekly fixes before you need a pro</h2>
           <p className="text-gray-300 text-sm mb-6">
-            We&apos;ll let you know when the trades directory launches in your area.
+            One simple home fix per week. Most take under an hour and save £50–£150.
           </p>
-          <EmailCapture source="find-a-pro" />
+          <EmailCapture source="find-a-pro" ctaLabel="Send me fixes" />
         </div>
 
         {/* When to call a pro */}

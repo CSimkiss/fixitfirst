@@ -9,6 +9,7 @@ import Onboarding from '@/components/Onboarding'
 import RecentlyViewed from '@/components/RecentlyViewed'
 import DifficultyMeter from '@/components/DifficultyMeter'
 import CompletedTicker from '@/components/CompletedTicker'
+import CommonFixes from '@/components/CommonFixes'
 import { GUIDE_TOOLS, TOOLS_STORAGE_KEY } from '@/lib/tools'
 import { ALL_GUIDES, MOST_COMMON_GUIDE, searchGuides } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
@@ -264,6 +265,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── Most common fixes — inserted directly below search bar ──────── */}
+      <CommonFixes />
 
       {/* ── Recently viewed — only rendered when user has history ──────────── */}
       <RecentlyViewed />

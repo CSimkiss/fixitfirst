@@ -5,9 +5,10 @@ import { useState } from 'react'
 interface EmailCaptureProps {
   source?: string
   tags?: string[]
+  ctaLabel?: string
 }
 
-export default function EmailCapture({ source = 'unknown', tags }: EmailCaptureProps) {
+export default function EmailCapture({ source = 'unknown', tags, ctaLabel }: EmailCaptureProps) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'duplicate' | 'error'>('idle')
 
@@ -63,7 +64,7 @@ export default function EmailCapture({ source = 'unknown', tags }: EmailCaptureP
         disabled={status === 'loading'}
         className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors whitespace-nowrap disabled:opacity-70"
       >
-        {status === 'loading' ? 'Saving…' : 'Send it to me →'}
+        {status === 'loading' ? 'Saving…' : (ctaLabel ?? 'Send it to me →')}
       </button>
       {status === 'error' && (
         <p className="text-red-400 text-sm mt-1 w-full">Something went wrong. Please try again.</p>

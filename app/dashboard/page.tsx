@@ -275,7 +275,7 @@ export default function DashboardPage() {
                   <p className="text-sm font-medium text-green-600 mt-2">{nextGuide.saves}</p>
                 </div>
                 <div className="shrink-0 bg-orange-500 text-white rounded-xl px-4 py-2 text-sm font-semibold group-hover:bg-orange-600 transition-colors whitespace-nowrap">
-                  Start now →
+                  Start fix →
                 </div>
               </div>
             </a>

@@ -106,7 +106,6 @@ export default function GuidesGrid({ guides }: { guides: Guide[] }) {
           })}
         </div>
       )}
-      <p className="text-center text-gray-400 text-sm mt-12">More guides coming soon.</p>
     </div>
   )
 }
