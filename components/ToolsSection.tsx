@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { TOOLS_STORAGE_KEY } from '@/lib/tools'
-import { amazonToolUrl, amazonGuideUrl } from '@/lib/affiliates'
+import { amazonToolUrl, amazonGuideUrl, screwfixToolUrl, screwfixGuideUrl } from '@/lib/affiliates'
 
 export type ToolItem = {
   /** Default icon shown before localStorage is read */
@@ -36,8 +36,8 @@ export default function ToolsSection({ tools, slug: _slug, guideName }: Props) {
 
   return (
     <div id="tools-section" className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-      <h2 className="font-semibold text-gray-900 mb-4">Tools needed</h2>
-      <ul className="space-y-3">
+      <h2 className="font-semibold text-gray-900 mb-4">Tools &amp; materials</h2>
+      <ul className="space-y-4">
         {tools.map((tool, i) => {
           const isOwned = mounted && !!tool.toolId && owned.includes(tool.toolId)
           const showBuy = mounted && !!tool.toolId && !owned.includes(tool.toolId)
@@ -48,46 +48,72 @@ export default function ToolsSection({ tools, slug: _slug, guideName }: Props) {
               <span className={`${useCheck ? 'text-green-500' : 'text-orange-500'} font-bold mt-0.5 shrink-0`}>
                 {useCheck ? '✓' : '!'}
               </span>
-              <span className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 min-w-0">
-                <span className="font-medium">{tool.name}</span>
-                {tool.hint && (
-                  <span className={showBuy ? 'text-gray-400' : tool.hintOrange ? 'text-orange-600' : 'text-gray-500'}>
-                    — {tool.hint}
-                  </span>
-                )}
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                  <span className="font-medium">{tool.name}</span>
+                  {tool.hint && !showBuy && (
+                    <span className={tool.hintOrange ? 'text-orange-600' : 'text-gray-500'}>
+                      — {tool.hint}
+                    </span>
+                  )}
+                  {isOwned && (
+                    <span className="text-green-600 font-medium text-xs">✓ You have this</span>
+                  )}
+                </div>
+
                 {showBuy && tool.name && (
-                  <span className="flex flex-col gap-0.5 text-xs mt-0.5 w-full">
-                    <span className="text-gray-400 italic">Worth having — you will use it for other fixes too.</span>
-                    <span className="flex items-center gap-1">
+                  <div className="mt-2 flex flex-col gap-1.5">
+                    <span className="text-xs text-gray-400 italic">Worth having — useful for many other fixes too.</span>
+                    <div className="flex flex-wrap gap-2 mt-0.5">
                       <a
                         href={amazonToolUrl(tool.name)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
+                        className="inline-flex items-center gap-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
                       >
-                        Find it on Amazon
+                        Buy on Amazon <span className="opacity-80">(fastest delivery)</span>
                       </a>
-                    </span>
-                  </span>
+                      <a
+                        href={screwfixToolUrl(tool.name)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+                      >
+                        Check Screwfix <span className="text-gray-400">(pickup today)</span>
+                      </a>
+                    </div>
+                  </div>
                 )}
-              </span>
+              </div>
             </li>
           )
         })}
       </ul>
+
       {guideName && (
-        <p className="text-xs text-gray-500 mt-4 pt-3 border-t border-gray-100">
-          Want to get everything in one go?{' '}
-          <a
-            href={amazonGuideUrl(guideName)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:underline"
-          >
-            Shop this fix on Amazon
-          </a>
-        </p>
+        <div className="mt-5 pt-4 border-t border-gray-100">
+          <p className="text-sm font-medium text-gray-700 mb-2">Want everything in one go?</p>
+          <div className="flex flex-wrap gap-2">
+            <a
+              href={amazonGuideUrl(guideName)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
+            >
+              Get it on Amazon <span className="opacity-80">(fastest delivery)</span>
+            </a>
+            <a
+              href={screwfixGuideUrl(guideName)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 hover:underline transition-colors self-center"
+            >
+              Check Screwfix <span className="text-gray-400">(pickup today)</span>
+            </a>
+          </div>
+        </div>
       )}
+
       <p className="text-xs text-gray-400 mt-3">
         Prices shown on retailer sites. Always check current pricing before purchasing.
       </p>

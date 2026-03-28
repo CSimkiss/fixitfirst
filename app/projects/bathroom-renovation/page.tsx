@@ -733,7 +733,7 @@ export default function BathroomRenovation() {
                               {pg.note && <p className="text-xs text-gray-400 mt-0.5">{pg.note}</p>}
                             </div>
                             <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
-                              Guide coming soon
+                              Guide in progress
                             </span>
                           </div>
                         )

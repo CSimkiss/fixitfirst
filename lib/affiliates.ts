@@ -24,9 +24,8 @@ const TOOLSTATION_AFFID = '' // e.g. 'fixitfirst'   – appended as &affid=
 
 // ─── Enabled retailers ───────────────────────────────────────────────────────
 // Only retailers listed here are surfaced in the UI.
-// Add 'screwfix', 'bnq', 'toolstation' here when those programmes are live.
 
-export const ENABLED_RETAILERS: string[] = ['amazon']
+export const ENABLED_RETAILERS: string[] = ['amazon', 'screwfix']
 
 // ─── Retailer definitions ─────────────────────────────────────────────────────
 
@@ -117,16 +116,14 @@ export function amazonGuideUrl(guideName: string): string {
   return retailer('amazon').buildUrl(`tools for ${guideName}`)
 }
 
-// ─── Legacy named helpers (kept for backward compatibility) ───────────────────
-// These previously routed to Screwfix; they now route to Amazon until
-// Screwfix Associates is active. When re-enabling, swap the retailer() call.
+// ─── Screwfix helpers ─────────────────────────────────────────────────────────
 
-/** @deprecated Use amazonToolUrl instead. Routes to Amazon until Screwfix Associates is live. */
+/** Screwfix search URL for a tool — shown as secondary "pickup today" option */
 export function screwfixToolUrl(name: string): string {
-  return amazonToolUrl(name)
+  return retailer('screwfix').buildUrl(name)
 }
 
-/** @deprecated Use amazonGuideUrl instead. Routes to Amazon until Screwfix Associates is live. */
+/** Screwfix search URL for a guide topic */
 export function screwfixGuideUrl(guideName: string): string {
-  return amazonGuideUrl(guideName)
+  return retailer('screwfix').buildUrl(`tools for ${guideName}`)
 }

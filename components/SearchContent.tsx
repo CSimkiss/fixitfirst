@@ -19,9 +19,9 @@ export default function SearchContent() {
   const router = useRouter()
   const [query, setQuery] = useState(params.get('q') ?? '')
 
-  const { guides: results, fuzzy } = query.trim()
+  const { guides: results, fuzzy, canonicalTitle } = query.trim()
     ? searchGuides(query)
-    : { guides: [], fuzzy: false }
+    : { guides: [], fuzzy: false, canonicalTitle: undefined }
 
   // Direct routing: one unambiguous non-fuzzy match → go straight there
   useEffect(() => {
@@ -47,6 +47,14 @@ export default function SearchContent() {
         autoFocus
         className="w-full border border-gray-200 rounded-xl px-5 py-3 text-base focus:outline-none focus:ring-2 focus:ring-orange-500 mb-6"
       />
+
+      {/* Canonical redirect notice — shown when a known variant is searched */}
+      {canonicalTitle && !fuzzy && query.trim() && (
+        <div className="mb-4 text-sm text-gray-500">
+          Showing results for:{' '}
+          <span className="font-semibold text-gray-800">{canonicalTitle}</span>
+        </div>
+      )}
 
       {/* Did you mean — shown when fuzzy fallback is used */}
       {fuzzy && results.length > 0 && (

@@ -21,7 +21,7 @@ const TIPS = [
 
 const TRANSFORM_STEPS = [
   { step: '1', title: 'Fill holes and cracks', href: '/guides/fill-a-hole-in-a-wall', time: '30 mins' },
-  { step: '2', title: 'Prep and prime', href: null, time: '1–2 hours' },
+  { step: '2', title: 'Prep and prime', href: '/guides/fill-and-sand-a-wall', time: '1–2 hours' },
   { step: '3', title: 'Paint the room', href: '/guides/paint-a-room', time: '1 day' },
 ]
 
@@ -52,13 +52,9 @@ export default function DecoratingPage() {
                   {step.step}
                 </div>
                 <div className="flex-1">
-                  {step.href ? (
-                    <a href={step.href} className="font-medium text-purple-800 hover:text-purple-600 hover:underline">
-                      {step.title}
-                    </a>
-                  ) : (
-                    <span className="font-medium text-gray-500">{step.title} <span className="text-xs">(guide coming soon)</span></span>
-                  )}
+                  <a href={step.href} className="font-medium text-purple-800 hover:text-purple-600 hover:underline">
+                    {step.title}
+                  </a>
                   <span className="text-xs text-gray-500 ml-2">— {step.time}</span>
                 </div>
               </div>

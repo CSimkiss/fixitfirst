@@ -83,7 +83,8 @@ export default function RoomByRoom() {
                 {guides.length === 0 ? (
                   <div className="border border-dashed border-gray-300 rounded-xl p-8 text-center text-gray-400">
                     <p className="text-2xl mb-2">🔨</p>
-                    <p className="text-sm">Garden guides coming soon</p>
+                    <p className="text-sm mb-3">No guides available for this room yet.</p>
+                    <a href="/guides" className="text-orange-500 text-sm font-medium hover:underline">Browse all guides →</a>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">

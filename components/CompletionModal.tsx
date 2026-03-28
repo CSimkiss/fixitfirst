@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { TIERS } from '@/lib/progress'
 import { totalSavings, tierLevel } from '@/lib/completions'
-import { ALL_GUIDES, getRecommendation, type Guide, type RecommendationReason } from '@/lib/guides'
+import { ALL_GUIDES, getTopRecommendations, type Guide, type RecommendationReason } from '@/lib/guides'
 import { ALL_BADGES } from '@/lib/badges'
 import { amazonToolUrl } from '@/lib/affiliates'
 import type { CompletionMap } from '@/lib/completions'
@@ -49,6 +49,39 @@ const GUIDE_TOOL_SUGGESTION: Record<string, { name: string; searchTerm: string }
   'fix-a-fence-panel':              { name: 'Fence Panel Clips',         searchTerm: 'fence panel bracket clips' },
   'lay-decking-boards':             { name: 'Stainless Decking Screws',  searchTerm: 'stainless steel decking screws' },
   'fix-a-garden-tap':               { name: 'Outdoor Tap Repair Kit',    searchTerm: 'outdoor tap repair kit' },
+}
+
+// ─── Per-guide "What you just learned" skills ─────────────────────────────────
+
+const GUIDE_LEARNINGS: Record<string, string[]> = {
+  'fix-a-dripping-tap':       ['How to isolate the water supply', 'Replacing a tap washer', 'Using PTFE tape on threads'],
+  'fix-a-running-toilet':     ['How a cistern fill valve works', 'Replacing a cistern flap valve', 'Adjusting float arm height'],
+  'unblock-a-drain':          ['Using a plunger correctly', 'Clearing a P-trap blockage', 'When to use a drain snake'],
+  'bleed-a-radiator':         ['How to identify an airlock', 'Using a radiator bleed key', 'Repressurising a boiler after bleeding'],
+  'change-a-lightbulb':       ['Identifying bulb fittings (B22, E27, GU10)', 'Safely switching off at the circuit', 'Matching wattage and colour temperature'],
+  'fill-a-hole-in-a-wall':    ['Prepping a hole for filler', 'Applying and feathering filler', 'Sanding and priming for a flat finish'],
+  'paint-a-room':             ['Cutting in before rolling', 'Maintaining a wet edge', 'Two thin coats vs one thick coat'],
+  'put-up-shelves':           ['Locating studs and solid masonry', 'Drilling and plugging into plaster walls', 'Getting shelves level with a spirit level'],
+  'fit-a-curtain-pole':       ['Wall anchor types and when to use them', 'Measuring for bracket spacing', 'Drilling into different wall materials'],
+  'bleed-all-radiators':      ['Bleeding in the correct order', 'Checking boiler pressure afterwards', 'Identifying radiators that need bleeding most'],
+  'fill-and-sand-a-wall':     ['Filling large holes in stages', 'Feathering filler edges flat', 'Sanding without over-sanding paint'],
+  'fix-a-leaking-pipe-joint': ['Identifying joint types (compression vs push-fit)', 'Using PTFE tape correctly', 'Tightening compression fittings without over-torquing'],
+  'replace-a-toilet-seat':    ['Removing corroded seat bolts', 'Fitting quick-release hinges', 'Measuring toilet pan to buy the right size'],
+  'fix-a-cold-radiator':      ['Diagnosing sludge vs airlock', 'Using a bleed key correctly', 'When to call a heating engineer'],
+  'fix-a-squeaky-floorboard': ['Finding the joist beneath the board', 'Fixing a board with screws vs nails', 'Using graphite powder as a temporary fix'],
+  'fix-a-sticking-door':      ['Diagnosing door binding location', 'Planing a door without removing it', 'Adjusting hinge depth'],
+}
+
+// Generic fallbacks by category
+const CATEGORY_LEARNINGS: Record<string, string[]> = {
+  Plumbing:   ['How to safely isolate water before any plumbing job', 'Identifying your pipe type (copper vs plastic)', 'When a job needs a qualified plumber'],
+  Electrics:  ['Always isolate at the fusebox before starting', 'Testing for current with a voltage tester', 'What Part P means for DIY electrical work'],
+  Carpentry:  ['Marking accurately before cutting', 'Choosing the right fixing for the wall type', 'Pre-drilling to prevent wood split'],
+  Decorating: ['Prep is 80% of a good paint finish', 'Two thin coats always beats one thick coat', 'Masking tape saves hours of touching up'],
+  Heating:    ['Bleeding order matters — start furthest from the boiler', 'Boiler pressure range: 1–1.5 bar is normal', 'Sludge vs airlock — they need different fixes'],
+  Tiling:     ['Plumb and level before placing a single tile', 'Back-buttering for better adhesion', 'Spacer sizing affects the grout line look'],
+  Fitting:    ['Wall anchor types: plastic plug, cavity anchor, toggle bolt', 'Always scan walls before drilling', 'Spirit level in two axes, not just one'],
+  Masonry:    ['Match filler type to the depth of the hole', 'Always prime before painting over filler', 'Flexible filler for cracks that might move'],
 }
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -97,10 +130,13 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
     : 100
   const guidesToNextTier = nextTier ? nextTier.min - completedCount : 0
 
-  const recommendation  = getRecommendation(completionMap)
-  const nextGuide       = recommendation?.guide ?? null
-  const nextReason      = recommendation?.reason ?? 'easiest'
+  const recommendations = getTopRecommendations(completionMap, 3)
+  const nextGuide       = recommendations[0]?.guide ?? null
+  const nextReason      = recommendations[0]?.reason ?? 'easiest'
   const toolSuggestion  = GUIDE_TOOL_SUGGESTION[slug] ?? null
+
+  // "What you just learned"
+  const learnedSkills = GUIDE_LEARNINGS[slug] ?? CATEGORY_LEARNINGS[guide.category] ?? []
 
   // ── Detect newly unlocked badges (guide-based only; streak/tool badges need
   //    extra context we don't carry here and are handled on the badges page) ──
@@ -154,7 +190,20 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
         {/* ── Scrollable body ─────────────────────────────────────────────── */}
         <div className="overflow-y-auto flex-1 px-6 py-5 space-y-5">
 
-          {/* Running totals — supporting context, not the hero */}
+          {/* Money saved — prominent hero stat */}
+          {allSaved > 0 && (
+            <div className="bg-green-50 border border-green-200 rounded-2xl p-4 text-center">
+              <p className="text-3xl font-black text-green-600">£{allSaved}</p>
+              <p className="text-sm font-semibold text-green-700 mt-0.5">total saved</p>
+              <p className="text-xs text-green-600 mt-1">
+                {completedCount > 1
+                  ? `${completedCount} jobs you didn't need to pay someone else for`
+                  : "That's one less call-out fee"}
+              </p>
+            </div>
+          )}
+
+          {/* Running totals */}
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-gray-50 rounded-xl p-3 text-center">
               <p className="text-xl font-bold text-orange-500">{completedCount}</p>
@@ -164,18 +213,48 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
             </div>
             <div className="bg-gray-50 rounded-xl p-3 text-center">
               <p className="text-xl font-bold text-green-600">
-                {allSaved > 0 ? `£${allSaved}` : '—'}
+                {thisGuideSaving > 0 ? `~£${thisGuideSaving}` : '—'}
               </p>
-              <p className="text-xs text-gray-500 mt-0.5">total saved</p>
+              <p className="text-xs text-gray-500 mt-0.5">saved this fix</p>
             </div>
           </div>
 
-          {/* Identity / progress reinforcement */}
-          <p className="text-sm text-gray-500 text-center -mt-1">
-            {completedCount > 1
-              ? `That's ${completedCount} jobs you didn't need to pay someone else for.`
-              : "You're building real DIY confidence."}
-          </p>
+          {/* What you just learned */}
+          {learnedSkills.length > 0 && (
+            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-600 mb-3">
+                What you just learned
+              </p>
+              <ul className="space-y-1.5">
+                {learnedSkills.map((skill) => (
+                  <li key={skill} className="flex items-start gap-2 text-sm text-gray-700">
+                    <span className="text-blue-400 mt-0.5 shrink-0">✓</span>
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* What this unlocks */}
+          {recommendations.length > 1 && (
+            <div className="bg-purple-50 border border-purple-100 rounded-2xl p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-purple-600 mb-3">
+                What this unlocks
+              </p>
+              <ul className="space-y-1.5">
+                {recommendations.slice(1).map(({ guide: g }) => (
+                  <li key={g.slug} className="flex items-start gap-2 text-sm text-gray-700">
+                    <span className="text-purple-400 mt-0.5 shrink-0">→</span>
+                    <span>
+                      <span className="font-medium">{g.title}</span>
+                      <span className="text-gray-400 ml-1">— {g.saves}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Tier progress */}
           <div className={`rounded-2xl p-4 ${tier.bg}`}>
@@ -245,7 +324,7 @@ export default function CompletionModal({ slug, completionMap, onClose }: Props)
             </div>
           )}
 
-          {/* Recommended next guide */}
+          {/* Up next for you */}
           {nextGuide && <NextGuideCard guide={nextGuide} reason={nextReason} onClose={onClose} />}
 
         </div>
@@ -306,7 +385,7 @@ function NextGuideCard({
       className="block bg-gray-950 text-white rounded-2xl p-5 group"
     >
       <p className="text-orange-400 text-xs font-semibold uppercase tracking-wide mb-2">
-        Recommended next
+        Up next for you
       </p>
       {contextLabel && (
         <p className="inline-flex items-center gap-1 bg-white/10 text-gray-300 text-xs font-medium rounded-full px-2.5 py-0.5 mb-2">
