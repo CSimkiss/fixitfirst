@@ -544,13 +544,20 @@ export default function Home() {
       </section>
 
       {/* ── Email capture ─────────────────────────────────────────────────── */}
-      <section className="bg-gray-950 text-white px-6 py-20 text-center">
+      <section className="bg-gray-950 text-white px-6 py-16 md:py-20 text-center">
         <div className="max-w-2xl mx-auto">
-          <p className="text-orange-400 text-sm font-semibold uppercase tracking-wide mb-4">Coming soon</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get notified when we launch</h2>
-          <p className="text-gray-300 mb-8 text-lg">We&apos;re building something that will save you hundreds of pounds a year. Be the first to know.</p>
-          <EmailCapture source="homepage" />
-          <p className="text-gray-500 text-sm mt-4">No spam. Unsubscribe any time.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3">Start fixing things today</h2>
+          <p className="text-gray-300 mb-6 text-lg">Get your starter tools + your first 3 easy fixes</p>
+
+          {/* Feature hints */}
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mb-8 text-sm text-gray-400">
+            <span>🔧 Essential tools</span>
+            <span>🏠 First fixes</span>
+            <span>💰 Save £100+</span>
+          </div>
+
+          <EmailCapture source="homepage" tags={['starter_flow']} />
+          <p className="text-gray-500 text-sm mt-4">No spam. Just simple fixes and tools that actually help.</p>
         </div>
       </section>
 
