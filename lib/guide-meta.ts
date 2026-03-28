@@ -317,34 +317,66 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'Capping a pipe temporarily during a bathroom renovation requires your landlord\'s written permission if you are doing the wider renovation yourself. If a landlord-authorised plumber is doing the work, they will handle this. Do not cap pipes without the landlord knowing — they need to be aware the supply is modified.',
   },
-  'replace-a-bathroom-sink': {
+  'fix-a-light-that-wont-turn-on': {
     lastUpdated: 'March 2026',
-    difficultyComparison: 'Similar difficulty to fitting bathroom fixtures — more involved than a tap repair, but not a full plumbing job',
+    difficultyComparison: 'Easier than replacing a light switch — no wiring needed for the first three steps',
     completedCount: 0,
-    renterWarning: 'Replacing a bathroom sink in a rented property requires your landlord\'s written permission — it is a permanent change to a fixture they own. Only proceed with a written agreement for a like-for-like replacement. Keep the old basin in case the landlord wants it reinstated.',
+    renterWarning: 'You can change bulbs and reset circuit breakers in a rented property without permission. Any work inside ceiling roses or light fittings that involves touching wiring should be reported to the landlord first — they are responsible for the electrical installation.',
   },
-  'fit-a-towel-rail': {
+  'fix-peeling-paint': {
     lastUpdated: 'March 2026',
-    difficultyComparison: 'Similar to fitting a curtain pole — the main skill is scanning the wall and drilling accurately',
+    difficultyComparison: 'Similar difficulty to filling and sanding — preparation takes longer than the painting',
     completedCount: 0,
-    renterWarning: 'Fitting a towel rail requires drilling, which needs your landlord\'s written permission. Most landlords are agreeable for a standard towel rail — but ask before drilling. For a plug-in heated rail, also confirm they are happy with the electrical connection to the fused spur.',
+    renterWarning: 'You need your landlord\'s written permission before repainting or making good in a rented property. If peeling paint is a pre-existing condition, report it in writing and ask the landlord to arrange repair — it is their responsibility to maintain the property in good condition.',
   },
-  'paint-a-bathroom': {
+  'fix-a-leaking-pipe-under-sink': {
     lastUpdated: 'March 2026',
-    difficultyComparison: 'Same effort as painting a standard room — slightly more demanding because of the surface prep and product choice',
+    difficultyComparison: 'Easier than fixing a supply pipe joint — waste pipes are not under pressure and connect by hand',
     completedCount: 0,
-    renterWarning: 'You need your landlord\'s written permission before repainting a bathroom. Some landlords allow it; many require you to return it to the original colour before leaving. Get the agreed colour in writing before buying any paint.',
+    renterWarning: 'Landlords are legally responsible for fixing leaking pipes. Report it in writing. If there is a risk of water damage and they do not respond within 24 hours, contact your council\'s Environmental Health department. Hand-tightening a loose waste pipe connection is generally considered acceptable emergency action for a tenant.',
   },
-  'tile-a-bathroom-floor': {
+  'unblock-a-sink': {
     lastUpdated: 'March 2026',
-    difficultyComparison: 'More involved than tiling a splashback — floor tiles must be level under load, which adds a critical extra dimension',
+    difficultyComparison: 'One of the easiest jobs on the site — no technical knowledge needed',
     completedCount: 0,
-    renterWarning: 'Tiling a floor in a rented property is a permanent, irreversible change. Never proceed without explicit written permission from your landlord. They may also want to approve your tile choice — get this in writing before purchasing materials.',
+    renterWarning: 'You are generally allowed to unblock your own sink — it is maintenance rather than a modification. If the blockage is in the main drain (multiple sinks affected), report it to your landlord in writing as it is their responsibility to arrange clearance.',
   },
-  'reseal-a-shower-or-bath': {
+  'fix-a-loose-door-handle': {
     lastUpdated: 'March 2026',
-    difficultyComparison: 'One of the easier finishing jobs on the site — the technique takes a little practice but the materials are forgiving',
+    difficultyComparison: 'Easier than putting up shelves — no drilling, just tightening',
     completedCount: 0,
-    renterWarning: 'Resealing a bath or shower in a rented property is considered routine maintenance — you can generally do this without landlord permission. If the sealant has failed due to a structural issue (cracked tiles, movement), report this to your landlord in writing before resealing.',
+    renterWarning: 'Tightening a loose door handle is routine maintenance and does not require landlord permission. If you need to replace the handle entirely, get written permission first — even though it is a minor change, some landlords want to approve fittings.',
+  },
+
+  // Micro skill guides
+  'remove-old-grout': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Methodical rather than skilled — takes patience, not expertise',
+    completedCount: 0,
+    renterWarning: 'You can regrout tiles in a rented property without landlord permission, as it is a maintenance repair. If the grout is failing because of underlying damp or movement, report this to your landlord — they are responsible for fixing the structural cause.',
+  },
+  'apply-silicone-sealant': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'A 10-minute skill once you have done it once — most people overthink it',
+    completedCount: 0,
+    renterWarning: 'Resealing a bath, basin, or shower in a rented property is generally considered maintenance and does not require landlord permission. If the sealant has failed due to a structural crack or movement in the floor, that is a landlord responsibility — report it in writing.',
+  },
+  'use-a-spirit-level': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'One of the simplest skills in DIY — just takes a minute to understand the bubble',
+    completedCount: 0,
+    renterWarning: undefined,
+  },
+  'drill-into-wall-types': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'The technique is simple once you know the settings — wall type identification is the main skill',
+    completedCount: 0,
+    renterWarning: 'Always check your tenancy agreement before drilling. Most allow small fixings for pictures and shelves, but some require landlord permission for drilling. Use no-drill adhesive hooks as an alternative for lighter items.',
+  },
+  'find-pipes-and-wires': {
+    lastUpdated: 'March 2026',
+    difficultyComparison: 'Takes two minutes and a £20 detector — one of the most important habits in DIY',
+    completedCount: 0,
+    renterWarning: 'The same scan applies whether you rent or own. In a rental, if you drill through a cable or pipe, you are liable for the repair cost. Check your tenancy agreement before drilling — many require landlord permission for any wall fixings.',
   },
 }

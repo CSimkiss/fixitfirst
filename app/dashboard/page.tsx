@@ -292,6 +292,53 @@ export default function DashboardPage() {
           </div>
         )}
 
+        {/* ── Level Up Projects ──────────────────────────────────────── */}
+        {(() => {
+          // Show if user has completed at least 2 guides — more prominent with ≥5
+          if (completedCount < 2) return null
+          const isProminent = completedCount >= 5
+          return (
+            <div>
+              <p className="text-xs font-semibold text-purple-500 uppercase tracking-wide mb-3">
+                {isProminent ? 'Level Up' : 'Work towards bigger projects'}
+              </p>
+              <a
+                href="/projects/bathroom-renovation"
+                className={`flex gap-4 items-start rounded-2xl p-5 border-2 transition-all group hover:shadow-md ${
+                  isProminent
+                    ? 'border-purple-200 bg-purple-50 hover:border-purple-400'
+                    : 'border-gray-200 bg-white hover:border-orange-300'
+                }`}
+              >
+                <div className="text-3xl shrink-0">🚿</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                      isProminent ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'
+                    }`}>
+                      Project hub
+                    </span>
+                    <span className="text-xs text-gray-400">🏗️ Tier 5 · Builder</span>
+                  </div>
+                  <h3 className={`font-bold mb-1 group-hover:text-orange-500 transition-colors ${
+                    isProminent ? 'text-gray-900 text-lg' : 'text-gray-700'
+                  }`}>
+                    Renovate Your Bathroom
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    {isProminent
+                      ? 'You have the skills. Break a full bathroom renovation into 6 phases.'
+                      : 'Build towards bigger projects like this — one guide at a time.'}
+                  </p>
+                </div>
+                <span className="shrink-0 hidden sm:flex items-center text-orange-500 text-sm font-semibold group-hover:translate-x-1 transition-transform">
+                  View →
+                </span>
+              </a>
+            </div>
+          )
+        })()}
+
         {/* ── Streak ─────────────────────────────────────────────────── */}
         {streak > 0 && (
           <div className="bg-orange-50 border border-orange-200 rounded-2xl px-5 py-4 flex items-center gap-3">

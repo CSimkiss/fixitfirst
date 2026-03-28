@@ -71,10 +71,23 @@ export const GUIDE_TOOLS: Record<string, string[]> = {
   'unblock-a-drain':           ['plunger', 'rubber-gloves', 'bucket'],
   'unblock-a-toilet':          ['plunger', 'rubber-gloves', 'bucket'],
   'replace-a-shower-head':     ['adjustable-spanner', 'ptfe-tape'],
-  'fix-a-running-toilet':      ['screwdriver-flat'],
-  'turn-off-water-mains':      [],
-  'fix-a-garden-tap':          ['adjustable-spanner', 'screwdriver-flat', 'ptfe-tape'],
-  'unblock-a-gutter':          ['step-ladder', 'rubber-gloves', 'bucket'],
+  'fix-a-running-toilet':              ['screwdriver-flat'],
+  'fix-a-leaking-pipe-under-sink':     ['bucket', 'sponge-cloths', 'adjustable-grips'],
+  'unblock-a-sink':                    ['plunger', 'rubber-gloves', 'bucket'],
+  'fix-a-loose-door-handle':           ['allen-keys', 'screwdriver-cross', 'screwdriver-flat'],
+  'fix-a-light-that-wont-turn-on':     ['torch', 'step-ladder', 'screwdriver-flat'],
+  'fix-peeling-paint':                 ['filling-knife', 'sandpaper', 'paintbrush', 'roller-tray'],
+
+  // Micro skill guides
+  'remove-old-grout':                  [],
+  'apply-silicone-sealant':            ['masking-tape', 'sealant-gun', 'utility-knife'],
+  'use-a-spirit-level':                ['spirit-level'],
+  'drill-into-wall-types':             ['drill', 'drill-bits'],
+  'find-pipes-and-wires':              ['cable-detector', 'tape-measure'],
+
+  'turn-off-water-mains':              [],
+  'fix-a-garden-tap':                  ['adjustable-spanner', 'screwdriver-flat', 'ptfe-tape'],
+  'unblock-a-gutter':                  ['step-ladder', 'rubber-gloves', 'bucket'],
 
   // Heating
   'bleed-a-radiator':          ['bleed-key'],
