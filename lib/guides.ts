@@ -565,6 +565,30 @@ export const MOST_COMMON_GUIDE: Guide = ALL_GUIDES.reduce((best, g) =>
   (g.popularityScore ?? 0) > (best.popularityScore ?? 0) ? g : best
 )
 
+// ─── Canonical redirects ──────────────────────────────────────────────────────
+// Maps common search variants to the canonical guide slug.
+// When a query matches a key here, the search shows "Showing results for: <title>"
+// instead of the raw variant, preventing duplicate-guide confusion.
+
+export const CANONICAL_REDIRECTS: Record<string, string> = {
+  'leaking tap':            'fix-a-dripping-tap',
+  'tap leaking':            'fix-a-dripping-tap',
+  'tap leak':               'fix-a-dripping-tap',
+  'dripping tap':           'fix-a-dripping-tap',
+  'tap dripping':           'fix-a-dripping-tap',
+  'toilet keeps running':   'fix-a-running-toilet',
+  'running toilet':         'fix-a-running-toilet',
+  'toilet running':         'fix-a-running-toilet',
+  'leaking toilet':         'fix-a-running-toilet',
+  'toilet leak':            'fix-a-running-toilet',
+  'blocked drain':          'unblock-a-drain',
+  'blocked sink':           'unblock-a-drain',
+  'slow drain':             'unblock-a-drain',
+  'sink blocked':           'unblock-a-drain',
+  'cold radiator':          'fix-a-cold-radiator',
+  'radiator cold':          'fix-a-cold-radiator',
+}
+
 // ─── Search ────────────────────────────────────────────────────────────────────
 
 /**
@@ -575,9 +599,11 @@ export const MOST_COMMON_GUIDE: Guide = ALL_GUIDES.reduce((best, g) =>
  *                  Tokens shorter than 3 chars are ignored to avoid noise.
  *
  * Results are sorted by popularityScore descending within each pass.
- * Returns { guides, fuzzy } so callers can show "Did you mean" when fuzzy===true.
+ * Returns { guides, fuzzy, canonicalTitle? } where canonicalTitle is set when
+ * the query is a known variant of a canonical guide (e.g. "leaking tap" →
+ * "Fix a dripping tap") so callers can show "Showing results for: X".
  */
-export function searchGuides(query: string): { guides: Guide[]; fuzzy: boolean } {
+export function searchGuides(query: string): { guides: Guide[]; fuzzy: boolean; canonicalTitle?: string } {
   const q = query.toLowerCase().trim()
   if (!q) {
     return {
@@ -585,6 +611,11 @@ export function searchGuides(query: string): { guides: Guide[]; fuzzy: boolean }
       fuzzy: false,
     }
   }
+
+  // Check for a canonical redirect — exact match on the known variants
+  const canonicalSlug = CANONICAL_REDIRECTS[q]
+  const canonicalGuide = canonicalSlug ? ALL_GUIDES.find(g => g.slug === canonicalSlug) : undefined
+  const canonicalTitle = canonicalGuide?.title
 
   const byPopularity = (a: Guide, b: Guide) => (b.popularityScore ?? 0) - (a.popularityScore ?? 0)
 
@@ -595,11 +626,11 @@ export function searchGuides(query: string): { guides: Guide[]; fuzzy: boolean }
     (g.searchTerms ?? []).some(t => t.toLowerCase().includes(q) || q.includes(t.toLowerCase()))
   ).sort(byPopularity)
 
-  if (direct.length > 0) return { guides: direct, fuzzy: false }
+  if (direct.length > 0) return { guides: direct, fuzzy: false, canonicalTitle }
 
   // Pass 2: token-based fuzzy — split query into words, count hits per guide
   const tokens = q.split(/\s+/).filter(t => t.length >= 3)
-  if (tokens.length === 0) return { guides: [], fuzzy: false }
+  if (tokens.length === 0) return { guides: [], fuzzy: false, canonicalTitle }
 
   const scored = ALL_GUIDES.flatMap(g => {
     const haystack = [g.title, g.category, ...(g.searchTerms ?? [])].join(' ').toLowerCase()
@@ -607,7 +638,7 @@ export function searchGuides(query: string): { guides: Guide[]; fuzzy: boolean }
     return hits > 0 ? [{ guide: g, hits }] : []
   }).sort((a, b) => b.hits - a.hits || byPopularity(a.guide, b.guide))
 
-  return { guides: scored.map(x => x.guide), fuzzy: scored.length > 0 }
+  return { guides: scored.map(x => x.guide), fuzzy: scored.length > 0, canonicalTitle }
 }
 
 // ─── Tool inference ────────────────────────────────────────────────────────────
@@ -752,4 +783,28 @@ export function getRecommendedNextGuide(
   guides: Guide[] = ALL_GUIDES,
 ): Guide | null {
   return getRecommendation(completionMap, guides)?.guide ?? null
+}
+
+/**
+ * Return up to `n` ranked recommendations, each unique.
+ * Successive recommendations are found by excluding already-picked guides.
+ */
+export function getTopRecommendations(
+  completionMap: Record<string, string>,
+  n: number,
+  guides: Guide[] = ALL_GUIDES,
+): Recommendation[] {
+  const results: Recommendation[] = []
+  const excluded = new Set(Object.keys(completionMap))
+
+  for (let i = 0; i < n; i++) {
+    const pool = guides.filter(g => !excluded.has(g.slug))
+    if (pool.length === 0) break
+    const rec = getRecommendation(completionMap, pool)
+    if (!rec) break
+    results.push(rec)
+    excluded.add(rec.guide.slug)
+  }
+
+  return results
 }

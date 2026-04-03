@@ -105,7 +105,8 @@ export default function ElectricsPage() {
         {guides.length === 0 ? (
           <div className="text-center py-12 text-gray-400 border border-dashed border-gray-300 rounded-xl">
             <p className="text-2xl mb-2">🔌</p>
-            <p>More electrics guides coming soon</p>
+            <p className="mb-3">No electrics guides match your filter.</p>
+            <a href="/guides" className="text-orange-500 text-sm font-medium hover:underline">Browse all guides →</a>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">

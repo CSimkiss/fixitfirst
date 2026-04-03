@@ -379,4 +379,34 @@ export const GUIDE_META: Record<string, GuideMeta> = {
     completedCount: 0,
     renterWarning: 'The same scan applies whether you rent or own. In a rental, if you drill through a cable or pipe, you are liable for the repair cost. Check your tenancy agreement before drilling — many require landlord permission for any wall fixings.',
   },
+  'fit-a-towel-rail': {
+    lastUpdated: 'January 2025',
+    difficultyComparison: 'Similar to fitting a curtain pole — drilling and level work',
+    completedCount: 0,
+    renterWarning: 'Always get your landlord\'s written permission before drilling walls in a rented property. Keep the original fixings so you can fill holes when you leave.',
+  },
+  'paint-a-bathroom': {
+    lastUpdated: 'January 2025',
+    difficultyComparison: 'Similar to painting a room — preparation takes longer than the painting itself',
+    completedCount: 0,
+    renterWarning: 'You need your landlord\'s written permission before repainting in a rented property. Check whether you need to return the walls to the original colour when you leave.',
+  },
+  'replace-a-bathroom-sink': {
+    lastUpdated: 'January 2025',
+    difficultyComparison: 'More involved than fixing a dripping tap — you are disconnecting and reconnecting water supply and waste',
+    completedCount: 0,
+    renterWarning: 'Replacing a bathroom sink is a significant change. Always get your landlord\'s written permission before removing any fixed bathroom fitting. Keep the original basin in case you need to reinstall it.',
+  },
+  'reseal-a-shower-or-bath': {
+    lastUpdated: 'January 2025',
+    difficultyComparison: 'Similar to applying silicone sealant — methodical and straightforward once you know the technique',
+    completedCount: 0,
+    renterWarning: 'Resealing a shower or bath in a rented property is generally considered maintenance and does not require landlord permission. If the sealant is failing due to structural movement, report it to your landlord.',
+  },
+  'tile-a-bathroom-floor': {
+    lastUpdated: 'January 2025',
+    difficultyComparison: 'More involved than tiling a splashback — larger area and floor prep are the main challenges',
+    completedCount: 0,
+    renterWarning: 'Tiling is a permanent change. Always get written permission from your landlord before tiling in a rented property. Removing tiles without permission will almost certainly cost you your deposit.',
+  },
 }
