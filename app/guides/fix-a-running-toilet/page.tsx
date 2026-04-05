@@ -143,6 +143,61 @@ function IsolationValveDiagram() {
   )
 }
 
+function WaterLevelComparisonDiagram() {
+  return (
+    <figure className="my-6 border border-gray-200 rounded-xl p-4 bg-gray-50">
+      <figcaption className="text-sm font-semibold text-gray-700 mb-4 text-center">
+        This is the most common cause of a running toilet
+      </figcaption>
+      <svg
+        viewBox="0 0 520 265"
+        width="100%"
+        height="auto"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Two diagrams side by side. Left: cistern with water level marked TOO HIGH in red — water reaching the top of the safety overflow pipe. Right: cistern with water level marked CORRECT in green — water sitting 25 mm below the top of the safety overflow pipe."
+      >
+        {/* ===== LEFT PANEL — TOO HIGH ===== */}
+        {/* Cistern walls */}
+        <rect x="20" y="40" width="205" height="195" rx="4" fill="#fef2f2" stroke="#fca5a5" strokeWidth="2" />
+        {/* Safety overflow pipe */}
+        <rect x="90" y="48" width="13" height="187" rx="2" fill="#fca5a5" stroke="#f87171" strokeWidth="1" />
+        {/* Water fill — too high: water at overflow top (y=48) */}
+        <rect x="22" y="48" width="201" height="185" fill="#fca5a5" opacity="0.35" />
+        {/* Water level line at overflow top */}
+        <line x1="20" y1="48" x2="225" y2="48" stroke="#dc2626" strokeWidth="2.5" />
+        {/* Arrow showing water pouring into overflow pipe */}
+        <line x1="96" y1="44" x2="96" y2="32" stroke="#dc2626" strokeWidth="2" strokeLinecap="round" />
+        <polyline points="91,38 96,30 101,38" fill="none" stroke="#dc2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        {/* TOO HIGH label */}
+        <text x="122" y="25" fill="#dc2626" fontSize="13" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="800" textAnchor="middle">TOO HIGH</text>
+        {/* Sub-label */}
+        <text x="122" y="247" fill="#dc2626" fontSize="10.5" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="600" textAnchor="middle">Water draining into overflow pipe constantly</text>
+
+        {/* ===== RIGHT PANEL — CORRECT ===== */}
+        {/* Cistern walls */}
+        <rect x="285" y="40" width="205" height="195" rx="4" fill="#f0fdf4" stroke="#86efac" strokeWidth="2" />
+        {/* Safety overflow pipe */}
+        <rect x="355" y="48" width="13" height="187" rx="2" fill="#86efac" stroke="#4ade80" strokeWidth="1" />
+        {/* Water fill — correct: water at y=73 (25px below overflow top at y=48) */}
+        <rect x="287" y="73" width="201" height="160" fill="#86efac" opacity="0.35" />
+        {/* Water level line — correct */}
+        <line x1="285" y1="73" x2="490" y2="73" stroke="#16a34a" strokeWidth="2.5" />
+        {/* Gap bracket: overflow top (y=48) to water level (y=73) */}
+        <line x1="480" y1="48" x2="486" y2="48" stroke="#16a34a" strokeWidth="1.5" />
+        <line x1="483" y1="48" x2="483" y2="73" stroke="#16a34a" strokeWidth="1.5" />
+        <line x1="480" y1="73" x2="486" y2="73" stroke="#16a34a" strokeWidth="1.5" />
+        <text x="493" y="57" fill="#16a34a" fontSize="9" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700">25 mm</text>
+        <text x="493" y="68" fill="#16a34a" fontSize="9" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700">gap</text>
+        {/* CORRECT label */}
+        <text x="387" y="25" fill="#16a34a" fontSize="13" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="800" textAnchor="middle">CORRECT</text>
+        {/* Sub-label */}
+        <text x="387" y="247" fill="#16a34a" fontSize="10.5" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="600" textAnchor="middle">25 mm below the top of the overflow pipe</text>
+      </svg>
+    </figure>
+  )
+}
+
 export default function FixARunningToilet() {
   return (
     <main className="min-h-screen bg-white pb-20 md:pb-0">
@@ -151,7 +206,7 @@ export default function FixARunningToilet() {
         <a href="/guides" className="text-sm text-orange-500 mb-6 inline-block">← Back to guides</a>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Fix a running toilet (won&apos;t stop filling)</h1>
         <p className="text-4xl font-black text-green-600 mb-1">Save £80–150 — no plumber needed</p>
-        <p className="text-gray-600 mb-6">A toilet that keeps running wastes 200–400 litres of water a day. It is almost always the float arm or the flapper valve — both are cheap and straightforward to fix.</p>
+        <p className="text-gray-600 mb-6">A toilet that keeps running wastes 200–400 litres of water a day. It is almost always the floating arm [float arm] or the rubber seal [flapper valve] — both are cheap and straightforward to fix.</p>
         <p className="text-xs text-gray-400 mb-4">Last updated: {GUIDE_META['fix-a-running-toilet'].lastUpdated}</p>
         <div className="flex gap-3 flex-wrap mb-6">
           <SocialShare title="Fix a running toilet" />
@@ -161,9 +216,9 @@ export default function FixARunningToilet() {
 
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-3">Before you start</h2>
-          <p className="text-sm text-gray-700 mb-2">A running toilet constantly trickles water into the bowl or down the overflow pipe after flushing. This is almost always one of two things: the float arm is set too high, or the flapper valve is not sealing.</p>
-          <p className="text-sm text-gray-700 mb-2">You will be working inside the cistern — the tank at the back of the toilet that stores water before each flush. It contains only clean water. Nothing unpleasant.</p>
-          <p className="text-sm text-gray-700">You do not need to turn off the mains supply. There is an isolation valve (a small slotted screw on the pipe behind the toilet) that controls just this tank.</p>
+          <p className="text-sm text-gray-700 mb-2">A running toilet constantly trickles water into the bowl or down the safety overflow pipe [overflow tube] after flushing. This is almost always one of two things: the floating arm [float arm] is set too high, or the rubber seal [flapper valve] is not sealing.</p>
+          <p className="text-sm text-gray-700 mb-2">You will be working inside the tank [cistern] — the tank at the back of the toilet that stores water before each flush. It contains only clean water. Nothing unpleasant.</p>
+          <p className="text-sm text-gray-700">You do not need to turn off the mains supply. There is a shut-off valve [isolation valve] (a small slotted screw on the pipe behind the toilet) that controls just this tank.</p>
         </div>
 
         {/* Know what you're looking at */}
@@ -209,31 +264,31 @@ export default function FixARunningToilet() {
           <h2 className="font-semibold text-orange-800 mb-3 text-sm">Quick glossary — plain English for the technical terms in this guide</h2>
           <dl className="space-y-2 text-sm">
             <div className="flex gap-2">
-              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Cistern</dt>
+              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Tank [Cistern]</dt>
               <dd className="text-gray-700">The tank behind or above the toilet that fills with water after each flush and stores it ready for the next one.</dd>
             </div>
             <div className="flex gap-2">
-              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Float / float arm</dt>
-              <dd className="text-gray-700">A plastic ball or cup on the end of an arm. It floats on the surface and rises as the tank fills — when it reaches the right height it shuts off the fill valve.</dd>
+              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Floating arm [Float / float arm]</dt>
+              <dd className="text-gray-700">A plastic ball or cup on the end of an arm. It floats on the surface and rises as the tank fills — when it reaches the right height it shuts off the water inlet valve.</dd>
             </div>
             <div className="flex gap-2">
-              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Fill valve</dt>
-              <dd className="text-gray-700">The valve (usually on the side of the tank) that lets water in after a flush. The float arm controls when it opens and closes.</dd>
+              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Water inlet valve [Fill valve]</dt>
+              <dd className="text-gray-700">The valve (usually on the side of the tank) that lets water in after a flush. The floating arm controls when it opens and closes.</dd>
             </div>
             <div className="flex gap-2">
-              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Ballvalve</dt>
-              <dd className="text-gray-700">An older style of fill valve where the float is a hollow metal or plastic ball on a long arm. Modern versions use a cup-shaped float on a vertical shaft instead.</dd>
+              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Ball-float valve [Ballvalve]</dt>
+              <dd className="text-gray-700">An older style of water inlet valve where the float is a hollow metal or plastic ball on a long arm. Modern versions use a cup-shaped float on a vertical shaft instead.</dd>
             </div>
             <div className="flex gap-2">
-              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Flapper valve</dt>
+              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Rubber seal [Flapper valve]</dt>
               <dd className="text-gray-700">The rubber seal at the bottom of the tank. When you flush it lifts to let water into the bowl, then drops back down and seals so the tank can refill.</dd>
             </div>
             <div className="flex gap-2">
-              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Overflow tube</dt>
+              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Safety overflow pipe [Overflow tube]</dt>
               <dd className="text-gray-700">A safety pipe inside the tank. If the water level gets too high, water drains down this pipe and exits outside the house (the trickle you sometimes hear from an outside wall).</dd>
             </div>
             <div className="flex gap-2">
-              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Isolation valve</dt>
+              <dt className="font-semibold text-gray-800 min-w-[130px] shrink-0">Shut-off valve [Isolation valve]</dt>
               <dd className="text-gray-700">A small valve on the pipe behind the toilet. Turn the slot in the screw head 90° so it sits across the pipe — this shuts off the water supply to just this toilet.</dd>
             </div>
           </dl>
@@ -246,8 +301,8 @@ export default function FixARunningToilet() {
         <ToolsSection
           tools={[
             { icon: 'check', name: 'Towel or cloth', hint: 'to rest the cistern lid on and catch any drips' },
-            { icon: 'check', name: 'Flat-head screwdriver', hint: 'for adjusting the isolation valve and some ballvalves', toolId: 'screwdriver-flat' },
-            { icon: 'buy', name: 'Replacement flapper valve', hint: 'only needed if cleaning does not fix the seal — take the old one to match the size', hintOrange: true },
+            { icon: 'check', name: 'Flat-head screwdriver', hint: 'for adjusting the shut-off valve [isolation valve] and some ball-float valves [ballvalves]', toolId: 'screwdriver-flat' },
+            { icon: 'buy', name: 'Replacement rubber seal [flapper valve]', hint: 'only needed if cleaning does not fix the seal — take the old one to match the size', hintOrange: true },
           ]}
           slug="fix-a-running-toilet"
           guideName="Fix a running toilet"
@@ -258,24 +313,18 @@ export default function FixARunningToilet() {
         <div id="fix-a" className="border-2 border-orange-200 rounded-xl p-6 mb-6 scroll-mt-6">
           <p className="text-xs font-bold text-orange-600 uppercase tracking-wide mb-1">Fix A</p>
           <h2 className="text-xl font-bold text-gray-900 mb-1">Lower the water level</h2>
-          <p className="text-sm text-gray-500 mb-4">Technical name: float arm adjustment (ballvalve)</p>
-          <p className="text-sm text-gray-700 mb-3"><strong>What&apos;s happening:</strong> The water in the tank is filling too high and spilling down the safety tube (overflow tube) before the valve can shut off. You&apos;ll often hear this as a trickle from a pipe on an outside wall.</p>
+          <p className="text-sm text-gray-500 mb-4">Technical name: floating arm [float arm] adjustment (ball-float valve [ballvalve])</p>
+          <p className="text-sm text-gray-700 mb-3"><strong>What&apos;s happening:</strong> The water in the tank [cistern] is filling too high and spilling down the safety overflow pipe [overflow tube] before the valve can shut off. You&apos;ll often hear this as a trickle from a pipe on an outside wall.</p>
+          <WaterLevelComparisonDiagram />
+          <p className="text-sm italic text-gray-500 mb-3">This looks more complicated than it is — you are bending a plastic arm or turning a screw.</p>
           <ol className="space-y-4 text-sm text-gray-700 list-decimal list-inside">
-            <li>
-              <strong>Lift the lid off the tank (cistern)</strong> and rest it on a towel. You will see a plastic arm — the float arm — with either a hollow ball or a cup-shaped float at the end. This is what triggers the water to stop when the tank is full.
-            </li>
-            <li>
-              <strong>Check if the float arm is the problem.</strong> With the toilet running, gently lift the float arm upward with your hand. If the water stops immediately, the float is set too high and this is your fix.
-            </li>
-            <li>
-              <strong>Lower the float arm.</strong> On an older ballvalve (a metal arm with a hollow ball), gently bend the arm downward by hand — a few degrees is enough. On a modern ballvalve (plastic cup on a vertical shaft), find the small adjustment screw or clip on the side of the fill valve and turn it to lower the cutoff point.
-            </li>
-            <li>
-              <strong>Check the water level.</strong> The water should stop filling at least 25mm below the top of the overflow tube (the tall central pipe inside the tank). That gap is your safety margin. If it still fills too high, lower the float a little more.
-            </li>
-            <li>
-              <strong>Replace the lid and listen.</strong> A correctly adjusted tank is completely silent between flushes — no hiss, no trickle from the outside wall.
-            </li>
+            <li>Lift the lid off the tank [cistern] and rest it on a towel nearby.</li>
+            <li>Gently lift the floating arm [float arm] upward with your hand while the toilet is still running.</li>
+            <li>If the water stops while you hold the arm up, the arm is set too high — that is your problem. Carry on to the next step.</li>
+            <li>Lower the arm. On a traditional ball-float valve [ballvalve] (a long metal arm with a hollow ball at the end): bend the arm gently downward — a few degrees is enough. On a modern version (a plastic cup that slides on a vertical shaft): find the adjustment dial or clip on the side of the valve and turn it to lower the cutoff point.</li>
+            <li>Open the shut-off valve [isolation valve] a quarter turn and watch where the water stops filling.</li>
+            <li>The water should stop at least 25 mm below the top of the safety overflow pipe [overflow tube] — the tall central pipe inside the tank. If it still fills too high, lower the arm a little more and test again.</li>
+            <li>Replace the lid. A correctly set tank is completely silent between flushes.</li>
           </ol>
           <p className="text-xs text-gray-500 mt-4 pt-4 border-t border-orange-100">Cost: free. Time: under 5 minutes. No parts needed.</p>
         </div>
@@ -284,24 +333,25 @@ export default function FixARunningToilet() {
         <div id="fix-b" className="border-2 border-blue-200 rounded-xl p-6 mb-6 scroll-mt-6">
           <p className="text-xs font-bold text-blue-600 uppercase tracking-wide mb-1">Fix B</p>
           <h2 className="text-xl font-bold text-gray-900 mb-1">Check the rubber seal</h2>
-          <p className="text-sm text-gray-500 mb-4">Technical name: flapper valve inspection and replacement</p>
-          <p className="text-sm text-gray-700 mb-3"><strong>What&apos;s happening:</strong> The rubber seal (flapper valve) at the bottom of the tank is not sitting flat. Water is slowly leaking through into the bowl, which keeps triggering the tank to refill. You&apos;ll see gentle rippling in the bowl between flushes.</p>
+          <p className="text-sm text-gray-500 mb-4">Technical name: rubber seal [flapper valve] inspection and replacement</p>
+          <p className="text-sm text-gray-700 mb-3"><strong>What&apos;s happening:</strong> The rubber seal [flapper valve] at the bottom of the tank [cistern] is not sitting flat. Water is slowly leaking through into the bowl, which keeps triggering the tank to refill. You&apos;ll see gentle rippling in the bowl between flushes.</p>
+          <p className="text-sm italic text-gray-500 mb-3">You won&apos;t break anything doing this — the rubber seal just clips on and off.</p>
           <ol className="space-y-4 text-sm text-gray-700 list-decimal list-inside">
-            <li>
-              <strong>Lift the lid and press down on the rubber seal (flapper valve)</strong> — it sits at the bottom of the tank over a circular opening. Press firmly with your hand. If the water movement in the bowl stops, the flapper is your problem.
-            </li>
-            <li>
-              <strong>Clean the seat first before replacing anything.</strong> Unhook the flapper by unclipping it from the two pegs on either side. Rinse it under a tap. Use an old cloth to wipe clean the valve seat — the rim it presses against. A piece of grit or limescale is sometimes the only problem. Refit and test.
-            </li>
-            <li>
-              <strong>If cleaning does not fix it, replace the flapper.</strong> Turn off the isolation valve (the small slotted screw on the pipe behind the toilet — turn the slot 90° so it sits across the pipe). Flush to empty the tank. Take the old flapper to a plumbers&apos; merchant or hardware shop to match the size — flappers are not universal.
-            </li>
-            <li>
-              <strong>Fit the new rubber seal (flapper).</strong> Clip it onto the same two pegs and hook the chain back onto the flush handle arm (the lever connected to the handle mechanism). Leave 1–2 links of slack in the chain — too tight and the seal stays slightly open; too loose and it gets trapped underneath during flushing.
-            </li>
-            <li>
-              <strong>Turn the water back on and test.</strong> Open the isolation valve slowly — a quarter turn first, then fully after 30 seconds. Flush once and watch the seal drop back down. Bowl water should be still within a minute.
-            </li>
+            <li>Lift the lid off the tank [cistern] and rest it on a towel.</li>
+            <li>Press down firmly on the rubber seal [flapper valve] — the disc at the bottom of the tank over a circular opening.</li>
+            <li>If the rippling in the bowl stops while you press, the seal is your problem. Carry on.</li>
+            <li>Unhook the rubber seal by unclipping it from the two pegs on either side.</li>
+            <li>Rinse the seal under a tap.</li>
+            <li>Wipe the rim it presses against [valve seat] with a damp cloth — a piece of grit or limescale is often the only problem.</li>
+            <li>Clip the seal back on and flush once to test.</li>
+            <li>If the bowl still ripples after cleaning, turn off the shut-off valve [isolation valve] — the small slotted screw on the pipe behind the toilet. Turn the slot 90° so it sits across the pipe.</li>
+            <li>Flush to empty the tank [cistern].</li>
+            <li>Take the old rubber seal to a hardware shop to match the size exactly — seals are not universal.</li>
+            <li>Clip the new seal onto the same two pegs.</li>
+            <li>Hook the chain onto the lever arm connected to the handle. Leave 1–2 links of slack — too tight and the seal stays slightly open; too loose and it gets trapped underneath when you flush.</li>
+            <li>Open the shut-off valve a quarter turn and wait 30 seconds.</li>
+            <li>Open the shut-off valve fully.</li>
+            <li>Flush once and watch the rubber seal drop back into place. The water in the bowl should be still within a minute.</li>
           </ol>
           <p className="text-xs text-gray-500 mt-4 pt-4 border-t border-blue-100">Cost: free if cleaning fixes it; £10–25 for a replacement seal. Time: 10–15 minutes.</p>
         </div>
@@ -310,24 +360,18 @@ export default function FixARunningToilet() {
         <div id="fix-c" className="border-2 border-green-200 rounded-xl p-6 mb-6 scroll-mt-6">
           <p className="text-xs font-bold text-green-600 uppercase tracking-wide mb-1">Fix C</p>
           <h2 className="text-xl font-bold text-gray-900 mb-1">Adjust the refill mechanism</h2>
-          <p className="text-sm text-gray-500 mb-4">Technical name: fill valve (ballvalve) calibration</p>
-          <p className="text-sm text-gray-700 mb-3"><strong>What&apos;s happening:</strong> The part that lets water back into the tank after flushing (fill valve) is not shutting off at the right level — or is shutting off too slowly. The tank takes an unusually long time to refill, or the refill noise carries on well after the water level should have reached the right height.</p>
+          <p className="text-sm text-gray-500 mb-4">Technical name: water inlet valve [fill valve] (ball-float valve [ballvalve]) calibration</p>
+          <p className="text-sm text-gray-700 mb-3"><strong>What&apos;s happening:</strong> The part that lets water back into the tank [cistern] after flushing (water inlet valve [fill valve]) is not shutting off at the right level — or is shutting off too slowly. The tank takes an unusually long time to refill, or the refill noise carries on well after the water level should have reached the right height.</p>
+          <p className="text-sm italic text-gray-500 mb-3">This looks more complicated than it is — you are adjusting how high the water fills.</p>
           <ol className="space-y-4 text-sm text-gray-700 list-decimal list-inside">
-            <li>
-              <strong>Close the isolation valve</strong> (the slotted screw on the pipe behind the toilet — turn 90° so the slot sits across the pipe). Flush to empty the tank fully.
-            </li>
-            <li>
-              <strong>Locate the fill valve</strong> — it is the tall component on the side of the tank, usually on the left as you face it. On older ballvalves it has a long arm with a ball; on modern ones it is a narrow plastic tower with a float cup that slides up and down.
-            </li>
-            <li>
-              <strong>Adjust the float cutoff point.</strong> On a modern fill valve, turn the adjustment screw or twist the float cup to a lower position on the shaft — this tells the valve to shut off earlier. On an older ballvalve, gently bend the arm downward so the ball sits lower in the water.
-            </li>
-            <li>
-              <strong>Reopen the isolation valve slowly</strong> — a quarter turn first, pause 30 seconds, then fully open. Watch the tank fill. The water should reach its level and stop cleanly. The correct level is 25mm below the top of the overflow tube.
-            </li>
-            <li>
-              <strong>If the tank still will not stop filling</strong> even with the float arm adjusted all the way down, the fill valve itself is faulty and needs replacing — this is a 30-minute job but means buying a new ballvalve assembly (around £10–30). If you are not confident doing this, it is time to call a plumber.
-            </li>
+            <li>Turn the shut-off valve [isolation valve] 90° so the slot sits across the pipe — it is the small slotted screw on the pipe behind the toilet.</li>
+            <li>Flush to empty the tank [cistern] fully.</li>
+            <li>Find the water inlet valve [fill valve] — the tall component on the side of the tank, usually on the left as you face it. On older styles it has a long arm with a ball at the end; on modern ones it is a narrow plastic tower with a cup that slides up and down.</li>
+            <li>Lower the cutoff point. On a modern water inlet valve: turn the adjustment screw or slide the float cup down the shaft — this tells the valve to stop earlier. On a traditional ball-float valve [ballvalve]: gently bend the arm downward so the ball sits lower in the water.</li>
+            <li>Open the shut-off valve a quarter turn and wait 30 seconds.</li>
+            <li>Open the shut-off valve fully.</li>
+            <li>Watch the tank fill. The water should stop on its own at least 25 mm below the top of the safety overflow pipe [overflow tube].</li>
+            <li>If the tank still will not stop filling even with the float adjusted all the way down, the water inlet valve itself is faulty and needs replacing — a new valve assembly costs around £10–30. If you are not confident with this, call a plumber.</li>
           </ol>
           <p className="text-xs text-gray-500 mt-4 pt-4 border-t border-green-100">Cost: free for an adjustment; £10–30 if the fill valve needs replacing. Time: 5–30 minutes.</p>
         </div>
@@ -336,25 +380,25 @@ export default function FixARunningToilet() {
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-yellow-800 mb-3">Where beginners go wrong</h2>
-          <p className="text-sm text-yellow-900 mb-2"><strong>Replacing the flapper before checking the float.</strong> The float adjustment costs nothing and takes 30 seconds. Check it first — it is the cause of roughly half of all running toilets.</p>
-          <p className="text-sm text-yellow-900 mb-2"><strong>Buying the wrong size flapper.</strong> Flappers are not universal. Take the old one to the shop to match it. A flapper that is slightly too small or too large will not seal properly.</p>
-          <p className="text-sm text-yellow-900 mb-2"><strong>Chain too tight or too loose.</strong> The flapper chain needs 1–2 links of slack. Too tight and the flapper stays slightly open; too loose and it gets trapped under the flapper during flushing.</p>
-          <p className="text-sm text-yellow-900"><strong>Not turning off the isolation valve before removing the flapper.</strong> The tank will not stop refilling while the valve is open. Turn the slotted screw 90° across the pipe to shut it off first.</p>
+          <p className="text-sm text-yellow-900 mb-2"><strong>Replacing the rubber seal [flapper valve] before checking the float.</strong> The floating arm [float arm] adjustment costs nothing and takes 30 seconds. Check it first — it is the cause of roughly half of all running toilets.</p>
+          <p className="text-sm text-yellow-900 mb-2"><strong>Buying the wrong size rubber seal [flapper valve].</strong> Seals are not universal. Take the old one to the shop to match it. A seal that is slightly too small or too large will not seal properly.</p>
+          <p className="text-sm text-yellow-900 mb-2"><strong>Chain too tight or too loose.</strong> The rubber seal chain needs 1–2 links of slack. Too tight and the seal stays slightly open; too loose and it gets trapped under the seal during flushing.</p>
+          <p className="text-sm text-yellow-900"><strong>Not turning off the shut-off valve [isolation valve] before removing the rubber seal [flapper valve].</strong> The tank [cistern] will not stop refilling while the valve is open. Turn the slotted screw 90° across the pipe to shut it off first.</p>
         </div>
 
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-red-800 mb-3">Stop and call a plumber if...</h2>
-          <p className="text-sm text-red-900 mb-1">The isolation valve (the slotted screw on the pipe behind the toilet) will not close — you will need a plumber to fit a new valve before any other work can be done</p>
-          <p className="text-sm text-red-900 mb-1">Water is leaking from around the base of the toilet, not from the tank</p>
-          <p className="text-sm text-red-900 mb-1">The tank will not stop filling even after adjusting the float all the way down — the fill valve itself may need replacing</p>
-          <p className="text-sm text-red-900">The overflow pipe outside the house is discharging water continuously — this is a legal requirement to fix promptly</p>
+          <p className="text-sm text-red-900 mb-1">The shut-off valve [isolation valve] (the slotted screw on the pipe behind the toilet) will not close — you will need a plumber to fit a new valve before any other work can be done</p>
+          <p className="text-sm text-red-900 mb-1">Water is leaking from around the base of the toilet, not from the tank [cistern]</p>
+          <p className="text-sm text-red-900 mb-1">The tank will not stop filling even after adjusting the floating arm [float arm] all the way down — the water inlet valve [fill valve] itself may need replacing</p>
+          <p className="text-sm text-red-900">The safety overflow pipe [overflow tube] outside the house is discharging water continuously — this is a legal requirement to fix promptly</p>
         </div>
 
         <div className="bg-gray-50 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-gray-900 mb-4">Cost breakdown</h2>
           <div className="space-y-2 text-sm">
-            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Float arm adjustment only</span><span className="font-medium">Free</span></div>
-            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Replacement flapper valve</span><span className="font-medium">£10–25</span></div>
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Floating arm [float arm] adjustment only</span><span className="font-medium">Free</span></div>
+            <div className="flex justify-between py-2 border-b border-gray-200"><span className="text-gray-600">Replacement rubber seal [flapper valve]</span><span className="font-medium">£10–25</span></div>
             <div className="flex justify-between py-2"><span className="text-gray-600">Plumber would charge</span><span className="font-medium text-red-600">£80–150</span></div>
           </div>
         </div>
@@ -363,7 +407,7 @@ export default function FixARunningToilet() {
 
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
           <h2 className="font-semibold text-orange-800 mb-3">What you just learned</h2>
-          <p className="text-sm text-orange-900 mb-3">You now understand how a toilet tank (cistern) works — the float arm, the fill valve, and the flapper. You can diagnose a running toilet, tell the difference between a float problem and a flapper problem, and fix both. These skills transfer directly to replacing a full fill valve assembly (ballvalve), fixing a slow-filling tank, and understanding your home&apos;s water system.</p>
+          <p className="text-sm text-orange-900 mb-3">You now understand how a toilet tank [cistern] works — the floating arm [float arm], the water inlet valve [fill valve], and the rubber seal [flapper valve]. You can diagnose a running toilet, tell the difference between a float problem and a seal problem, and fix both. These skills transfer directly to replacing a full water inlet valve assembly (ball-float valve [ballvalve]), fixing a slow-filling tank, and understanding your home&apos;s water system.</p>
           <p className="text-sm font-semibold text-orange-800 mb-2">This unlocks:</p>
           <div className="flex flex-wrap gap-2">
             <a href="/guides/replace-a-toilet-seat" className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium hover:bg-orange-200 transition-colors">Replace a toilet seat →</a>
